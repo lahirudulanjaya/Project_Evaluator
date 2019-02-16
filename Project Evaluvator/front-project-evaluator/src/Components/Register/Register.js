@@ -1,10 +1,10 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact';
-import './Login.css';
+import './Register.css';
 
 const FormPage = () => {
   return (
-    <MDBContainer className="login">
+    <MDBContainer className="signup">
       <MDBRow>
         <MDBCol sm="3"></MDBCol>
         <MDBCol sm="6">
@@ -12,12 +12,14 @@ const FormPage = () => {
             <div className="header pt-3 grey lighten-2">
               <MDBRow className="d-flex justify-content-start">
                 <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
-                  Log in
+                  Sign Up
                 </h3>
               </MDBRow>
             </div>
             <MDBCardBody className="mx-4 mt-4">
-              <MDBInput label="Your email" group type="text" validate />
+              <MDBInput label= "Your Name" group type="text" validate/>
+              <MDBInput label= "Acadamic Year" group type="number" validate/>
+              <MDBInput label= "Index number" group type="text" validate/>
               <MDBInput
                 label="Your password"
                 group
@@ -25,31 +27,22 @@ const FormPage = () => {
                 validate
                 containerClass="mb-0"
               />
-              <p className="font-small grey-text d-flex justify-content-end">
-                Forgot
-                <a
-                  href="#!"
-                  className="dark-grey-text font-weight-bold ml-1"
-                >
-                  Password?
-                </a>
-              </p>
               <div className="text-center mb-4 mt-5">
                 <MDBBtn
                   color="primary"
                   type="button"
                   className="btn-block z-depth-2"
                 >
-                  Log in
+                  Sign Up
                 </MDBBtn>
               </div>
               <p className="font-small grey-text d-flex justify-content-center">
-                Don't have an account?
+                Already have an account?
                 <a
-                  href="/signup"
+                  href="/"
                   className="dark-grey-text font-weight-bold ml-1"
                 >
-                  Sign up
+                  Login
                 </a>
               </p>
             </MDBCardBody>
