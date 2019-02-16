@@ -1,82 +1,63 @@
-import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBInput } from 'mdbreact';
+import React from "react";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact';
 
+const FormPage = () => {
+  return (
+    <MDBContainer>
+      <MDBRow>
+        <MDBCol sm="3"></MDBCol>
+        <MDBCol sm="6">
+          <MDBCard>
+            <div className="header pt-3 grey lighten-2">
+              <MDBRow className="d-flex justify-content-start">
+                <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
+                  Log in
+                </h3>
+              </MDBRow>
+            </div>
+            <MDBCardBody className="mx-4 mt-4">
+              <MDBInput label="Your email" group type="text" validate />
+              <MDBInput
+                label="Your password"
+                group
+                type="password"
+                validate
+                containerClass="mb-0"
+              />
+              <p className="font-small grey-text d-flex justify-content-end">
+                Forgot
+                <a
+                  href="#!"
+                  className="dark-grey-text font-weight-bold ml-1"
+                >
+                  Password?
+                </a>
+              </p>
+              <div className="text-center mb-4 mt-5">
+                <MDBBtn
+                  color="primary"
+                  type="button"
+                  className="btn-block z-depth-2"
+                >
+                  Log in
+                </MDBBtn>
+              </div>
+              <p className="font-small grey-text d-flex justify-content-center">
+                Don't have an account?
+                <a
+                  href="#!"
+                  className="dark-grey-text font-weight-bold ml-1"
+                >
+                  Sign up
+                </a>
+              </p>
+            </MDBCardBody>
+          </MDBCard>
+        </MDBCol>
+        <MDBCol sm="3"></MDBCol>
+      </MDBRow>
+    </MDBContainer>
+  );
+};
 
-
-class Login extends Component {
-    
-render(){
-      return (
-        <MDBContainer>
-          <MDBRow>
-            <MDBCol md="6">
-              <MDBCard
-                className="card-image"
-                style={{
-                  backgroundImage:
-                    "url(https://mdbootstrap.com/img/Photos/Others/pricing-table7.jpg)",
-                  width: "28rem"
-                }}
-              >
-                <div className="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
-                  <div className="text-center">
-                    <h3 className="white-text mb-5 mt-4 font-weight-bold">
-                      <strong>SIGN</strong>
-                      <a href="#!" className="green-text font-weight-bold">
-                        <strong> UP</strong>
-                      </a>
-                    </h3>
-                  </div>
-                  <MDBInput label="Your email" group type="text" validate />
-                  <MDBInput label="Your password" group type="password" validate />
-                  <div className="md-form pb-3">
-                    <div className="form-check my-4">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="defaultCheck17"
-                      />
-                      <label
-                        className="form-check-label white-text"
-                        htmlFor="defaultCheck17"
-                      >
-                        Accept the
-                        <a href="#!" className="green-text font-weight-bold">
-                          Terms and Conditions
-                        </a>
-                      </label>
-                    </div>
-                  </div>
-                  <MDBRow className="d-flex align-items-center mb-4">
-                    <div className="text-center mb-3 col-md-12">
-                      <MDBBtn
-                        color="success"
-                        rounded
-                        type="button"
-                        className="btn-block z-depth-1"
-                      >
-                        Sign in
-                      </MDBBtn>
-                    </div>
-                  </MDBRow>
-                  <MDBCol md="12">
-                    <p className="font-small white-text d-flex justify-content-end">
-                      Have an account?
-                      <a href="#!" className="green-text ml-1 font-weight-bold">
-                        Log in
-                      </a>
-                    </p>
-                  </MDBCol>
-                </div>
-              </MDBCard>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
-      );
-    };
-    
-
-}
-
-export default Login
+export default FormPage;
