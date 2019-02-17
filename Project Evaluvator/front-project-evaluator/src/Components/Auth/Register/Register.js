@@ -30,7 +30,7 @@ class Register extends Component{
         });
       })
       .catch(err=>{
-        swal ( "Oops" ,  "Something went wrong!" ,  "error" )
+        swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
       })
 
       
