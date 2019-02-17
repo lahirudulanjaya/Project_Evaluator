@@ -8,8 +8,6 @@ import  Register from './Components/Auth/Register/Register'
 import Login from './Components/Auth/Login/Login'
 import{BrowserRouter as Router , Route} from 'react-router-dom'
 
-
-
 import Navbar from './Components/Navbar/Navbar';
 import PageNotFound from './Components/Error/PageNotFound';
 
@@ -25,7 +23,7 @@ class App extends Component {
       </div>
       </Router>
 
-   
+  
     );
   }
 }
