@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import axios from 'axios'
+import swal from 'sweetalert';
+
 class Register extends Component{
   constructor(props){
     super(props);
@@ -21,10 +23,14 @@ class Register extends Component{
   
     axios.post('http://localhost:4000/api/Student/register',this.state)
       .then(res=>{
-        alert("success")
+        swal({
+          title: "Good job!",
+          text: "You have succesfully registered!",
+          icon: "success",
+        });
       })
       .catch(err=>{
-        alert(err)
+        swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
       })
 
       
