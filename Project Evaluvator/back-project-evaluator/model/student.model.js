@@ -35,7 +35,7 @@ var Studentschema= new mongoose.Schema(
 
 Studentschema.pre('save', function (next) {
     bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(this.password, salt, (err, hash) => {
+        bcrypt.hash(this.Password, salt, (err, hash) => {
             this.Password = hash;
             this.Cpassword= hash;
             this.Salt = salt;
