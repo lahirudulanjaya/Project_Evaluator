@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import axios from 'axios'
 import swal from 'sweetalert';
+import './Register.css';
 
 class Register extends Component{
   constructor(props){
@@ -38,8 +39,10 @@ class Register extends Component{
   }
 render(){
     return(
-<MDBContainer>
+<MDBContainer className="register">
       <MDBRow>
+        <MDBCol md="3">
+        </MDBCol>
         <MDBCol md="6">
           <MDBCard>
             <MDBCardBody>
@@ -103,13 +106,24 @@ render(){
                   />
                 </div>
                 <div className="text-center py-4 mt-3">
-                  <MDBBtn color="cyan" onClick ={this.postRegister}>
+                  <MDBBtn color="primary" onClick ={this.postRegister}>
                     Register
                   </MDBBtn>
                 </div>
               </form>
+              <p className="font-small grey-text d-flex justify-content-center">
+                Already have an account..
+                <a
+                  href="/login"
+                  className="dark-grey-text font-weight-bold ml-1"
+                >
+                  Login
+                </a>
+              </p>
             </MDBCardBody>
           </MDBCard>
+        </MDBCol>
+        <MDBCol md="3">
         </MDBCol>
       </MDBRow>
     </MDBContainer>
