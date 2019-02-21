@@ -1,6 +1,7 @@
 import React from "react";
 import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
 
+
 class FormsPage extends React.Component {
   state = {
     fname: "Mark",
@@ -177,6 +178,7 @@ class FormsPage extends React.Component {
             Submit Form
           </MDBBtn>
         </form>
+        
       </div>
     );
   }

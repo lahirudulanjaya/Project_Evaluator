@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
 MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact";
+import Ucsc from "../../Ucsc.jpg";
+import "./Navbar.css";
 
 class NavbarPage extends Component {
 state = {
@@ -15,7 +17,7 @@ render() {
   return (
     <MDBNavbar color="blue" dark expand="md">
       <MDBNavbarBrand>
-        <strong className="white-text">UCSC</strong>
+        <img src={Ucsc} alt="" class="logo"/>
       </MDBNavbarBrand>
       <MDBNavbarToggler onClick={this.toggleCollapse} />
       <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
@@ -67,6 +69,7 @@ render() {
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>
+    
     );
   }
 }
