@@ -12,6 +12,8 @@ import Test from './Components/Register/Register';
 
 import Navbar from './Components/Navbar/Navbar';
 import PageNotFound from './Components/Error/PageNotFound';
+import StudentPage from './Components/Student/Student';
+import Chart from './Components/Student/BarChart/BarChat';
 
 class App extends Component {
   render() {
@@ -24,6 +26,8 @@ class App extends Component {
         <Route exact path ="/register" component={Register}/>
         <Route exact path ="/login" component={Login}/>
         <Route exact path ="/test" component={Test}/>
+        <Route exact path ="/student" component={StudentPage}/>
+        <Route exact path ="/chart" component={Chart}/>
         <Route component={PageNotFound} />
         </Switch>
       </div>
