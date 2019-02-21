@@ -8,8 +8,8 @@ class Login extends Component{
   constructor(props){
     super(props);
     this.state ={
-      Email :'',
-      Password : ''
+      UserName :'',
+      password : ''
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -18,19 +18,7 @@ class Login extends Component{
     this.setState({[e.target.name]: e.target.value});
   }
 
-  postLogin = () =>{
-    axios.post('http://localhost:4000/api/Student/login',this.state)
-      .then(res=>{
-        swal({
-          title: "Correct!!!",
-          text:"You have succefully sign up",
-          icon:"Success"
-        });
-      })
-      .catch(err=>{
-        swal("Oops","Something went wrong","error");
-      })
-  }
+
   render(){
     return (
       <MDBContainer className="login">
@@ -48,10 +36,10 @@ class Login extends Component{
               <MDBCardBody className="mx-4 mt-4">
                 <form>
                   <MDBInput 
-                    label="Your email"  
-                    name="Email"
+                    label="User Name"  
+                    name="UserName"
                     onChange={this.handleChange}
-                    value={this.state.Email}
+                    value={this.state.UserName}
 
                     group 
                     type="text"
@@ -60,9 +48,9 @@ class Login extends Component{
                     success="right" />
                   <MDBInput
                     label="Your password"
-                    name="Password"
+                    name="password"
                     onChange={this.handleChange}
-                    value={this.state.Password}
+                    value={this.state.password}
 
                     group
                     type="password"
