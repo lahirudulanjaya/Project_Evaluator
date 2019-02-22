@@ -3,7 +3,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput } 
 import axios from 'axios';
 import swal from 'sweetalert';
 import './Login.css';
-
+import history from '../../../history'
 class Login extends Component{
   constructor(props){
     super(props);
@@ -16,6 +16,20 @@ class Login extends Component{
 
   handleChange(e){
     this.setState({[e.target.name]: e.target.value});
+  }
+
+  postLogin=()=>{
+    axios.post('http://localhost:4000/api/authenticate',this.state)
+    .then(res=>{
+      this.props.history.push('/student')
+
+    })
+    .catch(err=>{
+      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+    })
+
+    
+
   }
 
 
@@ -71,7 +85,7 @@ class Login extends Component{
                   <div className="text-center mb-4 mt-5">
                     <MDBBtn
                       color="primary"
-                      onClick ={this.postRegister}
+                      onClick ={this.postLogin}
                     >
                       Log in
                     </MDBBtn>
