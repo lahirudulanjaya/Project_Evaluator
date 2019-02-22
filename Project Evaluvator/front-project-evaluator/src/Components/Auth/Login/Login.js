@@ -4,6 +4,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import './Login.css';
 import history from '../../../history'
+import {Link} from 'react-router-dom'
 class Login extends Component{
   constructor(props){
     super(props);
@@ -40,15 +41,10 @@ class Login extends Component{
           <MDBCol sm="3"></MDBCol>
           <MDBCol sm="6">
             <MDBCard>
-              <div className="header pt-3 grey lighten-2">
-                <MDBRow className="d-flex justify-content-start">
-                  <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
-                    Log in
-                  </h3>
-                </MDBRow>
-              </div>
+              
               <MDBCardBody className="mx-4 mt-4">
                 <form>
+                  <p className ="h4 text-center py-4"> Login</p>
                   <MDBInput 
                     label="User Name"  
                     name="UserName"
@@ -65,7 +61,6 @@ class Login extends Component{
                     name="password"
                     onChange={this.handleChange}
                     value={this.state.password}
-
                     group
                     type="password"
                     validate
@@ -93,12 +88,10 @@ class Login extends Component{
                 </form>
                 <p className="font-small grey-text d-flex justify-content-center">
                   Don't have an account?
-                  <a
-                    href="/register"
-                    className="dark-grey-text font-weight-bold ml-1"
-                  >
-                    Sign up
-                  </a>
+                 
+                 
+          <Link to="/register">Sign up</Link>
+              
                 </p>
               </MDBCardBody>
             </MDBCard>
