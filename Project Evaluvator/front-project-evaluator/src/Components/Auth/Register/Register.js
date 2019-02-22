@@ -3,7 +3,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } 
 import axios from 'axios'
 import swal from 'sweetalert';
 import './Register.css';
-
+import {Link} from 'react-router-dom'
 class Register extends Component{
   constructor(props){
     super(props);
@@ -16,6 +16,10 @@ class Register extends Component{
     }
     this.handleChange = this.handleChange.bind(this)
   }
+  submitHandler = event => {
+    event.preventDefault();
+    event.target.className += " was-validated";
+  };
 
   handleChange(e){
     this.setState({[e.target.name]: e.target.value});
@@ -46,18 +50,26 @@ render(){
         <MDBCol md="6">
           <MDBCard>
             <MDBCardBody>
-              <form>
+              <form className="needs-validation"
+          onSubmit={this.submitHandler}
+          noValidate>
                 <p className="h4 text-center py-4">Sign up</p>
+             
                 <div className="grey-text">
                   <MDBInput
                     label="User Name"
                     name = "UserName"
                     onChange ={this.handleChange}    
-                    value ={this.state.UserName}               
+                    value ={this.state.UserName}
+                    id="materialFormRegisterPasswordEx4"               
                     type="text"
+                    className="form-control"
+                    id="defaultFormRegisterNameEx"
+
                     validate
                     error="wrong"
                     success="right"
+                    required
                   />
                   <MDBInput
                     label="Email"
@@ -70,6 +82,7 @@ render(){
                     validate
                     error="wrong"
                     success="right"
+                    required
                   />
                   <MDBInput
                     label="Index Number"
@@ -82,6 +95,7 @@ render(){
                     validate
                     error="wrong"
                     success="right"
+                    required
                   />
                   <MDBInput
                     label="Password"
@@ -94,6 +108,7 @@ render(){
                     validate
                     error="wrong"
                     success="right"
+                    required
                   />
                   <MDBInput
                     label="Confirm Password"
@@ -103,22 +118,20 @@ render(){
                     group
                     type="password"
                     validate
+                    required
                   />
                 </div>
                 <div className="text-center py-4 mt-3">
-                  <MDBBtn color="primary" onClick ={this.postRegister}>
+                  <MDBBtn color="primary" type="submit" onClick ={this.postRegister}>
                     Register
                   </MDBBtn>
                 </div>
               </form>
               <p className="font-small grey-text d-flex justify-content-center">
                 Already have an account..
-                <a
-                  href="/login"
-                  className="dark-grey-text font-weight-bold ml-1"
-                >
-                  Login
-                </a>
+               
+          <Link to="/login">Login</Link>
+             
               </p>
             </MDBCardBody>
           </MDBCard>
