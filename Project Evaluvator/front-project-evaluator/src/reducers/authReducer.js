@@ -1,4 +1,6 @@
 import {SET_CURRENT_USER} from '../actions/types'
+import { object } from 'prop-types';
+
 
 const initialState ={
     isAuthenticated :false,
@@ -9,10 +11,15 @@ export default function(state = initialState ,action){
     case SET_CURRENT_USER:
         return {
             ...state,
-            //isAuthenticated : !isEmpty(action.payload),
+            isAuthenticated : !isEmpty(action.payload),
             user :action.payload
         }
     default:
         return state;
 }
 }
+const isEmpty = value =>
+value === undefined ||
+value === null ||
+(typeof value ==='object' && Object.keys(value).length ===0)||
+(typeof value ==='string' && value.trim().length ==0);
