@@ -26,7 +26,8 @@ class Login extends Component{
 
     })
     .catch(err=>{
-      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+      swal ( "Oops" ,  err.response.data.message ,  "error" )
+      
     })
 
     
@@ -46,6 +47,7 @@ class Login extends Component{
                 <form>
                   <p className ="h4 text-center py-4"> Login</p>
                   <MDBInput 
+                  required
                     label="User Name"  
                     name="UserName"
                     onChange={this.handleChange}
@@ -67,6 +69,7 @@ class Login extends Component{
                     error="wrong"
                     success="right"
                     containerClass="mb-0"
+                    required
                   />
                   <p className="font-small grey-text d-flex justify-content-end">
                     Forgot
@@ -79,7 +82,7 @@ class Login extends Component{
                   </p>
                   <div className="text-center mb-4 mt-5">
                     <MDBBtn
-                      color="primary"
+                      color="indigo"
                       onClick ={this.postLogin}
                     >
                       Log in
