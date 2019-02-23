@@ -5,6 +5,9 @@ import swal from 'sweetalert';
 import './Login.css';
 import history from '../../../history'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {loginStudent} from '../../../actions/authActions'
 class Login extends Component{
   constructor(props){
     super(props);
@@ -14,28 +17,35 @@ class Login extends Component{
     }
     this.handleChange = this.handleChange.bind(this);
   }
+  componentWillReceiveProps(nextprops){
+    if(nextprops.auth.isAuthenticated){
+      this.props.history.push('/student')
+    }
+  }
 
   handleChange(e){
     this.setState({[e.target.name]: e.target.value});
   }
 
-  postLogin=()=>{
-    axios.post('http://localhost:4000/api/authenticate',this.state)
-    .then(res=>{
-      this.props.history.push('/student')
+   postLogin=()=>{
+  //   axios.post('http://localhost:4000/api/authenticate',this.state)
+  //   .then(res=>{
+  //     this.props.history.push('/student')
 
-    })
-    .catch(err=>{
-      swal ( "Oops" ,  err.response.data.message ,  "error" )
+  //   })
+  //   .catch(err=>{
+  //     swal ( "Oops" ,  err.response.data.message ,  "error" )
       
-    })
+  //   })
 
+    this.props.loginStudent(this.state)
     
 
-  }
+   }
 
 
   render(){
+    const {errors} =this.state
     return (
       <MDBContainer className="login">
         <MDBRow>
@@ -105,5 +115,14 @@ class Login extends Component{
     )
   }
 }
+Login.prototypes={
+  loginStudent:PropTypes.func.isRequired,
+  auth:PropTypes.object.isRequired
+}
 
-export default Login;
+const mapstatetoprops =(state)=>({
+auth :state.auth,
+errors :state.errors
+})
+
+export default connect(mapstatetoprops,{loginStudent})(Login);

@@ -12,7 +12,8 @@ class Register extends Component{
       Email :'',
       Registrationnumber :'',
       Password :'',
-      Cpassword :''
+      Cpassword :'',
+      errors:{}
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -36,6 +37,7 @@ class Register extends Component{
       })
       .catch(err=>{
         swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+        console.log(err.response.data)
       })
 
       
