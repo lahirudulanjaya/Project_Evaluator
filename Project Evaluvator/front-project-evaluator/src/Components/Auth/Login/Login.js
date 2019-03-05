@@ -40,15 +40,9 @@ class Login extends Component{
           <MDBCol sm="3"></MDBCol>
           <MDBCol sm="6">
             <MDBCard>
-              <div className="header pt-3 grey lighten-2">
-                <MDBRow className="d-flex justify-content-start">
-                  <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
-                    Log in
-                  </h3>
-                </MDBRow>
-              </div>
               <MDBCardBody className="mx-4 mt-4">
                 <form>
+                <p className="h4 text-center py-4">Login</p>
                   <MDBInput 
                     label="User Name"  
                     name="UserName"
