@@ -16,9 +16,9 @@
   }
   
   .list-group-item:hover {
-    color: #49505B;
+    color: rgb(63, 77, 99);
     text-decoration: none;
-    background-color: #f8f9fa
+    background-color: #f1f8f8
   }
   
  
