@@ -19,7 +19,7 @@ class Login extends Component{
   }
   componentWillReceiveProps(nextprops){
     if(nextprops.auth.isAuthenticated){
-      this.props.history.push('/student')
+      this.props.history.push('/pg')
     }
   }
 
