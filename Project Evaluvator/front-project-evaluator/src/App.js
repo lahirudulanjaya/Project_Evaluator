@@ -5,7 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import 'bootstrap-css-only/css/bootstrap.min.css'; 
 import 'mdbreact/dist/css/mdb.css';
 import history from './history';
-
+import Pcoordinator from './Components/P_coordinator/Pcoordinator'
 import Login from './Components/Auth/Login/Login'
 import{BrowserRouter as Router , Route, Switch} from 'react-router-dom'
 import {browserHistory} from 'react-router'
@@ -32,12 +32,14 @@ class App extends Component {
       <div className="App">
         <Navbar />
         
+        
         <Switch>  
         <Route exact path ="/register" component={Register}/>
         <Route exact path ="/login" component={Login}/>
         <Route exact path ="/test" component={Test}/>
         <Route exact path ="/student" component={StudentPage}/>
         <Route exact path ="/chart" component={Chart}/>
+        <Route exact path = "/pg" component ={Pcoordinator}/>
         <Route component={PageNotFound} />
         </Switch>
       </div>
