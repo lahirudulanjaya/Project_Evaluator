@@ -18,9 +18,9 @@
   }
   
   .list-group-item:hover {
-    color: #49505B;
+    color: rgb(63, 77, 99);
     text-decoration: none;
-    background-color: #f8f9fa
+    background-color: #f1f8f8
   }
   .list-group .active {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
