@@ -12,7 +12,7 @@ import {browserHistory} from 'react-router'
 import store from './store'
 import  Register from './Components/Auth/Register/Register';
 
-
+import Project from './Components/P_coordinator/Pages/Project'
 import Test from './Components/Register/Register';
 
 
@@ -40,6 +40,7 @@ class App extends Component {
         <Route exact path ="/student" component={StudentPage}/>
         <Route exact path ="/chart" component={Chart}/>
         <Route exact path = "/pg" component ={Pcoordinator}/>
+        <Route exact path = "/pg/project" component={Project}/>
         <Route component={PageNotFound} />
         </Switch>
       </div>

@@ -9,20 +9,20 @@ const SideNavigation = () => {
                 <img alt="MDB React Logo" className="img-fluid" src={logo}/>
             </a> */}
             <MDBListGroup className="list-group-flush">
-                <NavLink exact={true} to="/" activeClassName="activeClass">
+                <NavLink exact={true} to="/pg" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="chart-pie" className="mr-3"/>
                         Dashboard
                     </MDBListGroupItem>
                 </NavLink>
                
-                <NavLink to="/tables" activeClassName="activeClass">
+                <NavLink to="/Users" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="users" className="mr-3"/>
                         Users
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/profile" activeClassName="activeClass">
+                <NavLink to="/pg/project" activeClassName="activeClass">
                     <MDBListGroupItem>
                         <MDBIcon icon="file" className="mr-3"/>
                         Projects
