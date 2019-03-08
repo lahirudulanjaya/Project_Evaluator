@@ -4,6 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import TextField from '@material-ui/core/TextField';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
 class Project extends Component{
@@ -32,6 +33,8 @@ state = {
     const { classes } = this.props;
 
     return (
+      
+
       <div>
         <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
           Create Project Milstons
@@ -44,7 +47,11 @@ state = {
         >
           <DialogTitle id="alert-dialog-title"></DialogTitle>
           <DialogContent>
-          
+          <TextField
+          id="standard-name"
+          label="Number of Milestones"
+          margin="normal"
+        />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
