@@ -2,6 +2,7 @@ import React from 'react';
 import { MDBListGroup, MDBListGroupItem, MDBIcon } from 'mdbreact';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css'
+
 const SideNavigation = () => {
     return (
         <div className="sidebar-fixed position-fixed">
