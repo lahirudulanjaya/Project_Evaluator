@@ -18,23 +18,24 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 
-class Project extends Component{
-// render(){
-// return(
-//     <div>
-//     <h1>Projects</h1>
-//     </div>
-// )
-// }
 
-// }
-state = {
+class Project extends Component{
+
+
+constructor(props){
+  super(props);
+
+this.state = {
     open1: false,
     open:false,
     age :'',
     Projectyear:'',
-    Projectid:''
+    Projectid:'',
+    Type:''
   };
+  this.handleChange = this.handleChange.bind(this)
+
+}
   getproject(name){
     axios.get("http://localhost:4000/api/pg/getmilestone/"+name).then(res=>{
     console.log(res)
@@ -44,6 +45,20 @@ state = {
     }
     )
   }
+  
+  
+  addproject =()=>{
+    const Project = {
+      Projectid:this.state.Projectid,
+      Projectyear:this.state.Projectyear,
+      Type :this.state.Type
+      }
+    axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
+      alert("success")
+    })
+  }
+
+  
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -58,10 +73,10 @@ state = {
   handleClose1 = () => {
     this.setState({ open1: false });
   };
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-    this.getproject(event.target.value)
-  };
+  handleChange(e){
+    alert(this.state.Type)
+    this.setState({[e.target.name]: e.target.value});
+ }
 
 
   render() {
@@ -119,11 +134,16 @@ state = {
           <DialogTitle id="alert-dialog-title1"></DialogTitle>
           <DialogContent>
       
+         
+         <form noValidate autoComplete="off">
+         <FormLabel >Create New Project</FormLabel>
          <div>
         <TextField
           id="standard-name"
           label="Project Year"
+          name="Projectyear"
           value={this.state.Projectyear}
+          onChange={this.handleChange}
           margin="normal"
           required
         />
@@ -132,33 +152,36 @@ state = {
          <TextField
           id="standard-name"
           label="Project ID"
+          name="Projectid"
           value={this.state.Projectid}
+          onChange={this.handleChange}
           margin="normal"
           required
         />
+        
         </div>
+        
         <div>
+
         <FormLabel component="legend">Project Type</FormLabel>
 
         <RadioGroup
             aria-label="Gender"
             name="gender1"
+            value={this.state.Type}
             onChange={this.handleChange}
           >
-          <FormControlLabel value="2" control={<Radio />} label="2nd Year" />
-            <FormControlLabel value="3" control={<Radio />} label="3rd Year" />
+          <FormControlLabel value="2" checked={this.state.Type == '2'} onChange={this.handleChange}
+control={<Radio color="primary"/>} label="2nd Year" />
+            <FormControlLabel value="3" checked={this.state.Type == '3'} onChange={this.handleChange} control={<Radio color="primary" />} label="3rd Year" />
             </RadioGroup>
         </div>
-
+        <Button variant="contained" color="primary" onClick ={this.addproject}>
+        Submit
+      </Button>
+      </form>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose1} color="primary">
-              Disagree
-            </Button>
-            <Button onClick={this.handleClose1} color="primary" autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
+         
         </Dialog>
 <div>
         <InputLabel htmlFor="age-simple">Select the project</InputLabel>
