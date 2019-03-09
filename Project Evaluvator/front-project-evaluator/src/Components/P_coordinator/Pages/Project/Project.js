@@ -43,7 +43,7 @@ this.state = {
     console.log(res)
     },
     err=>{
-      console.log(err)
+      alert(err)
     }
     )
   }
