@@ -31,8 +31,6 @@ class App extends Component {
       <Router history={history}>
       <div className="App">
         <Navbar />
-        
-        
         <Switch>  
         <Route exact path ="/register" component={Register}/>
         <Route exact path ="/login" component={Login}/>

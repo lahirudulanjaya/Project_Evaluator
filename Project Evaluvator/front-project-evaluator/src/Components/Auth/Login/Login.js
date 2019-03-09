@@ -53,7 +53,6 @@ class Login extends Component{
           <MDBCol sm="3"></MDBCol>
           <MDBCol sm="6">
             <MDBCard>
-
               <MDBCardBody className="mx-4 mt-4">
                 <form>
                 <p className="h4 text-center py-4">Login</p>
