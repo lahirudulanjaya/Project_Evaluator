@@ -11,3 +11,4 @@ mongoose.connect("mongodb://lahiru:friends123@gruppro-2-shard-00-00-6hc2i.mongod
 
 require('./student.model')
 require('./milestones.model')
+require('./project.model')
