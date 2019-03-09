@@ -1,187 +1,84 @@
-import React from "react";
-import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
 
+const styles = theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing.unit * 4,
+  },
+});
 
-class FormsPage extends React.Component {
+class NestedList extends React.Component {
   state = {
-    fname: "Mark",
-    lname: "Otto",
-    email: "",
-    city: "",
-    state: "",
-    zip: ""
+    open: true,
   };
 
-  submitHandler = event => {
-    event.preventDefault();
-    event.target.className += " was-validated";
-  };
-
-  changeHandler = event => {
-    this.setState({ [event.target.name]: event.target.value });
+  handleClick = () => {
+    this.setState(state => ({ open: !state.open }));
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <div>
-        <form
-          className="needs-validation"
-          onSubmit={this.submitHandler}
-          noValidate
-        >
-          <MDBRow>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterNameEx"
-                className="grey-text"
-              >
-                First name
-              </label>
-              <input
-                value={this.state.fname}
-                name="fname"
-                onChange={this.changeHandler}
-                type="text"
-                id="defaultFormRegisterNameEx"
-                className="form-control"
-                placeholder="First name"
-                required
-              />
-              <div className="valid-feedback">Looks good!</div>
-            </MDBCol>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterEmailEx2"
-                className="grey-text"
-              >
-                Last name
-              </label>
-              <input
-                value={this.state.lname}
-                name="lname"
-                onChange={this.changeHandler}
-                type="text"
-                id="defaultFormRegisterEmailEx2"
-                className="form-control"
-                placeholder="Last name"
-                required
-              />
-              <div className="valid-feedback">Looks good!</div>
-            </MDBCol>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterConfirmEx3"
-                className="grey-text"
-              >
-                Email
-              </label>
-              <input
-                value={this.state.email}
-                onChange={this.changeHandler}
-                type="email"
-                id="defaultFormRegisterConfirmEx3"
-                className="form-control"
-                name="email"
-                placeholder="Your Email address"
-              />
-              <small id="emailHelp" className="form-text text-muted">
-                We'll never share your email with anyone else.
-              </small>
-            </MDBCol>
-          </MDBRow>
-          <MDBRow>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterPasswordEx4"
-                className="grey-text"
-              >
-                City
-              </label>
-              <input
-                value={this.state.city}
-                onChange={this.changeHandler}
-                type="text"
-                id="defaultFormRegisterPasswordEx4"
-                className="form-control"
-                name="city"
-                placeholder="City"
-                required
-              />
-              <div className="invalid-feedback">
-                Please provide a valid city.
-              </div>
-              <div className="valid-feedback">Looks good!</div>
-            </MDBCol>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterPasswordEx4"
-                className="grey-text"
-              >
-                State
-              </label>
-              <input
-                value={this.state.state}
-                onChange={this.changeHandler}
-                type="text"
-                id="defaultFormRegisterPasswordEx4"
-                className="form-control"
-                name="state"
-                placeholder="State"
-                required
-              />
-              <div className="invalid-feedback">
-                Please provide a valid state.
-              </div>
-              <div className="valid-feedback">Looks good!</div>
-            </MDBCol>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterPasswordEx4"
-                className="grey-text"
-              >
-                Zip
-              </label>
-              <input
-                value={this.state.zip}
-                onChange={this.changeHandler}
-                type="text"
-                id="defaultFormRegisterPasswordEx4"
-                className="form-control"
-                name="zip"
-                placeholder="Zip"
-                required
-              />
-              <div className="invalid-feedback">
-                Please provide a valid zip.
-              </div>
-              <div className="valid-feedback">Looks good!</div>
-            </MDBCol>
-          </MDBRow>
-          <MDBCol md="4" className="mb-3">
-            <div className="custom-control custom-checkbox pl-3">
-              <input
-                className="custom-control-input"
-                type="checkbox"
-                value=""
-                id="invalidCheck"
-                required
-              />
-              <label className="custom-control-label" htmlFor="invalidCheck">
-                Agree to terms and conditions
-              </label>
-              <div className="invalid-feedback">
-                You must agree before submitting.
-              </div>
-            </div>
-          </MDBCol>
-          <MDBBtn color="primary" type="submit">
-            Submit Form
-          </MDBBtn>
-        </form>
-        
-      </div>
+      <List
+        component="nav"
+        subheader={<ListSubheader component="div">Nested List Items</ListSubheader>}
+        className={classes.root}
+      >
+        <ListItem button>
+          <ListItemIcon>
+            <SendIcon />
+          </ListItemIcon>
+          <ListItemText inset primary="Sent mail" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <DraftsIcon />
+          </ListItemIcon>
+          <ListItemText inset primary="Drafts" />
+        </ListItem>
+        <ListItem button onClick={this.handleClick}>
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText inset primary="Inbox" />
+          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <StarBorder />
+              </ListItemIcon>
+              <ListItemText inset primary="Starred" />
+            </ListItem>
+          </List>
+        </Collapse>
+      </List>
     );
   }
 }
 
-export default FormsPage;
+NestedList.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(NestedList);
