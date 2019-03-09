@@ -22,10 +22,24 @@ render() {
       <MDBNavbarToggler onClick={this.toggleCollapse} />
       <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
         <MDBNavbarNav left>
-          
+          <MDBNavItem active>
+            <MDBNavLink to="/login"><b>Login</b></MDBNavLink>
+          </MDBNavItem>
           <MDBNavItem>
-            
-          
+            <MDBNavLink to="/register"><b>Sign Up</b></MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBDropdown>
+              <MDBDropdownToggle nav caret>
+                <div className="d-none d-md-inline"><b>Dropdown</b></div>
+              </MDBDropdownToggle>
+              <MDBDropdownMenu className="dropdown-default" right>
+                <MDBDropdownItem href="#!">Action</MDBDropdownItem>
+                <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
+                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
+              </MDBDropdownMenu>
+            </MDBDropdown>
           </MDBNavItem>
         </MDBNavbarNav>
         <MDBNavbarNav right>
