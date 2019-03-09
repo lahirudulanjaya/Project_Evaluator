@@ -17,6 +17,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
+import swal from 'sweetalert';
+
 
 
 class Project extends Component{
@@ -31,7 +33,7 @@ this.state = {
     age :'',
     Projectyear:'',
     Projectid:'',
-    Type:''
+    value:''
   };
   this.handleChange = this.handleChange.bind(this)
 
@@ -48,13 +50,23 @@ this.state = {
   
   
   addproject =()=>{
+    alert(this.state.value)
+
     const Project = {
       Projectid:this.state.Projectid,
       Projectyear:this.state.Projectyear,
-      Type :this.state.Type
+      Type :this.state.value
       }
     axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
-      alert("success")
+      swal({
+        title: "Good job!",
+        text: "You have succesfully registered!",
+        icon: "success",
+      });
+    })
+    .catch(err=>{
+      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+      console.log(err.response.data)
     })
   }
 
@@ -74,7 +86,6 @@ this.state = {
     this.setState({ open1: false });
   };
   handleChange(e){
-    alert(this.state.Type)
     this.setState({[e.target.name]: e.target.value});
  }
 
@@ -167,13 +178,12 @@ this.state = {
 
         <RadioGroup
             aria-label="Gender"
-            name="gender1"
-            value={this.state.Type}
+            name="value"
+            value={this.state.value}
             onChange={this.handleChange}
           >
-          <FormControlLabel value="2" checked={this.state.Type == '2'} onChange={this.handleChange}
-control={<Radio color="primary"/>} label="2nd Year" />
-            <FormControlLabel value="3" checked={this.state.Type == '3'} onChange={this.handleChange} control={<Radio color="primary" />} label="3rd Year" />
+          <FormControlLabel value="2" control={<Radio color="primary"/>} label="2nd Year" />
+          <FormControlLabel value="3"  control={<Radio color="primary" />} label="3rd Year" />
             </RadioGroup>
         </div>
         <Button variant="contained" color="primary" onClick ={this.addproject}>
