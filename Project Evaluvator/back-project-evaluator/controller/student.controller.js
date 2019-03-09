@@ -10,7 +10,6 @@ module.exports.register=(req,res,next)=>{
     student.Registrationnumber =req.body.Registrationnumber
     student.Password =req.body.Password
     student.Cpassword = req.body.Cpassword
-    console.log(student.Salt);
     student.save((err, doc) => {
         if (!err){
             res.send(doc);            

@@ -5,7 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
-
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import DialogTitle from '@material-ui/core/DialogTitle';
 class Project extends Component{
 // render(){
@@ -52,6 +53,7 @@ state = {
           label="Number of Milestones"
           margin="normal"
         />
+        
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
