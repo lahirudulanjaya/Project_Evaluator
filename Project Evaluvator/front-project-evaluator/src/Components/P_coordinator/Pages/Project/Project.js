@@ -13,6 +13,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from 'axios';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+
 class Project extends Component{
 // render(){
 // return(
@@ -24,8 +29,11 @@ class Project extends Component{
 
 // }
 state = {
-    open: false,
-    age :''
+    open1: false,
+    open:false,
+    age :'',
+    Projectyear:'',
+    Projectid:''
   };
   getproject(name){
     axios.get("http://localhost:4000/api/pg/getmilestone/"+name).then(res=>{
@@ -42,6 +50,13 @@ state = {
 
   handleClose = () => {
     this.setState({ open: false });
+  };
+  handleClickOpen1 = () => {
+    this.setState({ open1: true });
+  };
+
+  handleClose1 = () => {
+    this.setState({ open1: false });
   };
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -83,7 +98,69 @@ state = {
             </Button>
           </DialogActions>
         </Dialog>
+
         <form noValidate autoComplete="off">
+        
+
+        
+        </form>
+        <form noValidate autoComplete="off">
+
+      </form>
+        <Button variant="outlined" color="primary" onClick={this.handleClickOpen1}>
+        Create Project
+        </Button>
+        <Dialog
+          open={this.state.open1}
+          onClose={this.handleClose1}
+          aria-labelledby="alert-dialog-title1"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title1"></DialogTitle>
+          <DialogContent>
+      
+         <div>
+        <TextField
+          id="standard-name"
+          label="Project Year"
+          value={this.state.Projectyear}
+          margin="normal"
+          required
+        />
+        </div>
+        <div>
+         <TextField
+          id="standard-name"
+          label="Project ID"
+          value={this.state.Projectid}
+          margin="normal"
+          required
+        />
+        </div>
+        <div>
+        <FormLabel component="legend">Project Type</FormLabel>
+
+        <RadioGroup
+            aria-label="Gender"
+            name="gender1"
+            onChange={this.handleChange}
+          >
+          <FormControlLabel value="2" control={<Radio />} label="2nd Year" />
+            <FormControlLabel value="3" control={<Radio />} label="3rd Year" />
+            </RadioGroup>
+        </div>
+
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose1} color="primary">
+              Disagree
+            </Button>
+            <Button onClick={this.handleClose1} color="primary" autoFocus>
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
+<div>
         <InputLabel htmlFor="age-simple">Select the project</InputLabel>
           <Select
             value={this.state.age}
@@ -100,13 +177,7 @@ state = {
             <MenuItem value={20}>Twenty</MenuItem>
             <MenuItem value={30}>Thirty</MenuItem>
           </Select>
-
-        
-        </form>
-        <form noValidate autoComplete="off">
-
-      </form>
-        
+          </div>
       </div>
     );
   }
