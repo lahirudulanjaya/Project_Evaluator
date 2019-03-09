@@ -4,8 +4,11 @@ import SideNavigation from './Component/Sidebar2'
 class Pcoodinater extends Component{
     render(){
         return(
-            
-            <SideNavigation></SideNavigation>
+            <div className="row">
+                <div className="col-md-3">
+                    <SideNavigation></SideNavigation>
+                </div>
+            </div>
         )
     }
 } 
