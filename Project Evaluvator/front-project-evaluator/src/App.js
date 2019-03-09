@@ -12,7 +12,7 @@ import {browserHistory} from 'react-router'
 import store from './store'
 import  Register from './Components/Auth/Register/Register';
 
-import Project from './Components/P_coordinator/Pages/Project'
+import Project from './Components/P_coordinator/Pages/Project/Project'
 import Test from './Components/Register/Register';
 
 
