@@ -21,7 +21,6 @@ import swal from 'sweetalert';
 import Sidebar from '../../Component/Sidebar2';
 
 
-
 class Project extends Component{
 
 
