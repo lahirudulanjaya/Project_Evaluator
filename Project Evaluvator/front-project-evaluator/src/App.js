@@ -37,8 +37,9 @@ class App extends Component {
         <Route exact path ="/test" component={Test}/>
         <Route exact path ="/student" component={StudentPage}/>
         <Route exact path ="/chart" component={Chart}/>
-        <Route exact path = "/pg" component ={Pcoordinator}/>
-        <Route exact path = "/pg/project" component={Project}/>
+        <Route exact path = "/pg" component ={Pcoordinator}>
+        <Route  path = "/pg/project" component={Project}/>
+        </Route>
         <Route component={PageNotFound} />
         </Switch>
       </div>
