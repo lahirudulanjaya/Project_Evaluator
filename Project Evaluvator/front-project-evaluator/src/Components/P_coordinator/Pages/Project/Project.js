@@ -113,19 +113,50 @@ this.state = {
             >
               <DialogTitle id="alert-dialog-title"></DialogTitle>
               <DialogContent>
+              <div>
+            <InputLabel htmlFor="age-simple">Select the project</InputLabel>
+              <Select
+                value={this.state.age}
+                onChange={this.handleChange}
+                inputProps={{
+                  name: 'age',
+                  id: 'age-simple',
+                }}
+              >
+              <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="2ndyear2020">2ndyear2020</MenuItem>
+               
+              </Select>
+              </div>
+              <div>
               <TextField
               id="standard-name"
-              label="Number of Milestones"
+              label="Milestone"
               margin="normal"
             />
+          </div>
+          <div>
+            <TextField
+        id="datetime-local"
+        label="Date and Time"
+        type="datetime-local"
+        defaultValue="2017-05-24T10:30"
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+                </div>
+
             
               </DialogContent>
               <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
-                  Disagree
+                  Submit 
                 </Button>
                 <Button onClick={this.handleClose} color="primary" autoFocus>
-                  Agree
+                  Close
                 </Button>
               </DialogActions>
             </Dialog>
@@ -154,7 +185,7 @@ this.state = {
           
             
             <form noValidate autoComplete="off">
-            <FormLabel ><b>Create New Project</b></FormLabel>
+            <FormLabel><b>Create New Project</b></FormLabel>
             <div>
             <TextField
               id="standard-name"
@@ -188,19 +219,23 @@ this.state = {
                 onChange={this.handleChange}
               >
               <div pt-0>
-                <FormControlLabel value="2" control={<Radio color="primary"/>} label="2nd Year" />
-                <FormControlLabel value="3"  control={<Radio color="primary" />} label="3rd Year" />
+                <FormControlLabel value="2" name="value" control={<Radio color="primary"/>} label="2nd Year" />
+                <FormControlLabel value="3" name="value" control={<Radio color="primary" />} label="3rd Year" />
               </div>
               </RadioGroup>
+            
+            
+
             </div>
             <Button variant="contained" color="primary" onClick ={this.addproject}>
             Submit
           </Button>
+          
           </form>
               </DialogContent>
             
             </Dialog>
-          <div>
+          {/* <div>
             <InputLabel htmlFor="age-simple">Select the project</InputLabel>
               <Select
                 value={this.state.age}
@@ -217,7 +252,7 @@ this.state = {
                 <MenuItem value={20}>Twenty</MenuItem>
                 <MenuItem value={30}>Thirty</MenuItem>
               </Select>
-              </div>
+              </div> */}
           </div>
           </div>
       </div>
