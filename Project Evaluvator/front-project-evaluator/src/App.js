@@ -20,7 +20,7 @@ import {Provider } from 'react-redux'
 import Navbar from './Components/Navbar/Navbar';
 import PageNotFound from './Components/Error/PageNotFound';
 
-import StudentPage from './Components/Student/Student';
+import Student from './Components/P_coordinator/Pages/Student/Student';
 import Chart from './Components/Student/BarChart/BarChat';
 
 
@@ -32,14 +32,15 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Switch>  
+        <Route exact path ="/" component={Login}/>
+
         <Route exact path ="/register" component={Register}/>
         <Route exact path ="/login" component={Login}/>
         <Route exact path ="/test" component={Test}/>
-        <Route exact path ="/student" component={StudentPage}/>
+        <Route exact path ="/student" component={Student}/>
         <Route exact path ="/chart" component={Chart}/>
-        <Route exact path = "/pg" component ={Pcoordinator}>
-        <Route  path = "/pg/project" component={Project}/>
-        </Route>
+        <Route exact path = "/pg" component ={Pcoordinator}/>
+        <Route  exact path = "/pg/project" component={Project}/>
         <Route component={PageNotFound} />
         </Switch>
       </div>
