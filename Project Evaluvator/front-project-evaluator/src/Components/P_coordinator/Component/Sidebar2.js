@@ -47,14 +47,14 @@ class NestedList extends React.Component {
         <NavLink exact={true} to="/pg" activeClassName="activeClass">
             <ListItem>
                 <ListItemIcon>
-                    <SendIcon />
+                <i class="fas fa-columns"></i>
                 </ListItemIcon>
                     <ListItemText inset primary="Dashbroad" />
             </ListItem>
         </NavLink>
         <ListItem button onClick={this.handleClick}>
           <ListItemIcon>
-            <InboxIcon />
+          <i class="fas fa-users"></i>
           </ListItemIcon>
           <ListItemText inset primary="Users" />
           {this.state.open ? <ExpandLess /> : <ExpandMore />}
@@ -64,7 +64,7 @@ class NestedList extends React.Component {
             <NavLink exact={true} to="/student" activeClassName="activeClass">
                 <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                        <StarBorder />
+                    <i class="fas fa-user-graduate"></i>
                     </ListItemIcon>
                     <ListItemText inset primary="Student" />
                 </ListItem>
@@ -72,7 +72,7 @@ class NestedList extends React.Component {
             <NavLink exact={true} to="/evalutor" activeClassName="activeClass">
                 <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                        <StarBorder />
+                    <i class="fas fa-chalkboard-teacher"></i>
                     </ListItemIcon>
                     <ListItemText inset primary="Evalutor" />
                 </ListItem>
@@ -80,7 +80,7 @@ class NestedList extends React.Component {
             <NavLink exact={true} to="/sessionCoordinator" activeClassName="activeClass">
                 <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                        <StarBorder />
+                    <i class="fas fa-user-alt"></i>
                     </ListItemIcon>
                     <ListItemText inset primary="Session Coordinator" />
                 </ListItem>
@@ -90,7 +90,7 @@ class NestedList extends React.Component {
         <NavLink exact={true} to="/pg/project" activeClassName="activeClass">
             <ListItem>
                 <ListItemIcon>
-                    <SendIcon />
+                <i class="fas fa-project-diagram"></i>
                 </ListItemIcon>
                     <ListItemText inset primary="Projects" />
             </ListItem>
