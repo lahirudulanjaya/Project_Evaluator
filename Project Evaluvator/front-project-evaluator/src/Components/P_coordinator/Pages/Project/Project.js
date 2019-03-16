@@ -19,8 +19,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import swal from 'sweetalert';
 import Sidebar from '../../Component/Sidebar2';
+import Products from './Component/milestone_table'
 
 
+
+const styles =  {
+  card: {
+    maxWidth: 400,
+  }
+};
 class Project extends Component{
 
 
@@ -38,6 +45,7 @@ this.state = {
   this.handleChange = this.handleChange.bind(this)
 
 }
+
   getproject(name){
     axios.get("http://localhost:4000/api/pg/getmilestone/"+name).then(res=>{
     console.log(res)
@@ -105,15 +113,15 @@ this.state = {
             <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
               Create Project Milestons
             </Button>
-            <Dialog
+            <Dialog 
               open={this.state.open}
               onClose={this.handleClose}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
             >
               <DialogTitle id="alert-dialog-title"></DialogTitle>
-              <DialogContent>
-              <div>
+              <DialogContent >
+              {/* <div>
             <InputLabel htmlFor="age-simple">Select the project</InputLabel>
               <Select
                 value={this.state.age}
@@ -147,7 +155,8 @@ this.state = {
           shrink: true,
         }}
       />
-                </div>
+                </div> */}
+      <Products></Products>
 
             
               </DialogContent>
@@ -256,7 +265,7 @@ this.state = {
           </div>
           </div>
       </div>
-      </div>
+      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRabaT-dy-bFpR43UBKxR6oEyRt2UOO4TIPqrZgMzPrqzDxAiCK75Q0U9vLDeT33cne31p8JrXlhY52/pubhtml?widget=true&amp;headers=false"></iframe>      </div>
     );
   }
 }
