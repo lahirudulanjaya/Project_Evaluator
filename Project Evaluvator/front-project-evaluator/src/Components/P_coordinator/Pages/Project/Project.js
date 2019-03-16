@@ -34,13 +34,18 @@ class Project extends Component{
 constructor(props){
   super(props);
 
+  var today = new Date();
+  var year = today.getFullYear();
+
 this.state = {
     open1: false,
     open:false,
     age :'',
     Projectyear:'',
+    ProjectInitailDate:'',
     Projectid:'',
-    value:''
+    value:'',
+    year:year
   };
   this.handleChange = this.handleChange.bind(this)
 
@@ -200,7 +205,7 @@ this.state = {
               id="standard-name"
               label="Project Year"
               name="Projectyear"
-              value={this.state.Projectyear}
+              value = {this.state.year}
               onChange={this.handleChange}
               margin="normal"
               required
@@ -209,9 +214,9 @@ this.state = {
             <div>
             <TextField
               id="standard-name"
-              label="Project ID"
-              name="Projectid"
-              value={this.state.Projectid}
+              label="Project Initail Date"
+              name="date"
+              value={this.state.ProjectInitailDate}
               onChange={this.handleChange}
               margin="normal"
               required
@@ -219,21 +224,36 @@ this.state = {
             
             </div>
             <div className="pt-3">
-            <FormLabel component="legend">Project Type</FormLabel>
+              <FormLabel component="legend">Academic Year</FormLabel>
 
               <RadioGroup
-                aria-label="Gender"
-                name="value"
+                aria-label="Academic Year"
+                name="acdemicYear"
                 value={this.state.value}
                 onChange={this.handleChange}
               >
               <div pt-0>
-                <FormControlLabel value="2" name="value" control={<Radio color="primary"/>} label="2nd Year" />
-                <FormControlLabel value="3" name="value" control={<Radio color="primary" />} label="3rd Year" />
+                <FormControlLabel value="2" name="acdemicYear" control={<Radio color="primary" />} label="2nd Year" />
+                <FormControlLabel value="3" name="acdemicYear" control={<Radio color="primary" />} label="3rd Year" />
+                <FormControlLabel value="4" name="acdemicYear" control={<Radio color="primary" />} label="4th Year" />
               </div>
               </RadioGroup>
-            
-            
+
+            </div>
+            <div className="pt-3">
+              <FormLabel component="legend">Project Type</FormLabel>
+
+              <RadioGroup
+                aria-label="Gender"
+                name="type"
+                value={this.state.value}
+                onChange={this.handleChange}
+              >
+              <div pt-0>
+                <FormControlLabel value="individual" name="type" control={<Radio color="primary"/>} label="Individual" />
+                <FormControlLabel value="group" name="type" control={<Radio color="primary" />} label="Group" />
+              </div>
+              </RadioGroup>
 
             </div>
             <Button variant="contained" color="primary" onClick ={this.addproject}>
