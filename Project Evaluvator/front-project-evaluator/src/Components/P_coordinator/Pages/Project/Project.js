@@ -19,13 +19,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import swal from 'sweetalert';
 import Sidebar from '../../Component/Sidebar2';
-import Products from './Component/milestone_table'
-
+import Products from './Component/milestone_table';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
 
 
 const styles =  {
-  card: {
-    maxWidth: 400,
+  dialogPaper:{
+    width:'400px',
   }
 };
 class Project extends Component{
@@ -115,9 +115,13 @@ this.state = {
       <div className="col-sm-9">
       <div className="row">
         <div className="col-sm-4 pt-3">
-            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-              Create Project Milestons
-            </Button>
+          <MDBCard>
+            <MDBCardBody>
+              <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                Create Milestones
+              </Button>
+            </MDBCardBody>
+          </MDBCard>
             <Dialog 
               open={this.state.open}
               onClose={this.handleClose}
@@ -184,10 +188,16 @@ this.state = {
 
             </form>
           </div>
-          <div className="col-sm-3 pt-3">
-            <Button variant="outlined" color="primary" onClick={this.handleClickOpen1}>
-            Create Project
-            </Button>
+          <div className="col-sm-4 pt-3">
+            <MDBCard>
+              <MDBCardBody>
+              <div className="card-background">
+                <Button variant="outlined" color="primary" onClick={this.handleClickOpen1}>
+                  Create Project
+                </Button>
+              </div>
+              </MDBCardBody>
+            </MDBCard>
             <Dialog
               open={this.state.open1}
               onClose={this.handleClose1}
