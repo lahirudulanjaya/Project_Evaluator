@@ -23,6 +23,9 @@ import PageNotFound from './Components/Error/PageNotFound';
 import Student from './Components/P_coordinator/Pages/Student/Student';
 import Chart from './Components/Student/BarChart/BarChat';
 
+import Scoordinator from './Components/S_coordinator/Scoordinator'
+
+
 
 class App extends Component {
   render() {
@@ -41,6 +44,8 @@ class App extends Component {
         <Route exact path ="/chart" component={Chart}/>
         <Route exact path = "/pg" component ={Pcoordinator}/>
         <Route  exact path = "/pg/project" component={Project}/>
+        <Route exact path = "/sc" component ={Scoordinator}/>
+
         <Route component={PageNotFound} />
         </Switch>
       </div>
