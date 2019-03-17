@@ -106,9 +106,20 @@ class Products extends React.Component {
       });
       return (
         <div>
-  
-  
-        <button type="button" onClick={this.props.onRowAdd} className="btn btn-success pull-right">Add</button>
+          <div class="form-group pt-3">
+            <label for="projectSelect">Select Project</label>
+            <div className="row">
+              <div className="col-md-4">
+              <select class="form-control" id="projectSelect">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              </div>
+              </div>
+            </div>
           <table className="table table-bordered">
             <thead>
               <tr>
@@ -116,6 +127,7 @@ class Products extends React.Component {
                 <th>Milestone Type</th>
                 <th>marks Presentage</th>
                 <th>Group or Individual</th>
+                <th>Time duration(Weeks)</th>
               </tr>
             </thead>
   
@@ -125,6 +137,8 @@ class Products extends React.Component {
             </tbody>
   
           </table>
+          <button type="button" onClick={this.props.onRowAdd} className="btn btn-success pull-right">Add</button>
+          
         </div>
       );
   
@@ -146,11 +160,13 @@ class Products extends React.Component {
             value: this.props.product.name,
             id: this.props.product.id
           }}/>
-          <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-            type: "price",
-            value: this.props.product.price,
-            id: this.props.product.id
-          }}/>
+          <td>
+            <select>
+              <option>Prestation</option>
+              <option>Documentation </option>
+              <option>Viva </option>
+            </select>
+          </td>
           <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
             type: "qty",
             value: this.props.product.qty,
@@ -161,6 +177,18 @@ class Products extends React.Component {
             value: this.props.product.category,
             id: this.props.product.id
           }}/>
+          <td className="pd-3">
+            <select>
+              <option>1 week</option>
+              <option>2 weeks</option>
+              <option>3 weeks</option>
+              <option>4 weeks</option>
+              <option>5 weeks</option>
+              <option>6 weeks</option>
+              <option>7 weeks</option>
+              <option>8 weeks</option>
+            </select>
+          </td>
           <td className="del-cell">
             <input type="button" onClick={this.onDelEvent.bind(this)} value="X" className="del-btn"/>
           </td>
