@@ -19,7 +19,7 @@ class Calender extends React.Component{
     render() {
         const { classes } = this.props;
 
-        return (<h1>ck manji</h1>);
+        return (<h1>ck calender manji</h1>);
     }
 
 }
