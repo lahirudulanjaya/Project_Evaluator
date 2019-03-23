@@ -295,7 +295,7 @@ this.state = {
           </div>
           </div>
       </div>
-      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRabaT-dy-bFpR43UBKxR6oEyRt2UOO4TIPqrZgMzPrqzDxAiCK75Q0U9vLDeT33cne31p8JrXlhY52/pubhtml?widget=true&amp;headers=false"></iframe>      </div>
+      </div>
     );
   }
 }
