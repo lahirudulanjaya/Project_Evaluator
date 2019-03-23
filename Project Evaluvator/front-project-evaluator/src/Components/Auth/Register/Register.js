@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import axios from 'axios'
+import PropTypes from 'prop-types';
 import swal from 'sweetalert';
 import './Register.css';
+import {connect} from 'react-redux'
+
+import {registerUser} from '../../../actions/authActions';
+
 import {Link} from 'react-router-dom'
 class Register extends Component{
   constructor(props){
@@ -17,6 +22,11 @@ class Register extends Component{
     }
     this.handleChange = this.handleChange.bind(this)
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
   submitHandler = event => {
     event.preventDefault();
     event.target.className += " was-validated";
@@ -27,23 +37,33 @@ class Register extends Component{
  }
   postRegister = ()=>{
   
-    axios.post('http://localhost:4000/api/Student/register',this.state)
-      .then(res=>{
-        swal({
-          title: "Good job!",
-          text: "You have succesfully registered!",
-          icon: "success",
-        });
-      })
-      .catch(err=>{
-        swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
-        console.log(err.response.data)
-      })
+    // axios.post('http://localhost:4000/api/Student/register',this.state)
+    //   .then(res=>{
+    //     swal({
+    //       title: "Good job!",
+    //       text: "You have succesfully registered!",
+    //       icon: "success",
+    //     });
+    //   })
+    //   .catch(err=>{
+    //     swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+    //     console.log(err.response.data)
+    //   })
+    const newUser = {
+      UserName: this.state.UserName,
+      Email: this.state.Email,
+      Registrationnumber: this.state.Registrationnumber,
+      Password: this.state.Password,
+      Cpassword:this.state.Cpassword
+    };
 
-      
+    this.props.registerUser(newUser, this.props.history);
+
 
   }
 render(){
+  const { errors } = this.state;
+
     return(
 <MDBContainer className="register">
       <MDBRow>
@@ -67,7 +87,6 @@ render(){
                     type="text"
                     className="form-control"
                     id="defaultFormRegisterNameEx"
-
                     validate
                     error="wrong"
                     success="right"
@@ -146,4 +165,14 @@ render(){
     )
 }
 }
-export default Register
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+export default connect(mapStateToProps, { registerUser })(Register);

@@ -40,7 +40,6 @@ class Login extends Component{
   //   })
 
     this.props.loginStudent(this.state)
-    
 
    }
 
