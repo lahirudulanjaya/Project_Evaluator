@@ -49,15 +49,21 @@ class Register extends Component{
     //     swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
     //     console.log(err.response.data)
     //   })
-    const newUser = {
-      UserName: this.state.UserName,
-      Email: this.state.Email,
-      Registrationnumber: this.state.Registrationnumber,
-      Password: this.state.Password,
-      Cpassword:this.state.Cpassword
-    };
+    const {Password, Cpassword} = this.state;
+    if( Password==Cpassword){
+      const newUser = {
+        UserName: this.state.UserName,
+        Email: this.state.Email,
+        Registrationnumber: this.state.Registrationnumber,
+        Password: this.state.Password,
+        Cpassword:this.state.Cpassword
+      };
+      this.props.registerUser(newUser, this.props.history);
+    }else{
+      alert("Password Doesn't match");
+    }
 
-    this.props.registerUser(newUser, this.props.history);
+    
 
 
   }
