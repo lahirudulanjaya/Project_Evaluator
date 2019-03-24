@@ -2,8 +2,10 @@ const mongoose =require('mongoose')
 const passport = require('passport')
 const _ = require('lodash')
 const Student = mongoose.model('Students')
-
+const Studentdetail =mongoose.model('Studentdetail')
 module.exports.register=(req,res,next)=>{
+    console.log(res.body.Registrationnumber)
+
     var student = new Student()
     student.UserName = req.body.UserName
     student.Email = req.body.Email
@@ -50,3 +52,30 @@ module.exports.studentprofile = (req, res, next) =>{
         }
     );
 }
+
+module.exports.Importstudent =(req,res,next)=>{
+    // // res.forEach(element => {
+    //     var studentdetails = new Studentdetail();
+    //     studentdetails.Registrationnumber= req.body.Registrationnumber
+    //     studentdetails.Name = req.body.Name
+    //     studentdetails.save((err,doc)=>{
+    //     if (!err){
+    //         res.send(doc);            
+    //     }
+    //     else{
+    //         console.log(err)
+    //     }
+        
+    //  //   })
+    
+// })
+    Studentdetail.insertMany(req.body.arr,(err,doc)=>{
+        if (!err){
+            res.send(doc)
+        }
+        else{
+            console.log(err)
+        }
+    })
+}
+
