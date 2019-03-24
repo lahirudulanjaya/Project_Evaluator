@@ -56,7 +56,7 @@ class Register extends Component{
       Password: this.state.Password,
       Cpassword:this.state.Cpassword
     };
-
+   
     this.props.registerUser(newUser, this.props.history);
 
 
