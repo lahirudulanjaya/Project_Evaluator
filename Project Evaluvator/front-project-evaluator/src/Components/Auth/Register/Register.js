@@ -49,6 +49,8 @@ class Register extends Component{
     //     swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
     //     console.log(err.response.data)
     //   })
+
+
     const {Password, Cpassword} = this.state;
     if( Password==Cpassword){
       const newUser = {
@@ -64,6 +66,7 @@ class Register extends Component{
     }
 
     
+
 
 
   }
