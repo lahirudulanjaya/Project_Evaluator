@@ -12,6 +12,6 @@ router.get('/studentprofile', Jwtverify.verifyJwtToken, CtrlStudent.studentprofi
 router.post('/pg/postmilestone',CtrlMilestone.addmilestone)
 router.get('/pg/getmilestone/:Projectname',CtrlMilestone.getmilstones)
 router.post('/pg/addproject',CtrlProject.addproject)
-
+router.post('/pg/importstudent',CtrlStudent.Importstudent)
 module.exports=router 
 
