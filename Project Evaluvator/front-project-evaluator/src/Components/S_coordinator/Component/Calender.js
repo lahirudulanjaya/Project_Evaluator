@@ -14,12 +14,38 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import { NavLink } from 'react-router-dom';
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
+
+const myEventsList=["first event","second event","third event"];
+
+const MyCalendar = props => (
+    <div style={{height:500}}>
+      <BigCalendar
+        localizer={localizer}
+        events={myEventsList}
+        startAccessor="start"
+        endAccessor="end"
+      />
+    </div>
+  )
 
 class Calender extends React.Component{
     render() {
         const { classes } = this.props;
 
-        return (<h1>ck manji</h1>);
+        return (
+            <div style={{height:500}}>
+      <BigCalendar
+        localizer={localizer}
+        events={myEventsList}
+        startAccessor="start"
+        endAccessor="end"
+      />
+    </div>
+        );
     }
 
 }
