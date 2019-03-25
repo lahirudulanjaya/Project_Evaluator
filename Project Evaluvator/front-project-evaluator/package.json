@@ -7,7 +7,17 @@
     "react": "^16.8.1",
     "react-big-calendar": "^0.20.4",
     "react-dom": "^16.8.1",
-    "react-scripts": "2.1.5"
+
+    "react-redux": "^6.0.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.5",
+    "react-sidenav": "^3.1.7",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "sweetalert": "^2.1.2",
+    "xlsx": "^0.14.1"
+
   },
   "scripts": {
     "start": "react-scripts start",
