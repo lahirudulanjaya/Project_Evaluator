@@ -16,13 +16,13 @@ import StarBorder from '@material-ui/icons/StarBorder';
 import { NavLink } from 'react-router-dom';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
 
 const myEventsList=["first event","second event","third event"];
 
 const MyCalendar = props => (
-    <div>
+    <div style={{height:500}}>
       <BigCalendar
         localizer={localizer}
         events={myEventsList}
@@ -36,8 +36,16 @@ class Calender extends React.Component{
     render() {
         const { classes } = this.props;
 
-        return (<p>ck calender manjitha localizer
-        </p>);
+        return (
+            <div style={{height:500}}>
+      <BigCalendar
+        localizer={localizer}
+        events={myEventsList}
+        startAccessor="start"
+        endAccessor="end"
+      />
+    </div>
+        );
     }
 
 }
