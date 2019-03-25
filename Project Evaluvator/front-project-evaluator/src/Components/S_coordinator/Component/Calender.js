@@ -36,8 +36,7 @@ class Calender extends React.Component{
     render() {
         const { classes } = this.props;
 
-        return (<p>ck calender manjitha
-            localizer
+        return (<p>ck calender manjitha localizer
         </p>);
     }
 
