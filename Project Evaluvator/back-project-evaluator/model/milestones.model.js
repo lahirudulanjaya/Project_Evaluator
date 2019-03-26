@@ -6,20 +6,25 @@ var Milestoneschema = new mongoose.Schema(
             type:String,
             unique:true
         },
-        Year:{
-            type:String,
-        },
-        Milestone_id:
-        {
-            type :Number,
-        },
+        
         Milestone:{
             type:String,
         },
-        Datetime:{
-            type:Date
+        
+        MilstoneType:{
+            type:String
+        },
+        Markspresentatge:{
+            type:String
             
+        },
+        Grp_or_I:{
+            type:String
+        },
+        Duration:{
+            type:String
         }
+
 
     }
 )

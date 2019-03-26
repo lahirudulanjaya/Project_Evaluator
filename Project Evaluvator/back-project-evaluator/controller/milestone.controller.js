@@ -2,12 +2,15 @@ const mongoose =require('mongoose')
 const Milestone = mongoose.model('Milestone')
 
 module.exports.addmilestone=(req,res,next)=>{
+
+
     var milestone = new Milestone();
+    milestone.Milestone=req.body.Milestone;
     milestone.Projectname =req.body.Projectname;
-    milestone.Year=req.body.Year;
-    milestone.Milestone_id =req.body.Milestone_id;
-    milestone.Milestone =req.body.Milestone;
-    milestone.Datetime =req.body.Datetime
+    milestone.MilstoneType=req.body.MilstoneType;
+    milestone.Markspresentatge =req.body.Markspresentatge;
+    milestone.Grp_or_I =req.body.Grp_or_I;
+    milestone.Duration =req.body.Duration
     milestone.save((err, doc) => {
         if (!err){
             res.send(doc);            
