@@ -22,6 +22,13 @@ module.exports.addproject = (req,res,err)=>{
     })
 
 }
+module.exports.getprojectsnames=(req,res,err)=>{
+    Project.find({Status:true},'Projectname',(err,doc)=>{
+        if(!err){
+            res.status(200).send(doc)
+        }
+    })
+}
 
 module.exports.updateproject =(req,res,err)=>{
     var project ={
