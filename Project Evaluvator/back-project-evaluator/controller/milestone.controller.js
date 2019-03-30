@@ -2,7 +2,7 @@ const mongoose =require('mongoose')
 const Milestone = mongoose.model('Milestone')
 
 module.exports.addmilestone=(req,res,next)=>{
-    Milestone.insertMany(req.body.arr,(err,doc)=>{
+    Milestone.insertMany(req.body.Milestones,(err,doc)=>{
         if (!err){
             res.send(doc)
         }

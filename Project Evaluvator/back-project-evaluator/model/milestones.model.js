@@ -2,11 +2,11 @@ const mongoose =require('mongoose')
 
 var Milestoneschema = new mongoose.Schema(
     {
-        Projectname:{
+        id:{
             type:String,
         },
         
-        Milestone:{
+        name:{
             type:String,
         },
         

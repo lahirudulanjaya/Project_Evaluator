@@ -4,7 +4,7 @@ import swal from 'sweetalert';
 
 
 export const addmilstones=(milestones)=>dispath=>{
-    axios.post("http://localhost:4000/api/pg/postmilestone")
+    axios.post("http://localhost:4000/api/pg/postmilestone",milestones)
     .then(res=>{
         swal({
             title: "Good job!",
