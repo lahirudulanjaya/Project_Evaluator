@@ -21,13 +21,15 @@ import swal from 'sweetalert';
 import Sidebar from '../../Component/Sidebar2';
 import Products from './Component/milestone_table';
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
-
-
+import {AddProject,getprojectnames} from '../../../../actions/ProjectActions'
+import {connect} from 'react-redux'
+import {addmilstones} from '../../../../actions/milestoneActions'
 const styles =  {
   dialogPaper:{
     width:'400px',
   }
 };
+
 class Project extends Component{
 
 
@@ -44,43 +46,44 @@ this.state = {
     Acadamicyear:'',
     ProjectInitailDate:'',
     year:year,
-    ProjectType:''
+    ProjectType:'',
+    errors:'',
+    arr:[]
   };
   this.handleChange = this.handleChange.bind(this)
 
 }
+// componentDidMount(){
+//  this.props.getprojectnames()
+  
+// }
+componentWillMount(){
+  this.props.getprojectnames()
+  
+}
+   
 
-  getproject(name){
-    axios.get("http://localhost:4000/api/pg/getmilestone/"+name).then(res=>{
-    console.log(res)
-    },
-    err=>{
-      alert(err)
-    }
-    )
+componentWillReceiveProps(nextProps) {
+  if (nextProps.errors) {
+    this.setState({ errors: nextProps.errors });
   }
+}
+
+ 
   
   
   addproject =()=>{
-    alert(this.state.value)
-
+    alert(this.props.projectnames)
     const Project = {
       Projectname:this.state.Projectname,
       Acadamicyear:this.state.Acadamicyear,
       ProjectType :this.state.ProjectType,
       ProjectInitailDate:this.state.ProjectInitailDate
       }
-    axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
-      swal({
-        title: "Good job!",
-        text: "You have succesfully registered!",
-        icon: "success",
-      });
-    })
-    .catch(err=>{
-      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
-      console.log(err.response.data)
-    })
+      this.props.AddProject(Project)
+  }
+  addMilstones=()=>{
+
   }
 
   
@@ -130,41 +133,7 @@ this.state = {
             >
               <DialogTitle id="alert-dialog-title"></DialogTitle>
               <DialogContent >
-              {/* <div>
-            <InputLabel htmlFor="age-simple">Select the project</InputLabel>
-              <Select
-                value={this.state.age}
-                onChange={this.handleChange}
-                inputProps={{
-                  name: 'age',
-                  id: 'age-simple',
-                }}
-              >
-              <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="2ndyear2020">2ndyear2020</MenuItem>
-               
-              </Select>
-              </div>
-              <div>
-              <TextField
-              id="standard-name"
-              label="Milestone"
-              margin="normal"
-            />
-          </div>
-          <div>
-            <TextField
-        id="datetime-local"
-        label="Date and Time"
-        type="datetime-local"
-        defaultValue="2017-05-24T10:30"
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-                </div> */}
+             
       <Products></Products>
 
             
@@ -296,12 +265,20 @@ this.state = {
           </div>
           </div>
       </div>
+      <h1>{this.props.product}</h1>
       </div>
     );
   }
 }
+Project.propTypes = {
 
+  projectnames: PropTypes.object.isRequired,
+  
+};
+const mapStateToProps = state => ({
+  projectnames: state.projectnames, 
+});
 
 // export default AlertDialog;
 
-export default Project
+export default connect(mapStateToProps,{AddProject,getprojectnames,addmilstones})(Project)
