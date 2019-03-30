@@ -2,7 +2,8 @@ import {GET_PROJECT_NAMES}  from "../actions/types";
 import {ADD_PROJECT} from "../actions/types";
 
 const initialState ={
-    projectnames:null
+    projectnames:{},
+    name:"eded"
 };
 
 export default function(state =initialState,action){

@@ -21,9 +21,9 @@ import swal from 'sweetalert';
 import Sidebar from '../../Component/Sidebar2';
 import Products from './Component/milestone_table';
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
-import {AddProject} from '../../../../actions/ProjectActions'
+import {AddProject,getprojectnames} from '../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
-
+import {addmilstones} from '../../../../actions/milestoneActions'
 const styles =  {
   dialogPaper:{
     width:'400px',
@@ -47,31 +47,33 @@ this.state = {
     ProjectInitailDate:'',
     year:year,
     ProjectType:'',
-    errors:''
+    errors:'',
+    arr:[]
   };
   this.handleChange = this.handleChange.bind(this)
 
 }
+// componentDidMount(){
+//  this.props.getprojectnames()
+  
+// }
+componentWillMount(){
+  this.props.getprojectnames()
+  
+}
+   
+
 componentWillReceiveProps(nextProps) {
   if (nextProps.errors) {
     this.setState({ errors: nextProps.errors });
   }
 }
 
-  getproject(name){
-    axios.get("http://localhost:4000/api/pg/getmilestone/"+name).then(res=>{
-    console.log(res)
-    },
-    err=>{
-      alert(err)
-    }
-    )
-  }
+ 
   
   
   addproject =()=>{
-    alert(this.state.value)
-
+    alert(this.props.projectnames)
     const Project = {
       Projectname:this.state.Projectname,
       Acadamicyear:this.state.Acadamicyear,
@@ -79,6 +81,9 @@ componentWillReceiveProps(nextProps) {
       ProjectInitailDate:this.state.ProjectInitailDate
       }
       this.props.AddProject(Project)
+  }
+  addMilstones=()=>{
+
   }
 
   
@@ -260,12 +265,20 @@ componentWillReceiveProps(nextProps) {
           </div>
           </div>
       </div>
+      <h1>{this.props.product}</h1>
       </div>
     );
   }
 }
+Project.propTypes = {
 
+  projectnames: PropTypes.object.isRequired,
+  
+};
+const mapStateToProps = state => ({
+  projectnames: state.projectnames, 
+});
 
 // export default AlertDialog;
 
-export default connect(null,{AddProject})(Project)
+export default connect(mapStateToProps,{AddProject,getprojectnames,addmilstones})(Project)

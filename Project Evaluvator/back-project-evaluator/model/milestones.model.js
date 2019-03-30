@@ -4,7 +4,6 @@ var Milestoneschema = new mongoose.Schema(
     {
         Projectname:{
             type:String,
-            unique:true
         },
         
         Milestone:{
