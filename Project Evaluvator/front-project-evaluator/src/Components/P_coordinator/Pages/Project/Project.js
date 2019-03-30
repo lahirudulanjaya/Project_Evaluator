@@ -21,13 +21,15 @@ import swal from 'sweetalert';
 import Sidebar from '../../Component/Sidebar2';
 import Products from './Component/milestone_table';
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
-
+import {AddProject} from '../../../../actions/ProjectActions'
+import {connect} from 'react-redux'
 
 const styles =  {
   dialogPaper:{
     width:'400px',
   }
 };
+
 class Project extends Component{
 
 
@@ -44,10 +46,16 @@ this.state = {
     Acadamicyear:'',
     ProjectInitailDate:'',
     year:year,
-    ProjectType:''
+    ProjectType:'',
+    errors:''
   };
   this.handleChange = this.handleChange.bind(this)
 
+}
+componentWillReceiveProps(nextProps) {
+  if (nextProps.errors) {
+    this.setState({ errors: nextProps.errors });
+  }
 }
 
   getproject(name){
@@ -70,17 +78,7 @@ this.state = {
       ProjectType :this.state.ProjectType,
       ProjectInitailDate:this.state.ProjectInitailDate
       }
-    axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
-      swal({
-        title: "Good job!",
-        text: "You have succesfully registered!",
-        icon: "success",
-      });
-    })
-    .catch(err=>{
-      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
-      console.log(err.response.data)
-    })
+      this.props.AddProject(Project)
   }
 
   
@@ -130,41 +128,7 @@ this.state = {
             >
               <DialogTitle id="alert-dialog-title"></DialogTitle>
               <DialogContent >
-              {/* <div>
-            <InputLabel htmlFor="age-simple">Select the project</InputLabel>
-              <Select
-                value={this.state.age}
-                onChange={this.handleChange}
-                inputProps={{
-                  name: 'age',
-                  id: 'age-simple',
-                }}
-              >
-              <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="2ndyear2020">2ndyear2020</MenuItem>
-               
-              </Select>
-              </div>
-              <div>
-              <TextField
-              id="standard-name"
-              label="Milestone"
-              margin="normal"
-            />
-          </div>
-          <div>
-            <TextField
-        id="datetime-local"
-        label="Date and Time"
-        type="datetime-local"
-        defaultValue="2017-05-24T10:30"
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-                </div> */}
+             
       <Products></Products>
 
             
@@ -304,4 +268,4 @@ this.state = {
 
 // export default AlertDialog;
 
-export default Project
+export default connect(null,{AddProject})(Project)
