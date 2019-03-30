@@ -3,7 +3,6 @@ const Milestone = mongoose.model('Milestone')
 
 module.exports.addmilestone=(req,res,next)=>{
 
-
     var milestone = new Milestone();
     milestone.Milestone=req.body.Milestone;
     milestone.Projectname =req.body.Projectname;
