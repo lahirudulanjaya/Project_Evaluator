@@ -53,24 +53,7 @@ class Products extends React.Component {
     }
     importMilestones=()=>{
       const newdetatil={
-        Milestones :[
-          {
-            id: 1,
-            name: 'football',
-            MilstoneType:'',
-            Markspresentatge: 12,
-            Grp_or_I: 'Group',
-            Duration:''
-          },
-          {
-            id: 1,
-            name: 'football',
-            MilstoneType:'',
-            Markspresentatge: 12,
-            Grp_or_I: 'Group',
-            Duration:''
-          }
-        ]
+        Milestones :this.state.products
     }
     console.log(newdetatil)
       this.props.addmilstones(newdetatil)
