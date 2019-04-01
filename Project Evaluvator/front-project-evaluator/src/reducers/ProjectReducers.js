@@ -2,8 +2,7 @@ import {GET_PROJECT_NAMES}  from "../actions/types";
 import {ADD_PROJECT} from "../actions/types";
 
 const initialState ={
-    projectnames:{},
-    name:"eded"
+    project:[]
 };
 
 export default function(state =initialState,action){
@@ -16,7 +15,7 @@ export default function(state =initialState,action){
         case GET_PROJECT_NAMES:
             return {
                 ...state,
-                projectnames:action.payload
+                project:action.payload
             }
         default:
             return state

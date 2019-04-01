@@ -2,6 +2,7 @@
 import React,{Component} from 'react'
 import {addmilstones} from '../../../../../actions/milestoneActions'
 import {connect} from 'react-redux'
+import {getprojectnames} from '../../../../../actions/ProjectActions'
 
 class Products extends React.Component {
 
@@ -26,6 +27,10 @@ class Products extends React.Component {
       ];
   
     }
+    componentDidMount(){
+      this.props.getprojectnames()
+     //  this.props.project.map()
+     }
     handleUserInput(filterText) {
       this.setState({filterText: filterText});
     };
@@ -39,7 +44,7 @@ class Products extends React.Component {
       this.setState({Milestones:[]})
       var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
       var product = {
-        id: id,
+        id:"",
         name: "",
         Grp_or_I: "",
         Markspresentatge: 0,
@@ -84,6 +89,14 @@ class Products extends React.Component {
       return (
         <div>
           <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)}/>
+          <div className="row">
+              <div className="col-md-4">
+              <label for="projectSelect">Select Project</label>
+          <select class="form-control" id="projectSelect">
+          {this.props.project.project.map((project) => <option key={project._id} value={project.Projectname}>{project.Projectname}</option>)}
+              </select>
+              </div>
+              </div>
           <ProductTable onProductTableUpdate={this.handleProductTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} products={this.state.products} filterText={this.state.filterText}/>
         <button onClick={this.importMilestones}>Add Milestone</button>
         </div>
@@ -126,21 +139,10 @@ class Products extends React.Component {
         return (<ProductRow onProductTableUpdate={onProductTableUpdate} product={product} onDelEvent={rowDel.bind(this)} key={product.id}/>)
       });
       return (
-        <div>
+        
           <div class="form-group pt-3">
-            <label for="projectSelect">Select Project</label>
-            <div className="row">
-              <div className="col-md-4">
-              <select class="form-control" id="projectSelect">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-              </div>
-              </div>
-            </div>
+            
+           
           <table className="table table-bordered">
             <thead>
               <tr>
@@ -234,4 +236,10 @@ class Products extends React.Component {
     }
   
   }
-export default connect(null,{addmilstones})(Products);  
+  const mapStateToProps = state => {
+    return{
+  
+    project: state.project, 
+   
+  }};
+export default connect(mapStateToProps,{addmilstones,getprojectnames})(Products);  

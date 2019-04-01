@@ -3,27 +3,21 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import InputLabel from '@material-ui/core/InputLabel';
-import { withStyles } from '@material-ui/core/styles';
+
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import axios from 'axios';
+
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
-import swal from 'sweetalert';
 import Sidebar from '../../Component/Sidebar2';
 import Products from './Component/milestone_table';
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
 import {AddProject,getprojectnames} from '../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
 import {addmilstones} from '../../../../actions/milestoneActions'
+import { prototype } from 'module';
 const styles =  {
   dialogPaper:{
     width:'400px',
@@ -48,19 +42,31 @@ this.state = {
     year:year,
     ProjectType:'',
     errors:'',
-    arr:[]
+    arr:[],
+    project_names:[
+      {
+        _id:1,
+        Projectname:"sdsd"
+      },
+      {
+        _id:13,
+        Projectname:"sdsdsdc"
+      }
+
+    ]
   };
   this.handleChange = this.handleChange.bind(this)
 
 }
-// componentDidMount(){
-//  this.props.getprojectnames()
+componentDidMount(){
+ this.props.getprojectnames()
+//  this.props.project.map()
+}
+
+// componentWillMount(){
+//   this.props.getprojectnames()
   
 // }
-componentWillMount(){
-  this.props.getprojectnames()
-  
-}
    
 
 componentWillReceiveProps(nextProps) {
@@ -107,7 +113,6 @@ componentWillReceiveProps(nextProps) {
 
 
   render() {
-    const { classes } = this.props;
 
     return (
       
@@ -265,19 +270,22 @@ componentWillReceiveProps(nextProps) {
           </div>
           </div>
       </div>
-      <h1>{this.props.product}</h1>
+      
       </div>
     );
   }
 }
-Project.propTypes = {
-
-  projectnames: PropTypes.object.isRequired,
+// Project.propTypes = {
+//   getprojectnames:PropTypes.func.isRequired,
+//   project: PropTypes.object.isRequired,
   
-};
-const mapStateToProps = state => ({
-  projectnames: state.projectnames, 
-});
+// };
+const mapStateToProps = state => {
+  return{
+
+  project: state.project, 
+ 
+}};
 
 // export default AlertDialog;
 

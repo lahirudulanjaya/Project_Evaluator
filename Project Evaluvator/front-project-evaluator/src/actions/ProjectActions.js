@@ -10,7 +10,7 @@ export const getprojectnames =()=>dispatch=>{
         dispatch({
             type : GET_PROJECT_NAMES,
             payload:res.data
-        },console.log(res.data[0].Projectname))
+        })
     })
     .catch(
         err=>{
