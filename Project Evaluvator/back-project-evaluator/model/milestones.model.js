@@ -2,24 +2,28 @@ const mongoose =require('mongoose')
 
 var Milestoneschema = new mongoose.Schema(
     {
-        Projectname:{
-            type:String,
-            unique:true
-        },
-        Year:{
+        id:{
             type:String,
         },
-        Milestone_id:
-        {
-            type :Number,
-        },
-        Milestone:{
+        
+        name:{
             type:String,
         },
-        Datetime:{
-            type:Date
+        
+        MilstoneType:{
+            type:String
+        },
+        Markspresentatge:{
+            type:String
             
+        },
+        Grp_or_I:{
+            type:String
+        },
+        Duration:{
+            type:String
         }
+
 
     }
 )

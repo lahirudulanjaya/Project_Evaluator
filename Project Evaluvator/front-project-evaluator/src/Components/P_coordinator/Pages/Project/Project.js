@@ -21,13 +21,15 @@ import swal from 'sweetalert';
 import Sidebar from '../../Component/Sidebar2';
 import Products from './Component/milestone_table';
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
-
-
+import {AddProject,getprojectnames} from '../../../../actions/ProjectActions'
+import {connect} from 'react-redux'
+import {addmilstones} from '../../../../actions/milestoneActions'
 const styles =  {
   dialogPaper:{
     width:'400px',
   }
 };
+
 class Project extends Component{
 
 
@@ -40,47 +42,48 @@ constructor(props){
 this.state = {
     open1: false,
     open:false,
-    age :'',
-    Projectyear:'',
+    Projectname:'',
+    Acadamicyear:'',
     ProjectInitailDate:'',
-    Projectid:'',
-    value:'',
-    year:year
+    year:year,
+    ProjectType:'',
+    errors:'',
+    arr:[]
   };
   this.handleChange = this.handleChange.bind(this)
 
 }
+// componentDidMount(){
+//  this.props.getprojectnames()
+  
+// }
+componentWillMount(){
+  this.props.getprojectnames()
+  
+}
+   
 
-  getproject(name){
-    axios.get("http://localhost:4000/api/pg/getmilestone/"+name).then(res=>{
-    console.log(res)
-    },
-    err=>{
-      alert(err)
-    }
-    )
+componentWillReceiveProps(nextProps) {
+  if (nextProps.errors) {
+    this.setState({ errors: nextProps.errors });
   }
+}
+
+ 
   
   
   addproject =()=>{
-    alert(this.state.value)
-
+    alert(this.props.projectnames)
     const Project = {
-      Projectid:this.state.Projectid,
-      Projectyear:this.state.Projectyear,
-      Type :this.state.value
+      Projectname:this.state.Projectname,
+      Acadamicyear:this.state.Acadamicyear,
+      ProjectType :this.state.ProjectType,
+      ProjectInitailDate:this.state.ProjectInitailDate
       }
-    axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
-      swal({
-        title: "Good job!",
-        text: "You have succesfully registered!",
-        icon: "success",
-      });
-    })
-    .catch(err=>{
-      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
-      console.log(err.response.data)
-    })
+      this.props.AddProject(Project)
+  }
+  addMilstones=()=>{
+
   }
 
   
@@ -130,41 +133,7 @@ this.state = {
             >
               <DialogTitle id="alert-dialog-title"></DialogTitle>
               <DialogContent >
-              {/* <div>
-            <InputLabel htmlFor="age-simple">Select the project</InputLabel>
-              <Select
-                value={this.state.age}
-                onChange={this.handleChange}
-                inputProps={{
-                  name: 'age',
-                  id: 'age-simple',
-                }}
-              >
-              <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="2ndyear2020">2ndyear2020</MenuItem>
-               
-              </Select>
-              </div>
-              <div>
-              <TextField
-              id="standard-name"
-              label="Milestone"
-              margin="normal"
-            />
-          </div>
-          <div>
-            <TextField
-        id="datetime-local"
-        label="Date and Time"
-        type="datetime-local"
-        defaultValue="2017-05-24T10:30"
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-                </div> */}
+             
       <Products></Products>
 
             
@@ -213,9 +182,9 @@ this.state = {
             <div>
             <TextField
               id="standard-name"
-              label="Project Year"
-              name="Projectyear"
-              value = {this.state.year}
+              label="Project Name"
+              name="Projectname"
+              value = {this.state.Projectname}
               onChange={this.handleChange}
               margin="normal"
               required
@@ -225,7 +194,7 @@ this.state = {
             <TextField
               id="standard-name"
               label="Project Initail Date"
-              name="date"
+              name="ProjectInitailDate"
               value={this.state.ProjectInitailDate}
               onChange={this.handleChange}
               margin="normal"
@@ -243,9 +212,9 @@ this.state = {
                 onChange={this.handleChange}
               >
               <div pt-0>
-                <FormControlLabel value="2" name="acdemicYear" control={<Radio color="primary" />} label="2nd Year" />
-                <FormControlLabel value="3" name="acdemicYear" control={<Radio color="primary" />} label="3rd Year" />
-                <FormControlLabel value="4" name="acdemicYear" control={<Radio color="primary" />} label="4th Year" />
+                <FormControlLabel value="2" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange} checked={this.state.Acadamicyear==='2'} name ="Acadamicyear"/>} label="2nd Year" />
+                <FormControlLabel value="3" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange} checked={this.state.Acadamicyear==='3'} name ="Acadamicyear"/>} label="3rd Year" />
+                <FormControlLabel value="4" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange} checked={this.state.Acadamicyear==='4'} name ="Acadamicyear"/>} label="4th Year" />
               </div>
               </RadioGroup>
 
@@ -260,8 +229,9 @@ this.state = {
                 onChange={this.handleChange}
               >
               <div pt-0>
-                <FormControlLabel value="individual" name="type" control={<Radio color="primary"/>} label="Individual" />
-                <FormControlLabel value="group" name="type" control={<Radio color="primary" />} label="Group" />
+                <FormControlLabel value="individual" name="type" control={<Radio color="primary" onChange={this.handleChange} checked={this.state.ProjectType==='Individual' } value='Individual' name ="ProjectType"/>} label="Individual" />
+                <FormControlLabel value="group" name="type" control={<Radio color="primary"onChange={this.handleChange} checked={this.state.ProjectType==='Group' } value ='Group' name ="ProjectType"/>} label="Group"  />
+            
               </div>
               </RadioGroup>
 
@@ -295,12 +265,20 @@ this.state = {
           </div>
           </div>
       </div>
+      <h1>{this.props.product}</h1>
       </div>
     );
   }
 }
+Project.propTypes = {
 
+  projectnames: PropTypes.object.isRequired,
+  
+};
+const mapStateToProps = state => ({
+  projectnames: state.projectnames, 
+});
 
 // export default AlertDialog;
 
-export default Project
+export default connect(mapStateToProps,{AddProject,getprojectnames,addmilstones})(Project)

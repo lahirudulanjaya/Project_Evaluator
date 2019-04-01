@@ -4,8 +4,6 @@ const _ = require('lodash')
 const Student = mongoose.model('Students')
 const Studentdetail =mongoose.model('Studentdetail')
 module.exports.register=(req,res,next)=>{
-    console.log(res.body.Registrationnumber)
-
     var student = new Student()
     student.UserName = req.body.UserName
     student.Email = req.body.Email

@@ -1,5 +1,7 @@
 
 import React,{Component} from 'react'
+import {addmilstones} from '../../../../../actions/milestoneActions'
+import {connect} from 'react-redux'
 
 class Products extends React.Component {
 
@@ -7,15 +9,19 @@ class Products extends React.Component {
       super(props);
   
       //  this.state.products = [];
-      this.state = {};
+      this.state = {
+        Milestones:[],
+        products:[]
+      };
       this.state.filterText = "";
       this.state.products = [
         {
           id: 1,
-          category: 'Sporting Goods',
-          price: '49.99',
-          qty: 12,
-          name: 'football'
+          name: 'football',
+          MilstoneType:'',
+          Markspresentatge: 12,
+          Grp_or_I: 'Group',
+          Duration:''
         }
       ];
   
@@ -30,17 +36,27 @@ class Products extends React.Component {
     };
   
     handleAddEvent(evt) {
+      this.setState({Milestones:[]})
       var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
       var product = {
         id: id,
         name: "",
-        price: "",
-        category: "",
-        qty: 0
+        Grp_or_I: "",
+        Markspresentatge: 0,
+        Duration:"",
+        MilstoneType:""
       }
       this.state.products.push(product);
       this.setState(this.state.products);
-  
+      this.state.Milestones.push(this.state.products);
+      console.log(this.state.products)
+    }
+    importMilestones=()=>{
+      const newdetatil={
+        Milestones :this.state.products
+    }
+    console.log(newdetatil)
+      this.props.addmilstones(newdetatil)
     }
   
     handleProductTable(evt) {
@@ -69,6 +85,7 @@ class Products extends React.Component {
         <div>
           <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)}/>
           <ProductTable onProductTableUpdate={this.handleProductTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} products={this.state.products} filterText={this.state.filterText}/>
+        <button onClick={this.importMilestones}>Add Milestone</button>
         </div>
       );
   
@@ -93,8 +110,12 @@ class Products extends React.Component {
   }
   
   class ProductTable extends React.Component {
+    
+ 
+   
   
     render() {
+      
       var onProductTableUpdate = this.props.onProductTableUpdate;
       var rowDel = this.props.onRowDel;
       var filterText = this.props.filterText;
@@ -123,7 +144,7 @@ class Products extends React.Component {
           <table className="table table-bordered">
             <thead>
               <tr>
-                <th>Milestone</th>
+                <th>name</th>
                 <th>Milestone Type</th>
                 <th>marks Presentage</th>
                 <th>Group or Individual</th>
@@ -139,6 +160,8 @@ class Products extends React.Component {
           </table>
           <button type="button" onClick={this.props.onRowAdd} className="btn btn-success pull-right">Add</button>
           
+
+
         </div>
       );
   
@@ -149,7 +172,6 @@ class Products extends React.Component {
   class ProductRow extends React.Component {
     onDelEvent() {
       this.props.onDelEvent(this.props.product);
-  
     }
     render() {
   
@@ -160,54 +182,56 @@ class Products extends React.Component {
             value: this.props.product.name,
             id: this.props.product.id
           }}/>
-          <td>
-            <select>
-              <option>Prestation</option>
-              <option>Documentation </option>
-              <option>Viva </option>
-            </select>
-          </td>
+          
+            <EditableCell  onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+            type:"MilstoneType",
+            value: this.props.product.MilstoneType,
+            id: this.props.product.id
+          }}>
+            </EditableCell>
+
           <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-            type: "qty",
-            value: this.props.product.qty,
+            type: "Markspresentatge",
+            value: this.props.product.Markspresentatge,
             id: this.props.product.id
           }}/>
           <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-            type: "category",
-            value: this.props.product.category,
+            type: "Grp_or_I",
+            value: this.props.product.Grp_or_I,
             id: this.props.product.id
           }}/>
-          <td className="pd-3">
-            <select>
-              <option>1 week</option>
-              <option>2 weeks</option>
-              <option>3 weeks</option>
-              <option>4 weeks</option>
-              <option>5 weeks</option>
-              <option>6 weeks</option>
-              <option>7 weeks</option>
-              <option>8 weeks</option>
-            </select>
-          </td>
+           
+           
+           <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+            type: "Duration",
+            value: this.props.product.Duration,
+            id: this.props.product.id
+            
+          }}
+          />
           <td className="del-cell">
             <input type="button" onClick={this.onDelEvent.bind(this)} value="X" className="del-btn"/>
           </td>
         </tr>
+        
+               
       );
   
     }
   
   }
   class EditableCell extends React.Component {
-  
+   
     render() {
       return (
+        
         <td>
           <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}/>
         </td>
+      
       );
   
     }
   
   }
-export default Products;  
+export default connect(null,{addmilstones})(Products);  
