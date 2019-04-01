@@ -11,13 +11,14 @@ class Products extends React.Component {
   
       //  this.state.products = [];
       this.state = {
+        idd:'',
         Milestones:[],
         products:[]
       };
       this.state.filterText = "";
       this.state.products = [
         {
-          id: 1,
+          id: '',
           name: 'football',
           MilstoneType:'',
           Markspresentatge: 12,
@@ -25,7 +26,8 @@ class Products extends React.Component {
           Duration:''
         }
       ];
-  
+      this.handleChange = this.handleChange.bind(this)
+
     }
     componentDidMount(){
       this.props.getprojectnames()
@@ -39,12 +41,23 @@ class Products extends React.Component {
       this.state.products.splice(index, 1);
       this.setState(this.state.products);
     };
+   
+    handleChange(e){
+      let index = e.nativeEvent.target.selectedIndex
+      let value = e.nativeEvent.target[index].text
+
+      this.setState({
+        idd: value,
+      })
+      
+   }
   
     handleAddEvent(evt) {
+      alert(this.state.idd)
       this.setState({Milestones:[]})
-      var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
+      var id = this.state.idd;
       var product = {
-        id:"",
+        id:id,
         name: "",
         Grp_or_I: "",
         Markspresentatge: 0,
@@ -92,7 +105,7 @@ class Products extends React.Component {
           <div className="row">
               <div className="col-md-4">
               <label for="projectSelect">Select Project</label>
-          <select class="form-control" id="projectSelect">
+          <select name="idd" class="form-control"  value={this.state.idd} onChange={this.handleChange}>
           {this.props.project.project.map((project) => <option key={project._id} value={project.Projectname}>{project.Projectname}</option>)}
               </select>
               </div>

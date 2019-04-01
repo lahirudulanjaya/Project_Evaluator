@@ -36,9 +36,9 @@ constructor(props){
 this.state = {
     open1: false,
     open:false,
-    Projectname:'',
+    Projectname:year,
     Acadamicyear:'',
-    ProjectInitailDate:'',
+    Initiatedate:'',
     year:year,
     ProjectType:'',
     errors:'',
@@ -56,6 +56,9 @@ this.state = {
     ]
   };
   this.handleChange = this.handleChange.bind(this)
+  this.handleChange1 = this.handleChange1.bind(this)
+  this.handleChange2 = this.handleChange2.bind(this)
+
 
 }
 componentDidMount(){
@@ -84,7 +87,7 @@ componentWillReceiveProps(nextProps) {
       Projectname:this.state.Projectname,
       Acadamicyear:this.state.Acadamicyear,
       ProjectType :this.state.ProjectType,
-      ProjectInitailDate:this.state.ProjectInitailDate
+      Initiatedate:this.state.Initiatedate
       }
       this.props.AddProject(Project)
   }
@@ -110,6 +113,15 @@ componentWillReceiveProps(nextProps) {
   handleChange(e){
     this.setState({[e.target.name]: e.target.value});
  }
+ handleChange1(e){
+  this.setState({[e.target.name]: e.target.value});
+  this.setState({Projectname:this.state.year+" _ "+e.target.value+" _ "+this.state.ProjectType })
+
+}
+handleChange2(e){  
+  this.setState({[e.target.name]: e.target.value});
+  this.setState({Projectname:this.state.year+" _ "+this.state.Acadamicyear+" _ "+e.target.value})
+}
 
 
   render() {
@@ -192,15 +204,19 @@ componentWillReceiveProps(nextProps) {
               value = {this.state.Projectname}
               onChange={this.handleChange}
               margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
               required
             />
             </div>
             <div>
             <TextField
               id="standard-name"
+              type="date"
               label="Project Initail Date"
-              name="ProjectInitailDate"
-              value={this.state.ProjectInitailDate}
+              name="Initiatedate"
+              value={this.state.Initiatedate}
               onChange={this.handleChange}
               margin="normal"
               required
@@ -214,12 +230,12 @@ componentWillReceiveProps(nextProps) {
                 aria-label="Academic Year"
                 name="acdemicYear"
                 value={this.state.value}
-                onChange={this.handleChange}
+                onChange={this.handleChange1}
               >
               <div pt-0>
-                <FormControlLabel value="2" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange} checked={this.state.Acadamicyear==='2'} name ="Acadamicyear"/>} label="2nd Year" />
-                <FormControlLabel value="3" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange} checked={this.state.Acadamicyear==='3'} name ="Acadamicyear"/>} label="3rd Year" />
-                <FormControlLabel value="4" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange} checked={this.state.Acadamicyear==='4'} name ="Acadamicyear"/>} label="4th Year" />
+                <FormControlLabel value="2" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange1} checked={this.state.Acadamicyear==='2'} name ="Acadamicyear"/>} label="2nd Year" />
+                <FormControlLabel value="3" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange1} checked={this.state.Acadamicyear==='3'} name ="Acadamicyear"/>} label="3rd Year" />
+                <FormControlLabel value="4" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange1} checked={this.state.Acadamicyear==='4'} name ="Acadamicyear"/>} label="4th Year" />
               </div>
               </RadioGroup>
 
@@ -231,11 +247,11 @@ componentWillReceiveProps(nextProps) {
                 aria-label="Gender"
                 name="type"
                 value={this.state.value}
-                onChange={this.handleChange}
+                onChange={this.handleChange2}
               >
               <div pt-0>
-                <FormControlLabel value="individual" name="type" control={<Radio color="primary" onChange={this.handleChange} checked={this.state.ProjectType==='Individual' } value='Individual' name ="ProjectType"/>} label="Individual" />
-                <FormControlLabel value="group" name="type" control={<Radio color="primary"onChange={this.handleChange} checked={this.state.ProjectType==='Group' } value ='Group' name ="ProjectType"/>} label="Group"  />
+                <FormControlLabel value="individual" name="type" control={<Radio color="primary" onChange={this.handleChange2} checked={this.state.ProjectType==='Individual' } value='Individual' name ="ProjectType"/>} label="Individual" />
+                <FormControlLabel value="group" name="type" control={<Radio color="primary"onChange={this.handleChange2} checked={this.state.ProjectType==='Group' } value ='Group' name ="ProjectType"/>} label="Group"  />
             
               </div>
               </RadioGroup>
