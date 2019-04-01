@@ -4,7 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
-
+import Projecttable from './Component/project_table'
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -90,6 +90,7 @@ componentWillReceiveProps(nextProps) {
       Initiatedate:this.state.Initiatedate
       }
       this.props.AddProject(Project)
+      this.props.getprojectnames()
   }
   addMilstones=()=>{
 
@@ -132,7 +133,11 @@ handleChange2(e){
         <div className="col-sm-3">
           <Sidebar/>
         </div>
+
       <div className="col-sm-9">
+      <h2>Current Projects</h2>
+      <Projecttable></Projecttable>
+
       <div className="row">
         <div className="col-sm-4 pt-3">
           <MDBCard>
@@ -283,8 +288,11 @@ handleChange2(e){
                 <MenuItem value={30}>Thirty</MenuItem>
               </Select>
               </div> */}
+              
           </div>
+       
           </div>
+         
       </div>
       
       </div>

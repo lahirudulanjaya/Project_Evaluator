@@ -1,5 +1,5 @@
 import axios from'axios'
-import {GET_PROJECT_NAMES} from './types'
+import {GET_PROJECT_NAMES,GET_ALL_PROJECTS} from './types'
 import {GET_ERRORS} from './types'
 import {ADD_PROJECT}from './types'
 import swal from 'sweetalert';
@@ -36,5 +36,22 @@ export const AddProject =(project)=>dispatch=>{
       swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
       console.log(err.response.data)
     })
+}
+export const getallprojects =()=>dispatch=>{
+    axios.get("http://localhost:4000/api/pg/getallprojects")
+    .then(res=>{
+        dispatch({
+            type : GET_ALL_PROJECTS,
+            payload:res.data
+        })
+    })
+    .catch(
+        err=>{
+            dispatch({
+                type :GET_ERRORS,
+                payload:err.response.data
+            })
+        }
+    )
 }
 

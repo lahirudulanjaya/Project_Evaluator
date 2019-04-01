@@ -45,13 +45,23 @@ module.exports.updateproject =(req,res,err)=>{
         }
     })
 }
-module.exports.deleteproject=(re,res,err)=>{
+module.exports.deleteproject=(req,res,err)=>{
     Project.findByIdAndDelete({_id:req.body._id},(err,doc)=>{
         if(!err){
             res.send(doc)
         }
         else{
             res.status(422).send("Delete Failed")
+        }
+    })
+}
+module.exports.getallprojects =(req,res,err)=>{
+    Project.find({},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).send(err)
         }
     })
 }
