@@ -15,5 +15,6 @@ router.post('/pg/addproject',CtrlProject.addproject)
 router.post('/pg/importstudent',CtrlStudent.Importstudent)
 router.get('/pg/getprojectsnames',CtrlProject.getprojectsnames)
 router.get('/pg/getallprojects',CtrlProject.getallprojects)
+router.put('/pg/changestatus',CtrlProject.updatestate)
 module.exports=router 
 

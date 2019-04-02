@@ -1,5 +1,5 @@
 import axios from'axios'
-import {GET_PROJECT_NAMES,GET_ALL_PROJECTS} from './types'
+import {GET_PROJECT_NAMES,GET_ALL_PROJECTS,CHANGE_STATE} from './types'
 import {GET_ERRORS} from './types'
 import {ADD_PROJECT}from './types'
 import swal from 'sweetalert';
@@ -53,5 +53,21 @@ export const getallprojects =()=>dispatch=>{
             })
         }
     )
+}
+export const ChangeStatus =(Statausdata)=>dispatch=>{
+    
+    axios.put("http://localhost:4000/api/pg/changestatus",Statausdata).then(res=>{
+
+      swal({
+        title: "Good job!",
+        text: "You have succesfully Change Status!",
+        icon: "success",
+      });
+    }
+    )
+    .catch(err=>{
+      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+      console.log(err.response.data)
+    })
 }
 
