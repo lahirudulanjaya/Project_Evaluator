@@ -1,17 +1,24 @@
 import React,{Component} from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
-import {getallprojects} from '../../../../../actions/ProjectActions'
+import {getallprojects,ChangeStatus} from '../../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
 
 class Projecttable extends React.Component{
     constructor(props){
         super(props)
+        this.state={
+          currentproject:{}
+        }
 
     }
 componentDidMount(){
     this.props.getallprojects()
 }
 
+changeState=(projects)=>{
+
+this.props.ChangeStatus(projects)
+}
 
 render(){
   return (
@@ -41,8 +48,8 @@ render(){
           <td >{projects.ProjectType}</td>
           <td >{projects.Status.toString()                            
               }</td>
-          <td key={projects._id}><MDBBtn  size="sm">Click</MDBBtn></td>
-
+          <td key={projects._id}><MDBBtn  onClick ={()=>this.props.ChangeStatus(projects)} size="sm">Click</MDBBtn ></td>
+         
           </tr>
 
           )}
@@ -84,4 +91,4 @@ const mapStateToProps = state => {
    
   }};
 
-export default connect(mapStateToProps,{getallprojects})(Projecttable);
+export default connect(mapStateToProps,{getallprojects,ChangeStatus})(Projecttable);

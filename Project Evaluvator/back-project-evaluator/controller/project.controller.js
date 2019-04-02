@@ -65,3 +65,14 @@ module.exports.getallprojects =(req,res,err)=>{
         }
     })
 }
+
+module.exports.updatestate=(req,res,err)=>{
+    Project.findOneAndUpdate({_id:req.body._id},{$set:{Status:!req.body.Status}},function(err,doc){
+        if(!err){
+            res.send(doc)
+        }
+        else{
+console.log(err)
+        }
+    })
+}

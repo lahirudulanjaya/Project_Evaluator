@@ -6,7 +6,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Projecttable from './Component/project_table'
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -18,9 +17,17 @@ import {AddProject,getprojectnames} from '../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
 import {addmilstones} from '../../../../actions/milestoneActions'
 import { prototype } from 'module';
-const styles =  {
-  dialogPaper:{
-    width:'400px',
+import blue from '@material-ui/core/colors/blue';
+import { withStyles } from '@material-ui/core/styles';
+
+
+const styles = {
+  DialogContent: {
+    
+  },
+  Dialog: {
+    backgroundColor: blue[100],
+    color: blue[600],
   }
 };
 
@@ -148,12 +155,13 @@ handleChange2(e){
             </MDBCardBody>
           </MDBCard>
             <Dialog 
+            fullWidth={true}
+            maxWidth='xl'
               open={this.state.open}
               onClose={this.handleClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
+              aria-labelledby="responsive-dialog-title"
             >
-              <DialogTitle id="alert-dialog-title"></DialogTitle>
+              <DialogTitle id="responsive-dialog-title"><FormLabel><b>Define MIlestones for Project</b></FormLabel></DialogTitle>
               <DialogContent >
              
       <Products></Products>
@@ -195,12 +203,12 @@ handleChange2(e){
               aria-labelledby="alert-dialog-title1"
               aria-describedby="alert-dialog-description"
             >
-              <DialogTitle id="alert-dialog-title1"></DialogTitle>
+              <DialogTitle id="alert-dialog-title1"><FormLabel><b>Create New Project</b></FormLabel></DialogTitle>
               <DialogContent>
           
             
             <form noValidate autoComplete="off">
-            <FormLabel><b>Create New Project</b></FormLabel>
+            
             <div>
             <TextField
               id="standard-name"
@@ -313,4 +321,4 @@ const mapStateToProps = state => {
 
 // export default AlertDialog;
 
-export default connect(mapStateToProps,{AddProject,getprojectnames,addmilstones})(Project)
+export default connect(mapStateToProps,{AddProject,getprojectnames,addmilstones})(withStyles(styles)(Project))
