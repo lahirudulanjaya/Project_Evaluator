@@ -14,7 +14,7 @@ import  Register from './Components/Auth/Register/Register';
 
 import Project from './Components/P_coordinator/Pages/Project/Project'
 import Test from './Components/Register/Register';
-
+import Milestones from './Components/P_coordinator/Pages/Project/Milestones'
 
 import {Provider } from 'react-redux'
 import Navbar from './Components/Navbar/Navbar';
@@ -45,7 +45,7 @@ class App extends Component {
         <Route exact path = "/pg" component ={Pcoordinator}/>
         <Route  exact path = "/pg/project" component={Project}/>
         <Route exact path = "/sc" component ={Scoordinator}/>
-
+      <Route exact path = "/pg/project/milestone"  component={Milestones}/>
         <Route component={PageNotFound} />
         </Switch>
       </div>
