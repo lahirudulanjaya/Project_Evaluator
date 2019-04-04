@@ -28,10 +28,14 @@ const styles = theme => ({
 class NestedList extends React.Component {
   state = {
     open: false,
+    open1:false
   };
 
   handleClick = () => {
     this.setState(state => ({ open: !state.open }));
+  };
+  handleClick1 = () => {
+    this.setState(state => ({ open1: !state.open1 }));
   };
 
   render() {
@@ -86,14 +90,40 @@ class NestedList extends React.Component {
             </NavLink>
           </List>
         </Collapse>
-        <NavLink exact={true} to="/pg/project" activeClassName="activeClass">
-            <ListItem>
-                <ListItemIcon>
-                <i class="fas fa-project-diagram"></i>
-                </ListItemIcon>
+       
+
+
+        <ListItem button onClick={this.handleClick1}>
+          <ListItemIcon>
+          <i class="fas fa-project-diagram"></i>
+          </ListItemIcon>
+          <ListItemText inset primary="Projects" />
+          {this.state.open1 ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={this.state.open1} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+          <NavLink exact={true} to="/pg/project" activeClassName="activeClass">
+                <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                    <i class="fas fa-project-diagram"></i>
+                    </ListItemIcon>
                     <ListItemText inset primary="Projects" />
-            </ListItem>
-        </NavLink>
+                </ListItem>
+            </NavLink>
+            <NavLink exact={true} to="/pg/project/milestone" activeClassName="activeClass">
+                <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    </ListItemIcon>
+                    <ListItemText inset primary="Evalutor" />
+                </ListItem>
+            </NavLink>
+            
+          </List>
+        </Collapse>
+
+
+
       </List>
     );
   }

@@ -19,6 +19,7 @@ class Products extends React.Component {
       this.state.products = [
         {
           id: '',
+          Projectname: this.props.project.project[0].Projectname,
           name: 'football',
           MilstoneType:'',
           Markspresentatge: 12,
@@ -33,6 +34,12 @@ class Products extends React.Component {
       this.props.getprojectnames()
      //  this.props.project.map()
      }
+     componentWillMount(){
+     
+      // eslint-disable-next-line no-undef
+     
+     }
+       
     handleUserInput(filterText) {
       this.setState({filterText: filterText});
     };
@@ -55,9 +62,10 @@ class Products extends React.Component {
     handleAddEvent(evt) {
       alert(this.state.idd)
       this.setState({Milestones:[]})
-      var id = this.state.idd;
+      var id = 1;
       var product = {
         id:id,
+        Projectname:this.state.idd,
         name: "",
         Grp_or_I: "",
         Markspresentatge: 0,
@@ -110,6 +118,7 @@ class Products extends React.Component {
               </select>
               </div>
               </div>
+              {console.log(this.props.milestone)}
           <ProductTable onProductTableUpdate={this.handleProductTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} products={this.state.products} filterText={this.state.filterText}/>
         <button onClick={this.importMilestones}>Add Milestone</button>
         </div>
