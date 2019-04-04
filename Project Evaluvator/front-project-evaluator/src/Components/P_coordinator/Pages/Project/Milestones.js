@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {getmilestones} from '../../../../actions/milestoneActions'
 import {connect} from 'react-redux'
 import {getprojectnames} from '../../../../actions/ProjectActions'
-
+import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
 
 class Milestones extends Component {
   constructor(props){
@@ -27,6 +27,13 @@ class Milestones extends Component {
    
 
   }
+  showTable=()=>{
+
+  }
+  onClick=()=>{
+    console.log(this.props.milestone)
+    
+  }
   componentDidMount(){
     this.props.getprojectnames()
     
@@ -40,8 +47,11 @@ class Milestones extends Component {
         <h1>hii</h1>
        
         <select  class="form-control" value={this.state.id} onChange={this.handleChange} >
+        {console.log(this.props.ss)}
           {this.props.project.project.map((project) => <option key={project._id} value={project.Projectname}>{project.Projectname}</option>)}
               </select>
+              <button onClick={this.onClick}>show milestones</button>
+              <BasicTable></BasicTable>
       </div>
     )
   }
@@ -58,3 +68,38 @@ const mapStateToProps = state => {
 
 
 export default connect(mapStateToProps,{getmilestones,getprojectnames})(Milestones);
+
+export const BasicTable = props => {
+  return (
+    <MDBTable>
+      <MDBTableHead color="primary-color" textWhite>
+        <tr>
+          <th>#</th>
+          <th>First</th>
+          <th>Last</th>
+          <th>Handle</th>
+        </tr>
+      </MDBTableHead>
+      <MDBTableBody>
+        <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </MDBTableBody>
+    </MDBTable>
+  );
+}

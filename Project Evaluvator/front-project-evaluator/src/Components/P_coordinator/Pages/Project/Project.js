@@ -198,6 +198,8 @@ handleChange2(e){
               </MDBCardBody>
             </MDBCard>
             <Dialog
+             fullWidth={true}
+             maxWidth='sm'
               open={this.state.open1}
               onClose={this.handleClose1}
               aria-labelledby="alert-dialog-title1"
@@ -257,6 +259,7 @@ handleChange2(e){
               <FormLabel component="legend">Project Type</FormLabel>
 
               <RadioGroup
+
                 aria-label="Gender"
                 name="type"
                 value={this.state.value}

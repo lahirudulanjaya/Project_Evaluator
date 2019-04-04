@@ -92,3 +92,7 @@ const mapStateToProps = state => {
   }};
 
 export default connect(mapStateToProps,{getallprojects,ChangeStatus})(Projecttable);
+
+
+
+

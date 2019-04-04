@@ -32,7 +32,6 @@ class Products extends React.Component {
     }
     componentDidMount(){
       this.props.getprojectnames()
-      this.props.getmilestones()
      //  this.props.project.map()
      }
      componentWillMount(){
