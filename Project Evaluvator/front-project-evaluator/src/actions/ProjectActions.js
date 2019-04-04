@@ -63,11 +63,13 @@ export const ChangeStatus =(Statausdata)=>dispatch=>{
         text: "You have succesfully Change Status!",
         icon: "success",
       });
+     
     }
     )
     .catch(err=>{
       swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
       console.log(err.response.data)
     })
+
 }
 

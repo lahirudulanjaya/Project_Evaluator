@@ -7,17 +7,29 @@ class Projecttable extends React.Component{
     constructor(props){
         super(props)
         this.state={
-          currentproject:{}
+          currentproject:{},
+          projects:[]
         }
+        this.props.getallprojects()
 
     }
 componentDidMount(){
-    this.props.getallprojects()
+    
+}
+componentWillMount(){
+  this.props.getallprojects()
+
 }
 
-changeState=(projects)=>{
 
+changeState=(projects)=>{
+this.props.getallprojects()
 this.props.ChangeStatus(projects)
+
+}
+componentWillReceiveProps(nextprops){
+  this.setState({projects:nextprops.project.projects})
+  console.log(nextprops)
 }
 
 render(){
@@ -38,7 +50,7 @@ render(){
       </MDBTableHead>
       <MDBTableBody>
      
-          {this.props.project.projects.map((projects) => 
+          {this.state.projects.map((projects) => 
          <tr>
     
         <td >{""}</td>
@@ -48,7 +60,7 @@ render(){
           <td >{projects.ProjectType}</td>
           <td >{projects.Status.toString()                            
               }</td>
-          <td key={projects._id}><MDBBtn  onClick ={()=>this.props.ChangeStatus(projects)} size="sm">Click</MDBBtn ></td>
+          <td key={projects._id}><MDBBtn  onClick ={()=>this.changeState(projects)} size="sm">Click</MDBBtn ></td>
          
           </tr>
 
@@ -88,7 +100,7 @@ const mapStateToProps = state => {
     return{
   
     project: state.project, 
-   
+   dd:state
   }};
 
 export default connect(mapStateToProps,{getallprojects,ChangeStatus})(Projecttable);

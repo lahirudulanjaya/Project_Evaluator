@@ -22,6 +22,12 @@ var Milestoneschema = new mongoose.Schema(
         },
         Duration:{
             type:String
+        },
+        start:{
+            default:false
+        },
+        stop:{
+            default:false
         }
 
 
