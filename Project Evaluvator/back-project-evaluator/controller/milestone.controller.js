@@ -15,7 +15,7 @@ module.exports.addmilestone=(req,res,next)=>{
 }
 
 module.exports.getmilstones=(req,res,next)=>{
-    Milestone.findOne({Projectname:req.params.Projectname},function(err,project){
+    Milestone.find({Projectname:req.params.Projectname},function(err,project){
         if(!err){
             res.status(200).send(project)
         }

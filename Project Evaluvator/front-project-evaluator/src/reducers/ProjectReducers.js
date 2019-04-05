@@ -1,9 +1,9 @@
-import {GET_PROJECT_NAMES}  from "../actions/types";
-import {ADD_PROJECT} from "../actions/types";
+import {GET_PROJECT_NAMES,GET_ALL_PROJECTS}  from "../actions/types";
+import {ADD_PROJECT,CHANGE_STATE,GET_MILSTONES} from "../actions/types";
 
 const initialState ={
-    projectnames:{},
-    name:"eded"
+    project:[],
+    projects:[]
 };
 
 export default function(state =initialState,action){
@@ -16,8 +16,19 @@ export default function(state =initialState,action){
         case GET_PROJECT_NAMES:
             return {
                 ...state,
-                projectnames:action.payload
+                project:action.payload
             }
+        case GET_ALL_PROJECTS:
+            return {
+                ...state,
+                projects:action.payload
+            }
+        case CHANGE_STATE:
+            return{
+                ...state,
+                status:action.payload
+            }
+        
         default:
             return state
         
