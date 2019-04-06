@@ -16,6 +16,7 @@ import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
 import {connect} from 'react-redux'
 import './Student.css'
+import EnhancedTable from './tablebyYear'
 
 var nodemailer = require('nodemailer');
 
@@ -131,9 +132,50 @@ uploadtoDB=()=>{
         <MDBBtn color="default" onClick={this.sendmail}>
         <MDBIcon icon="magic" className="mr-1"  /> Send Emails
       </MDBBtn>
-      </div>
-      <MDBTable responsive>
 
+
+
+      <div className="col-sm-4 pt-3">
+            <MDBBtn variant="outlined" color="primary" id ="add" size="lg" onClick={this.handleClickOpen}>
+              Add Student Details
+            </MDBBtn>
+            <Dialog
+              open={this.state.open}
+              onClose={this.handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title"></DialogTitle>
+              <DialogContent>
+              <form noValidate autoComplete="off">
+<div>
+                <FormLabel><b>Import Student Details</b></FormLabel>
+                </div>
+
+                <RaisedButton
+                 color="primary" 
+            containerElement='label' // <-- Just add me!
+            label='My Label'>
+            <input type="file" onChange={this.uploadfile}/>
+            </RaisedButton>
+         
+          <Button variant="contained" color="primary" onClick={this.uploadtoDB} >
+        Submit
+      </Button>
+      
+      </form>
+              </DialogContent>
+              </Dialog>
+             
+              </div>
+
+
+              <h3>Current Student details</h3>
+
+      </div>
+     
+      <MDBTable responsive>
+     
 <MDBTableHead color="primary-color" textWhite>
   <tr>
     <th>#</th>
@@ -173,38 +215,10 @@ uploadtoDB=()=>{
 
 </MDBTable>
 
-        <div className="col-sm-4 pt-3">
-            <Button variant="outlined" color="primary" id ="add" onClick={this.handleClickOpen}>
-              Add
-            </Button>
-            <Dialog
-              open={this.state.open}
-              onClose={this.handleClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title"></DialogTitle>
-              <DialogContent>
-              <form noValidate autoComplete="off">
-<div>
-                <FormLabel><b>Import Student Details</b></FormLabel>
-                </div>
+<h1>Create Groups</h1>
+<EnhancedTable></EnhancedTable>
 
-                <RaisedButton
-                 color="primary" 
-            containerElement='label' // <-- Just add me!
-            label='My Label'>
-            <input type="file" onChange={this.uploadfile}/>
-            </RaisedButton>
-         
-          <Button variant="contained" color="primary" onClick={this.uploadtoDB} >
-        Submit
-      </Button>
-      
-      </form>
-              </DialogContent>
-              </Dialog>
-              </div>
+        
                 </div>
                 </div>
                 </div>

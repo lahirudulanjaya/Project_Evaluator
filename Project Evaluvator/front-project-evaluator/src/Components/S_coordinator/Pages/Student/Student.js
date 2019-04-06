@@ -9,7 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import EnhancedTable from './tablebyYear'
 class Student extends Component{
     state={
         open:false
@@ -67,6 +67,7 @@ class Student extends Component{
               </DialogContent>
               </Dialog>
               </div>
+              
                 </div>
                 </div>
                 </div>

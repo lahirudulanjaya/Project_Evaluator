@@ -125,5 +125,16 @@ module.exports.sendemail =(req,res,next)=>{
       });
 }
 
+module.exports.getstudentsbyYear =(req,res,next)=>{
+    Studentdetail.find({Registrationnumber:new RegExp(req.params.year)},'Registrationnumber Name',(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).send(err)
+        }
+    })
+}
+
 
 

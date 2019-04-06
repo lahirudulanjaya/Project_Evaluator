@@ -18,5 +18,6 @@ router.get('/pg/getallprojects',CtrlProject.getallprojects)
 router.put('/pg/changestatus',CtrlProject.updatestate)
 router.get('/pg/getstudentdetails',CtrlStudent.getallStudentdetail)
 router.get('/pg/sendmails',CtrlStudent.sendemail)
+router.get('/pg/getstudents/:year',CtrlStudent.getstudentsbyYear)
 module.exports=router 
 
