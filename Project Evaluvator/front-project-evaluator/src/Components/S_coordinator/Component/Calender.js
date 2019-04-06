@@ -37,14 +37,21 @@ class Calender extends React.Component{
         const { classes } = this.props;
 
         return (
-            <div style={{height:500}}>
-      <BigCalendar
-        localizer={localizer}
-        events={myEventsList}
-        startAccessor="start"
-        endAccessor="end"
-      />
-    </div>
+          <div className="container">
+          <div className="row">
+            <div className="col-md-8">
+              <div style={{height:500}}>
+              <BigCalendar
+                localizer={localizer}
+                events={myEventsList}
+                startAccessor="start"
+                endAccessor="end"
+                />
+              </div>
+            </div>
+            <div className="col-md-4"></div>
+          </div>
+          </div>
         );
     }
 
