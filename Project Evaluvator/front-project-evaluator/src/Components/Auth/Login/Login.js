@@ -108,7 +108,7 @@ class Login extends Component{
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
-          <MDBCol sm="3"></MDBCol>
+          <MDBCol sm="6"></MDBCol>
         </MDBRow>
       </MDBContainer>
     )

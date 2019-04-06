@@ -115,7 +115,7 @@ class NestedList extends React.Component {
                     <ListItemIcon>
                     <i class="fas fa-chalkboard-teacher"></i>
                     </ListItemIcon>
-                    <ListItemText inset primary="Evalutor" />
+                    <ListItemText inset primary="Milestones" />
                 </ListItem>
             </NavLink>
             
