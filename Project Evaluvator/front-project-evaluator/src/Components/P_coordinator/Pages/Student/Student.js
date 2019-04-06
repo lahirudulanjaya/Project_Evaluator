@@ -15,6 +15,11 @@ const studentdetail ={
   Registrationnumber :String,
   Name:String
 }
+var divStyle={
+  background:"#6699FF",
+  height: "700px",
+};
+
 class Student extends Component{
   constructor(props){
     super(props)
@@ -77,7 +82,7 @@ uploadtoDB=()=>{
         return(
           <div className="container-fluid">
             <div className="row">
-            <div className="col-sm-3">
+            <div className="col-sm-3" style={divStyle}>
           <Sidebar/>
                 </div>
 

@@ -17,8 +17,7 @@ import { blue } from '@material-ui/core/colors';
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    maxWidth: 360,
+    maxWidth: 300,
     backgroundColor: "#CCFFCC",
     borderRightStyle : "solid",
     borderColor :"blue"
