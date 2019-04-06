@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import {getmilestones} from '../../../../actions/milestoneActions'
 import {connect} from 'react-redux'
 import {getprojectnames} from '../../../../actions/ProjectActions'
-import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
+
+import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBBadge} from 'mdbreact';
 import Sidebar from '../../Component/Sidebar2';
+import './Milestone.css'
+import FormLabel from '@material-ui/core/FormLabel';
 
 var divStyle={
   background:"#6699FF",
@@ -11,8 +14,8 @@ var divStyle={
   height: "700px",
 };
 
-
-class Milestones extends Component {
+class Milestones extends Component
+{
 
   constructor(props){
     super(props)
@@ -21,9 +24,7 @@ class Milestones extends Component {
       milestones:[]
     }
     this.handleChange = this.handleChange.bind(this)
-    
-  
-  }
+}
   handleChange(e){
     let index = e.nativeEvent.target.selectedIndex
     let value = e.nativeEvent.target[index].text
@@ -32,48 +33,88 @@ class Milestones extends Component {
       id: value,
     })
     this.props.getmilestones(value)
-
-   
-
   }
   showTable=()=>{
 
   }
-  onClick=()=>{
-    console.log(this.props.milestone)
-    
-  }
+
   componentDidMount(){
     this.props.getprojectnames()
     
   }
-  componentWillMount(){
-
-  }
+ componentWillReceiveProps(nextprops){
+   this.setState({milestones:nextprops.milestone.milestone})
+ }
   render() {
     return (
-      <div className='container-fluid'>
-        <div className='row'>
-          <div className='col-sm-3' style={divStyle}>
-            <Sidebar></Sidebar>
-          </div>
-          <div className='col-sm-9'>
-            <h1>hii</h1>
-          <div className="row">
-            <div className="col-sm-3 pb-3 pt-2"> 
-              <select  class="form-control" value={this.state.id} onChange={this.handleChange} >
-              {console.log(this.props.ss)}
-                {this.props.project.project.map((project) => <option key={project._id} value={project.Projectname}>{project.Projectname}</option>)}
-                    </select>
-            </div>
-            <div className="col-sm-3 pb-3">
-              <a className="btn btn-primary" onClick={this.onClick}>show milestones</a>
-            </div>
-          </div>
-                  <BasicTable></BasicTable>
-          </div>
+
+      <div className="row">
+       <div className="col-sm-3">
+          <Sidebar/>
         </div>
-      </div>
+        <div className="col-sm-9">
+        <div className="row">
+<h4><b>select project</b></h4>
+        <select  className="form-control" value={this.state.id} onChange={this.handleChange} >
+       
+          {this.props.project.project.map((project) => <option  value={project.Projectname}>{project.Projectname}</option>)}
+              </select>
+              
+        
+              <MDBTable responsive>
+      <MDBTableHead color="primary-color" textWhite>
+        <tr>
+          <th>Milestone</th>
+          <th>Time Duration(weeks)</th>
+          <th>start</th>
+          <th>finish</th>
+          
+        </tr>
+      </MDBTableHead>
+      <MDBTableBody>
+              {this.state.milestones.map(milestones=>
+          <tr>
+          <td>{milestones.name}</td>
+          <td>{milestones.Duration}</td>
+          <td><MDBBtn>{milestones.start.toString()}</MDBBtn></td>
+          <td><MDBBtn>{milestones.stop.toString()}</MDBBtn></td>
+
+
+          </tr>
+        )}
+        </MDBTableBody>
+
+      </MDBTable>
+
+             </div>
+             </div>
+             </div>
+           
+             
+
+//       <div className='container-fluid'>
+//         <div className='row'>
+//           <div className='col-sm-3' style={divStyle}>
+//             <Sidebar></Sidebar>
+//           </div>
+//           <div className='col-sm-9'>
+//             <h1>hii</h1>
+//           <div className="row">
+//             <div className="col-sm-3 pb-3 pt-2"> 
+//               <select  class="form-control" value={this.state.id} onChange={this.handleChange} >
+//               {console.log(this.props.ss)}
+//                 {this.props.project.project.map((project) => <option key={project._id} value={project.Projectname}>{project.Projectname}</option>)}
+//                     </select>
+//             </div>
+//             <div className="col-sm-3 pb-3">
+//               <a className="btn btn-primary" onClick={this.onClick}>show milestones</a>
+//             </div>
+//           </div>
+//                   <BasicTable></BasicTable>
+//           </div>
+//         </div>
+//       </div>
+
     )
   }
 }
@@ -90,37 +131,3 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps,{getmilestones,getprojectnames})(Milestones);
 
-export const BasicTable = props => {
-  return (
-    <MDBTable>
-      <MDBTableHead color="primary-color" textWhite>
-        <tr>
-          <th>#</th>
-          <th>First</th>
-          <th>Last</th>
-          <th>Handle</th>
-        </tr>
-      </MDBTableHead>
-      <MDBTableBody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </MDBTableBody>
-    </MDBTable>
-  );
-}

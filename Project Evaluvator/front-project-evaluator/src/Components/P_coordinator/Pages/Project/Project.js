@@ -93,6 +93,7 @@ componentWillReceiveProps(nextProps) {
   if (nextProps.errors) {
     this.setState({ errors: nextProps.errors });
   }
+  console.log(nextProps)
 }
 
  
@@ -153,8 +154,10 @@ handleChange2(e){
         </div>
   
       <div className="col-sm-9">
+
       <h2><b><u>Current Projects</u></b></h2>
       <Projecttable></Projecttable>
+
 
       <div className="row">
         <div className="col-sm-4 pt-3">
