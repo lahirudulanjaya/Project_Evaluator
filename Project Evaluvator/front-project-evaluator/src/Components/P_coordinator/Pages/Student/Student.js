@@ -11,18 +11,45 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 import swal from 'sweetalert';
-const studentdetail ={
-  Registrationnumber :String,
-  Name:String
-}
+import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBIcon} from 'mdbreact';
+import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
+import {connect} from 'react-redux'
+import './Student.css'
+
+var nodemailer = require('nodemailer');
+
+
 class Student extends Component{
   constructor(props){
     super(props)
     this.state={
       open:false,
-      arr :[]
+      arr :[],
+      students:[]
   }
     this.uploadfile = this.uploadfile.bind(this)
+    this.props.getstudentdetails()
+
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({students:nextProps.student.students})
+
+  }
+  sendmail(){
+   axios.get("http://localhost:4000/api/pg/sendmails").then(
+     res=>{
+      swal({
+        title: "Good job!",
+        text: "You have succesfully send emails!",
+        icon: "success",
+      });
+
+     })
+     .catch(err=>{
+      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+      console.log(err.response.data)
+    })
   }
     
     handleClickOpen = () => {
@@ -65,6 +92,7 @@ uploadtoDB=()=>{
           text: "You have succesfully registered!",
           icon: "success",
         });
+        this.props.getstudentdetails()
       })
       .catch(err=>{
         swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
@@ -76,13 +104,63 @@ uploadtoDB=()=>{
     render(){
         return(
             <div className="row">
+ 
+
             <div className="col-sm-3">
           <Sidebar/>
                 </div>
 
         
                 <div className="col-sm-9">
+                
       <div className="row">
+      <div className="reg">
+        send email to register
+        <MDBBtn color="default" onClick={this.sendmail}>
+        <MDBIcon icon="magic" className="mr-1"  /> Send Emails
+      </MDBBtn>
+      </div>
+      <MDBTable responsive>
+
+<MDBTableHead color="primary-color" textWhite>
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Registration Number</th>
+    <th>isRegistered</th>
+   <th>Delete</th>
+   <th>Change</th>
+  </tr>
+</MDBTableHead>
+<MDBTableBody>
+
+    {this.state.students.map((students) => 
+    
+   <tr>
+
+  <td >{""}</td>
+    <td >{students.Name}</td>
+    <td >{students.Email}</td>
+    <td >{students.Registrationnumber}</td>
+    <td >{students.isRegistered.toString()}</td>
+
+    
+    <td key={students._id}><MDBBtn  onClick ={()=>this.changeState(students)} size="sm">Click</MDBBtn ></td>
+    <td ><MDBBtn  onClick ={()=>this.changeState(students)} size="sm">Change</MDBBtn ></td>
+
+    </tr>
+
+    )}
+
+
+          
+
+ 
+</MDBTableBody>
+
+</MDBTable>
+
         <div className="col-sm-4 pt-3">
             <Button variant="outlined" color="primary" id ="add" onClick={this.handleClickOpen}>
               Add
@@ -123,5 +201,10 @@ uploadtoDB=()=>{
 
 
 }
+const mapStateToProps=(state)=>{
+  return{
+student :state.studentDetail
+  }
+}
 
-export default  Student
+export default connect(mapStateToProps,{getstudentdetails})(Student)

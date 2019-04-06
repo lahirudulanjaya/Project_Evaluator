@@ -3,6 +3,15 @@ const passport = require('passport')
 const _ = require('lodash')
 const Student = mongoose.model('Students')
 const Studentdetail =mongoose.model('Studentdetail')
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'laahirudulanjaya@gmail.com',
+    pass: 'Passward1223*'
+  }
+});
 module.exports.register=(req,res,next)=>{
     var student = new Student()
     student.UserName = req.body.UserName
@@ -76,4 +85,45 @@ module.exports.Importstudent =(req,res,next)=>{
         }
     })
 }
+
+module.exports.getallStudentdetail =(req,res,next)=>{
+
+    Studentdetail.find({},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else
+        {
+            res.status(422).send(err)
+        }
+    })
+}
+module.exports.sendemail =(req,res,next)=>{
+    var maillist=[]
+
+    Studentdetail.find({isRegistered:false},{'Email':1,'_id':0},(err,doc)=>{
+        if(!err){
+           doc.forEach((Email)=>{
+            maillist.push(Email.Email)
+            })
+            console.log(maillist)
+        }
+    })
+    var mailOptions = {
+        from: 'laahirudulanjaya@gmail.com',
+        to: maillist,
+        subject: 'Sending Email using Node.js',
+        text: 'That was easy!'
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          res.status(422).send(error)
+        } else {
+          res.status(200).json(info)
+        }
+      });
+}
+
+
 

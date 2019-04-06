@@ -6,6 +6,13 @@ var Studentdetailschema= new mongoose.Schema(
         },
         Name:{
             type:String
+        },
+        Email:{
+            type:String
+        },
+        isRegistered:{
+            type:Boolean,
+            default:false
         }
     }
 )
