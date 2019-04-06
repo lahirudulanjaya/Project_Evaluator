@@ -11,12 +11,23 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 import swal from 'sweetalert';
+
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
 import {connect} from 'react-redux'
 import './Student.css'
 
 var nodemailer = require('nodemailer');
+
+
+const studentdetail ={
+  Registrationnumber :String,
+  Name:String
+}
+var divStyle={
+  background:"#6699FF",
+  height: "700px",
+};
 
 
 class Student extends Component{
@@ -103,10 +114,11 @@ uploadtoDB=()=>{
 
     render(){
         return(
+          <div className="container-fluid">
             <div className="row">
- 
 
-            <div className="col-sm-3">
+            <div className="col-sm-3" style={divStyle}>
+
           <Sidebar/>
                 </div>
 
@@ -196,6 +208,7 @@ uploadtoDB=()=>{
                 </div>
                 </div>
                 </div>
+          </div>
         )
     }
 
