@@ -75,6 +75,7 @@ uploadtoDB=()=>{
 
     render(){
         return(
+          <div className="container-fluid">
             <div className="row">
             <div className="col-sm-3">
           <Sidebar/>
@@ -118,6 +119,7 @@ uploadtoDB=()=>{
                 </div>
                 </div>
                 </div>
+          </div>
         )
     }
 

@@ -28,8 +28,18 @@ const styles = {
   Dialog: {
     backgroundColor: blue[100],
     color: blue[600],
-  }
+  },
 };
+var divStyle={
+  background:"#6699FF",
+  height: "700px",
+};
+var cardStyle={
+  backgroundColor: "#CCFFCC"
+}
+var buttonStyle={
+  backgroundColor: "#6699FF"
+}
 
 class Project extends Component{
 
@@ -136,20 +146,21 @@ handleChange2(e){
 
     return (
       
+      <div className="container-fluid">
       <div className="row">
-        <div className="col-sm-3">
-          <Sidebar/>
+        <div className="col-sm-3" style={divStyle}>
+            <Sidebar/>
         </div>
-
+  
       <div className="col-sm-9">
-      <h2>Current Projects</h2>
+      <h2><b><u>Current Projects</u></b></h2>
       <Projecttable></Projecttable>
 
       <div className="row">
         <div className="col-sm-4 pt-3">
           <MDBCard>
-            <MDBCardBody>
-              <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+            <MDBCardBody style={cardStyle}>
+              <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen}>
                 Create Milestones
               </Button>
             </MDBCardBody>
@@ -189,9 +200,9 @@ handleChange2(e){
           </div>
           <div className="col-sm-4 pt-3">
             <MDBCard>
-              <MDBCardBody>
+              <MDBCardBody style={cardStyle}>
               <div className="card-background">
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen1}>
+                <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen1}>
                   Create Project
                 </Button>
               </div>
@@ -306,6 +317,7 @@ handleChange2(e){
          
       </div>
       
+      </div>
       </div>
     );
   }
