@@ -3,8 +3,17 @@ import {getmilestones} from '../../../../actions/milestoneActions'
 import {connect} from 'react-redux'
 import {getprojectnames} from '../../../../actions/ProjectActions'
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
+import Sidebar from '../../Component/Sidebar2';
+
+var divStyle={
+  background:"#6699FF",
+  maxHeight:"700px",
+  height: "700px",
+};
+
 
 class Milestones extends Component {
+
   constructor(props){
     super(props)
     this.state={
@@ -43,15 +52,27 @@ class Milestones extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>hii</h1>
-       
-        <select  class="form-control" value={this.state.id} onChange={this.handleChange} >
-        {console.log(this.props.ss)}
-          {this.props.project.project.map((project) => <option key={project._id} value={project.Projectname}>{project.Projectname}</option>)}
-              </select>
-              <button onClick={this.onClick}>show milestones</button>
-              <BasicTable></BasicTable>
+      <div className='container-fluid'>
+        <div className='row'>
+          <div className='col-sm-3' style={divStyle}>
+            <Sidebar></Sidebar>
+          </div>
+          <div className='col-sm-9'>
+            <h1>hii</h1>
+          <div className="row">
+            <div className="col-sm-3 pb-3 pt-2"> 
+              <select  class="form-control" value={this.state.id} onChange={this.handleChange} >
+              {console.log(this.props.ss)}
+                {this.props.project.project.map((project) => <option key={project._id} value={project.Projectname}>{project.Projectname}</option>)}
+                    </select>
+            </div>
+            <div className="col-sm-3 pb-3">
+              <a className="btn btn-primary" onClick={this.onClick}>show milestones</a>
+            </div>
+          </div>
+                  <BasicTable></BasicTable>
+          </div>
+        </div>
       </div>
     )
   }
