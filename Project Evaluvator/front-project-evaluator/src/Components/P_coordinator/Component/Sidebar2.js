@@ -13,12 +13,14 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import { NavLink } from 'react-router-dom';
+import { blue } from '@material-ui/core/colors';
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
+    maxWidth: 300,
+    backgroundColor: "#CCFFCC",
+    borderRightStyle : "solid",
+    borderColor :"blue"
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
@@ -42,6 +44,7 @@ class NestedList extends React.Component {
     const { classes } = this.props;
 
     return (
+      <div>
       <List
         component="nav"
         // subheader={<ListSubheader component="div">Nested List Items</ListSubheader>}
@@ -115,7 +118,7 @@ class NestedList extends React.Component {
                     <ListItemIcon>
                     <i class="fas fa-chalkboard-teacher"></i>
                     </ListItemIcon>
-                    <ListItemText inset primary="Evalutor" />
+                    <ListItemText inset primary="Milestones" />
                 </ListItem>
             </NavLink>
             
@@ -125,6 +128,7 @@ class NestedList extends React.Component {
 
 
       </List>
+      </div>
     );
   }
 }

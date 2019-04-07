@@ -22,7 +22,7 @@ export const getmilestones=(name)=>dispatch=>{
         dispatch({
             type : GET_MILSTONES,
             payload:res.data
-        },alert(res.data))
+        })
     })
     .catch(
         err=>{
