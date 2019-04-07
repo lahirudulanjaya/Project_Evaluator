@@ -16,7 +16,7 @@ import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
 import {connect} from 'react-redux'
 import './Student.css'
-import EnhancedTable from './tablebyYear'
+import BasicTable from './tablebyYear'
 
 var nodemailer = require('nodemailer');
 
@@ -27,7 +27,7 @@ const studentdetail ={
 }
 var divStyle={
   background:"#6699FF",
-  height: "700px",
+  height: "1000px",
 };
 
 
@@ -216,10 +216,11 @@ uploadtoDB=()=>{
 </MDBTable>
 
 <h1>Create Groups</h1>
-<EnhancedTable></EnhancedTable>
+
 
         
                 </div>
+                <BasicTable></BasicTable>
                 </div>
                 </div>
           </div>

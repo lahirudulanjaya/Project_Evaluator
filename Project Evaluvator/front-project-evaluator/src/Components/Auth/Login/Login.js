@@ -58,6 +58,7 @@ class Login extends Component{
                   <MDBInput 
                   required
                     label="User Name"  
+                  
                     name="UserName"
                     onChange={this.handleChange}
                     value={this.state.UserName}
