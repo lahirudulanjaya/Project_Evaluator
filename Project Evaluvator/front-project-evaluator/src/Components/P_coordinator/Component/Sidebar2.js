@@ -14,16 +14,16 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import { NavLink } from 'react-router-dom';
 import { blue } from '@material-ui/core/colors';
+import Typography from '@material-ui/core/Typography';
+import { MDBRow, MDBCol, MDBIcon } from "mdbreact";
 
 const styles = theme => ({
   root: {
-    maxWidth: 300,
-    backgroundColor: "#CCFFCC",
-    borderRightStyle : "solid",
-    borderColor :"blue"
+    maxWidth: 400,
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
+    
   },
 });
 
@@ -52,43 +52,44 @@ class NestedList extends React.Component {
       >
         <NavLink exact={true} to="/pg" activeClassName="activeClass">
             <ListItem>
-                <ListItemIcon>
-                <i class="fas fa-columns"></i>
+            <ListItemIcon>
+                    <MDBIcon className="indigo-text pr-3" icon="chart-line" />
                 </ListItemIcon>
-                    <ListItemText inset primary="Dashbroad" />
+                    <ListItemText inset primary={<Typography type="body2" style={{ color: '#FFFFFF', fontSize:18  }}><b>Dashboard</b></Typography>} />
             </ListItem>
         </NavLink>
         <ListItem button onClick={this.handleClick}>
-          <ListItemIcon>
-          <i class="fas fa-users"></i>
-          </ListItemIcon>
-          <ListItemText inset primary="Users" />
+        <ListItemIcon>
+                    <MDBIcon className="indigo-text pr-3" icon="users" />
+                </ListItemIcon>
+          <ListItemText inset primary={<Typography type="body2" style={{ color: '#FFFFFF', fontSize:18  }}><b>Users</b></Typography>} />
           {this.state.open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <NavLink exact={true} to="/student" activeClassName="activeClass">
                 <ListItem button className={classes.nested}>
-                    <ListItemIcon>
-                    <i class="fas fa-user-graduate"></i>
-                    </ListItemIcon>
-                    <ListItemText inset primary="Student" />
+                <ListItemIcon>
+                    <MDBIcon className="indigo-text pr-3" icon="user-graduate" />
+                </ListItemIcon>
+                    <ListItemText inset primary={<Typography type="body2" style={{ color: '#FFFFFF', fontSize:18  }}><b>Students</b></Typography>}/>
                 </ListItem>
             </NavLink>
             <NavLink exact={true} to="/evalutor" activeClassName="activeClass">
                 <ListItem button className={classes.nested}>
-                    <ListItemIcon>
-                    <i class="fas fa-chalkboard-teacher"></i>
+                <ListItemIcon>
+                
+                    <MDBIcon className="indigo-text pr-3" icon="chalkboard-teacher" />
                     </ListItemIcon>
-                    <ListItemText inset primary="Evalutor" />
+                    <ListItemText  inset primary={<Typography type="body2" style={{ color: '#FFFFFF', fontSize:18  }}><b>Evaluator</b></Typography>} />
                 </ListItem>
             </NavLink>
-            <NavLink exact={true} to="/sessionCoordinator" activeClassName="activeClass">
+            <NavLink exact={true} to="/sc" activeClassName="activeClass">
                 <ListItem button className={classes.nested}>
                     <ListItemIcon>
-                    <i class="fas fa-user-alt"></i>
+                    <MDBIcon className="indigo-text pr-3" icon="clock" />
                     </ListItemIcon>
-                    <ListItemText inset primary="Session Coordinator" />
+                    <ListItemText inset primary={<Typography type="body2" style={{ color: '#FFFFFF', fontSize:18  }}><b>Session Coordinator</b></Typography>}/>
                 </ListItem>
             </NavLink>
           </List>
@@ -97,28 +98,31 @@ class NestedList extends React.Component {
 
 
         <ListItem button onClick={this.handleClick1}>
-          <ListItemIcon>
-          <i class="fas fa-project-diagram"></i>
-          </ListItemIcon>
-          <ListItemText inset primary="Projects" />
+        <ListItemIcon>
+                
+                <MDBIcon className="indigo-text pr-3" icon="file-contract" />
+                </ListItemIcon>
+          <ListItemText inset primary={<Typography type="body2" style={{ color: '#FFFFFF', fontSize:18  }}><b>Projects</b></Typography>} />
           {this.state.open1 ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={this.state.open1} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
           <NavLink exact={true} to="/pg/project" activeClassName="activeClass">
                 <ListItem button className={classes.nested}>
-                    <ListItemIcon>
-                    <i class="fas fa-project-diagram"></i>
-                    </ListItemIcon>
-                    <ListItemText inset primary="Projects" />
+                <ListItemIcon>
+                
+                <MDBIcon className="indigo-text pr-3" icon="file-contract" />
+                </ListItemIcon>
+                    <ListItemText inset primary={<Typography type="body2" style={{ color: '#FFFFFF', fontSize:18  }}><b>Projects</b></Typography>} />
                 </ListItem>
             </NavLink>
             <NavLink exact={true} to="/pg/project/milestone" activeClassName="activeClass">
                 <ListItem button className={classes.nested}>
-                    <ListItemIcon>
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    </ListItemIcon>
-                    <ListItemText inset primary="Milestones" />
+                <ListItemIcon>
+                
+                <MDBIcon className="indigo-text pr-3" icon="dot-circle" />
+                </ListItemIcon>
+                    <ListItemText inset primary={<Typography type="body2" style={{ color: '#FFFFFF', fontSize:18 }}><b>Milestones</b></Typography>} />
                 </ListItem>
             </NavLink>
             

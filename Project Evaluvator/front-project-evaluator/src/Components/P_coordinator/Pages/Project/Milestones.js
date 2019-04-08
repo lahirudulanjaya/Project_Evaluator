@@ -10,8 +10,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 
 var divStyle={
   background:"#6699FF",
-  maxHeight:"700px",
-  height: "700px",
+  height: "1000px",
 };
 
 class Milestones extends Component
@@ -20,6 +19,7 @@ class Milestones extends Component
   constructor(props){
     super(props)
     this.state={
+      
       id:'',
       milestones:[]
     }
@@ -49,8 +49,8 @@ class Milestones extends Component
     return (
 
       <div className="row">
-       <div className="col-sm-3">
-          <Sidebar/>
+       <div className="col-sm-3" style={divStyle}>
+            <Sidebar/>
         </div>
         <div className="col-sm-9">
         <div className="row">
