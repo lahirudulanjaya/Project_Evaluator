@@ -8,18 +8,19 @@ class Products extends React.Component {
 
     constructor(props) {
       super(props);
-  
+      
       //  this.state.products = [];
       this.state = {
         idd:'',
         Milestones:[],
-        products:[]
+        products:[],
+        Projectname:props.proname
       };
       this.state.filterText = "";
       this.state.products = [
         {
           id: '',
-          Projectname: this.props.project.project[0].Projectname,
+          Projectname: props.proname,
           name: 'football',
           MilstoneType:'',
           Markspresentatge: 12,
@@ -34,6 +35,7 @@ class Products extends React.Component {
       this.props.getprojectnames()
      //  this.props.project.map()
      }
+     
      componentWillMount(){
      
       // eslint-disable-next-line no-undef
@@ -60,12 +62,11 @@ class Products extends React.Component {
    }
   
     handleAddEvent(evt) {
-      alert(this.state.idd)
       this.setState({Milestones:[]})
       var id = 1;
       var product = {
         id:id,
-        Projectname:this.state.idd,
+        Projectname:this.state.Projectname,
         name: "",
         Grp_or_I: "",
         Markspresentatge: 0,
@@ -81,7 +82,7 @@ class Products extends React.Component {
       const newdetatil={
         Milestones :this.state.products
     }
-    console.log(newdetatil)
+
       this.props.addmilstones(newdetatil)
     }
   
@@ -106,16 +107,16 @@ class Products extends React.Component {
     //  console.log(this.state.products);
     };
     render() {
-  
+      const { proname } = this.props;
       return (
         <div>
           <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)}/>
           <div className="row">
               <div className="col-md-4">
               <label for="projectSelect">Select Project</label>
-          <select name="idd" class="form-control"  value={this.state.idd} onChange={this.handleChange}>
-          {this.props.project.project.map((project) => <option key={project._id} value={project.Projectname}>{project.Projectname}</option>)}
-              </select>
+          <input name="idd" class="form-control"  Value={this.state.Projectname} >
+          
+              </input>
               </div>
               </div>
               {console.log(this.props.milestone)}

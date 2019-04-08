@@ -20,6 +20,8 @@ import { prototype } from 'module';
 import blue from '@material-ui/core/colors/blue';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import axios from'axios'
+import swal from 'sweetalert';
 
 
 const styles = {
@@ -55,6 +57,7 @@ constructor(props){
 this.state = {
     open1: false,
     open:false,
+    open2:false,
     Projectname:year,
     Acadamicyear:'',
     Initiatedate:'',
@@ -102,15 +105,24 @@ componentWillReceiveProps(nextProps) {
   
   
   addproject =()=>{
-    alert(this.props.projectnames)
+    
     const Project = {
       Projectname:this.state.Projectname,
       Acadamicyear:this.state.Acadamicyear,
       ProjectType :this.state.ProjectType,
       Initiatedate:this.state.Initiatedate
       }
-      this.props.AddProject(Project)
-      this.props.getprojectnames()
+      axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
+        this.setState({open:false})
+        this.setState({open2:true})
+        this.props.getprojectnames()
+    }
+    )
+    .catch(err=>{
+      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+      console.log(err.response.data)
+    })
+      
   }
   addMilstones=()=>{
 
@@ -257,7 +269,7 @@ handleChange2(e){
               
           </div>
       <div className="col-sm-9">
-      <Typography component="h2" variant="display1" gutterBottom>
+      <Typography component="h2" variant="h8" gutterBottom>
       Click here for create new project
         </Typography>
       <MDBCard>
@@ -269,7 +281,7 @@ handleChange2(e){
               </div>
               </MDBCardBody>
             </MDBCard>
-        <Typography component="h2" variant="display1" gutterBottom>
+        <Typography component="h2" variant="h8" gutterBottom>
       Click here for define Milestone for current projects
         </Typography>
           <MDBCard>
@@ -289,7 +301,7 @@ handleChange2(e){
               <DialogTitle id="responsive-dialog-title"><FormLabel><b>Define MIlestones for Project</b></FormLabel></DialogTitle>
               <DialogContent >
              
-      <Products></Products>
+      <Products proname={this.state.Projectname}/>
 
             
               </DialogContent>
@@ -301,6 +313,31 @@ handleChange2(e){
                   Close
                 </Button>
               </DialogActions>
+            </Dialog>
+
+
+            <Dialog 
+            fullWidth={true}
+            maxWidth='xl'
+              open={this.state.open2}
+             // onClose={this.handleClose}
+              aria-labelledby="responsive-dialog-title"
+            >
+              <DialogTitle id="responsive-dialog-title"><FormLabel><b>Define MIlestones for Project</b></FormLabel></DialogTitle>
+              <DialogContent >
+             
+      <Products proname={this.state.Projectname}></Products>
+
+            
+              </DialogContent>
+              {/* <DialogActions>
+                <Button onClick={this.handleClose} color="primary">
+                  Submit 
+                </Button>
+                <Button onClick={this.handleClose} color="primary" autoFocus>
+                  Close
+                </Button>
+              </DialogActions> */}
             </Dialog>
 
             <form noValidate autoComplete="off">
