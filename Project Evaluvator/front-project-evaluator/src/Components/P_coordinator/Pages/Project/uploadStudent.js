@@ -12,11 +12,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 import swal from 'sweetalert';
 
-import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBIcon} from 'mdbreact';
+import { MDBBtn,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
 import {connect} from 'react-redux'
-import './Student.css'
-import BasicTable from './tablebyYear'
 
 var nodemailer = require('nodemailer');
 
@@ -115,13 +113,7 @@ uploadtoDB=()=>{
 
     render(){
         return(
-          <div className="container-fluid">
-            <div className="row">
-
-            <div className="col-sm-3" style={divStyle}>
-
-          <Sidebar/>
-                </div>
+          
 
         
                 <div className="col-sm-9">
@@ -166,64 +158,17 @@ uploadtoDB=()=>{
       </form>
               </DialogContent>
               </Dialog>
-             
               </div>
-
-
-             
-
       </div>
      
-      {/* <MDBTable responsive>
-     
-<MDBTableHead color="primary-color" textWhite>
-  <tr>
-    <th>#</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Registration Number</th>
-    <th>isRegistered</th>
-   <th>Delete</th>
-   <th>Change</th>
-  </tr>
-</MDBTableHead>
-<MDBTableBody>
-
-    {this.state.students.map((students) => 
-    
-   <tr>
-
-  <td >{""}</td>
-    <td >{students.Name}</td>
-    <td >{students.Email}</td>
-    <td >{students.Registrationnumber}</td>
-    <td >{students.isRegistered.toString()}</td>
-
-    
-    <td key={students._id}><MDBBtn  onClick ={()=>this.changeState(students)} size="sm">Click</MDBBtn ></td>
-    <td ><MDBBtn  onClick ={()=>this.changeState(students)} size="sm">Change</MDBBtn ></td>
-
-    </tr>
-
-    )}
-
-
-          
-
- 
-</MDBTableBody>
-
-</MDBTable> */}
-
-{/* <h1>Create Groups</h1> */}
+      
 
 
         
                 </div>
-                {/* <BasicTable></BasicTable> */}
+  
                 </div>
-                </div>
-          </div>
+
         )
     }
 

@@ -16,13 +16,12 @@ import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBCon
 import {AddProject,getprojectnames} from '../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
 import {addmilstones} from '../../../../actions/milestoneActions'
-import { prototype } from 'module';
 import blue from '@material-ui/core/colors/blue';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import axios from'axios'
 import swal from 'sweetalert';
-
+import Student from '../Student/Student'
 
 const styles = {
   DialogContent: {
@@ -58,6 +57,7 @@ this.state = {
     open1: false,
     open:false,
     open2:false,
+    open3:false,
     Projectname:year,
     Acadamicyear:'',
     Initiatedate:'',
@@ -65,17 +65,7 @@ this.state = {
     ProjectType:'',
     errors:'',
     arr:[],
-    project_names:[
-      {
-        _id:1,
-        Projectname:"sdsd"
-      },
-      {
-        _id:13,
-        Projectname:"sdsdsdc"
-      }
 
-    ]
   };
   this.handleChange = this.handleChange.bind(this)
   this.handleChange1 = this.handleChange1.bind(this)
@@ -113,8 +103,8 @@ componentWillReceiveProps(nextProps) {
       Initiatedate:this.state.Initiatedate
       }
       axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
-        this.setState({open:false})
-        this.setState({open2:true})
+        this.setState({open1:false})
+        this.setState({open:true})
         this.props.getprojectnames()
     }
     )
@@ -330,14 +320,14 @@ handleChange2(e){
 
             
               </DialogContent>
-              {/* <DialogActions>
+               <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
                   Submit 
                 </Button>
                 <Button onClick={this.handleClose} color="primary" autoFocus>
                   Close
                 </Button>
-              </DialogActions> */}
+              </DialogActions> 
             </Dialog>
 
             <form noValidate autoComplete="off">
@@ -359,11 +349,7 @@ handleChange2(e){
     );
   }
 }
-// Project.propTypes = {
-//   getprojectnames:PropTypes.func.isRequired,
-//   project: PropTypes.object.isRequired,
-  
-// };
+
 const mapStateToProps = state => {
   return{
 
