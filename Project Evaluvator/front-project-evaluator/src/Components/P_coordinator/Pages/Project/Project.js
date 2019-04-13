@@ -16,10 +16,12 @@ import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBCon
 import {AddProject,getprojectnames} from '../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
 import {addmilstones} from '../../../../actions/milestoneActions'
-import { prototype } from 'module';
 import blue from '@material-ui/core/colors/blue';
 import { withStyles } from '@material-ui/core/styles';
-
+import Typography from '@material-ui/core/Typography';
+import axios from'axios'
+import swal from 'sweetalert';
+import Student from '../Student/Student'
 
 const styles = {
   DialogContent: {
@@ -32,10 +34,11 @@ const styles = {
 };
 var divStyle={
   background:"#6699FF",
-  height: "700px",
+  height: "1000px",
 };
 var cardStyle={
-  backgroundColor: "#CCFFCC"
+  backgroundColor: "#CCFFCC",
+  size: 'sm'
 }
 var buttonStyle={
   backgroundColor: "#6699FF"
@@ -53,6 +56,8 @@ constructor(props){
 this.state = {
     open1: false,
     open:false,
+    open2:false,
+    open3:false,
     Projectname:year,
     Acadamicyear:'',
     Initiatedate:'',
@@ -60,17 +65,7 @@ this.state = {
     ProjectType:'',
     errors:'',
     arr:[],
-    project_names:[
-      {
-        _id:1,
-        Projectname:"sdsd"
-      },
-      {
-        _id:13,
-        Projectname:"sdsdsdc"
-      }
 
-    ]
   };
   this.handleChange = this.handleChange.bind(this)
   this.handleChange1 = this.handleChange1.bind(this)
@@ -100,15 +95,24 @@ componentWillReceiveProps(nextProps) {
   
   
   addproject =()=>{
-    alert(this.props.projectnames)
+    
     const Project = {
       Projectname:this.state.Projectname,
       Acadamicyear:this.state.Acadamicyear,
       ProjectType :this.state.ProjectType,
       Initiatedate:this.state.Initiatedate
       }
-      this.props.AddProject(Project)
-      this.props.getprojectnames()
+      axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
+        this.setState({open1:false})
+        this.setState({open:true})
+        this.props.getprojectnames()
+    }
+    )
+    .catch(err=>{
+      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+      console.log(err.response.data)
+    })
+      
   }
   addMilstones=()=>{
 
@@ -152,65 +156,21 @@ handleChange2(e){
         <div className="col-sm-3" style={divStyle}>
             <Sidebar/>
         </div>
+        
   
       <div className="col-sm-9">
-
-      <h2><b><u>Current Projects</u></b></h2>
+      
+      <Typography component="h2" variant="display1" gutterBottom>
+      <b><u>Current Projects</u></b>
+        </Typography>
+      
       <Projecttable></Projecttable>
 
 
       <div className="row">
-        <div className="col-sm-4 pt-3">
-          <MDBCard>
-            <MDBCardBody style={cardStyle}>
-              <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen}>
-                Create Milestones
-              </Button>
-            </MDBCardBody>
-          </MDBCard>
-            <Dialog 
-            fullWidth={true}
-            maxWidth='xl'
-              open={this.state.open}
-              onClose={this.handleClose}
-              aria-labelledby="responsive-dialog-title"
-            >
-              <DialogTitle id="responsive-dialog-title"><FormLabel><b>Define MIlestones for Project</b></FormLabel></DialogTitle>
-              <DialogContent >
-             
-      <Products></Products>
-
+      <div className="col-sm-4">
             
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
-                  Submit 
-                </Button>
-                <Button onClick={this.handleClose} color="primary" autoFocus>
-                  Close
-                </Button>
-              </DialogActions>
-            </Dialog>
-
-            <form noValidate autoComplete="off">
-            
-
-            
-            </form>
-            <form noValidate autoComplete="off">
-
-            </form>
-          </div>
-          <div className="col-sm-4 pt-3">
-            <MDBCard>
-              <MDBCardBody style={cardStyle}>
-              <div className="card-background">
-                <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen1}>
-                  Create Project
-                </Button>
-              </div>
-              </MDBCardBody>
-            </MDBCard>
+            </div>
             <Dialog
              fullWidth={true}
              maxWidth='sm'
@@ -295,41 +255,101 @@ handleChange2(e){
               </DialogContent>
             
             </Dialog>
-          {/* <div>
-            <InputLabel htmlFor="age-simple">Select the project</InputLabel>
-              <Select
-                value={this.state.age}
-                onChange={this.handleChange}
-                inputProps={{
-                  name: 'age',
-                  id: 'age-simple',
-                }}
-              >
-              <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="2ndyear2020">2ndyear2020</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-              </div> */}
+     
               
           </div>
-       
+      <div className="col-sm-9">
+      <Typography component="h2" variant="h8" gutterBottom>
+      Click here for create new project
+        </Typography>
+      <MDBCard>
+              <MDBCardBody style={cardStyle}>
+              <div className="card-background">
+                <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen1}>
+                  Create Project
+                </Button>
+              </div>
+              </MDBCardBody>
+            </MDBCard>
+        <Typography component="h2" variant="h8" gutterBottom>
+      Click here for define Milestone for current projects
+        </Typography>
+          <MDBCard>
+            <MDBCardBody style={cardStyle}>
+              <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen}>
+                Create Milestones
+              </Button>
+            </MDBCardBody>
+          </MDBCard>
+            <Dialog 
+            fullWidth={true}
+            maxWidth='xl'
+              open={this.state.open}
+              onClose={this.handleClose}
+              aria-labelledby="responsive-dialog-title"
+            >
+              <DialogTitle id="responsive-dialog-title"><FormLabel><b>Define MIlestones for Project</b></FormLabel></DialogTitle>
+              <DialogContent >
+             
+      <Products proname={this.state.Projectname}/>
+
+            
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleClose} color="primary">
+                  Submit 
+                </Button>
+                <Button onClick={this.handleClose} color="primary" autoFocus>
+                  Close
+                </Button>
+              </DialogActions>
+            </Dialog>
+
+
+            <Dialog 
+            fullWidth={true}
+            maxWidth='xl'
+              open={this.state.open2}
+             // onClose={this.handleClose}
+              aria-labelledby="responsive-dialog-title"
+            >
+              <DialogTitle id="responsive-dialog-title"><FormLabel><b>Define MIlestones for Project</b></FormLabel></DialogTitle>
+              <DialogContent >
+             
+      <Products proname={this.state.Projectname}></Products>
+
+            
+              </DialogContent>
+               <DialogActions>
+                <Button onClick={this.handleClose} color="primary">
+                  Submit 
+                </Button>
+                <Button onClick={this.handleClose} color="primary" autoFocus>
+                  Close
+                </Button>
+              </DialogActions> 
+            </Dialog>
+
+            <form noValidate autoComplete="off">
+            
+
+            
+            </form>
+            <form noValidate autoComplete="off">
+
+            </form>
+          </div>
+          
           </div>
          
       </div>
       
       </div>
-      </div>
+     
     );
   }
 }
-// Project.propTypes = {
-//   getprojectnames:PropTypes.func.isRequired,
-//   project: PropTypes.object.isRequired,
-  
-// };
+
 const mapStateToProps = state => {
   return{
 

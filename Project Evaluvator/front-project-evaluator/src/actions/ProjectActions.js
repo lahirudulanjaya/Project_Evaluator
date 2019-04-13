@@ -24,6 +24,7 @@ export const getprojectnames =()=>dispatch=>{
 export const AddProject =(project)=>dispatch=>{
     
     axios.post("http://localhost:4000/api/pg/addproject",project).then(res=>{
+        
 
       swal({
         title: "Good job!",
