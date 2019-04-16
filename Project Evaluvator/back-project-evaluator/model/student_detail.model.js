@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 var Studentdetailschema= new mongoose.Schema(
     {
         Registrationnumber:{
+            unique:true,
             type:String
         },
         Name:{
@@ -13,7 +14,8 @@ var Studentdetailschema= new mongoose.Schema(
         isRegistered:{
             type:Boolean,
             default:false
-        }
+        },
+        Projectname:[]
     }
 )
 

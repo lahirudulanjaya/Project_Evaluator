@@ -81,7 +81,7 @@ module.exports.Importstudent =(req,res,next)=>{
             res.send(doc)
         }
         else{
-            console.log(err)
+            res.status(422).send(error)
         }
     })
 }
@@ -103,6 +103,7 @@ module.exports.sendemail =(req,res,next)=>{
 
     Studentdetail.find({isRegistered:false},{'Email':1,'_id':0},(err,doc)=>{
         if(!err){
+            
            doc.forEach((Email)=>{
             maillist.push(Email.Email)
             })
@@ -126,7 +127,7 @@ module.exports.sendemail =(req,res,next)=>{
 }
 
 module.exports.getstudentsbyYear =(req,res,next)=>{
-    Studentdetail.find({Registrationnumber:new RegExp(req.params.year)},'Registrationnumber Name',(err,doc)=>{
+    Studentdetail.find({Projectname:new RegExp(req.params.year)},'Registrationnumber Name',(err,doc)=>{
         if(!err){
             res.send(doc)
         }
