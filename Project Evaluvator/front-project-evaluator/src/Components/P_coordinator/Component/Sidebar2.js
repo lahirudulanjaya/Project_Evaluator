@@ -125,6 +125,16 @@ class NestedList extends React.Component {
                     <ListItemText inset primary={<Typography type="body2" style={{ color: '#FFFFFF', fontSize:18 }}><b>Milestones</b></Typography>} />
                 </ListItem>
             </NavLink>
+
+            <NavLink exact={true} to="/pg/project/creategroups" activeClassName="activeClass">
+                <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                
+                <MDBIcon className="indigo-text pr-3" icon="users" />
+                </ListItemIcon>
+                    <ListItemText inset primary={<Typography type="body2" style={{ color: '#FFFFFF', fontSize:18 }}><b>Create Groups</b></Typography>} />
+                </ListItem>
+            </NavLink>
             
           </List>
         </Collapse>
