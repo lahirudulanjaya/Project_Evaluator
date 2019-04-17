@@ -53,22 +53,23 @@ class studentTable extends React.Component{
     }
     createGroup=(value)=>{
       swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        title: "Are you sure you want to group this?",
+       
         icon: "warning",
         buttons: true,
-        dangerMode: true,
+        dangerMode: false,
       })
       .then((result) => {
         if (result) {
           value.sort().reverse()
           const newGroup =[]
           newGroup.push.apply(newGroup,[this.state.data[value[0]],this.state.data[value[1]],this.state.data[value[2]],this.state.data[value[3]]])
-          groupno++
+         
           const  group ={
             groupno :groupno,
             students :newGroup
             }
+            groupno++
           groups.push(group)
           console.log(groups)
           value.forEach(element => {
@@ -82,7 +83,7 @@ class studentTable extends React.Component{
 
           swal(
             'Cratead!',
-            'Your file has been deleted.',
+            'Group has been created.',
             'success'
           )
         }

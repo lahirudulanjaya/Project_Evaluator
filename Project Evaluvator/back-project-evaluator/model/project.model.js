@@ -17,7 +17,7 @@ var ProjectSchema = new mongoose.Schema({
     },
     Status:{
         type:Boolean,
-        default:false
+        default:true
     },
     groups:[{
         groupno:{
