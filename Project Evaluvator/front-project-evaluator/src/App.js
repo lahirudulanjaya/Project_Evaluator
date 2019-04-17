@@ -13,16 +13,14 @@ import store from './store'
 import  Register from './Components/Auth/Register/Register';
 
 import Project from './Components/P_coordinator/Pages/Project/Project'
-import Test from './Components/Register/Register';
-import Milestones from './Components/P_coordinator/Pages/Project/Milestones'
+import Milestones from './Components/P_coordinator/Pages/Project/updateMilestones'
 
 import {Provider } from 'react-redux'
 import Navbar from './Components/Navbar/Navbar';
 import PageNotFound from './Components/Error/PageNotFound';
 
 import Student from './Components/P_coordinator/Pages/Student/Student';
-import Chart from './Components/Student/BarChart/BarChat';
-
+import studentTable from './Components/P_coordinator/Pages/Student/studentTable'
 import Scoordinator from './Components/S_coordinator/Scoordinator'
 
 
@@ -36,12 +34,10 @@ class App extends Component {
         <Navbar />
         <Switch>  
         <Route exact path ="/" component={Login}/>
-
+        <Route exact path ="/pg/project/creategroups" component={studentTable}/>
         <Route exact path ="/register" component={Register}/>
         <Route exact path ="/login" component={Login}/>
-        <Route exact path ="/test" component={Test}/>
         <Route exact path ="/student" component={Student}/>
-        <Route exact path ="/chart" component={Chart}/>
         <Route exact path = "/pg" component ={Pcoordinator}/>
         <Route  exact path = "/pg/project" component={Project}/>
         <Route exact path = "/sc" component ={Scoordinator}/>

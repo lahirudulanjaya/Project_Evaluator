@@ -76,3 +76,15 @@ console.log(err)
         }
     })
 }
+
+module.exports.addGroups=(req,res,err)=>{
+
+    Project.findOneAndUpdate({Projectname:req.body.Projectname},{$set :{groups:req.body.groups}},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).send(err)
+        }
+    })
+}
