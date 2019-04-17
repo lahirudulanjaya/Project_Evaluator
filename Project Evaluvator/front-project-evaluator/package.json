@@ -4,11 +4,12 @@
   "private": true,
   "dependencies": {
     "@material-ui/icons": "^3.0.2",
+    "@trendmicro/react-sidenav": "^0.4.5",
     "axios": "^0.18.0",
     "jwt-decode": "^2.2.0",
     "mdbreact": "^4.10.0",
     "nodemailer": "^6.0.0",
-    "react": "^16.8.1",
+    "react": "^16.8.6",
     "react-big-calendar": "^0.20.4",
     "react-calendar": "^2.18.1",
     "react-dom": "^16.8.1",
@@ -36,5 +37,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "ws": "3.3.2"
+  }
 }

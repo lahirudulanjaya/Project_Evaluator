@@ -21,7 +21,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import axios from'axios'
 import swal from 'sweetalert';
-import Student from '../Student/Student'
+import Student from '../Student/Student';
+import Settings from '../../../../settings.png';
 
 const styles = {
   DialogContent: {
@@ -32,12 +33,8 @@ const styles = {
     color: blue[600],
   },
 };
-var divStyle={
-  background:"#6699FF",
-  height: "1000px",
-};
 var cardStyle={
-  backgroundColor: "#CCFFCC",
+  backgroundImage: "#CCFFCC",
   size: 'sm'
 }
 var buttonStyle={
@@ -151,21 +148,47 @@ handleChange2(e){
 
     return (
       
-      <div className="container-fluid">
+      <div className="container">
       <div className="row">
-        <div className="col-sm-3" style={divStyle}>
-            <Sidebar/>
+        <div className="col-sm-4 pt-2 ml-5">
+          <div className="ml-3">
+            <MDBCard>
+              <MDBCardBody style={cardStyle}>
+              <div className="card-background">
+              <img src={Settings} alt="" className="logo"/>
+                <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen1}>
+                  Create Project
+                </Button>
+              </div>
+              </MDBCardBody>
+            </MDBCard>
+          </div>
         </div>
-        
-  
-      <div className="col-sm-9">
+        <div className="col-sm-4 pt-2 ml-5">
+          <div className="ml-3">
+          <MDBCard>
+            <MDBCardBody style={cardStyle}>
+            <div className="card-background">
+            <img src={Settings} alt="" className="logo"/>
+              <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen}>
+                Create Milestones
+              </Button>
+              </div>
+            </MDBCardBody>
+          </MDBCard>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+      <div className="col-sm-12">
       
       <Typography component="h2" variant="display1" gutterBottom>
       <b><u>Current Projects</u></b>
         </Typography>
       
-      <Projecttable></Projecttable>
-
+      <div className="ml-5">
+        <Projecttable></Projecttable>
+      </div>
 
       <div className="row">
       <div className="col-sm-4">
@@ -259,28 +282,7 @@ handleChange2(e){
               
           </div>
       <div className="col-sm-9">
-      <Typography component="h2" variant="h8" gutterBottom>
-      Click here for create new project
-        </Typography>
-      <MDBCard>
-              <MDBCardBody style={cardStyle}>
-              <div className="card-background">
-                <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen1}>
-                  Create Project
-                </Button>
-              </div>
-              </MDBCardBody>
-            </MDBCard>
-        <Typography component="h2" variant="h8" gutterBottom>
-      Click here for define Milestone for current projects
-        </Typography>
-          <MDBCard>
-            <MDBCardBody style={cardStyle}>
-              <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen}>
-                Create Milestones
-              </Button>
-            </MDBCardBody>
-          </MDBCard>
+          
             <Dialog 
             fullWidth={true}
             maxWidth='xl'

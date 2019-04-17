@@ -8,10 +8,6 @@ import Sidebar from '../../Component/Sidebar2';
 import './Milestone.css'
 import FormLabel from '@material-ui/core/FormLabel';
 
-var divStyle={
-  background:"#6699FF",
-  height: "1000px",
-};
 
 class Milestones extends Component
 {
@@ -48,19 +44,16 @@ class Milestones extends Component
   render() {
     return (
 
+    <div className="container">
       <div className="row">
-       <div className="col-sm-3" style={divStyle}>
-            <Sidebar/>
-        </div>
-        <div className="col-sm-9">
-        <div className="row">
-<h4><b>select project</b></h4>
+        <div className="col-sm-12" >
+          <h1><b>select project</b></h1>
         <select  className="form-control" value={this.state.id} onChange={this.handleChange} >
        
           {this.props.project.project.map((project) => <option  value={project.Projectname}>{project.Projectname}</option>)}
               </select>
               
-        
+        <div className="ml-5 pt-2">
               <MDBTable responsive>
       <MDBTableHead color="primary-color" textWhite>
         <tr>
@@ -85,6 +78,7 @@ class Milestones extends Component
         </MDBTableBody>
 
       </MDBTable>
+            </div>
 
              </div>
              </div>
