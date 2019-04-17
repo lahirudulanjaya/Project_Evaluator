@@ -5,7 +5,11 @@ import { Dropdown } from 'semantic-ui-react'
 import _ from 'lodash'
 import {getstudentbyYear}  from '../../../../actions/P_coodinator-Student'
 import Table, {Thead, Tbody, Tr, Th, Td} from "react-row-select-table"
-var grupnum=1
+import swal from 'sweetalert'
+import { Button } from 'semantic-ui-react'
+import Axios from 'axios';
+
+var groupno=1
 var groups=[]
 class studentTable extends React.Component{
     constructor(props){
@@ -21,6 +25,7 @@ class studentTable extends React.Component{
         }
         this.onchangeDropdown =this.onchangeDropdown.bind(this)
         this.handleChecked = this.handleChecked.bind(this);
+        this.submitGroups=this.submitGroups.bind(this)
     }
     onchangeDropdown(e){
         this.setState({projectName:e.target.textContent})
@@ -28,29 +33,68 @@ class studentTable extends React.Component{
 
         
     }
-  
-    createGroup=(value)=>{
-      console.log(value)
-      const newGroup =[]
-      newGroup.push.apply(newGroup,[this.state.data[value[0]],this.state.data[value[1]],this.state.data[value[2]],this.state.data[value[3]]])
-      grupnum++
-      const  group ={
-        groupnum :grupnum,
-        students :newGroup
+    submitGroups(){
+      const submitGrps ={
+        Projectname :this.state.projectName,
+        groups :groups
       }
-      groups.push(group)
-      console.log(groups)
-      var arr =this.state.data
-      this.setState(this.state.data.splice(1,1))
-      // value.forEach(element => {
-      //   alert(element)
-      //   arr.splice(element-1,1)
-      //   this.setState(this.state.data.splice(element,1))
-      // });
-      // console.log(arr)
-      
-      alert("sdvsf")
-      value.length=0
+      Axios.put("http://localhost:4000/api/pg/addGroups",submitGrps)
+      .then(res=>{
+        swal({
+          title: "Good job!",
+          text: "You have succesfully Submit Groups!",
+          icon: "success",
+        });
+      })
+      .catch(err=>{
+        swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+        console.log(err)
+      })
+    }
+    createGroup=(value)=>{
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((result) => {
+        if (result) {
+          value.sort().reverse()
+          const newGroup =[]
+          newGroup.push.apply(newGroup,[this.state.data[value[0]],this.state.data[value[1]],this.state.data[value[2]],this.state.data[value[3]]])
+          groupno++
+          const  group ={
+            groupno :groupno,
+            students :newGroup
+            }
+          groups.push(group)
+          console.log(groups)
+          value.forEach(element => {
+            this.setState(this.state.data.splice(element,1))
+          });
+        
+          value.length=0
+
+
+
+
+          swal(
+            'Cratead!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+        else{
+          value.length=0
+
+        }
+      })
+
+
+
+    
 
     }
     handleChecked () {
@@ -98,7 +142,10 @@ return(
     <div>
     <h1>select the project</h1>
     
+   
     <Dropdown placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
+   
+    <Button secondary  onClick={this.submitGroups}>Submit Groups</Button>
     <Table onCheck={(value) => value.length>=4 
     ? this.createGroup(value)
     : console.log("fvfvf")

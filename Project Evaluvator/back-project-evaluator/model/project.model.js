@@ -18,7 +18,14 @@ var ProjectSchema = new mongoose.Schema({
     Status:{
         type:Boolean,
         default:false
-    }
+    },
+    groups:[{
+        groupno:{
+            type:String
+        },
+        students:[]
+    }]
+
 
 })
 
