@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as excel from 'xlsx';
-import Sidebar from '../../Component/Sidebar2';
 import RaisedButton from '@material-ui/core/Button';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -18,12 +17,10 @@ import './Student.css'
 
 
 
-
-var divStyle={
-  background:"#6699FF",
-  height: "1000px",
-};
-
+const studentdetail ={
+  Registrationnumber :String,
+  Name:String
+}
 
 class Student extends Component{
   constructor(props){
@@ -115,16 +112,9 @@ uploadtoDB=()=>{
       const { proname } = this.props;
 
         return(
-          <div className="container-fluid">
+          <div className="container">
             <div className="row">
-
-            <div className="col-sm-3" style={divStyle}>
-
-          <Sidebar/>
-                </div>
-
-        
-                <div className="col-sm-9">
+              <div className="col-sm-12">
                 
       <div className="row">
       <div className="reg">
