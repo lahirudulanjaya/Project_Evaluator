@@ -6,6 +6,10 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import RouteFile from '../../../RouteFile';
 import NavBar from '../../Navbar/Navbar';
 
+const sideBar={
+    backgroundColor : '#302F2F' 
+}
+
 class NewSideBar extends Component{
     render(){
         return (
@@ -14,6 +18,7 @@ class NewSideBar extends Component{
         <React.Fragment>
             <NavBar/>
             <SideNav
+                style={sideBar}
                 onSelect={(selected) => {
                     const to = '/' + selected;
                     if (location.pathname !== to) {
