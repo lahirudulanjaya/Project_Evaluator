@@ -23,6 +23,7 @@ import axios from'axios'
 import swal from 'sweetalert';
 import Student from '../Student/Student';
 import Settings from '../../../../settings.png';
+import Helmet from 'react-helmet';
 
 const styles = {
   DialogContent: {
@@ -147,7 +148,8 @@ handleChange2(e){
   render() {
 
     return (
-      
+      <div>
+        <Helmet bodyAttributes={{style: 'background-color : #DFDFDF'}}/>
       <div className="container">
       <div className="row">
         <div className="col-sm-4 pt-2 ml-5">
@@ -346,6 +348,7 @@ handleChange2(e){
          
       </div>
       
+      </div>
       </div>
      
     );

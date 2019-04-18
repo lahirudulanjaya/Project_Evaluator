@@ -14,12 +14,17 @@ import { MDBBtn,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
 import {connect} from 'react-redux'
 import './Student.css'
+import Helmet from 'react-helmet';
 
 
 
 const studentdetail ={
   Registrationnumber :String,
   Name:String
+}
+
+const background={
+  backgroundColor : '#C4C4C4'
 }
 
 class Student extends Component{
@@ -112,6 +117,8 @@ uploadtoDB=()=>{
       const { proname } = this.props;
 
         return(
+          <div>
+            <Helmet bodyAttributes={{style: 'background-color : #DFDFDF'}}/>
           <div className="container">
             <div className="row">
               <div className="col-sm-12">
@@ -167,6 +174,7 @@ uploadtoDB=()=>{
 
              
 
+      </div>
       </div>
      
       {/* <MDBTable responsive>
