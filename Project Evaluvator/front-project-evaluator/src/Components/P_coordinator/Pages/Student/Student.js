@@ -10,14 +10,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 import swal from 'sweetalert';
-
-import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBIcon} from 'mdbreact';
+import { MDBBtn,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
 import {connect} from 'react-redux'
 import './Student.css'
-import BasicTable from './tablebyYear'
 
-var nodemailer = require('nodemailer');
 
 
 const studentdetail ={
@@ -67,6 +64,7 @@ class Student extends Component{
       };
 
 uploadfile(event){
+
   let file =event.target.files[0]
   var reader = new FileReader();
   reader.readAsArrayBuffer(file)
@@ -78,6 +76,9 @@ uploadfile(event){
     const ws = wb.Sheets[wsname];
     const data1 = excel.utils.sheet_to_json(ws);
     console.log(data1)
+    // data1.map(data1=>{
+
+    // })
  
     this.setState({arr : data1})
     alert(this.state.arr)
@@ -108,6 +109,8 @@ uploadtoDB=()=>{
 
 
     render(){
+      const { proname } = this.props;
+
         return(
           <div className="container">
             <div className="row">
@@ -149,9 +152,14 @@ uploadtoDB=()=>{
           <Button variant="contained" color="primary" onClick={this.uploadtoDB} >
         Submit
       </Button>
+      <Button variant="contained" color="primary"  >
+        Click here for create groups
+      </Button>
+
       
       </form>
               </DialogContent>
+              
               </Dialog>
              
               </div>

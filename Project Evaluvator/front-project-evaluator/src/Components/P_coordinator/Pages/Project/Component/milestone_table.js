@@ -12,6 +12,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import swal from 'sweetalert';
+import {Link} from 'react-router-dom'
+
 class Products extends React.Component {
 
     constructor(props) {
@@ -152,15 +154,19 @@ class Products extends React.Component {
               <DialogTitle id="responsive-dialog-title"><FormLabel><b>Import Student Details</b></FormLabel></DialogTitle>
               <DialogContent >
              
-      <Student></Student>
+      <Student proname ={this.state.Projectname}></Student>
 
             
               </DialogContent>
                <DialogActions>
-                
+               
+                <Link to="/pg/project/creategroups"><Button  color="primary" autoFocus >
+                  Create Groups
+                </Button></Link>
                 <Button onClick={this.handleClose} color="primary" autoFocus>
                   Close
                 </Button>
+                
               </DialogActions>  
             </Dialog>
         </div>

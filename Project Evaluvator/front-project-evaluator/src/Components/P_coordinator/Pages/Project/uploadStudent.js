@@ -81,7 +81,13 @@ uploadfile(event){
     const wsname = wb.SheetNames[0];
     const ws = wb.Sheets[wsname];
     const data1 = excel.utils.sheet_to_json(ws);
+    data1.map(data1=>{
+
+    return  data1.Projectname=this.props.proname
+    }
+    )
     console.log(data1)
+
  
     this.setState({arr : data1})
     alert(this.state.arr)
@@ -112,6 +118,9 @@ uploadtoDB=()=>{
 
 
     render(){
+      const { proname } = this.props;
+
+   
         return(
           
 

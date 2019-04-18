@@ -5,7 +5,7 @@ import {getprojectnames} from '../../../../actions/ProjectActions'
 
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBBadge} from 'mdbreact';
 import Sidebar from '../../Component/Sidebar2';
-import './Milestone.css'
+import './updateMilestone.css'
 import FormLabel from '@material-ui/core/FormLabel';
 
 

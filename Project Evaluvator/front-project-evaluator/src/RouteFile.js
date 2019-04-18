@@ -1,7 +1,7 @@
 import{BrowserRouter as Router , Route, Switch} from 'react-router-dom'
 import React, {Component}from 'react'
 
-import Milestones from './Components/P_coordinator/Pages/Project/Milestones';
+import Milestones from './Components/P_coordinator/Pages/Project/updateMilestones';
 import Project from './Components/P_coordinator/Pages/Project/Project';
 import Student from './Components/P_coordinator/Pages/Student/Student';
 import Pcoordinator from './Components/P_coordinator/Pcoordinator';
