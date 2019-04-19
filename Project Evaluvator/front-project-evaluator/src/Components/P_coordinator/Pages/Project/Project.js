@@ -23,7 +23,7 @@ import axios from'axios'
 import swal from 'sweetalert';
 import Student from '../Student/Student';
 import Settings from '../../../../settings.png';
-import Helmet from 'react-helmet';
+
 
 const styles = {
   DialogContent: {
@@ -35,11 +35,11 @@ const styles = {
   },
 };
 var cardStyle={
-  backgroundImage: "#CCFFCC",
+  backgroundColor: "#DFDFDF",
   size: 'sm'
 }
 var buttonStyle={
-  backgroundColor: "#6699FF"
+  backgroundColor: "#DAEAED"
 }
 
 class Project extends Component{
@@ -149,7 +149,6 @@ handleChange2(e){
 
     return (
       <div>
-        <Helmet bodyAttributes={{style: 'background-color : #DFDFDF'}}/>
       <div className="container">
       <div className="row">
         <div className="col-sm-4 pt-2 ml-5">
@@ -189,7 +188,11 @@ handleChange2(e){
         </Typography>
       
       <div className="ml-5">
-        <Projecttable></Projecttable>
+        <MDBCard>
+          <MDBCardBody style={cardStyle}>
+            <Projecttable></Projecttable>
+          </MDBCardBody>
+        </MDBCard>
       </div>
 
       <div className="row">

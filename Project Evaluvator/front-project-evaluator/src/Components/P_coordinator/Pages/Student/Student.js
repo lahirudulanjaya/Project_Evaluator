@@ -14,7 +14,7 @@ import { MDBBtn,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
 import {connect} from 'react-redux'
 import './Student.css'
-import Helmet from 'react-helmet';
+
 
 
 
@@ -118,7 +118,6 @@ uploadtoDB=()=>{
 
         return(
           <div>
-            <Helmet bodyAttributes={{style: 'background-color : #DFDFDF'}}/>
           <div className="container">
             <div className="row">
               <div className="col-sm-12">
