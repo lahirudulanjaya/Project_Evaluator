@@ -13,10 +13,11 @@ const sideBar={
 class NewSideBar extends Component{
     render(){
         return (
+            <div>
+            <NavBar className="pb-3"/>
             <Router>
     <Route render={({ location, history }) => (
         <React.Fragment>
-            <NavBar/>
             <SideNav
                 style={sideBar}
                 onSelect={(selected) => {
@@ -94,6 +95,7 @@ class NewSideBar extends Component{
     )}
     />
 </Router>
+</div>
         );
     }
 }
