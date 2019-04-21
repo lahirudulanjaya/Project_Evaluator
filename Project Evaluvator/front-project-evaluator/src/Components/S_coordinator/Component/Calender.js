@@ -12,7 +12,9 @@ class Calender extends React.Component {
  
   onChange = date => this.setState({ date });
   
-  callDay = (clikedDay) => { console.log(clikedDay)};//moment(day.dateString).format(_format)
+  callDay = (clikedDay) => { console.log(clikedDay);
+    
+  };//moment(day.dateString).format(_format)
 
   render() {
     return (
