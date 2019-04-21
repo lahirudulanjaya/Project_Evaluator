@@ -7,11 +7,13 @@ import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBBadge} from 'mdbreact';
 import Sidebar from '../../Component/Sidebar2';
 import './updateMilestone.css'
 import FormLabel from '@material-ui/core/FormLabel';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
 
-var divStyle={
-  background:"#6699FF",
-  height: "1000px",
-};
+
+var cardStyle={
+  backgroundColor: "#DFDFDF",
+  size: 'sm'
+}
 
 class Milestones extends Component
 {
@@ -48,43 +50,46 @@ class Milestones extends Component
   render() {
     return (
 
+    <div className="container">
       <div className="row">
-       <div className="col-sm-3" style={divStyle}>
-            <Sidebar/>
-        </div>
-        <div className="col-sm-9">
-        <div className="row">
-<h4><b>select project</b></h4>
+        <div className="col-sm-12" >
+          <h1><b>select project</b></h1>
         <select  className="form-control" value={this.state.id} onChange={this.handleChange} >
        
           {this.props.project.project.map((project) => <option  value={project.Projectname}>{project.Projectname}</option>)}
               </select>
               
-        
-              <MDBTable responsive>
-      <MDBTableHead color="primary-color" textWhite>
-        <tr>
-          <th>Milestone</th>
-          <th>Time Duration(weeks)</th>
-          <th>start</th>
-          <th>finish</th>
-          
-        </tr>
-      </MDBTableHead>
-      <MDBTableBody>
-              {this.state.milestones.map(milestones=>
-          <tr>
-          <td>{milestones.name}</td>
-          <td>{milestones.Duration}</td>
-          <td><MDBBtn>{milestones.start.toString()}</MDBBtn></td>
-          <td><MDBBtn>{milestones.stop.toString()}</MDBBtn></td>
+        <div className="ml-5 pt-2">
+        <MDBCard>
+          <MDBCardBody style={cardStyle}>
+          <MDBTable responsive>
+            <MDBTableHead color="primary-color" textWhite>
+              <tr>
+                <th>Milestone</th>
+                <th>Time Duration(weeks)</th>
+                <th>start</th>
+                <th>finish</th>
+                
+              </tr>
+            </MDBTableHead>
+            <MDBTableBody>
+                    {this.state.milestones.map(milestones=>
+                <tr>
+                <td>{milestones.name}</td>
+                <td>{milestones.Duration}</td>
+                <td><MDBBtn>{milestones.start.toString()}</MDBBtn></td>
+                <td><MDBBtn>{milestones.stop.toString()}</MDBBtn></td>
 
 
-          </tr>
-        )}
-        </MDBTableBody>
+                </tr>
+              )}
+              </MDBTableBody>
 
-      </MDBTable>
+            </MDBTable>
+          </MDBCardBody>
+        </MDBCard>
+              
+            </div>
 
              </div>
              </div>

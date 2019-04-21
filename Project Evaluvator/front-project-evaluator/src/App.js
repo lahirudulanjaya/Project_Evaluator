@@ -20,6 +20,8 @@ import Navbar from './Components/Navbar/Navbar';
 import PageNotFound from './Components/Error/PageNotFound';
 
 import Student from './Components/P_coordinator/Pages/Student/Student';
+import NewSideBar from './Components/P_coordinator/Component/NewSideBar';
+import RouteFile from './RouteFile';
 import studentTable from './Components/P_coordinator/Pages/Student/studentTable'
 import Scoordinator from './Components/S_coordinator/Scoordinator'
 
@@ -28,24 +30,38 @@ import Scoordinator from './Components/S_coordinator/Scoordinator'
 class App extends Component {
   render() {
     return (
-<Provider store={store}>
+    <Provider store={store}>
       <Router history={history}>
+        <div className="App">
+          <Switch>
+            <Route path = "/project" component ={NewSideBar}/>
+            <Route path = "/devices" component ={NewSideBar}/>
+            <Route path = "/pg/project" component={NewSideBar}/>
+            <Route path ="/student" component={NewSideBar}/>
+            <Route path ="/pg/milestone" component={NewSideBar}/>
+
+            <Route exact path = "/sc" component ={Scoordinator}/>
+            <Route exact path ="/" component={Login}/>
+            <Route exact path ="/login" component={Login}/>  
+            <Route exact path ="/register" component={Register}/>
+            <Route exact path ="/pg/project/creategroups" component={studentTable}/>
+            <Route component={PageNotFound} />
+          </Switch>
+        </div>
+      </Router> 
+      {/* <Router history={history}>
       <div className="App">
-        <Navbar />
-        <Switch>  
-        <Route exact path ="/" component={Login}/>
-        <Route exact path ="/pg/project/creategroups" component={studentTable}/>
+      <Navbar/>
+        <Switch>
+        <Route exact path ="/" component={Login}/>  
         <Route exact path ="/register" component={Register}/>
-        <Route exact path ="/login" component={Login}/>
-        <Route exact path ="/student" component={Student}/>
+        <Route exact path ="/chart" component={Chart}/>
         <Route exact path = "/pg" component ={Pcoordinator}/>
-        <Route  exact path = "/pg/project" component={Project}/>
         <Route exact path = "/sc" component ={Scoordinator}/>
-      <Route exact path = "/pg/project/milestone"  component={Milestones}/>
         <Route component={PageNotFound} />
         </Switch>
       </div>
-      </Router>
+      </Router> */}
       </Provider> 
   
     );
