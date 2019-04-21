@@ -5,6 +5,7 @@ import Milestones from './Components/P_coordinator/Pages/Project/updateMilestone
 import Project from './Components/P_coordinator/Pages/Project/Project';
 import Student from './Components/P_coordinator/Pages/Student/Student';
 import Pcoordinator from './Components/P_coordinator/Pcoordinator';
+import StudentTable from './Components/P_coordinator/Pages/Student/studentTable'
 
 class RouteFile extends Component{
     render() {
@@ -14,7 +15,9 @@ class RouteFile extends Component{
             <Route path="/devices" component={props => < Project/>} />
             <Route path="/student" component={props => < Student/>} />
             <Route path="/pg/project" component={props => < Project/>} /> 
-            <Route path="/pg/milestone" component={props => <Milestones/>}/>                       
+            <Route path="/pg/milestone" component={props => <Milestones/>}/>  
+            <Route path="/pg/creategroups" component={props => <StudentTable/>}/>                       
+                     
             </div>
 
         );
