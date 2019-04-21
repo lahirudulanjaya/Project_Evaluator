@@ -80,6 +80,11 @@ class NewSideBar extends Component{
                                 Projects
                             </NavText>
                         </NavItem>
+                        <NavItem eventKey="pg/creategroups">
+                            <NavText>
+                                Create Groups
+                            </NavText>
+                        </NavItem>
                         <NavItem eventKey="pg/milestone">
                             <NavText>
                                 Milestones

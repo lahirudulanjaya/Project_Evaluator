@@ -39,13 +39,14 @@ class App extends Component {
             <Route path = "/pg/project" component={NewSideBar}/>
             <Route path ="/student" component={NewSideBar}/>
             <Route path ="/pg/milestone" component={NewSideBar}/>
+            <Route path ="/pg/creategroups" component={NewSideBar}/>
+
 
             <Route exact path = "/sc" component ={Scoordinator}/>
             <Route exact path ="/" component={Login}/>
             <Route exact path ="/login" component={Login}/>  
             <Route exact path ="/register" component={Register}/>
-            <Route exact path ="/pg/project/creategroups" component={studentTable}/>
-            <Route component={PageNotFound} />
+            {/* <Route component={PageNotFound} /> */}
           </Switch>
         </div>
       </Router> 
