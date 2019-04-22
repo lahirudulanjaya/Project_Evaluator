@@ -19,12 +19,11 @@ import {Provider } from 'react-redux'
 import Navbar from './Components/Navbar/Navbar';
 import PageNotFound from './Components/Error/PageNotFound';
 
-import Student from './Components/P_coordinator/Pages/Student/Student';
 import NewSideBar from './Components/P_coordinator/Component/NewSideBar';
 import RouteFile from './RouteFile';
 import studentTable from './Components/P_coordinator/Pages/Student/studentTable'
 import Scoordinator from './Components/S_coordinator/Scoordinator'
-
+import Student from './Components/Student/Student'
 
 
 class App extends Component {
@@ -37,11 +36,11 @@ class App extends Component {
             <Route path = "/project" component ={NewSideBar}/>
             <Route path = "/devices" component ={NewSideBar}/>
             <Route path = "/pg/project" component={NewSideBar}/>
-            <Route path ="/student" component={NewSideBar}/>
+            <Route path ="/pg/student" component={NewSideBar}/>
             <Route path ="/pg/milestone" component={NewSideBar}/>
             <Route path ="/pg/creategroups" component={NewSideBar}/>
 
-
+            <Route exact path ="/student" component ={Student}/>
             <Route exact path = "/sc" component ={Scoordinator}/>
             <Route exact path ="/" component={Login}/>
             <Route exact path ="/login" component={Login}/>  

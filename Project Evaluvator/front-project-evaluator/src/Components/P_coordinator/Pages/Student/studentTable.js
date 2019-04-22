@@ -11,7 +11,7 @@ import Axios from 'axios';
 
 var groupno=1
 var groups=[]
-class studentTable extends React.Component{
+class StudentTable extends React.Component{
     constructor(props){
         super(props)
         this.props.getprojectnames()
@@ -52,9 +52,9 @@ class studentTable extends React.Component{
       })
     }
     createGroup=(value)=>{
+      
       swal({
         title: "Are you sure you want to group this?",
-       
         icon: "warning",
         buttons: true,
         dangerMode: false,
@@ -190,4 +190,4 @@ const mapStateToProps = state => {
    
   }};
 
-export default connect(mapStateToProps,{getstudentbyYear,getprojectnames})(studentTable)
+export default connect(mapStateToProps,{getstudentbyYear,getprojectnames})(StudentTable)

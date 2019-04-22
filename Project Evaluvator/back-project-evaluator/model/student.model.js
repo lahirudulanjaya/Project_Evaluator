@@ -30,6 +30,10 @@ var Studentschema= new mongoose.Schema(
         },
         Salt:{
             type:String
+        },
+        type:{
+            type:String,
+            default:"student"
         }
     }
 )
@@ -56,7 +60,8 @@ Studentschema.methods.verifyPassword = function(password)
 
 Studentschema.methods.generateJwt = function () {
     return jwt.sign({
-        _id: this._id,       
+        _id: this._id,  
+        type:this.type     
     }, process.env.JWT_SECRET,
     {
          expiresIn: process.env.JWT_EXP

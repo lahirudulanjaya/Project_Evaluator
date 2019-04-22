@@ -79,12 +79,15 @@ render(){
         <MDBCol md="3">
         </MDBCol>
         <MDBCol md="6">
-          <MDBCard>
+        <MDBCard className="w-100 p-3">
+
             <MDBCardBody>
               <form className="needs-validation"
           onSubmit={this.submitHandler}
           noValidate>
+          <div className="header pt-3 grey lighten-2">
                 <p className="h4 text-center py-4">Sign up</p>
+                </div>
              
                 <div className="grey-text">
                   <MDBInput
@@ -94,7 +97,7 @@ render(){
                     value ={this.state.UserName}
                     id="materialFormRegisterPasswordEx4"               
                     type="text"
-                    className="form-control"
+                    className="w-75 p-3"
                     id="defaultFormRegisterNameEx"
                     validate
                     error="wrong"
@@ -106,6 +109,7 @@ render(){
                     name ="Email"
                     value ={this.state.Email}
                     onChange ={this.handleChange}
+                    className="w-75 p-3"
 
                     group
                     type="email"
@@ -119,6 +123,7 @@ render(){
                     name = "Registrationnumber"
                     value ={this.state.Registrationnumber}
                     onChange ={this.handleChange}
+                    className="w-75 p-3"
 
                     group
                     type="text"
@@ -132,6 +137,7 @@ render(){
                     name ="Password"
                     value ={this.state.Password}
                     onChange ={this.handleChange}
+                    className="w-75 p-3"
 
                     group
                     type="Password"
@@ -146,6 +152,8 @@ render(){
                     value ={this.state.Cpassword}
                     onChange ={this.handleChange}
                     group
+                    className="w-75 p-3"
+
                     type="password"
                     validate
                     required

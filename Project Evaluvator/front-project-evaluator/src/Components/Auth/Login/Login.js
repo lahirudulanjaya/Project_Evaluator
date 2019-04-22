@@ -19,8 +19,12 @@ class Login extends Component{
     this.handleChange = this.handleChange.bind(this);
   }
   componentWillReceiveProps(nextprops){
-    if(nextprops.auth.isAuthenticated){
+    console.log(nextprops)
+    if(nextprops.auth.isAuthenticated && nextprops.auth.user.type=="pcoordinator"){
       this.props.history.push('/project')
+    }
+    else if(nextprops.auth.isAuthenticated && nextprops.auth.user.type=="student"){
+      this.props.history.push('/student')
     }
   }
 

@@ -23,7 +23,7 @@ render() {
       <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
         <MDBNavbarNav right>
           <MDBNavItem active>
-            <MDBNavLink to="/login"><b style={{ color: '#000000' }}>Login</b></MDBNavLink>
+            <MDBNavLink to="/login"><b style={{ color: '#000000' }}>log out</b></MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
             <MDBNavLink to="/register"><b style={{ color: '#000000' }}>Sign Up</b></MDBNavLink>
