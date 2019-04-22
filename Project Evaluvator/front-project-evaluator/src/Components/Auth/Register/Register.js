@@ -7,6 +7,7 @@ import './Register.css';
 import {connect} from 'react-redux'
 
 import {registerUser} from '../../../actions/authActions';
+import Navbar from '../Navbar';
 
 import {Link} from 'react-router-dom'
 class Register extends Component{
@@ -74,6 +75,8 @@ render(){
   const { errors } = this.state;
 
     return(
+      <div>
+        <Navbar/>
 <MDBContainer className="register">
       <MDBRow>
         <MDBCol md="3">
@@ -170,7 +173,7 @@ render(){
         </MDBCol>
       </MDBRow>
     </MDBContainer>
-    
+    </div>
     )
 }
 }
