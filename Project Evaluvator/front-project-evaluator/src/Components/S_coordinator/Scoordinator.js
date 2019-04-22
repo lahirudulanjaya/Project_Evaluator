@@ -3,6 +3,8 @@ import SideNavigation from './Component/Sidebar2'
 import { Route } from 'react-router-dom';
 import Project from './Pages/Project/Project';
 import Calender from './Component/Calender';
+import Calendar from "react-calendar";
+
 
 class Scoodinater extends Component{
     render(){

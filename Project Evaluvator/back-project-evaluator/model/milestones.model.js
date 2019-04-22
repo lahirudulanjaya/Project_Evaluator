@@ -2,7 +2,7 @@ const mongoose =require('mongoose')
 
 var Milestoneschema = new mongoose.Schema(
     {
-        id:{
+        Projectname:{
             type:String,
         },
         
@@ -22,6 +22,14 @@ var Milestoneschema = new mongoose.Schema(
         },
         Duration:{
             type:String
+        },
+        start:{
+            type:Boolean,
+            default:false
+        },
+        stop:{
+            type:Boolean,
+            default:false
         }
 
 

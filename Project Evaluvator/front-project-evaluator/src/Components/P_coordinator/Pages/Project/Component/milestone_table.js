@@ -2,21 +2,36 @@
 import React,{Component} from 'react'
 import {addmilstones} from '../../../../../actions/milestoneActions'
 import {connect} from 'react-redux'
+import {getprojectnames} from '../../../../../actions/ProjectActions'
+import Student from '../uploadStudent'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FormLabel from '@material-ui/core/FormLabel';
+import Button from '@material-ui/core/Button';
+import axios from 'axios'
+import swal from 'sweetalert';
+import {Link} from 'react-router-dom'
 
 class Products extends React.Component {
 
     constructor(props) {
       super(props);
-  
+      
       //  this.state.products = [];
       this.state = {
+        idd:'',
         Milestones:[],
-        products:[]
+        products:[],
+        Projectname:props.proname
       };
       this.state.filterText = "";
       this.state.products = [
         {
-          id: 1,
+          id: '',
+          open:false,
+          Projectname: props.proname,
           name: 'football',
           MilstoneType:'',
           Markspresentatge: 12,
@@ -24,22 +39,48 @@ class Products extends React.Component {
           Duration:''
         }
       ];
-  
+      this.handleChange = this.handleChange.bind(this)
+
     }
+    componentDidMount(){
+      this.props.getprojectnames()
+     //  this.props.project.map()
+     }
+     
+     componentWillMount()
+     {    
+      // eslint-disable-next-line no-undef
+     
+     }
+       
     handleUserInput(filterText) {
       this.setState({filterText: filterText});
+    };
+    handleClose = () => {
+      this.setState({ open: false });
     };
     handleRowDel(product) {
       var index = this.state.products.indexOf(product);
       this.state.products.splice(index, 1);
       this.setState(this.state.products);
     };
+   
+    handleChange(e){
+      let index = e.nativeEvent.target.selectedIndex
+      let value = e.nativeEvent.target[index].text
+
+      this.setState({
+        idd: value,
+      })
+      
+   }
   
     handleAddEvent(evt) {
       this.setState({Milestones:[]})
-      var id = (+ new Date() + Math.floor(Math.random() * 999999)).toString(36);
+      var id = 1;
       var product = {
-        id: id,
+        id:id,
+        Projectname:this.state.Projectname,
         name: "",
         Grp_or_I: "",
         Markspresentatge: 0,
@@ -51,12 +92,21 @@ class Products extends React.Component {
       this.state.Milestones.push(this.state.products);
       console.log(this.state.products)
     }
-    importMilestones=()=>{
-      const newdetatil={
+    importMilestones=()=>
+    {
+      const newdetatil=
+      {
         Milestones :this.state.products
-    }
-    console.log(newdetatil)
-      this.props.addmilstones(newdetatil)
+      }
+      axios.post("http://localhost:4000/api/pg/postmilestone",newdetatil)
+    .then(res=>{
+      this.setState({open:true})
+
+    })
+    .catch(err =>{
+        swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+    })
+      
     }
   
     handleProductTable(evt) {
@@ -80,12 +130,45 @@ class Products extends React.Component {
     //  console.log(this.state.products);
     };
     render() {
-  
+      const { proname } = this.props;
       return (
         <div>
           <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)}/>
+          <div className="row">
+              <div className="col-md-4">
+              <label for="projectSelect">Select Project</label>
+          <input name="idd" class="form-control"  Value={this.state.Projectname} >
+          
+              </input>
+              </div>
+              </div>
           <ProductTable onProductTableUpdate={this.handleProductTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} products={this.state.products} filterText={this.state.filterText}/>
         <button onClick={this.importMilestones}>Add Milestone</button>
+
+        <Dialog 
+            
+              open={this.state.open}
+             // onClose={this.handleClose}
+              aria-labelledby="responsive-dialog-title"
+            >
+              <DialogTitle id="responsive-dialog-title"><FormLabel><b>Import Student Details</b></FormLabel></DialogTitle>
+              <DialogContent >
+             
+      <Student proname ={this.state.Projectname}></Student>
+
+            
+              </DialogContent>
+               <DialogActions>
+               
+                <Link to="/pg/project/creategroups"><Button  color="primary" autoFocus >
+                  Create Groups
+                </Button></Link>
+                <Button onClick={this.handleClose} color="primary" autoFocus>
+                  Close
+                </Button>
+                
+              </DialogActions>  
+            </Dialog>
         </div>
       );
   
@@ -126,21 +209,10 @@ class Products extends React.Component {
         return (<ProductRow onProductTableUpdate={onProductTableUpdate} product={product} onDelEvent={rowDel.bind(this)} key={product.id}/>)
       });
       return (
-        <div>
+        
           <div class="form-group pt-3">
-            <label for="projectSelect">Select Project</label>
-            <div className="row">
-              <div className="col-md-4">
-              <select class="form-control" id="projectSelect">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-              </div>
-              </div>
-            </div>
+            
+           
           <table className="table table-bordered">
             <thead>
               <tr>
@@ -226,7 +298,7 @@ class Products extends React.Component {
       return (
         
         <td>
-          <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}/>
+          <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate} />
         </td>
       
       );
@@ -234,4 +306,10 @@ class Products extends React.Component {
     }
   
   }
-export default connect(null,{addmilstones})(Products);  
+  const mapStateToProps = state => {
+    return{
+  
+    project: state.project, 
+   
+  }};
+export default connect(mapStateToProps,{addmilstones,getprojectnames})(Products);  

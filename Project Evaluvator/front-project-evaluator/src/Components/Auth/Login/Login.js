@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {loginStudent} from '../../../actions/authActions'
+import NavBar from '../../Navbar/Navbar'
 class Login extends Component{
   constructor(props){
     super(props);
@@ -19,7 +20,7 @@ class Login extends Component{
   }
   componentWillReceiveProps(nextprops){
     if(nextprops.auth.isAuthenticated){
-      this.props.history.push('/pg')
+      this.props.history.push('/project')
     }
   }
 
@@ -47,17 +48,21 @@ class Login extends Component{
   render(){
     const {errors} =this.state
     return (
+      <div>
       <MDBContainer className="login">
         <MDBRow>
-          <MDBCol sm="3"></MDBCol>
+          
           <MDBCol sm="6">
-            <MDBCard>
-              <MDBCardBody className="mx-4 mt-4">
+            <MDBCard className="w-75 p-3">
+              <MDBCardBody >
                 <form>
+                <div className="header pt-3 grey lighten-2">
                 <p className="h4 text-center py-4">Login</p>
+                </div>
                   <MDBInput 
                   required
                     label="User Name"  
+                    className="w-75 p-3"
                     name="UserName"
                     onChange={this.handleChange}
                     value={this.state.UserName}
@@ -74,6 +79,7 @@ class Login extends Component{
                     value={this.state.password}
                     group
                     type="password"
+                    className="w-75 p-3"
                     validate
                     error="wrong"
                     success="right"
@@ -108,9 +114,13 @@ class Login extends Component{
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
-          <MDBCol sm="3"></MDBCol>
+          <MDBCol sm="6"></MDBCol>
         </MDBRow>
       </MDBContainer>
+
+
+
+    </div>
     )
   }
 }

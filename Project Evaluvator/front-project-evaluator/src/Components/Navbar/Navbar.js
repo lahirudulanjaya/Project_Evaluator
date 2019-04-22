@@ -15,20 +15,20 @@ toggleCollapse = () => {
 
 render() {
   return (
-    <MDBNavbar color="indigo" dark expand="md">
+    <MDBNavbar color="light" dark expand="md">
       <MDBNavbarBrand>
-        <img src={Ucsc} alt="" class="logo"/>
+        {/* <img src={Ucsc} alt="" class="logo"/> */}
       </MDBNavbarBrand>
       <MDBNavbarToggler onClick={this.toggleCollapse} />
       <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-        <MDBNavbarNav left>
+        <MDBNavbarNav right>
           <MDBNavItem active>
-            <MDBNavLink to="/login"><b>Login</b></MDBNavLink>
+            <MDBNavLink to="/login"><b style={{ color: '#000000' }}>Login</b></MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
-            <MDBNavLink to="/register"><b>Sign Up</b></MDBNavLink>
+            <MDBNavLink to="/register"><b style={{ color: '#000000' }}>Sign Up</b></MDBNavLink>
           </MDBNavItem>
-          <MDBNavItem>
+          {/* <MDBNavItem>
             <MDBDropdown>
               <MDBDropdownToggle nav caret>
                 <div className="d-none d-md-inline"><b>Dropdown</b></div>
@@ -40,9 +40,9 @@ render() {
                 <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
               </MDBDropdownMenu>
             </MDBDropdown>
-          </MDBNavItem>
+          </MDBNavItem> */}
         </MDBNavbarNav>
-        <MDBNavbarNav right>
+        {/* <MDBNavbarNav right>
           <MDBNavItem>
             <MDBNavLink className="waves-effect waves-light" to="#!">
               <MDBIcon fab icon="twitter" />
@@ -66,7 +66,7 @@ render() {
               </MDBDropdownMenu>
             </MDBDropdown>
           </MDBNavItem>
-        </MDBNavbarNav>
+        </MDBNavbarNav> */}
       </MDBCollapse>
     </MDBNavbar>
     
