@@ -1,9 +1,10 @@
-import {GET_STUDENT_DETAILS,GET_STUDENT_DETAILS_Byyear} from '../actions/types'
+import {GET_STUDENT_DETAILS,GET_STUDENT_DETAILS_Byyear,GET_STUDENT_PROJECT} from '../actions/types'
 
 
 const initialState ={
     students:[],
-    studentbyYear:[]
+    studentbyYear:{},
+    studentProject:[]
 };
 
 export default function(state =initialState,action){
@@ -18,7 +19,11 @@ export default function(state =initialState,action){
                 ...state,
                 studentbyYear:action.payload
         }
-            
+        case GET_STUDENT_PROJECT:
+        return{
+            ...state,
+            studentProject:action.payload
+        }           
         default:
             return state
     }

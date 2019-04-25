@@ -127,15 +127,28 @@ module.exports.sendemail =(req,res,next)=>{
 }
 
 module.exports.getstudentsbyYear =(req,res,next)=>{
-    Studentdetail.find({Projectname:new RegExp(req.params.year)},'Registrationnumber Name',(err,doc)=>{
+    Studentdetail.find({$or:[ {Registrationnumber:new RegExp(req.params.year)},{Projectname:new RegExp(req.params.year)}]},'Projectname Registrationnumber Name',(err,doc)=>{
         if(!err){
-            res.send(doc)
+            res.status(200).json(doc)
         }
         else{
             res.status(422).send(err)
         }
     })
 }
+
+module.exports.userprofile =(req,res,next)=>{
+    Student.findOne({ _id: req.params._id },(err,doc)=>{
+        if(!err){
+            res.status(200).json(_.pick(doc,['UserName','Registrationnumber','Email']))
+        }
+        else{
+            res.status(404).json({messeage:"No Record Found"})
+        }
+    })
+}
+
+
 
 
 

@@ -3,27 +3,39 @@ import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNav
 MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact";
 import Ucsc from "../../Ucsc.jpg";
 import "./Navbar.css";
-
+import NotificationBadge from 'react-notification-badge';
+import {Effect} from 'react-notification-badge';
+import {Icon }from 'semantic-ui-react'
 class NavbarPage extends Component {
-state = {
-  isOpen: false
+  constructor(props){
+    super(props)
+  
+this.state = {
+  isOpen: false,
+  username:props.username
 };
+
+}
 
 toggleCollapse = () => {
   this.setState({ isOpen: !this.state.isOpen });
 }
 
 render() {
+  const username =this.props
   return (
     <MDBNavbar color="light" dark expand="md">
       <MDBNavbarBrand>
-        {/* <img src={Ucsc} alt="" class="logo"/> */}
-      </MDBNavbarBrand>
+                    <strong style={{ color: '#000000' }}>Welcome {this.state.username}</strong>
+        </MDBNavbarBrand>
       <MDBNavbarToggler onClick={this.toggleCollapse} />
       <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
         <MDBNavbarNav right>
+        <MDBNavItem active>
+        <Icon size='big' name='bell' >  <NotificationBadge count={3} effect={Effect.SCALE} /></Icon>
+          </MDBNavItem>
           <MDBNavItem active>
-            <MDBNavLink to="/login"><b style={{ color: '#000000' }}>log out</b></MDBNavLink>
+            <MDBNavLink to="/login"><b style={{ color: '#000000' }}>log out </b></MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
             <MDBNavLink to="/register"><b style={{ color: '#000000' }}>Sign Up</b></MDBNavLink>

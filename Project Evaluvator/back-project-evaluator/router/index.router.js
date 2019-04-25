@@ -8,7 +8,7 @@ const CtrlProject =require('../controller/project.controller')
 
 router.post('/Student/register',CtrlStudent.register)
 router.post('/authenticate',CtrlStudent.authenticate)
-router.get('/studentprofile', Jwtverify.verifyJwtToken, CtrlStudent.studentprofile);
+router.get('/userprofile/:_id',  CtrlStudent.userprofile);
 router.post('/pg/postmilestone',CtrlMilestone.addmilestone)
 router.get('/pg/getmilestone/:Projectname',CtrlMilestone.getmilstones)
 router.post('/pg/addproject',CtrlProject.addproject)
@@ -20,5 +20,6 @@ router.get('/pg/getstudentdetails',CtrlStudent.getallStudentdetail)
 router.get('/pg/sendmails',CtrlStudent.sendemail)
 router.get('/pg/getstudents/:year',CtrlStudent.getstudentsbyYear)
 router.put('/pg/addGroups',CtrlProject.addGroups)
+router.get('/getstudentproject/:id',CtrlProject.getreleventProject)
 module.exports=router 
 

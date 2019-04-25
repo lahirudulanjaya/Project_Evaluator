@@ -6,9 +6,8 @@ import _ from 'lodash'
 import {getstudentbyYear}  from '../../../../actions/P_coodinator-Student'
 import Table, {Thead, Tbody, Tr, Th, Td} from "react-row-select-table"
 import swal from 'sweetalert'
-import { Button } from 'semantic-ui-react'
 import Axios from 'axios';
-
+import { Card, Icon, Image,Button } from 'semantic-ui-react'
 var groupno=1
 var groups=[]
 class StudentTable extends React.Component{
@@ -21,7 +20,9 @@ class StudentTable extends React.Component{
             data: [],
             direction: null,
             students:[],
-            isChecked: false
+            isChecked: false,
+            
+            groups:[]
         }
         this.onchangeDropdown =this.onchangeDropdown.bind(this)
         this.handleChecked = this.handleChecked.bind(this);
@@ -38,6 +39,7 @@ class StudentTable extends React.Component{
         Projectname :this.state.projectName,
         groups :groups
       }
+      console.log(submitGrps)
       Axios.put("http://localhost:4000/api/pg/addGroups",submitGrps)
       .then(res=>{
         swal({
@@ -71,13 +73,13 @@ class StudentTable extends React.Component{
             }
             groupno++
           groups.push(group)
-          console.log(groups)
+          this.setState(prevState => ({ groups: [...prevState.groups, group] }))
+          console.log(this.state.data)
           value.forEach(element => {
             this.setState(this.state.data.splice(element,1))
           });
         
           value.length=0
-
 
 
 
@@ -174,6 +176,32 @@ return(
     
     
 </div>
+ 
+<div className="col-sm-12">
+Created Groups
+</div>
+
+<div className="row">    
+              
+        {this.state.groups.map(groups=>
+        <div class="col-sm">
+         <Card>
+        <Card.Content>
+        <Card.Header>Group No :{groups.groupno}</Card.Header>
+        <Card.Meta>
+          <span className='date'>Students </span>
+          {groups.students.map(students=>
+            <div>{students.Registrationnumber} : {students.Name}</div>
+            )}
+          
+        </Card.Meta>
+        
+        </Card.Content>
+        </Card>
+        </div>
+        )}
+        </div>
+        
 </div>
 </div>
 
