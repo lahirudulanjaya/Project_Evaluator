@@ -140,7 +140,7 @@ render(){
                     className="w-75 p-3"
 
                     group
-                    type="Password"
+                    type="Password "
                     validate
                     error="wrong"
                     success="right"
@@ -161,12 +161,12 @@ render(){
                 </div>
                 <div className="text-center py-4 mt-3">
                   <MDBBtn color="primary" type="submit" onClick ={this.postRegister}>
-                    Register
+                    Registerrrr
                   </MDBBtn>
                 </div>
               </form>
               <p className="font-small grey-text d-flex justify-content-center">
-                Already have an account..
+                Already have an account..,,,,
                
           <Link to="/login">Login</Link>
              
