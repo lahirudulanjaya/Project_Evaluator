@@ -45,8 +45,8 @@ class Register extends Component{
     //       icon: "success",
     //     });
     //   })
-    //   .catch(err=>{
-    //     swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+    //   .catch(err=>{ 
+    //    swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
     //     console.log(err.response.data)
     //   })
 

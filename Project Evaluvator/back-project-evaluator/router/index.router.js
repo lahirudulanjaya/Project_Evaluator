@@ -4,7 +4,7 @@ const router = express.Router()
 const CtrlStudent = require('../controller/student.controller')
 const CtrlMilestone =require('../controller/milestone.controller')
 const CtrlProject =require('../controller/project.controller')
-
+const Ctrlrequest=require('../controller/grouprequest.controller')
 
 router.post('/Student/register',CtrlStudent.register)
 router.post('/authenticate',CtrlStudent.authenticate)
@@ -21,5 +21,10 @@ router.get('/pg/sendmails',CtrlStudent.sendemail)
 router.get('/pg/getstudents/:year',CtrlStudent.getstudentsbyYear)
 router.put('/pg/addGroups',CtrlProject.addGroups)
 router.get('/getstudentproject/:id',CtrlProject.getreleventProject)
+
+
+
+//grouprequest
+router.post('/sendgrouprequest',Ctrlrequest.sendgrouprequest)
 module.exports=router 
 

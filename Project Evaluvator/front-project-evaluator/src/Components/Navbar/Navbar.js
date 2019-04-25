@@ -31,6 +31,11 @@ render() {
       <MDBNavbarToggler onClick={this.toggleCollapse} />
       <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
         <MDBNavbarNav right>
+        <MDBNavItem>
+          <MDBNavItem active>
+        <Icon size='big' name='user' >  <NotificationBadge count={3} effect={Effect.SCALE} /></Icon>
+          </MDBNavItem>
+          </MDBNavItem>
         <MDBNavItem active>
         <Icon size='big' name='bell' >  <NotificationBadge count={3} effect={Effect.SCALE} /></Icon>
           </MDBNavItem>
@@ -54,13 +59,8 @@ render() {
             </MDBDropdown>
           </MDBNavItem> */}
         </MDBNavbarNav>
-        {/* <MDBNavbarNav right>
-          <MDBNavItem>
-            <MDBNavLink className="waves-effect waves-light" to="#!">
-              <MDBIcon fab icon="twitter" />
-            </MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
+       
+      {/*    <MDBNavItem>
             <MDBNavLink className="waves-effect waves-light" to="#!">
               <MDBIcon fab icon="google-plus-g" />
             </MDBNavLink>
