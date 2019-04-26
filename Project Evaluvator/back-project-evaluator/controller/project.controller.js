@@ -88,3 +88,14 @@ module.exports.addGroups=(req,res,err)=>{
         }
     })
 }
+
+module.exports.getreleventProject=(req,res,next)=>{
+    Project.find({'groups.students.Registrationnumber':new RegExp(req.params.id)},'groups Projectname Acadamicyear',(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).json(err)
+        }
+    })
+}

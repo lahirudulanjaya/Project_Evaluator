@@ -4,6 +4,7 @@ import setAuthtoken from '../utils/setAuthToken'
 import { SET_CURRENT_USER } from './types';
 import jwt_decode from 'jwt-decode'
 import swal from 'sweetalert';
+import { decode } from 'punycode';
 
 //login authentications
 // export const registerUser = userData => dispath =>{
@@ -46,9 +47,18 @@ export const loginStudent = userData => dispatch =>{
             const {token} =res.data
             localStorage.setItem('jwttoken',token)
             setAuthtoken(token)
-            const decoded =jwt_decode(token);
-            dispatch(setCurrentUser(decoded))
+            var decoded =jwt_decode(token);
+            axios.get('http://localhost:4000/api/userprofile/'+decoded._id).then(res=>{
+                decoded.user=res.data
+                dispatch(setCurrentUser(decoded))
+                console.log(decoded)
 
+            })
+            .catch(err=>{
+
+            })
+            
+            
         })
         .catch(err =>{
             swal ( "Oops" ,  err.response.data.message ,  "error" )

@@ -14,14 +14,24 @@ class Login extends Component{
     super(props);
     this.state ={
       UserName :'',
-      password : ''
+      password : '',
+      user:[],
+      ss:"dfdf"
+
     }
     this.handleChange = this.handleChange.bind(this);
   }
+
   componentWillReceiveProps(nextprops){
-    if(nextprops.auth.isAuthenticated){
+    console.log(nextprops)
+    if(nextprops.auth.isAuthenticated && nextprops.auth.user.type=="pcoordinator"){
       this.props.history.push('/project')
     }
+    else if(nextprops.auth.isAuthenticated && nextprops.auth.user.type=="student"){
+      this.props.history.push('/student')
+    }
+    this.setState({user:nextprops.auth.user.user})
+    
   }
 
 
@@ -46,7 +56,8 @@ class Login extends Component{
 
 
   render(){
-    const {errors} =this.state
+    const {user} =this.props.auth
+    
     return (
       <div>
         <NavBar/>
