@@ -26,5 +26,9 @@ router.get('/getstudentproject/:id',CtrlProject.getreleventProject)
 
 //grouprequest
 router.post('/sendgrouprequest',Ctrlrequest.sendgrouprequest)
+router.get('/getsendresquest/:id',Ctrlrequest.getsendrequest)
+router.get('/getresquest/:id',Ctrlrequest.getrequest)
+router.get('/checkaccepted/:id',Ctrlrequest.checkaccepted)
+
 module.exports=router 
 
