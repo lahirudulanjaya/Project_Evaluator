@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+
 var ProjectSchema = new mongoose.Schema({
   
     Projectname:{
@@ -21,12 +22,16 @@ var ProjectSchema = new mongoose.Schema({
     },
     groups:[{
         groupno:{
-            type:String
+            type:Number
         },
         students:[]
     }]
 
 
+})
+
+ProjectSchema.pre('findOneAndUpdate',()=>{
+    console.log(this.groups)
 })
 
 mongoose.model('Project',ProjectSchema);
