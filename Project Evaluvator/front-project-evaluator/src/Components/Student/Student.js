@@ -8,6 +8,8 @@ import Tables, { Thead, Tbody, Tr, Th, Td } from "react-row-select-table"
 import Axios from 'axios';
 import swal from 'sweetalert';
 import { request } from 'https';
+import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
 
 class Student extends React.Component {
   constructor(props) {
@@ -145,7 +147,7 @@ class Student extends React.Component {
           <div>
 
             you havent assign project right now</div> :
-          <div>project = {this.state.student.Projectname}
+          <div><h2>project = {this.state.student.Projectname}</h2>
 
 
             {(this.state.student.Projectname.substring(7, 8) == 2) ?
@@ -209,8 +211,13 @@ class Student extends React.Component {
                 </div>
               </div> :
               <div>
+                <div className="container">
+                <div className="row">
+                <div className="col-sm-6 pt-2">
                 you have to create own groups
 <Button onClick={this.showlist}> Show List</Button>
+              <MDBCard>
+              <MDBCardBody>
                 <Tables onCheck={(value) => value.length >= 3
                   ? this.sendgroupRequest(value)
                   : console.log("fvfvf")
@@ -233,41 +240,72 @@ class Student extends React.Component {
 
                   </Tbody>
                 </Tables>
-
-
-
+                </MDBCardBody>
+                </MDBCard>
+                </div>
+                
+                <div className="col-sm-6 pt-2">
                 {this.state.request ?
 
-                  <Table celled>
+                  // <Table celled>
 
-                    <Table.Header>
-                      <Table.Row>
-                        <Table.HeaderCell>Registartionnumber</Table.HeaderCell>
-                        <Table.HeaderCell>Status</Table.HeaderCell>
+                  //   <Table.Header>
+                  //     <Table.Row>
+                  //       <Table.HeaderCell>Registartionnumber</Table.HeaderCell>
+                  //       <Table.HeaderCell>Status</Table.HeaderCell>
 
-                      </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                      {this.state.request.map(request =>
+                  //     </Table.Row>
+                  //   </Table.Header>
+                  //   <Table.Body>
+                  //     {this.state.request.map(request =>
 
-                        <Table.Row>
-                          <Table.Cell>{request.Registrationnumber}</Table.Cell>
-                          {request.active == "pending" ?
-                            <Table.Cell negative><Icon name='circle notched' loading /> Pending</Table.Cell> :
-                            request.active == "accepted" ?
-                              <Table.Cell active><Icon name='checkmark' /> Accepted</Table.Cell> :
-                              <Table.Cell negative><Icon name='frown' /> Rejected</Table.Cell>
+                  //       <Table.Row>
+                  //         <Table.Cell>{request.Registrationnumber}</Table.Cell>
+                  //         {request.active == "pending" ?
+                  //           <Table.Cell negative><Icon name='circle notched' loading /> Pending</Table.Cell> :
+                  //           request.active == "accepted" ?
+                  //             <Table.Cell active><Icon name='checkmark' /> Accepted</Table.Cell> :
+                  //             <Table.Cell negative><Icon name='frown' /> Rejected</Table.Cell>
 
-                          }
-                        </Table.Row>
-                      )}
-                    </Table.Body>
-                  </Table>
+                  //         }
+                  //       </Table.Row>
+                  //     )}
+                  //   </Table.Body>
+                  // </Table>
+                  <MDBCard>
+          <MDBCardBody>
+                  <MDBTable responsive>
+
+      <MDBTableHead color="dark" textWhite>
+        <tr>
+          <th>Registartionnumber</th>
+          <th>Status</th>
+        </tr>
+      </MDBTableHead>
+      <MDBTableBody>
+     
+        {this.state.request.map(request => 
+         <tr>
+          <td >{request.Registrationnumber}</td>
+          {request.active == "pending" ?
+          <td ><Icon name='circle notched' loading /> Pending</td>:
+          request.active == "accepted" ?
+          <td><Icon name='checkmark' /> Accepted</td>:
+          <td><Icon name='frown' /> Rejected</td>
+        }
+          </tr>
+          )}
+      </MDBTableBody>
+    </MDBTable>
+    </MDBCardBody>
+        </MDBCard>
                   :
                   <div>
                     You Havent Send Any Request Yet. If you wish to create group click show list and select three students
       </div>}
-
+        </div>
+        </div>
+                </div>
 
 
 
