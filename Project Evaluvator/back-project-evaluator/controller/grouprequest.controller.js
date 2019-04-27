@@ -44,6 +44,7 @@ module.exports.getrequest=(req,res,next)=>{
     })
 }
 module.exports.checkaccepted=(req,res,next)=>{
+
     Grouprequest.find({reciver:{$elemMatch:{Registrationnumber:req.params.id,active:"accepted"}}},(err,doc)=>{
         if(!err){
             
@@ -71,6 +72,24 @@ module.exports.checkaccepted=(req,res,next)=>{
         }
     })
 }
+
+module.exports.checkallaccepted=(req,res,next)=>{
+    Grouprequest.find({$and:[{'reciver.active':"pending"},{sender:req.params.id}]},(err,doc)=>{
+        if(!err){
+            if(doc.length>0){
+                res.status(200).json({status:false})
+            }
+            else{
+                res.status(200).json({status:true})
+            }
+        }
+        else{
+            res.status(404).send(err)
+        }
+    })
+
+}
+
 
 // module.export.acceptRequest=(req,res,next)=>{
 //     Grouprequest.find({'reciver.Registrationnumber'})

@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../Navbar/Navbar'
 import { connect } from 'react-redux'
 import { getstudentProject, getstudentbyYear } from '../../actions/P_coodinator-Student'
-import { getsendrequest, getrequest } from '../../actions/requestActions'
+import { getsendrequest, getrequest,cheackallaccepted } from '../../actions/requestActions'
 import { Table, Button, Icon, Popup } from 'semantic-ui-react'
 import Tables, { Thead, Tbody, Tr, Th, Td } from "react-row-select-table"
 import Axios from 'axios';
@@ -22,7 +22,8 @@ class Student extends React.Component {
       groups: null,
       students: [],
       request: null,
-      requests: []
+      requests: [],
+      isaccepted:false
 
 
     }
@@ -31,12 +32,13 @@ class Student extends React.Component {
     this.props.getsendrequest(this.props.user.Registrationnumber)
     this.props.getrequest(this.props.user.Registrationnumber)
     this.showlist = this.showlist.bind(this)
+    this.creategroup=this.creategroup.bind(this)
   }
   componentDidMount() {
     this.setState({ user: this.props.user })
     this.props.getsendrequest(this.props.user.Registrationnumber)
     this.props.getrequest(this.props.user.Registrationnumber)
-
+    this.props.cheackallaccepted(this.props.user.Registrationnumber)
 
 
   }
@@ -96,6 +98,7 @@ class Student extends React.Component {
   }
   showlist = () => {
     { this.props.getstudentbyYear(this.state.student.Projectname) }
+    this.props.getsendrequest(this.props.user.Registrationnumber)
 
   }
 
@@ -118,6 +121,7 @@ class Student extends React.Component {
         students: nextprops.student.studentbyYear,
         request: nextprops.request.request.reciver,
         requests: nextprops.request.requests,
+        isaccepted:nextprops.request.isaccepted,
         recive: true
       }
 
@@ -125,12 +129,59 @@ class Student extends React.Component {
 
 
     this.setState({ request: nextprops.request.request.reciver })
-    console.log(this.state.requests)
+    console.log(this.state.groups)
+
+  }
+  creategroup(){
+    
+    const students =[]
+    this.state.request.forEach(element => {
+      const student ={}
+      student.Registrationnumber=element.Registrationnumber
+      students.push(student)
+    });
+    students.push({Registrationnumber :this.props.user.Registrationnumber})
+    var groupnumber
+    if(!this.state.groups){
+      groupnumber=1
+    }
+    else{
+      groupnumber=this.state.groups.groups.length+1
+    }
+    const submitGrps={
+
+      Projectname:this.state.student.Projectname,
+      groups:{
+        students:students,
+        
+        groupno:groupnumber
+        
+
+
+      }
+    }
+console.log(submitGrps)
+    Axios.put("http://localhost:4000/api/pg/addGroups",submitGrps)
+    .then(res=>{
+      swal({
+        title: "Good job!",
+        text: "You have succesfully Submit Groups!",
+        icon: "success",
+      });
+      this.props.getstudentProject(this.props.user.Registrationnumber)
+
+    })
+    .catch(err=>{
+      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+      console.log(err)
+    })
 
   }
   confirmRequest(id) {
     Axios.get("http://localhost:4000/api/checkaccepted/"+id).then(res=>{
-      alert("sucess")
+      swal("sucess")
+      this.props.getsendrequest(this.props.user.Registrationnumber)
+
     })
     .catch(err=>{
       alert(err)
@@ -211,13 +262,105 @@ class Student extends React.Component {
                 </div>
               </div> :
               <div>
-                <div className="container">
-                <div className="row">
-                <div className="col-sm-6 pt-2">
                 you have to create own groups
-<Button onClick={this.showlist}> Show List</Button>
-              <MDBCard>
-              <MDBCardBody>
+
+
+                <div>
+                group list
+                <div>
+                  {!(this.state.groups == null) ? <div>
+                    <Table striped>
+                      <Table.Header>
+                        <Table.Row>
+                          <Table.HeaderCell>Group No</Table.HeaderCell>
+                          <Table.HeaderCell>Students Registrationnumber</Table.HeaderCell>
+                          <Table.HeaderCell>Student Name</Table.HeaderCell>
+                          <Table.HeaderCell>Supervisor</Table.HeaderCell>
+                          <Table.HeaderCell>Mentors</Table.HeaderCell>
+                        </Table.Row>
+                        {console.log(this.state)}
+                      </Table.Header>
+
+
+                      <Table.Body>
+
+                        {this.state.groups.groups.map(groups =>
+                          <Table.Row verticalAlign='top'>
+                            <Table.Cell>{groups.groupno}</Table.Cell>
+                            <Table.Cell>
+                              {groups.students.map(students =>
+                                <div>
+                                  {students.Registrationnumber}
+                                </div>
+                              )}
+                            </Table.Cell>
+                            <Table.Cell>
+                              {groups.students.map(students =>
+                                <div>
+                                  {students.Name}
+                                </div>
+                              )}
+                            </Table.Cell>
+                            {/* <Table.cell>
+                               
+                            </Table.cell>
+                            <Table.cell>
+                               
+                            </Table.cell>  */}
+                          </Table.Row>
+
+                        )}
+
+                      </Table.Body>
+
+                    </Table>
+                  </div> :
+
+                    <div>
+
+                    </div>
+                  }
+
+                </div>
+              </div> 
+
+                {this.state.request ?
+  
+                  <Table celled>
+<h1>Your Request</h1>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell>Registartionnumber</Table.HeaderCell>
+                        <Table.HeaderCell>Status</Table.HeaderCell>
+
+                      </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                      {this.state.request.map(request =>
+
+                        <Table.Row>
+                          <Table.Cell>{request.Registrationnumber}</Table.Cell>
+                          {request.active == "pending" ?
+                            <Table.Cell negative><Icon name='circle notched' loading /> Pending</Table.Cell> :
+                            request.active == "accepted" ?
+                              <Table.Cell active><Icon name='checkmark' /> Accepted</Table.Cell> :
+                              <Table.Cell negative><Icon name='frown' /> Rejected</Table.Cell>
+
+                          }
+                        </Table.Row>
+                      )}
+                    </Table.Body>
+                    <Button secondary disabled={!this.state.isaccepted} onClick={this.creategroup}>create your group</Button>
+
+                  </Table>
+                 
+
+
+
+                  :
+                  <div>
+                    You Havent Send Any Request Yet. If you wish to create group click show list and select three students
+                    <Button onClick={this.showlist}> Create Group</Button>
                 <Tables onCheck={(value) => value.length >= 3
                   ? this.sendgroupRequest(value)
                   : console.log("fvfvf")
@@ -240,72 +383,13 @@ class Student extends React.Component {
 
                   </Tbody>
                 </Tables>
-                </MDBCardBody>
-                </MDBCard>
-                </div>
-                
-                <div className="col-sm-6 pt-2">
-                {this.state.request ?
+                    
+                   </div>
+    
+    
+    
+    }
 
-                  // <Table celled>
-
-                  //   <Table.Header>
-                  //     <Table.Row>
-                  //       <Table.HeaderCell>Registartionnumber</Table.HeaderCell>
-                  //       <Table.HeaderCell>Status</Table.HeaderCell>
-
-                  //     </Table.Row>
-                  //   </Table.Header>
-                  //   <Table.Body>
-                  //     {this.state.request.map(request =>
-
-                  //       <Table.Row>
-                  //         <Table.Cell>{request.Registrationnumber}</Table.Cell>
-                  //         {request.active == "pending" ?
-                  //           <Table.Cell negative><Icon name='circle notched' loading /> Pending</Table.Cell> :
-                  //           request.active == "accepted" ?
-                  //             <Table.Cell active><Icon name='checkmark' /> Accepted</Table.Cell> :
-                  //             <Table.Cell negative><Icon name='frown' /> Rejected</Table.Cell>
-
-                  //         }
-                  //       </Table.Row>
-                  //     )}
-                  //   </Table.Body>
-                  // </Table>
-                  <MDBCard>
-          <MDBCardBody>
-                  <MDBTable responsive>
-
-      <MDBTableHead color="dark" textWhite>
-        <tr>
-          <th>Registartionnumber</th>
-          <th>Status</th>
-        </tr>
-      </MDBTableHead>
-      <MDBTableBody>
-     
-        {this.state.request.map(request => 
-         <tr>
-          <td >{request.Registrationnumber}</td>
-          {request.active == "pending" ?
-          <td ><Icon name='circle notched' loading /> Pending</td>:
-          request.active == "accepted" ?
-          <td><Icon name='checkmark' /> Accepted</td>:
-          <td><Icon name='frown' /> Rejected</td>
-        }
-          </tr>
-          )}
-      </MDBTableBody>
-    </MDBTable>
-    </MDBCardBody>
-        </MDBCard>
-                  :
-                  <div>
-                    You Havent Send Any Request Yet. If you wish to create group click show list and select three students
-      </div>}
-        </div>
-        </div>
-                </div>
 
 
 
@@ -339,4 +423,4 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps, { getstudentProject, getstudentbyYear, getsendrequest, getrequest })(Student);
+export default connect(mapStateToProps, { getstudentProject, getstudentbyYear, getsendrequest, getrequest ,cheackallaccepted})(Student);
