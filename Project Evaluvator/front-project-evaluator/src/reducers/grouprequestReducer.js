@@ -1,8 +1,9 @@
-import {GET_REQUEST,GET_SEND_REQUEST} from '../actions/types'
+import {GET_REQUEST,GET_SEND_REQUEST,IS_ALL_ACCEPTED} from '../actions/types'
 
 const initialstate ={
     request :[],
-    requests:[]
+    requests:[],
+    isaccepted:false
 }
 
 export default function(state =initialstate,action){
@@ -16,6 +17,11 @@ export default function(state =initialstate,action){
         return{
             ...state,
             requests:action.payload
+        }
+        case IS_ALL_ACCEPTED:
+        return{
+            ...state,
+            isaccepted:action.payload
         }
         default:
             return state
