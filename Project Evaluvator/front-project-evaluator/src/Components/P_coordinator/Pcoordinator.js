@@ -27,7 +27,7 @@ class Pcoodinater extends Component{
     </Header>
     <div className="row">    
         {this.props.project.projects.map(projects=>
-        <div class="col-sm">
+        <div class="col-sm ml-4">
          <Card>
         <Card.Content>
         <Card.Header>{projects.Projectname}</Card.Header>
