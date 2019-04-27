@@ -21,9 +21,14 @@ import PageNotFound from './Components/Error/PageNotFound';
 
 import NewSideBar from './Components/P_coordinator/Component/NewSideBar';
 import RouteFile from './RouteFile';
-import studentTable from './Components/P_coordinator/Pages/Student/studentTable'
-import Scoordinator from './Components/S_coordinator/Scoordinator'
+
 import Student from './Components/Student/Student'
+
+
+import studentTable from './Components/P_coordinator/Pages/Student/studentTable';
+import Scoordinator from './Components/S_coordinator/Scoordinator';
+import StudentSideBar from './Components/Student/StudentSideBar';
+import SCoordinatorSideBar from './Components/S_coordinator/Component/SCoordinatorSideBar';
 
 
 class App extends Component {
@@ -39,9 +44,13 @@ class App extends Component {
             <Route path ="/pg/student" component={NewSideBar}/>
             <Route path ="/pg/milestone" component={NewSideBar}/>
             <Route path ="/pg/creategroups" component={NewSideBar}/>
+            <Route path ="/studentDash" component={StudentSideBar}/>
+            <Route path ="/sc" component={SCoordinatorSideBar}/>
+
 
             <Route exact path ="/student" component ={Student}/>
             <Route exact path = "/sc" component ={Scoordinator}/>
+
             <Route exact path ="/" component={Login}/>
             <Route exact path ="/login" component={Login}/>  
             <Route exact path ="/register" component={Register}/>

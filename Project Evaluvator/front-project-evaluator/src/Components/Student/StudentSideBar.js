@@ -3,18 +3,18 @@ import{BrowserRouter as Router , Route} from 'react-router-dom'
 import React,{Component} from 'react';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
-import RouteFile from '../../../RouteFile';
-import NavBar from '../../Navbar/Navbar';
+import RouteFile from './RouteFile';
+import StudentNavBar from './StudentNavBar';
 
 const sideBar={
     backgroundColor : '#302F2F' 
 }
 
-class NewSideBar extends Component{
+class StudentSideBar extends Component{
     render(){
         return (
             <div>
-            <NavBar className="pb-3"/>
+             <StudentNavBar className="pb-3"/>
             <Router>
     <Route render={({ location, history }) => (
         <React.Fragment>
@@ -36,8 +36,8 @@ class NewSideBar extends Component{
                 }}
             >
                 <SideNav.Toggle />
-                <SideNav.Nav defaultSelected="project">
-                    <NavItem eventKey="project">
+                <SideNav.Nav defaultSelected="studentDash">
+                    <NavItem eventKey="studentDash">
                         <NavIcon>
                             <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
                         </NavIcon>
@@ -45,51 +45,21 @@ class NewSideBar extends Component{
                             DashBoard
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="users">
+                    <NavItem eventKey="stu/group">
                         <NavIcon>
                             <i className="fa fa-fw fa-users" style={{ fontSize: '1.75em' }} />
                         </NavIcon>
                         <NavText>
-                            Users
+                            Group
                         </NavText>
-                        <NavItem eventKey="student">
-                            <NavText>
-                                Students
-                            </NavText>
-                        </NavItem>
-                        <NavItem eventKey="devices">
-                            <NavText>
-                                Evaluator
-                            </NavText>
-                        </NavItem>
-                        <NavItem eventKey="devices">
-                            <NavText>
-                                Session Coordinator
-                            </NavText>
-                        </NavItem>
                     </NavItem>
-                    <NavItem eventKey="projects">
+                    <NavItem eventKey="stu/settings">
                         <NavIcon>
-                            <i className="fa fa-fw fa-file" style={{ fontSize: '1.75em' }} />
+                            <i className="fa fa-fw fa-cog" style={{ fontSize: '1.75em' }} />
                         </NavIcon>
                         <NavText>
-                            Projects
+                            Settings
                         </NavText>
-                        <NavItem eventKey="pg/project">
-                            <NavText>
-                                Projects
-                            </NavText>
-                        </NavItem>
-                        <NavItem eventKey="pg/creategroups">
-                            <NavText>
-                                Create Groups
-                            </NavText>
-                        </NavItem>
-                        <NavItem eventKey="pg/milestone">
-                            <NavText>
-                                Milestones
-                            </NavText>
-                        </NavItem>
                     </NavItem>
                 </SideNav.Nav>
             </SideNav>
@@ -104,4 +74,4 @@ class NewSideBar extends Component{
         );
     }
 }
-export default NewSideBar;
+export default StudentSideBar;
