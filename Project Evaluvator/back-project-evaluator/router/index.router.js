@@ -5,6 +5,7 @@ const CtrlStudent = require('../controller/student.controller')
 const CtrlMilestone =require('../controller/milestone.controller')
 const CtrlProject =require('../controller/project.controller')
 const Ctrlrequest=require('../controller/grouprequest.controller')
+const CtrlSheet =require('../controller/googleSheet.controller')
 
 router.post('/Student/register',CtrlStudent.register)
 router.post('/authenticate',CtrlStudent.authenticate)
@@ -30,5 +31,10 @@ router.get('/getsendresquest/:id',Ctrlrequest.getsendrequest)
 router.get('/getresquest/:id',Ctrlrequest.getrequest)
 router.get('/checkaccepted/:id',Ctrlrequest.checkaccepted)
 router.get('/checkallaccepted/:id',Ctrlrequest.checkallaccepted)
+
+
+//google sheet
+
+router.post('/setgooglesheet',CtrlSheet.createspreadsheet)
 module.exports=router 
 

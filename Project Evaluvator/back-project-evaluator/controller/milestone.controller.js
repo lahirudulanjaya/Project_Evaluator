@@ -18,6 +18,7 @@ module.exports.getmilstones=(req,res,next)=>{
     Milestone.find({Projectname:req.params.Projectname},function(err,project){
         if(!err){
             res.status(200).send(project)
+            console.log(project)
         }
         else if(!project){
             res.status(422).send("No project found")
