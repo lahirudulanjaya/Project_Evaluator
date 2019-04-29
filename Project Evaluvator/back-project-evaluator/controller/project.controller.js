@@ -79,7 +79,7 @@ console.log(err)
 
 module.exports.addGroups=(req,res,err)=>{
 
-    Project.findOneAndUpdate({Projectname:req.body.Projectname},{$set :{groups:req.body.groups}},(err,doc)=>{
+    Project.findOneAndUpdate({Projectname:req.body.Projectname},{$set :{groups:req.body.groups} },{$inc:{'groups.$.groupno':1}},(err,doc)=>{
         if(!err){
             res.send(doc)
         }

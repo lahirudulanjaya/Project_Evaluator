@@ -24,7 +24,6 @@ import RouteFile from './RouteFile';
 
 import Student from './Components/Student/Student'
 
-
 import studentTable from './Components/P_coordinator/Pages/Student/studentTable';
 import Scoordinator from './Components/S_coordinator/Scoordinator';
 import StudentSideBar from './Components/Student/StudentSideBar';
