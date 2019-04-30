@@ -22,8 +22,9 @@ router.get('/pg/sendmails',CtrlStudent.sendemail)
 router.get('/pg/getstudents/:year',CtrlStudent.getstudentsbyYear)
 router.put('/pg/addGroups',CtrlProject.addGroups)
 router.get('/getstudentproject/:id',CtrlProject.getreleventProject)
+router.get('/pg/getproject/:id',CtrlProject.getproject)
 
-
+router.get('/pg/getpresentations/:id',CtrlMilestone.getpresentationmilstones)
 
 //grouprequest
 router.post('/sendgrouprequest',Ctrlrequest.sendgrouprequest)

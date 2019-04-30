@@ -1,5 +1,5 @@
 import axios from'axios'
-import {GET_PROJECT_NAMES,GET_ALL_PROJECTS,CHANGE_STATE} from './types'
+import {GET_PROJECT_NAMES,GET_ALL_PROJECTS,CHANGE_STATE,GET_PROJECT} from './types'
 import {GET_ERRORS} from './types'
 import {ADD_PROJECT}from './types'
 import swal from 'sweetalert';
@@ -72,5 +72,23 @@ export const ChangeStatus =(Statausdata)=>dispatch=>{
       console.log(err.response.data)
     })
 
+}
+
+export const getproject =(id)=>dispatch=>{
+    axios.get("http://localhost:4000/api/pg/getproject/"+id)
+    .then(res=>{
+        dispatch({
+            type : GET_PROJECT,
+            payload:res.data
+        })
+    })
+    .catch(
+        err=>{
+            dispatch({
+                type :GET_ERRORS,
+                payload:err.response.data
+            })
+        }
+    )
 }
 

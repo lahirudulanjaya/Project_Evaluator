@@ -1,8 +1,9 @@
-import {ADD_MILESTONE,GET_MILSTONES} from "../actions/types";
+import {ADD_MILESTONE,GET_MILSTONES,GET_PRESENTATIONS} from "../actions/types";
 
 const initialState={
     milestones:[],
-    milestone:[]
+    milestone:[],
+    presentation:[]
 };
 
 export default function(state =initialState,action){
@@ -21,6 +22,12 @@ export default function(state =initialState,action){
             milestone:action.payload,
            
 
+        }
+        case GET_PRESENTATIONS:
+        return{
+            ...state,
+            presentation:action.payload
+            
         }
         default:
             return state

@@ -99,3 +99,16 @@ module.exports.getreleventProject=(req,res,next)=>{
         }
     })
 }
+
+module.exports.getproject =(req,res,next)=>{
+    Project.find({Projectname:req.params.id},'groups',(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).send(err)
+        }
+    })
+}
+
+
