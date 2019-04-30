@@ -1,9 +1,10 @@
 import {GET_PROJECT_NAMES,GET_ALL_PROJECTS}  from "../actions/types";
-import {ADD_PROJECT,CHANGE_STATE,GET_MILSTONES} from "../actions/types";
+import {ADD_PROJECT,CHANGE_STATE,GET_MILSTONES,GET_PROJECT} from "../actions/types";
 
 const initialState ={
     project:[],
-    projects:[]
+    projects:[],
+    Currentproject:null
 };
 
 export default function(state =initialState,action){
@@ -27,6 +28,11 @@ export default function(state =initialState,action){
             return{
                 ...state,
                 status:action.payload
+            }
+        case GET_PROJECT:
+            return{
+                ...state,
+                Currentproject:action.payload
             }
         
         default:

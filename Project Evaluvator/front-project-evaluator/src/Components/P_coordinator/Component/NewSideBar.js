@@ -90,6 +90,11 @@ class NewSideBar extends Component{
                                 Milestones
                             </NavText>
                         </NavItem>
+                        <NavItem eventKey="pg/timeslot">
+                        <NavText>
+                            Set Time Slots
+                        </NavText>
+                    </NavItem>
                     </NavItem>
                 </SideNav.Nav>
             </SideNav>
