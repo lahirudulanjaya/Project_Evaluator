@@ -28,6 +28,7 @@ import studentTable from './Components/P_coordinator/Pages/Student/studentTable'
 import Scoordinator from './Components/S_coordinator/Scoordinator';
 import StudentSideBar from './Components/Student/StudentSideBar';
 import SCoordinatorSideBar from './Components/S_coordinator/Component/SCoordinatorSideBar';
+import EvaluatorSideBar from './Components/Evaluator/SideBar';
 
 
 class App extends Component {
@@ -45,6 +46,7 @@ class App extends Component {
             <Route path ="/pg/creategroups" component={NewSideBar}/>
             <Route path ="/studentDash" component={StudentSideBar}/>
             <Route path ="/sc" component={SCoordinatorSideBar}/>
+            <Route path ="/evaluator" component={EvaluatorSideBar}/>
 
 
             <Route exact path ="/student" component ={Student}/>
