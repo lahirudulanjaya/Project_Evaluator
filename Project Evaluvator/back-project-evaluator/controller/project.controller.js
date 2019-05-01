@@ -3,9 +3,10 @@ const Project =mongoose.model('Project')
 
 module.exports.addproject = (req,res,err)=>{
     var project = new Project();
-    project.Projectid = req.body.Projectid;
-    project.Projectyear =req.body.Projectyear;
-    project.Type =req.body.Type;
+    project.Projectname =req.body.Projectname;
+    project.ProjectType =req.body.ProjectType;
+    project.Acadamicyear =req.body.Acadamicyear;
+    project.Initiatedate=req.body.Initiatedate;
 
     project.save((err,doc)=>{
         if(!err){
@@ -21,3 +22,93 @@ module.exports.addproject = (req,res,err)=>{
     })
 
 }
+module.exports.getprojectsnames=(req,res,err)=>{
+    Project.find({Status:true},'Projectname',(err,doc)=>{
+        if(!err){
+            res.status(200).send(doc)
+        }
+    })
+}
+
+module.exports.updateproject =(req,res,err)=>{
+    var project ={
+        ProjectType:req.body.ProjectType,
+        Acadamicyear:req.body.Acadamicyear,
+        Initiatedate:req.body.Initiatedate
+    }
+    Project.findByIdAndUpdate({_id :req.body._id},{$set :project},{upsert:true},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).send("Update Failed");
+        }
+    })
+}
+module.exports.deleteproject=(req,res,err)=>{
+    Project.findByIdAndDelete({_id:req.body._id},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).send("Delete Failed")
+        }
+    })
+}
+module.exports.getallprojects =(req,res,err)=>{
+    Project.find({},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).send(err)
+        }
+    })
+}
+
+module.exports.updatestate=(req,res,err)=>{
+    Project.findOneAndUpdate({_id:req.body._id},{$set:{Status:!req.body.Status}},function(err,doc){
+        if(!err){
+            res.send(doc)
+        }
+        else{
+console.log(err)
+        }
+    })
+}
+
+module.exports.addGroups=(req,res,err)=>{
+
+    Project.findOneAndUpdate({Projectname:req.body.Projectname},{$set :{groups:req.body.groups} },{$inc:{'groups.$.groupno':1}},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).send(err)
+        }
+    })
+}
+
+module.exports.getreleventProject=(req,res,next)=>{
+    Project.find({'groups.students.Registrationnumber':new RegExp(req.params.id)},'groups Projectname Acadamicyear',(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).json(err)
+        }
+    })
+}
+
+module.exports.getproject =(req,res,next)=>{
+    Project.find({Projectname:req.params.id},'groups',(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.status(422).send(err)
+        }
+    })
+}
+
+

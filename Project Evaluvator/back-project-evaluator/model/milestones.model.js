@@ -4,22 +4,34 @@ var Milestoneschema = new mongoose.Schema(
     {
         Projectname:{
             type:String,
-            unique:true
         },
-        Year:{
+        
+        name:{
             type:String,
         },
-        Milestone_id:
-        {
-            type :Number,
+        
+        MilstoneType:{
+            type:String
         },
-        Milestone:{
-            type:String,
-        },
-        Datetime:{
-            type:Date
+        Markspresentatge:{
+            type:String
             
+        },
+        Grp_or_I:{
+            type:String
+        },
+        Duration:{
+            type:String
+        },
+        start:{
+            type:Boolean,
+            default:false
+        },
+        stop:{
+            type:Boolean,
+            default:false
         }
+
 
     }
 )

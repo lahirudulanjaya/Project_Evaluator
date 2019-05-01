@@ -7,6 +7,7 @@ import './Register.css';
 import {connect} from 'react-redux'
 
 import {registerUser} from '../../../actions/authActions';
+import Navbar from '../Navbar';
 
 import {Link} from 'react-router-dom'
 class Register extends Component{
@@ -45,8 +46,8 @@ class Register extends Component{
     //       icon: "success",
     //     });
     //   })
-    //   .catch(err=>{
-    //     swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+    //   .catch(err=>{ 
+    //    swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
     //     console.log(err.response.data)
     //   })
 
@@ -74,17 +75,22 @@ render(){
   const { errors } = this.state;
 
     return(
+      <div>
+        <Navbar/>
 <MDBContainer className="register">
       <MDBRow>
         <MDBCol md="3">
         </MDBCol>
         <MDBCol md="6">
-          <MDBCard>
+        <MDBCard className="w-100 p-3">
+
             <MDBCardBody>
               <form className="needs-validation"
           onSubmit={this.submitHandler}
           noValidate>
+          <div className="header pt-3 grey lighten-2">
                 <p className="h4 text-center py-4">Sign up</p>
+                </div>
              
                 <div className="grey-text">
                   <MDBInput
@@ -94,7 +100,7 @@ render(){
                     value ={this.state.UserName}
                     id="materialFormRegisterPasswordEx4"               
                     type="text"
-                    className="form-control"
+                    className="w-75 p-3"
                     id="defaultFormRegisterNameEx"
                     validate
                     error="wrong"
@@ -106,6 +112,7 @@ render(){
                     name ="Email"
                     value ={this.state.Email}
                     onChange ={this.handleChange}
+                    className="w-75 p-3"
 
                     group
                     type="email"
@@ -119,6 +126,7 @@ render(){
                     name = "Registrationnumber"
                     value ={this.state.Registrationnumber}
                     onChange ={this.handleChange}
+                    className="w-75 p-3"
 
                     group
                     type="text"
@@ -132,9 +140,10 @@ render(){
                     name ="Password"
                     value ={this.state.Password}
                     onChange ={this.handleChange}
+                    className="w-75 p-3"
 
                     group
-                    type="Password"
+                    type="Password "
                     validate
                     error="wrong"
                     success="right"
@@ -146,6 +155,8 @@ render(){
                     value ={this.state.Cpassword}
                     onChange ={this.handleChange}
                     group
+                    className="w-75 p-3"
+
                     type="password"
                     validate
                     required
@@ -153,12 +164,12 @@ render(){
                 </div>
                 <div className="text-center py-4 mt-3">
                   <MDBBtn color="primary" type="submit" onClick ={this.postRegister}>
-                    Register
+                    Registerrrr
                   </MDBBtn>
                 </div>
               </form>
               <p className="font-small grey-text d-flex justify-content-center">
-                Already have an account..
+                Already have an account..,,,,
                
           <Link to="/login">Login</Link>
              
@@ -170,7 +181,7 @@ render(){
         </MDBCol>
       </MDBRow>
     </MDBContainer>
-    
+    </div>
     )
 }
 }

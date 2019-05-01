@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as excel from 'xlsx';
-import Sidebar from '../../Component/Sidebar2';
 import RaisedButton from '@material-ui/core/Button';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -11,18 +10,54 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 import swal from 'sweetalert';
+import { MDBBtn,MDBIcon} from 'mdbreact';
+import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
+import {connect} from 'react-redux'
+import './Student.css'
+
+
+
+
 const studentdetail ={
   Registrationnumber :String,
   Name:String
 }
+
+const background={
+  backgroundColor : '#C4C4C4'
+}
+
 class Student extends Component{
   constructor(props){
     super(props)
     this.state={
       open:false,
-      arr :[]
+      arr :[],
+      students:[]
   }
     this.uploadfile = this.uploadfile.bind(this)
+    this.props.getstudentdetails()
+
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({students:nextProps.student.students})
+
+  }
+  sendmail(){
+   axios.get("http://localhost:4000/api/pg/sendmails").then(
+     res=>{
+      swal({
+        title: "Good job!",
+        text: "You have succesfully send emails!",
+        icon: "success",
+      });
+
+     })
+     .catch(err=>{
+      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+      console.log(err.response.data)
+    })
   }
     
     handleClickOpen = () => {
@@ -34,6 +69,7 @@ class Student extends Component{
       };
 
 uploadfile(event){
+
   let file =event.target.files[0]
   var reader = new FileReader();
   reader.readAsArrayBuffer(file)
@@ -45,6 +81,9 @@ uploadfile(event){
     const ws = wb.Sheets[wsname];
     const data1 = excel.utils.sheet_to_json(ws);
     console.log(data1)
+    // data1.map(data1=>{
+
+    // })
  
     this.setState({arr : data1})
     alert(this.state.arr)
@@ -65,6 +104,7 @@ uploadtoDB=()=>{
           text: "You have succesfully registered!",
           icon: "success",
         });
+        this.props.getstudentdetails()
       })
       .catch(err=>{
         swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
@@ -74,19 +114,27 @@ uploadtoDB=()=>{
 
 
     render(){
-        return(
-            <div className="row">
-            <div className="col-sm-3">
-          <Sidebar/>
-                </div>
+      const { proname } = this.props;
 
-        
-                <div className="col-sm-9">
+        return(
+          <div>
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-12">
+                
       <div className="row">
-        <div className="col-sm-4 pt-3">
-            <Button variant="outlined" color="primary" id ="add" onClick={this.handleClickOpen}>
-              Add
-            </Button>
+      <div className="reg">
+        send email to register
+        <MDBBtn color="default" onClick={this.sendmail}>
+        <MDBIcon icon="magic" className="mr-1"  /> Send Emails
+      </MDBBtn>
+
+
+
+      <div className="col-sm-4 pt-3">
+            <MDBBtn variant="outlined" color="primary" id ="add" size="lg" onClick={this.handleClickOpen}>
+              Add Student Details
+            </MDBBtn>
             <Dialog
               open={this.state.open}
               onClose={this.handleClose}
@@ -110,18 +158,83 @@ uploadtoDB=()=>{
           <Button variant="contained" color="primary" onClick={this.uploadtoDB} >
         Submit
       </Button>
+      <Button variant="contained" color="primary"  >
+        Click here for create groups
+      </Button>
+
       
       </form>
               </DialogContent>
+              
               </Dialog>
+             
               </div>
+
+
+             
+
+      </div>
+      </div>
+     
+      {/* <MDBTable responsive>
+     
+<MDBTableHead color="primary-color" textWhite>
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Registration Number</th>
+    <th>isRegistered</th>
+   <th>Delete</th>
+   <th>Change</th>
+  </tr>
+</MDBTableHead>
+<MDBTableBody>
+
+    {this.state.students.map((students) => 
+    
+   <tr>
+
+  <td >{""}</td>
+    <td >{students.Name}</td>
+    <td >{students.Email}</td>
+    <td >{students.Registrationnumber}</td>
+    <td >{students.isRegistered.toString()}</td>
+
+    
+    <td key={students._id}><MDBBtn  onClick ={()=>this.changeState(students)} size="sm">Click</MDBBtn ></td>
+    <td ><MDBBtn  onClick ={()=>this.changeState(students)} size="sm">Change</MDBBtn ></td>
+
+    </tr>
+
+    )}
+
+
+          
+
+ 
+</MDBTableBody>
+
+</MDBTable> */}
+
+{/* <h1>Create Groups</h1> */}
+
+
+        
+                </div>
+                {/* <BasicTable></BasicTable> */}
                 </div>
                 </div>
-                </div>
+          </div>
         )
     }
 
 
 }
+const mapStateToProps=(state)=>{
+  return{
+student :state.studentDetail
+  }
+}
 
-export default  Student
+export default connect(mapStateToProps,{getstudentdetails})(Student)
