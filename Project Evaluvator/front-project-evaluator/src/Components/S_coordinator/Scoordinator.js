@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Calendar from "react-calendar";
 import {connect} from'react-redux'
 import { getallprojects,getprojectnames } from '../../actions/ProjectActions'
+import SessionListTable from '../S_coordinator/Component/SessionListTable';
 
 
 class Scoodinater extends Component{
@@ -22,13 +23,12 @@ class Scoodinater extends Component{
     render(){
         return(
             <div className="container">
-            <div className="row">
-                <div className="col-sm-12 pl-2 ml-5">
-                    <div className="ml-3">
-                        <Calendar></Calendar>
+                <div className="row">
+                    <div className="col-sm-12">
+                    
+                       <SessionListTable></SessionListTable>
                     </div>
                 </div>
-            </div>
             </div>
         )
     }

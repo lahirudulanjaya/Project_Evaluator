@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -48,7 +49,7 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-function CustomizedTable(props) {
+function SessionListTable(props) {
   const { classes } = props;
 
   return (
@@ -56,23 +57,22 @@ function CustomizedTable(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <CustomTableCell>Dessert (100g serving)</CustomTableCell>
-            <CustomTableCell align="right">Calories</CustomTableCell>
-            <CustomTableCell align="right">Fat (g)</CustomTableCell>
-            <CustomTableCell align="right">Carbs (g)</CustomTableCell>
-            <CustomTableCell align="right">Protein (g)</CustomTableCell>
+            <CustomTableCell>Project</CustomTableCell>
+            <CustomTableCell align="right"></CustomTableCell>
+            <CustomTableCell align="right"></CustomTableCell>
+            <CustomTableCell align="right"></CustomTableCell>
+            <CustomTableCell align="right"></CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map(row => (
             <TableRow className={classes.row} key={row.id}>
-              <CustomTableCell component="th" scope="row">
-                {row.name}
-              </CustomTableCell>
-              <CustomTableCell align="right">{row.calories}</CustomTableCell>
+              <CustomTableCell component="th" scope="row">{row.name}</CustomTableCell>
+              <CustomTableCell></CustomTableCell>
+              {/* <CustomTableCell align="right">{row.calories}</CustomTableCell>
               <CustomTableCell align="right">{row.fat}</CustomTableCell>
               <CustomTableCell align="right">{row.carbs}</CustomTableCell>
-              <CustomTableCell align="right">{row.protein}</CustomTableCell>
+              <CustomTableCell align="right">{row.protein}</CustomTableCell> */}
             </TableRow>
           ))}
         </TableBody>
@@ -81,8 +81,8 @@ function CustomizedTable(props) {
   );
 }
 
-CustomizedTable.propTypes = {
+SessionListTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CustomizedTable);
+export default withStyles(styles)(SessionListTable);
