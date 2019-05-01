@@ -4,7 +4,7 @@ import { getprojectnames, getproject } from '../../../../actions/ProjectActions'
 import { getpresentations } from '../../../../actions/milestoneActions'
 import { connect } from 'react-redux'
 import { Dropdown } from 'semantic-ui-react'
-import { Form, Input, Button ,Table} from 'semantic-ui-react'
+import { Form, Input, Button ,Table,Popup,Checkbox,List} from 'semantic-ui-react'
 import {
     DateInput,
     TimeInput,
@@ -13,7 +13,7 @@ import {
 } from 'semantic-ui-calendar-react';
 
 import moment from 'moment'
-
+var Evaluators=[]
 class Timeslot extends React.Component {
     constructor(props) {
         super(props)
@@ -28,15 +28,26 @@ class Timeslot extends React.Component {
             timeslotlength: null,
             intervallength: null,
             numberofgroups: null,
-            numberofplaces: null
+            numberofplaces: null,
+            venue :"",
+            evaluvators:""
         }
         this.props.getprojectnames()
         this.onchangeDropdown = this.onchangeDropdown.bind(this)
     }
-
+    ss=()=>{
+        const arrvenue= this.state.venue.split(',')
+        this.setState({numberofgroups:arrvenue.length})
+        console.log(arrvenue.length)
+    }
+    validateEvaluvators=()=>{
+        alert("dfd")
+    }
 
 
     generateTimeslots = () => {
+        const arrvenue= this.state.venue.split(',')
+        Evaluators=this.state.evaluvators.split(',')
         var timeslots = []
 
         console.log(this.state)
@@ -66,12 +77,14 @@ class Timeslot extends React.Component {
 
             var i = 0;
             if (getintervalstart > start) {
-                for (i; i < this.state.numberofplaces; i++) {
+                for (i; i < arrvenue.length; i++) {
                     if (getintervalstart > start && num < this.state.numberofgroups) {
 
                         var slot = {
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
-                            end: moment(start + timeslot).format("DD-MM-YYYY HH:mm")
+                            end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
+                            venue:arrvenue[i],
+                            evaluvators:[]
                         }
 
                         timeslots.push(slot)
@@ -95,12 +108,15 @@ class Timeslot extends React.Component {
                 console.log("in creak")
             }
             else if (start < getdayend) {
-                for (i; i < this.state.numberofplaces; i++) {
+                for (i; i < arrvenue.length; i++) {
                     if (start < getdayend && num < this.state.numberofgroups) {
 
                         var slot = {
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
-                            end: moment(start + timeslot).format("DD-MM-YYYY HH:mm")
+                            end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
+                            venue:arrvenue[i],
+                            evaluvators:[]
+
                         }
 
                         timeslots.push(slot)
@@ -156,10 +172,13 @@ class Timeslot extends React.Component {
         if (this.state.hasOwnProperty(name)) {
             this.setState({ [name]: value });
         }
-        const start = moment(value, "DD-MM-YYYY").year()
-        console.log(start)
+       
 
 
+    }
+    countevaluvators=(e,{value,name})=>{
+        console.log(value)
+        console.log(name.checked)
     }
     render() {
         const Projectnames = this.props.projects.project.map(project =>
@@ -188,6 +207,7 @@ class Timeslot extends React.Component {
         var i=0
         console.log(this.state)
         return (
+            
             <div>
                 Slect the project
                 <div>
@@ -237,9 +257,10 @@ class Timeslot extends React.Component {
                             <Form.Field control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='enter the interval length(minuths)' placeholder='Interval length' />
 
                             <Form.Field control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="numberofplaces" value={this.state.numberofplaces} label='Number of Places' placeholder='Number of places' />
+                            <Form.Field control={Input} onChange={this.handleChange} name="venue" value={this.state.venue} label='Enter the Places' placeholder='Enter places seperated by comma' />
 
                         </Form.Group>
+                        <Form.Field control={Input} onChange={this.handleChange} name="evaluvators" value={this.state.evaluvators} label='Enter the Evaluvators' placeholder='Enter the Evaluvators seperated by comma' />
                     </Form>
 
 
@@ -258,8 +279,8 @@ class Timeslot extends React.Component {
                         <Table.Row>
                           <Table.HeaderCell>Group No</Table.HeaderCell>
                           <Table.HeaderCell>Timeslot</Table.HeaderCell>
-                          <Table.HeaderCell>Evaluvators</Table.HeaderCell>
                           <Table.HeaderCell>Venue</Table.HeaderCell>
+                          <Table.HeaderCell>Evaluators</Table.HeaderCell>
                           
                         </Table.Row>
                         {console.log(this.state)}
@@ -281,6 +302,30 @@ class Timeslot extends React.Component {
                               End time :{timeslots.end}
                               </div>
                             </Table.Cell>
+                            <Table.Cell>{timeslots.venue}</Table.Cell>
+                            {timeslots.evaluvators.length>0 ?
+                            <Table.Cell>{timeslots.evaluvators.toString()}</Table.Cell>
+                                :
+                            <Table.Cell><Popup
+                            trigger={<Button icon='add' />}
+                            content={
+                                <List>
+                            {Evaluators.map(evaluvator=>
+                                
+                                <List.Item><Checkbox value ={evaluvator} name={evaluvator} onChange={this.countevaluvators}></Checkbox>{evaluvator}</List.Item>
+                                                             
+                            )}
+                            <Button onClick={this.validateEvaluvators}> Submit</Button>
+                            </List>
+                            
+                                
+                              
+                            
+                            }
+                            on='click'
+                            hideOnScroll
+                        /></Table.Cell>
+                            }
                             </Table.Row>
                             :
                             <Table.Row verticalAlign='top'>interval</Table.Row>
