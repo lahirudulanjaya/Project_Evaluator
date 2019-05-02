@@ -29,6 +29,7 @@ import Scoordinator from './Components/S_coordinator/Scoordinator';
 import StudentSideBar from './Components/Student/StudentSideBar';
 import SCoordinatorSideBar from './Components/S_coordinator/Component/SCoordinatorSideBar';
 import EvaluatorSideBar from './Components/Evaluator/SideBar';
+import Test from "./Components/Auth/Register/Test";
 
 
 class App extends Component {
@@ -52,6 +53,7 @@ class App extends Component {
             <Route exact path ="/student" component ={Student}/>
 
             <Route exact path ="/" component={Login}/>
+            <Route exact path ="/test" component={Test}/>
             <Route exact path ="/login" component={Login}/>  
             <Route exact path ="/register" component={Register}/>
             {/* <Route component={PageNotFound} /> */}
