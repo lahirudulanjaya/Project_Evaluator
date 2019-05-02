@@ -4,19 +4,20 @@ import { getprojectnames, getproject } from '../../../../actions/ProjectActions'
 import { getpresentations } from '../../../../actions/milestoneActions'
 import { connect } from 'react-redux'
 import { Dropdown } from 'semantic-ui-react'
-import { Form, Input, Button ,Table,Popup,Checkbox,List} from 'semantic-ui-react'
+import { Form, Input, Button, Table, Popup, Checkbox, List } from 'semantic-ui-react'
 import {
     DateInput,
     TimeInput,
     DateTimeInput,
     DatesRangeInput
 } from 'semantic-ui-calendar-react';
-
+import './Timeslots.css'
+import axios from 'axios'
 import moment from 'moment'
-var Evaluators=[]
-var checkedevaluvators=[]
-var selectedEvaluvators=[]
-
+var Evaluators = []
+var checkedevaluvators = []
+var selectedEvaluvators = []
+var submitted = []
 class Timeslot extends React.Component {
     constructor(props) {
         super(props)
@@ -27,45 +28,73 @@ class Timeslot extends React.Component {
             starttime: '',
             dateTime: '',
             datesRange: '',
-            timeslots:[],
+            timeslots: [],
             timeslotlength: null,
             intervallength: null,
             numberofgroups: null,
             numberofplaces: null,
-            venue :"",
-            evaluvators:"",
-            disabled:false,
-            evaluvateCount:null,
-            checked:false,
-            Evaluators:[],
-            SelectedEvaluvators:[]
+            venue: "",
+            evaluvators: "",
+            disabled: false,
+            evaluvateCount: null,
+            checked: false,
+            Evaluators: [],
+            SelectedEvaluvators: [],
+
         }
         this.props.getprojectnames()
         this.onchangeDropdown = this.onchangeDropdown.bind(this)
-        this.change=this.change.bind(this)
+        this.change = this.change.bind(this)
     }
-   
-    validateEvaluvators=()=>{
-        alert("dfd")
+
+    submitEvaluvators = (time, venue) => {
+        var arr = []
+        this.state.timeslots.map(st => {
+            if (st.start == time && st.venue == venue) {
+                var slot = {
+                    start: st.start,
+                    end: st.end,
+                    venue: st.venue,
+                    evaluvators: selectedEvaluvators
+                }
+                arr.push(slot)
+                submitted.push(slot)
+            }
+            else {
+                arr.push(st)
+            }
+        })
+        this.setState({ timeslots: arr })
+        selectedEvaluvators = []
+        var biginnig = []
+        this.state.Evaluators.map(ss => {
+            var ww = {
+                name: ss.name,
+                checked: false,
+                already: false
+            }
+            biginnig.push(ww)
+        })
+        this.setState({ Evaluators: biginnig })
+        this.setState({ SelectedEvaluvators: [] })
+
     }
 
 
     generateTimeslots = () => {
-        const arrvenue= this.state.venue.split(',')
-       this.state.evaluvators.split(',').forEach(evaluvaters=>
-       {
-           var evaluvator ={
-            name :evaluvaters,
-            checked:false
-           }
-           Evaluators.push(evaluvator)
-       })
+        const arrvenue = this.state.venue.split(',')
+        this.state.evaluvators.split(',').forEach(evaluvaters => {
+            var evaluvator = {
+                name: evaluvaters,
+                checked: false,
+                already: false
+            }
+            Evaluators.push(evaluvator)
+        })
 
-       this.setState({Evaluators:Evaluators})
-       console.log(Evaluators)
+        this.setState({ Evaluators: Evaluators })
         var timeslots = []
 
-        console.log(this.state)
         const timeslot = this.state.timeslotlength * 60000
         const interval = this.state.intervallength * 60000
 
@@ -82,9 +111,7 @@ class Timeslot extends React.Component {
         var getdayend = moment(withouttime + " " + this.state.endtime, "YYYY-MM-DD HH:mm").toDate().getTime()
 
         // while()
-        console.log(getintervalstart)
-        console.log(start)
-        console.log(withouttime)
+
         //generate while interval start
         var num = 0
 
@@ -98,20 +125,18 @@ class Timeslot extends React.Component {
                         var slot = {
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
-                            venue:arrvenue[i],
-                            evaluvators:[]
+                            venue: arrvenue[i],
+                            evaluvators: []
                         }
 
                         timeslots.push(slot)
                         num++
-                        console.log(num)
+
                     }
 
                 }
                 start = start + timeslot
-                console.log(moment(getintervalstart).format("DD-MM-YYYY HH:mm"))
-                console.log(moment(start).format("DD-MM-YYYY HH:mm"))
-                console.log("inmorning")
+
             }
 
             else if (start < getintervalend) {
@@ -120,7 +145,7 @@ class Timeslot extends React.Component {
                 }
                 timeslots.push(rest)
                 start = getintervalend
-                console.log("in creak")
+
             }
             else if (start < getdayend) {
                 for (i; i < arrvenue.length; i++) {
@@ -129,21 +154,19 @@ class Timeslot extends React.Component {
                         var slot = {
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
-                            venue:arrvenue[i],
-                            evaluvators:[]
+                            venue: arrvenue[i],
+                            evaluvators: []
 
                         }
 
                         timeslots.push(slot)
                         num++
-                        console.log(num)
                     }
 
 
                 }
                 start = start + timeslot
-                console.log(timeslots)
-                console.log("inafternoon")
+
 
             }
             else {
@@ -163,7 +186,7 @@ class Timeslot extends React.Component {
 
         }
 
-        this.setState({timeslots:timeslots})
+        this.setState({ timeslots: timeslots })
 
 
     }
@@ -178,90 +201,254 @@ class Timeslot extends React.Component {
 
     }
     componentWillReceiveProps(nextprops) {
-        console.log(nextprops)
         this.setState({ presentations: nextprops.presentations.presentation })
-        console.log(nextprops.presentations.presentation)
     }
 
     handleChange = (event, { name, value }) => {
         if (this.state.hasOwnProperty(name)) {
             this.setState({ [name]: value });
         }
-       
+
 
 
     }
-    countevaluvators=(e,{value,name,checked,disabled})=>{
-        
-        console.log(value)
-        var alreadyin =false
-        
-        
-        checkedevaluvators.forEach(element => {
-            console.log(element==value)
-            if(element==value){
-                alreadyin=true
-            }  
-        });
-        if(alreadyin){
-            var index = checkedevaluvators.indexOf(value);
- 
-            if (index > -1) {
-                checkedevaluvators.splice(index, 1);
+
+    // verify(start,venue){
+    //     var arr1=[]
+
+    //    var changed =false
+    //    console.log(start)
+    //     this.state.Evaluators.map(ee=>{
+    //     this.state.timeslots.map(timeslot=>{
+    //         console.log(timeslot)
+    //         if((timeslot.start ==start) && (!timeslot.venue==venue)){
+
+    //             console.log(timeslot.evaluvators)
+    //             timeslot.evaluvators.forEach(eee=>{
+    //                 alert(eee)
+
+    //             })
+    //             timeslot.evaluvators.map(eva=>{
+    //                 console.log(eva)
+    //                 if(eva==ee.name){
+    //                     var newslot={
+    //                         name:eva,
+    //                         checked:ee.checked,
+    //                         already:true
+    //                     }
+    //                     arr1.push(newslot)
+    //                     changed=true
+
+    //                 }
+
+    //             })
+    //         }
+
+
+    //     })
+    //     if(changed==false){
+    //         arr1.push(ee)
+    //         changed=false
+    //     }
+
+    // })
+    // console.log(arr1)
+    // this.setState({Evaluators:arr1})
+    // console.log(this.state)
+
+
+    // }
+    verify(start, venue) {
+
+        var newarr = []
+        var found = false
+
+        this.state.Evaluators.map(e => {
+            submitted.map(s => {
+                if ((s.start == start) && !(s.venue == venue)) {
+
+                    s.evaluvators.forEach(element => {
+                        if (element == e.name) {
+                            var newslor = {
+                                name: element,
+                                checked: e.checked,
+                                already: true
+                            }
+                            newarr.push(newslor)
+                            found = true
+                            alert("hari")
+
+                        }
+                        else {
+
+                        }
+                    });
+                }
+            })
+            if (!found) {
+                newarr.push(e)
             }
-        }
-        else{
-            if(checkedevaluvators.length>=this.state.evaluvateCount){
-                this.setState({disabled:true})
+            found = false
+        })
+
+
+
+
+    }
+    onclick = (start, venue) => {
+        var i = 0
+        var index = []
+
+
+
+        var newarr = []
+        var found = false
+
+        this.state.Evaluators.map(e => {
+            submitted.map(s => {
+                if ((s.start == start) && !(s.venue == venue)) {
+
+                    s.evaluvators.forEach(element => {
+                        if (element == e.name) {
+                            var newslor = {
+                                name: element,
+                                checked: e.checked,
+                                already: true
+                            }
+                            newarr.push(newslor)
+                            found = true
+
+
+                        }
+                        else {
+
+                        }
+                    });
+                }
+            })
+            if (!found) {
+                newarr.push(e)
             }
-            else{
-            checkedevaluvators.push(value)
-            }
-        }
-        
-    
-        console.log(checked)
+            found = false
+        })
+
+
+
+
+
+        //  newarr.map(eva=>{
+
+
+        // if(value==eva.name){
+
+        //     var newele ={
+        //         name:value,
+        //         checked:!eva.checked,
+        //         already:eva.already
+
+        //     }
+        //     index.push(newele)
+
+        // }else{
+        //     index.push(eva)
+        // }
+
+        // })
+        this.setState({ Evaluators: newarr })
     }
 
-    change=(e,{value,name,checked,disabled})=>{
-        var i=0
-        var index =[]
-        
-    this.state.Evaluators.map(eva=>{
-        
 
-        if(value==eva.name){
-            var newele ={
-                name:value,
-                checked:!eva.checked
 
+
+
+
+
+    change = (e, { value, checked, start, venue }) => {
+
+
+        var i = 0
+        var index = []
+
+
+
+        var newarr = []
+        var found = false
+
+        this.state.Evaluators.map(e => {
+            submitted.map(s => {
+                if ((s.start == start) && !(s.venue == venue)) {
+
+                    s.evaluvators.forEach(element => {
+                        if (element == e.name) {
+                            var newslor = {
+                                name: element,
+                                checked: e.checked,
+                                already: true
+                            }
+                            newarr.push(newslor)
+                            found = true
+
+
+                        }
+                        else {
+
+                        }
+                    });
+                }
+            })
+            if (!found) {
+                newarr.push(e)
             }
-            index.push(newele)
-            
-        }else{
-            index.push(eva)
+            found = false
+        })
+
+
+
+
+
+        newarr.map(eva => {
+
+
+            if (value == eva.name) {
+
+                var newele = {
+                    name: value,
+                    checked: !eva.checked,
+                    already: eva.already
+
+                }
+                index.push(newele)
+
+            } else {
+                index.push(eva)
+            }
+
+        })
+        this.setState({ Evaluators: index })
+
+        if (checked) {
+            selectedEvaluvators.push(value)
         }
+        else {
+            var index = selectedEvaluvators.indexOf(value);
 
-    })
-    this.setState({Evaluators:index})
-
-    if(checked){
-        selectedEvaluvators.push(value)
-    }
-    else{
-        var index = selectedEvaluvators.indexOf(value);
- 
             if (index > -1) {
                 selectedEvaluvators.splice(index, 1);
             }
 
+        }
+        this.setState({ SelectedEvaluvators: selectedEvaluvators })
+
+
+
+
+
     }
-    this.setState({SelectedEvaluvators:selectedEvaluvators})
-
-
-        
-
-
+    submittodb(){
+        // const post ={
+        //     Projectname:
+        // }
+        // axios.post('http://localhost:4000/api/posttimeslots',)
     }
     render() {
         const Projectnames = this.props.projects.project.map(project =>
@@ -287,10 +474,9 @@ class Timeslot extends React.Component {
 
             )
         }
-        var i=0
-        console.log(this.state)
+        var i = 0
         return (
-            
+
             <div>
                 Select the project
                 <div>
@@ -299,9 +485,16 @@ class Timeslot extends React.Component {
                 Select the Presentation
             <div>
                     <Dropdown placeholder='State' search selection options={presentation} />
-                    {console.log(this.state.projects)}
                 </div>
-                select the start day
+                
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Fill the Form </h4>
+                            
+                        </div>
+                        select the start day
 
                 <DateInput
 
@@ -332,95 +525,99 @@ class Timeslot extends React.Component {
                     />
                 </div>
 
-                <div>
-
                     <Form>
                         <Form.Group widths='equal'>
                             <Form.Field control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='enter the time slot length(minuths)' placeholder='Time slot length' />
                             <Form.Field control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='enter the interval length(minuths)' placeholder='Interval length' />
-
                             <Form.Field control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="venue" value={this.state.venue} label='Enter the Places' placeholder='Enter places seperated by comma' />
                             <Form.Field control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Enter the evaluvater Count for one presentation' placeholder='Enter the evaluvater Count for one presentation' />
+                            </Form.Group>
+                            <Form.Group widths='equal'>
 
-                        </Form.Group>
+                            <Form.Field control={Input} onChange={this.handleChange} name="venue" value={this.state.venue} label='Enter the Places' placeholder='Enter places seperated by comma' />
+
                         <Form.Field control={Input} onChange={this.handleChange} name="evaluvators" value={this.state.evaluvators} label='Enter the Evaluvators' placeholder='Enter the Evaluvators seperated by comma' />
+                        </Form.Group>
+                        <Button secondary onClick={this.generateTimeslots}>Generate Time Slots</Button>
+
                     </Form>
+                    </div>
 
 
 
                 </div>
 
 
-                Generate Time slots for Groups
-<Button secondary onClick={this.generateTimeslots}>Generate Time Slots</Button>
+                
 
-<div>
-
-
-<Table striped>
-                      <Table.Header>
-                        <Table.Row>
-                          <Table.HeaderCell>Group No</Table.HeaderCell>
-                          <Table.HeaderCell>Timeslot</Table.HeaderCell>
-                          <Table.HeaderCell>Venue</Table.HeaderCell>
-                          <Table.HeaderCell>Evaluators</Table.HeaderCell>
-                          
-                        </Table.Row>
-                        {console.log(this.state)}
-                      </Table.Header>
+                <div class="tableclass">
 
 
-                      <Table.Body>
+                    <Table striped>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>Group No</Table.HeaderCell>
+                                <Table.HeaderCell>Timeslot</Table.HeaderCell>
+                                <Table.HeaderCell>Venue</Table.HeaderCell>
+                                <Table.HeaderCell>Evaluators</Table.HeaderCell>
 
-                        {this.state.timeslots.map(timeslots =>
-                          
-                          !timeslots.interval ?
-                            <Table.Row verticalAlign='top'>
-                            <Table.Cell>{i++}</Table.Cell>
-                            <Table.Cell>
-                                <div>
-                              Start time :{timeslots.start}
-                              </div>
-                              <div>
-                              End time :{timeslots.end}
-                              </div>
-                            </Table.Cell>
-                            <Table.Cell>{timeslots.venue}</Table.Cell>
-                            {timeslots.evaluvators.length>0 ?
-                            <Table.Cell>{timeslots.evaluvators.toString()}</Table.Cell>
-                                :
-                            <Table.Cell><Popup
-                            trigger={<Button icon='add' />}
-                            content={
-                                <List>
-                            {this.state.Evaluators.map(evaluvator=>
-                                
-                                <List.Item><Checkbox checked={evaluvator.checked} value={evaluvator.name} onChange={this.change} disabled={this.state.SelectedEvaluvators.length>=this.state.evaluvateCount && !evaluvator.checked}></Checkbox>{evaluvator.name}</List.Item>
-                                                             
-                            )}
-                            <Button onClick={this.validateEvaluvators}> Submit</Button>
-                            </List>
-                            
-                                
-                              
-                            
-                            }
-                            on='click'
-                            hideOnScroll
-                        /></Table.Cell>
-                            }
                             </Table.Row>
-                            :
-                            <Table.Row verticalAlign='top'>interval</Table.Row>
-                          
-                            
-                           
-                        )}
+                            {console.log(this.state)}
+                        </Table.Header>
+
+
+                        <Table.Body>
+
+                            {this.state.timeslots.map(timeslots =>
+
+                                !timeslots.interval ?
+                                    <Table.Row verticalAlign='top'>
+                                        <Table.Cell>{i++}</Table.Cell>
+                                        <Table.Cell>
+                                            <div>
+                                                Start time :{timeslots.start}
+                                            </div>
+                                            <div>
+                                                End time :{timeslots.end}
+                                            </div>
+                                        </Table.Cell>
+                                        <Table.Cell>{timeslots.venue}</Table.Cell>
+                                        {timeslots.evaluvators.length > 0 ?
+                                            <Table.Cell>{timeslots.evaluvators.toString()}</Table.Cell>
+                                            :
+                                            <Table.Cell><Popup
+                                                trigger={<Button onClick={() => this.onclick(timeslots.start, timeslots.venue)} icon='add' />}
+                                                content={
+                                                    <List>
+                                                        {this.state.Evaluators.map(evaluvator =>
+
+                                                            <List.Item><Checkbox checked={evaluvator.checked} value={evaluvator.name} start={timeslots.start} venue={timeslots.venue} onChange={this.change} disabled={(this.state.SelectedEvaluvators.length >= this.state.evaluvateCount && !evaluvator.checked) || (evaluvator.already)}></Checkbox>{evaluvator.name}</List.Item>
+
+                                                        )}
+                                                        <Button onClick={() => this.submitEvaluvators(timeslots.start, timeslots.venue)}> Submit</Button>
+                                                    </List>
+
+
+
+
+                                                }
+                                                on='click'
+                                                hideOnScroll
+                                            /></Table.Cell>
+                                        }
+                                    </Table.Row>
+                                    :
+                                    <Table.Row verticalAlign='top'>interval</Table.Row>
+
+
+
+                            )}
                         </Table.Body>
-                        </Table>
-                            
-</div>
+                    </Table>
+                    <Button onClick={this.submittodb} primary> Submit to Database</Button>
+
+
+                </div>
 
             </div>
 
@@ -429,7 +626,7 @@ class Timeslot extends React.Component {
 
 }
 const mapStateToProps = state => {
-    console.log(state)
+
     return {
         projects: state.project,
         presentations: state.milestone

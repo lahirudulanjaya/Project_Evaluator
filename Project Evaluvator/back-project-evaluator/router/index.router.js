@@ -6,6 +6,8 @@ const CtrlMilestone =require('../controller/milestone.controller')
 const CtrlProject =require('../controller/project.controller')
 const Ctrlrequest=require('../controller/grouprequest.controller')
 const CtrlSheet =require('../controller/googleSheet.controller')
+const Ctrltimeslot =require('../controller/timeslot.controller')
+
 
 router.post('/Student/register',CtrlStudent.register)
 router.post('/authenticate',CtrlStudent.authenticate)
@@ -37,5 +39,9 @@ router.get('/checkallaccepted/:id',Ctrlrequest.checkallaccepted)
 //google sheet
 
 router.post('/setgooglesheet',CtrlSheet.createspreadsheet)
+
+//timeslots
+
+router.post('/posttimeslots',Ctrltimeslot.addtimeslots)
 module.exports=router 
 
