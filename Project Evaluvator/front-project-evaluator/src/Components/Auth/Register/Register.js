@@ -19,9 +19,11 @@ class Register extends Component{
       Registrationnumber :'',
       Password :'',
       Cpassword :'',
+      nameError: '',
       errors:{}
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleNameChange = this.handleNameChange.bind(this)
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -36,6 +38,18 @@ class Register extends Component{
   handleChange(e){
     this.setState({[e.target.name]: e.target.value});
  }
+ handleNameChange = event => {
+    this.setState({ UserName: event.target.value }, () => {
+      this.validateName();
+    });
+  }
+  validateName = () => {
+    const { UserName } = this.state;
+    this.setState({
+      nameError:
+        UserName.length > 3 ? null : 'Name must be longer than 3 characters'
+    });
+  }
   postRegister = ()=>{
   
     // axios.post('http://localhost:4000/api/Student/register',this.state)
@@ -96,7 +110,7 @@ render(){
                   <MDBInput
                     label="User Name"
                     name = "UserName"
-                    onChange ={this.handleChange}    
+                    onChange ={this.handleNameChange}    
                     value ={this.state.UserName}
                     id="materialFormRegisterPasswordEx4"               
                     type="text"
@@ -105,8 +119,10 @@ render(){
                     validate
                     error="wrong"
                     success="right"
+                    onBlur={this.validateName}
                     required
                   />
+                  <div className="error">{this.state.nameError}</div> 
                   <MDBInput
                     label="Email"
                     name ="Email"
@@ -143,7 +159,7 @@ render(){
                     className="w-75 p-3"
 
                     group
-                    type="Password "
+                    type="password "
                     validate
                     error="wrong"
                     success="right"
@@ -164,7 +180,7 @@ render(){
                 </div>
                 <div className="text-center py-4 mt-3">
                   <MDBBtn color="primary" type="submit" onClick ={this.postRegister}>
-                    Registerrrr
+                    Register
                   </MDBBtn>
                 </div>
               </form>
