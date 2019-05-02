@@ -14,6 +14,9 @@ import {
 
 import moment from 'moment'
 var Evaluators=[]
+var checkedevaluvators=[]
+var selectedEvaluvators=[]
+
 class Timeslot extends React.Component {
     constructor(props) {
         super(props)
@@ -30,16 +33,18 @@ class Timeslot extends React.Component {
             numberofgroups: null,
             numberofplaces: null,
             venue :"",
-            evaluvators:""
+            evaluvators:"",
+            disabled:false,
+            evaluvateCount:null,
+            checked:false,
+            Evaluators:[],
+            SelectedEvaluvators:[]
         }
         this.props.getprojectnames()
         this.onchangeDropdown = this.onchangeDropdown.bind(this)
+        this.change=this.change.bind(this)
     }
-    ss=()=>{
-        const arrvenue= this.state.venue.split(',')
-        this.setState({numberofgroups:arrvenue.length})
-        console.log(arrvenue.length)
-    }
+   
     validateEvaluvators=()=>{
         alert("dfd")
     }
@@ -47,7 +52,17 @@ class Timeslot extends React.Component {
 
     generateTimeslots = () => {
         const arrvenue= this.state.venue.split(',')
-        Evaluators=this.state.evaluvators.split(',')
+       this.state.evaluvators.split(',').forEach(evaluvaters=>
+       {
+           var evaluvator ={
+            name :evaluvaters,
+            checked:false
+           }
+           Evaluators.push(evaluvator)
+       })
+
+       this.setState({Evaluators:Evaluators})
+       console.log(Evaluators)
         var timeslots = []
 
         console.log(this.state)
@@ -176,9 +191,77 @@ class Timeslot extends React.Component {
 
 
     }
-    countevaluvators=(e,{value,name})=>{
+    countevaluvators=(e,{value,name,checked,disabled})=>{
+        
         console.log(value)
-        console.log(name.checked)
+        var alreadyin =false
+        
+        
+        checkedevaluvators.forEach(element => {
+            console.log(element==value)
+            if(element==value){
+                alreadyin=true
+            }  
+        });
+        if(alreadyin){
+            var index = checkedevaluvators.indexOf(value);
+ 
+            if (index > -1) {
+                checkedevaluvators.splice(index, 1);
+            }
+        }
+        else{
+            if(checkedevaluvators.length>=this.state.evaluvateCount){
+                this.setState({disabled:true})
+            }
+            else{
+            checkedevaluvators.push(value)
+            }
+        }
+        
+    
+        console.log(checked)
+    }
+
+    change=(e,{value,name,checked,disabled})=>{
+        var i=0
+        var index =[]
+        
+    this.state.Evaluators.map(eva=>{
+        
+
+        if(value==eva.name){
+            var newele ={
+                name:value,
+                checked:!eva.checked
+
+            }
+            index.push(newele)
+            
+        }else{
+            index.push(eva)
+        }
+
+    })
+    this.setState({Evaluators:index})
+
+    if(checked){
+        selectedEvaluvators.push(value)
+    }
+    else{
+        var index = selectedEvaluvators.indexOf(value);
+ 
+            if (index > -1) {
+                selectedEvaluvators.splice(index, 1);
+            }
+
+    }
+    this.setState({SelectedEvaluvators:selectedEvaluvators})
+
+
+        
+
+
     }
     render() {
         const Projectnames = this.props.projects.project.map(project =>
@@ -209,7 +292,7 @@ class Timeslot extends React.Component {
         return (
             
             <div>
-                Slect the project
+                Select the project
                 <div>
                     <Dropdown placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
                 </div>
@@ -258,6 +341,7 @@ class Timeslot extends React.Component {
 
                             <Form.Field control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
                             <Form.Field control={Input} onChange={this.handleChange} name="venue" value={this.state.venue} label='Enter the Places' placeholder='Enter places seperated by comma' />
+                            <Form.Field control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Enter the evaluvater Count for one presentation' placeholder='Enter the evaluvater Count for one presentation' />
 
                         </Form.Group>
                         <Form.Field control={Input} onChange={this.handleChange} name="evaluvators" value={this.state.evaluvators} label='Enter the Evaluvators' placeholder='Enter the Evaluvators seperated by comma' />
@@ -310,9 +394,9 @@ class Timeslot extends React.Component {
                             trigger={<Button icon='add' />}
                             content={
                                 <List>
-                            {Evaluators.map(evaluvator=>
+                            {this.state.Evaluators.map(evaluvator=>
                                 
-                                <List.Item><Checkbox value ={evaluvator} name={evaluvator} onChange={this.countevaluvators}></Checkbox>{evaluvator}</List.Item>
+                                <List.Item><Checkbox checked={evaluvator.checked} value={evaluvator.name} onChange={this.change} disabled={this.state.SelectedEvaluvators.length>=this.state.evaluvateCount && !evaluvator.checked}></Checkbox>{evaluvator.name}</List.Item>
                                                              
                             )}
                             <Button onClick={this.validateEvaluvators}> Submit</Button>
