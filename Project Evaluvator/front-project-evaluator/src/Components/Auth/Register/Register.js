@@ -10,6 +10,7 @@ import {registerUser} from '../../../actions/authActions';
 import Navbar from '../Navbar';
 
 import {Link} from 'react-router-dom'
+import { FormGroup, Form} from '@material-ui/core';
 class Register extends Component{
   constructor(props){
     super(props);
@@ -20,10 +21,16 @@ class Register extends Component{
       Password :'',
       Cpassword :'',
       nameError: '',
+      IndexError: '',
+      PasswordError: '',
+      CpasswordError:'',
       errors:{}
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
+    this.handleIndexChange = this.handleIndexChange.bind(this)
+    this.handlePasswordChange = this.handlePasswordChange.bind(this)
+    this.handleCpasswordChange = this.handleCpasswordChange.bind(this)
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -38,6 +45,7 @@ class Register extends Component{
   handleChange(e){
     this.setState({[e.target.name]: e.target.value});
  }
+ //name validation
  handleNameChange = event => {
     this.setState({ UserName: event.target.value }, () => {
       this.validateName();
@@ -48,6 +56,45 @@ class Register extends Component{
     this.setState({
       nameError:
         UserName.length > 3 ? null : 'Name must be longer than 3 characters'
+    });
+  }
+  //index number validation
+  handleIndexChange = event => {
+    this.setState({ Registrationnumber: event.target.value }, () => {
+      this.validateIndex();
+    });
+  }
+  validateIndex = () => {
+    const { Registrationnumber } = this.state;
+    this.setState({
+      IndexError:
+        Registrationnumber.length == 8 ? null : 'Invalid index number'
+    });
+  }
+  //password validation
+  handlePasswordChange = event => {
+    this.setState({ Password: event.target.value }, () => {
+      this.validatePassword();
+    });
+  }
+  validatePassword = () => {
+    const { Password } = this.state;
+    this.setState({
+      PasswordError:
+        Password.length > 8 ? null : Password.length > 5 ? "Fair Length" : 'Password length should be more than 5 characters' 
+    });
+  }
+  //confirm password validation
+  handleCpasswordChange = event => {
+    this.setState({ Cpassword: event.target.value }, () => {
+      this.validateCpassword();
+    });
+  }
+  validateCpassword = () => {
+    const { Cpassword,Password } = this.state;
+    this.setState({
+      CpasswordError:
+       Cpassword=== Password ? null : "Password Doesn't match"
     });
   }
   postRegister = ()=>{
@@ -117,12 +164,13 @@ render(){
                     className="w-75 p-3"
                     id="defaultFormRegisterNameEx"
                     validate
-                    error="wrong"
+                    error="true"
                     success="right"
                     onBlur={this.validateName}
+                    minlength="3"
                     required
                   />
-                  <div className="error">{this.state.nameError}</div> 
+                  <p className="text-danger">{this.state.nameError}</p>
                   <MDBInput
                     label="Email"
                     name ="Email"
@@ -141,42 +189,51 @@ render(){
                     label="Index Number"
                     name = "Registrationnumber"
                     value ={this.state.Registrationnumber}
-                    onChange ={this.handleChange}
+                    onChange ={this.handleIndexChange}
                     className="w-75 p-3"
+                    onBlur={this.validateIndex}
 
                     group
-                    type="text"
+                    type="number"
                     validate
                     error="wrong"
                     success="right"
+                    max = "99999999"
+                    min = "10000000"
                     required
                   />
+                  <p className="text-danger">{this.state.IndexError}</p>
                   <MDBInput
                     label="Password"
                     name ="Password"
                     value ={this.state.Password}
-                    onChange ={this.handleChange}
+                    onChange ={this.handlePasswordChange}
                     className="w-75 p-3"
+                    onBlur={this.validatePassword}
 
                     group
-                    type="password "
+                    type="password"
                     validate
                     error="wrong"
                     success="right"
+                    minlength="6"
                     required
                   />
+                  <p className="text-danger">{this.state.PasswordError}</p>
                   <MDBInput
                     label="Confirm Password"
                     name = "Cpassword"
                     value ={this.state.Cpassword}
-                    onChange ={this.handleChange}
+                    onChange ={this.handleCpasswordChange}
+                    onBlur={this.validateCpassword}
+
                     group
                     className="w-75 p-3"
-
                     type="password"
                     validate
                     required
                   />
+                  <p className="text-danger">{this.state.CpasswordError}</p>
                 </div>
                 <div className="text-center py-4 mt-3">
                   <MDBBtn color="primary" type="submit" onClick ={this.postRegister}>
