@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -49,6 +50,15 @@ const rows = [
 ];
 
 
+
+
+
+
+
+
+
+
+
 function SessionListTable(props) {
   const { classes } = props;
 
@@ -58,10 +68,12 @@ function SessionListTable(props) {
         <TableHead>
           <TableRow>
             <CustomTableCell>Project</CustomTableCell>
-            <CustomTableCell align="right">Calories</CustomTableCell>
-            <CustomTableCell align="right">Fat (g)</CustomTableCell>
-            <CustomTableCell align="right">Carbs (g)</CustomTableCell>
-            <CustomTableCell align="right">Protein (g)</CustomTableCell>
+
+    <CustomTableCell align="right"></CustomTableCell>
+            <CustomTableCell align="right"></CustomTableCell>
+            <CustomTableCell align="right"></CustomTableCell>
+            <CustomTableCell align="right"></CustomTableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
