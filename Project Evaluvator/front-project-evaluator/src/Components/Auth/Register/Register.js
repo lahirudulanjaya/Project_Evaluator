@@ -24,6 +24,7 @@ class Register extends Component{
       IndexError: '',
       PasswordError: '',
       CpasswordError:'',
+      emailError:'',
       errors:{}
     }
     this.handleChange = this.handleChange.bind(this)
@@ -31,6 +32,7 @@ class Register extends Component{
     this.handleIndexChange = this.handleIndexChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
     this.handleCpasswordChange = this.handleCpasswordChange.bind(this)
+    this.handleEmailChange = this.handleEmailChange.bind(this)
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -95,6 +97,20 @@ class Register extends Component{
     this.setState({
       CpasswordError:
        Cpassword=== Password ? null : "Password Doesn't match"
+    });
+  }
+  //email validation
+  handleEmailChange = event =>{
+    this.setState({Email: event.target.value}, () =>{
+      this.ValidateEmail();
+    });
+  }
+  ValidateEmail = () =>{
+    const{ Email } = this.state;
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    this.setState({
+      emailError:
+        Email.match(mailformat) ? null : "Email is invalid"
     });
   }
   postRegister = ()=>{
@@ -175,8 +191,9 @@ render(){
                     label="Email"
                     name ="Email"
                     value ={this.state.Email}
-                    onChange ={this.handleChange}
+                    onChange ={this.handleEmailChange}
                     className="w-75 p-3"
+                    onBlur={this.validateEmail}
 
                     group
                     type="email"
@@ -185,6 +202,7 @@ render(){
                     success="right"
                     required
                   />
+                  <p className="text-danger">{this.state.emailError}</p>
                   <MDBInput
                     label="Index Number"
                     name = "Registrationnumber"
