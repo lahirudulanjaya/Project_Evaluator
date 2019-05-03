@@ -48,7 +48,8 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-function CustomizedTable(props) {
+
+function SessionListTable(props) {
   const { classes } = props;
 
   return (
@@ -56,7 +57,7 @@ function CustomizedTable(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <CustomTableCell>Dessert (100g serving)</CustomTableCell>
+            <CustomTableCell>Project</CustomTableCell>
             <CustomTableCell align="right">Calories</CustomTableCell>
             <CustomTableCell align="right">Fat (g)</CustomTableCell>
             <CustomTableCell align="right">Carbs (g)</CustomTableCell>
@@ -66,13 +67,12 @@ function CustomizedTable(props) {
         <TableBody>
           {rows.map(row => (
             <TableRow className={classes.row} key={row.id}>
-              <CustomTableCell component="th" scope="row">
-                {row.name}
-              </CustomTableCell>
-              <CustomTableCell align="right">{row.calories}</CustomTableCell>
+              <CustomTableCell component="th" scope="row">{row.name}</CustomTableCell>
+              <CustomTableCell></CustomTableCell>
+              {/* <CustomTableCell align="right">{row.calories}</CustomTableCell>
               <CustomTableCell align="right">{row.fat}</CustomTableCell>
               <CustomTableCell align="right">{row.carbs}</CustomTableCell>
-              <CustomTableCell align="right">{row.protein}</CustomTableCell>
+              <CustomTableCell align="right">{row.protein}</CustomTableCell> */}
             </TableRow>
           ))}
         </TableBody>
@@ -81,8 +81,8 @@ function CustomizedTable(props) {
   );
 }
 
-CustomizedTable.propTypes = {
+SessionListTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CustomizedTable);
+export default withStyles(styles)(SessionListTable);
