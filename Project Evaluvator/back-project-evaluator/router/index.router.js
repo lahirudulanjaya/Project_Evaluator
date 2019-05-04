@@ -11,7 +11,7 @@ const Ctrltimeslot =require('../controller/timeslot.controller')
 
 router.post('/Student/register',CtrlStudent.register)
 router.post('/authenticate',CtrlStudent.authenticate)
-router.get('/userprofile/:_id',  CtrlStudent.userprofile);
+router.get('/userprofile',Jwtverify.verifyJwtToken, CtrlStudent.userprofile);
 router.post('/pg/postmilestone',CtrlMilestone.addmilestone)
 router.get('/pg/getmilestone/:Projectname',CtrlMilestone.getmilstones)
 router.post('/pg/addproject',CtrlProject.addproject)

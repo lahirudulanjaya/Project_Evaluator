@@ -23,6 +23,8 @@ class Timeslot extends React.Component {
         super(props)
         this.state = {
             presentations: [],
+            presentation:'',
+            Projectname:'',
             date: '',
             endtime: '',
             starttime: '',
@@ -45,6 +47,7 @@ class Timeslot extends React.Component {
         this.props.getprojectnames()
         this.onchangeDropdown = this.onchangeDropdown.bind(this)
         this.change = this.change.bind(this)
+        this.onchangeDropdown1=this.onchangeDropdown1.bind(this)
     }
 
     submitEvaluvators = (time, venue) => {
@@ -82,6 +85,8 @@ class Timeslot extends React.Component {
 
 
     generateTimeslots = () => {
+        submitted=[]
+        Evaluators=[]
         const arrvenue = this.state.venue.split(',')
         this.state.evaluvators.split(',').forEach(evaluvaters => {
             var evaluvator = {
@@ -191,9 +196,12 @@ class Timeslot extends React.Component {
 
     }
     onchangeDropdown(e) {
-        this.setState({ projectName: e.target.textContent })
+        this.setState({ Projectname: e.target.textContent })
         this.props.getproject(e.target.textContent)
         this.props.getpresentations(e.target.textContent)
+    }
+    onchangeDropdown1(e){
+        this.setState({presentation:e.target.value})
     }
 
     componentDidMount() {
@@ -445,10 +453,12 @@ class Timeslot extends React.Component {
 
     }
     submittodb(){
-        // const post ={
-        //     Projectname:
-        // }
-        // axios.post('http://localhost:4000/api/posttimeslots',)
+        const post ={
+            Projectname:this.state.Projectname,
+            Milestone:this.state.presentation,
+            Timeslots:this.state.timeslots
+        }
+        axios.post('http://localhost:4000/api/posttimeslots',)
     }
     render() {
         const Projectnames = this.props.projects.project.map(project =>
@@ -484,7 +494,7 @@ class Timeslot extends React.Component {
                 </div>
                 Select the Presentation
             <div>
-                    <Dropdown placeholder='State' search selection options={presentation} />
+                    <Dropdown placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
                 </div>
                 
 

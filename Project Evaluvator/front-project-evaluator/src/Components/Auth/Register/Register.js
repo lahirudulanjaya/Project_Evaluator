@@ -14,6 +14,7 @@ import { FormGroup, Form} from '@material-ui/core';
 class Register extends Component{
   constructor(props){
     super(props);
+    console.log(props)
     this.state ={
       UserName : '',
       Email :'',
