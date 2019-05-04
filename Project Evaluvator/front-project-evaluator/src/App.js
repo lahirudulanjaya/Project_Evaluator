@@ -33,6 +33,8 @@ import Test from "./Components/Auth/Register/Test";
 
 
 class App extends Component {
+
+  
   render() {
     return (
     <Provider store={store}>

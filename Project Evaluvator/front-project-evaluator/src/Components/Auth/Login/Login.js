@@ -12,6 +12,7 @@ import NavBar from '../Navbar'
 class Login extends Component{
   constructor(props){
     super(props);
+    console.log(props)
     this.state ={
       UserName :'',
       password : '',

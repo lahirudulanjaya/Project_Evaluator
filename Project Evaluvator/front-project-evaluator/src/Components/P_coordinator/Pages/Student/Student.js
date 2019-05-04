@@ -12,16 +12,11 @@ import axios from 'axios'
 import swal from 'sweetalert';
 import { MDBBtn,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
+import {whologgedin} from '../../../../actions/authActions'
 import {connect} from 'react-redux'
 import './Student.css'
 
 
-
-
-const studentdetail ={
-  Registrationnumber :String,
-  Name:String
-}
 
 const background={
   backgroundColor : '#C4C4C4'
@@ -35,6 +30,8 @@ class Student extends Component{
       arr :[],
       students:[]
   }
+  
+
     this.uploadfile = this.uploadfile.bind(this)
     this.props.getstudentdetails()
 
@@ -237,4 +234,4 @@ student :state.studentDetail
   }
 }
 
-export default connect(mapStateToProps,{getstudentdetails})(Student)
+export default connect(mapStateToProps,{getstudentdetails,whologgedin})(Student)

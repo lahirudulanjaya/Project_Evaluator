@@ -8,6 +8,7 @@ import "./Navbar.css";
 import NotificationBadge from 'react-notification-badge';
 import { Effect } from 'react-notification-badge';
 import { Icon, Popup, Button, List } from 'semantic-ui-react'
+import  {deletetoken} from '../../actions/authActions'
 class NavbarPage extends Component {
   constructor(props) {
     super(props)
@@ -19,6 +20,9 @@ class NavbarPage extends Component {
       requests: []
     };
     console.log(props)
+  }
+  logout(){
+    deletetoken()
   }
 
   toggleCollapse = () => {
@@ -75,7 +79,7 @@ class NavbarPage extends Component {
               <Icon size='big' name='bell' >  <NotificationBadge count={3} effect={Effect.SCALE} /></Icon>
             </MDBNavItem>
             <MDBNavItem active>
-              <MDBNavLink to="/login"><b style={{ color: '#000000' }}>log out </b></MDBNavLink>
+              <MDBNavLink to="/login"><b onClick={this.logout} style={{ color: '#000000' }}>log out </b></MDBNavLink>
             </MDBNavItem>
             <MDBNavItem>
               <MDBNavLink to="/register"><b style={{ color: '#000000' }}>Sign Up</b></MDBNavLink>

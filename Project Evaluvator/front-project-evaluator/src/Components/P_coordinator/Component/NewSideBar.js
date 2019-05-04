@@ -2,7 +2,8 @@ import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/rea
 import{BrowserRouter as Router , Route} from 'react-router-dom'
 import React,{Component} from 'react';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-
+import {whologgedin} from '../../../actions/authActions'
+import {connect} from 'react-redux'
 import RouteFile from '../../../RouteFile';
 import NavBar from '../../Navbar/Navbar';
 
@@ -10,7 +11,20 @@ const sideBar={
     backgroundColor : '#302F2F' 
 }
 
+
 class NewSideBar extends Component{
+    constructor(props){
+        super(props)
+        console.log(props)
+    }
+
+    componentDidMount(){
+        
+        if(!(whologgedin()=="pcoordinator")){
+            this.props.history.push('/login')
+        }
+    }
+
     render(){
         return (
             <div>
