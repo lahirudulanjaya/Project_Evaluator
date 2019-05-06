@@ -81,7 +81,14 @@ module.exports.createspreadsheet = (req, res, next) => {
                 },
             ],(err)=>{
                 if(!err){
-                    res.send("successfuly Uploaded")
+
+                   
+
+                    Project.findOneAndUpdate({Projectname:req.body.Projectname},{$set:{Sheeturl:req.body.Sheeturl}},(err,doc)=>{
+                        if(!err){
+                            res.send("successfuly Uploaded and Updated database")
+                        }
+                    })
                 }
                 else{
                     res.status(404).send(err)

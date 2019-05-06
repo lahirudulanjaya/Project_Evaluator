@@ -25,7 +25,10 @@ var ProjectSchema = new mongoose.Schema({
             type:Number
         },
         students:[]
-    }]
+    }],
+    Sheeturl:{
+        type:String
+    }
 
 
 })

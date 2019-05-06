@@ -30,6 +30,9 @@ var Milestoneschema = new mongoose.Schema(
         stop:{
             type:Boolean,
             default:false
+        },
+        Sheeturl:{
+            type:String
         }
 
 

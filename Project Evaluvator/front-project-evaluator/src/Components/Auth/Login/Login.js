@@ -43,7 +43,6 @@ class Login extends Component{
 
    postLogin(e){
     e.preventDefault();
-    alert("dii")
   //   axios.post('http://localhost:4000/api/authenticate',this.state)
   //   .then(res=>{
   //     this.props.history.push('/student')

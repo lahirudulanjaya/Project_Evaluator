@@ -15,6 +15,7 @@ class Pcoodinater extends Component {
     this.state = {
       projects: [],
       sheetid:'',
+      sheeturl:'',
       Projectname:''
     }
     this.props.getallprojects()
@@ -23,18 +24,19 @@ class Pcoodinater extends Component {
 
 
   onChange(e) {
-
-    
-
     this.setState(
-      {[e.target.name]: e.target.value},
+      {sheeturl: e.target.value},
       );
+      const sheetid =e.target.value.split('/')
+      
+      this.setState({sheetid:sheetid[5]})
   }
 
   onOpen=(name)=>{
     const post ={
       sheetid:this.state.sheetid,
-      Projectname:name
+      Projectname:name,
+      Sheeturl:this.state.sheeturl
     }
     console.log(post)
     axios.post("http://localhost:4000/api/setgooglesheet",post)
@@ -55,8 +57,12 @@ class Pcoodinater extends Component {
           <Header.Content>All Projects</Header.Content>
         </Header>
         <div className="row">
+
+      <h3>  When adding googlesheet to project you need to share your googlesheet with <b><i>ucscprojectevaluation@ucsc-projec-tevaluation.iam.gserviceaccount.com</i></b></h3>
           {this.props.project.projects.map(projects =>
+          
             <div class="col-sm">
+            {console.log(projects)}
               <Card>
                 <Card.Content>
                   <Card.Header onClick={this.sd}>{projects.Projectname}</Card.Header>
@@ -64,6 +70,7 @@ class Pcoodinater extends Component {
                     <span className='date'>Project Initiate date is {projects.Initiatedate}</span>
                   </Card.Meta>
                   <Card.Content extra>
+                  {/* {!(projects.Sheeturl.length>0) ?
                     <div className='ui two buttons'>
                       
           <Popup
@@ -71,11 +78,12 @@ class Pcoodinater extends Component {
    Add Google sheet details
 </Button>}
     on ='click'
-    content={<div><Input  focus placeholder='Enter Sheetid' value={this.state.sheetid} onChange={this.onChange} name="sheetid" /><Button basic color='green' onClick={()=>this.onOpen(projects.Projectname)}>Submit</Button></div>}
+    content={<div><Input  focus placeholder='Enter Sheetid' value={this.state.sheeturl} onChange={this.onChange} name="sheetid" /><Button basic color='green' onClick={()=>this.onOpen(projects.Projectname)}>Submit</Button></div>}
     basic
   />
-
-                    </div>
+                    </div>:
+                    <div></div>
+                  } */}
                   </Card.Content>
                 </Card.Content>
               </Card>
