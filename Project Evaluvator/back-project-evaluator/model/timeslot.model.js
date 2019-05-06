@@ -3,17 +3,19 @@ const mongoose =require('mongoose')
 var timeslotSchema = new mongoose.Schema(
     {
         Projectname :{
-            type:String
+            type:String,
+            
         },
         Milestone:{
-            type :String
+            type :String,
+            
         },
         Timeslosts:[
             {
-                Starttime:Date,
-                Endtime:Date,
-                Evaluaters:[],
-                Venue:String
+                start:Date,
+                end:Date,
+                evaluvators:[],
+                venue:String
 
             }
         ]
@@ -21,4 +23,5 @@ var timeslotSchema = new mongoose.Schema(
     }
     
 )
+timeslotSchema.index({Projectname:1,Milestone:1},{unique:true})
 mongoose.model("Timeslots",timeslotSchema)

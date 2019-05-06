@@ -21,6 +21,7 @@ class Login extends Component{
 
     }
     this.handleChange = this.handleChange.bind(this);
+    this.postLogin =this.postLogin.bind(this)
   }
 
   componentWillReceiveProps(nextprops){
@@ -40,7 +41,9 @@ class Login extends Component{
     this.setState({[e.target.name]: e.target.value});
   }
 
-   postLogin=()=>{
+   postLogin(e){
+    e.preventDefault();
+    alert("dii")
   //   axios.post('http://localhost:4000/api/authenticate',this.state)
   //   .then(res=>{
   //     this.props.history.push('/student')
@@ -68,7 +71,7 @@ class Login extends Component{
           <MDBCol sm="6">
             <MDBCard className="w-75 p-3">
               <MDBCardBody >
-                <form>
+                <form onSubmit={this.postLogin}>
                 <div className="header pt-3 grey lighten-2">
                 <p className="h4 text-center py-4">Login</p>
                 </div>
@@ -111,7 +114,7 @@ class Login extends Component{
                   <div className="text-center mb-4 mt-5">
                     <MDBBtn
                       color="indigo"
-                      onClick ={this.postLogin}
+                      type="submit"
                     >
                       Log in
                     </MDBBtn>
