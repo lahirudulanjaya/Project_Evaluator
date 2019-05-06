@@ -7,7 +7,7 @@ const CtrlProject =require('../controller/project.controller')
 const Ctrlrequest=require('../controller/grouprequest.controller')
 const CtrlSheet =require('../controller/googleSheet.controller')
 const Ctrltimeslot =require('../controller/timeslot.controller')
-
+const Ctrlevaluvator =require('../controller/evaluvator.controller')
 
 router.post('/Student/register',CtrlStudent.register)
 router.post('/authenticate',CtrlStudent.authenticate)
@@ -43,5 +43,11 @@ router.post('/setgooglesheet',CtrlSheet.createspreadsheet)
 //timeslots
 
 router.post('/posttimeslots',Ctrltimeslot.addtimeslots)
+
+//evaluvators
+
+router.post('/addEvaluvator' ,Ctrlevaluvator.addEvaluvator)
+
+router.get('/getEvaluvators' ,Ctrlevaluvator.getEvaluvators)
 module.exports=router 
 

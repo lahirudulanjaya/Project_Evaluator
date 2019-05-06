@@ -31,6 +31,9 @@ class Pcoodinater extends Component {
       
       this.setState({sheetid:sheetid[5]})
   }
+  openSheet(url){
+    window.open(url)
+  }
 
   onOpen=(name)=>{
     const post ={
@@ -82,7 +85,9 @@ class Pcoodinater extends Component {
     basic
   />
                     </div>:
-                    <div></div>
+                    <div basic color='green'>
+                      Sheeturl : <a onClick={()=>this.openSheet(projects.Sheeturl)}>{projects.Sheeturl}</a>
+                    </div>
                   }
                   </Card.Content>
                 </Card.Content>

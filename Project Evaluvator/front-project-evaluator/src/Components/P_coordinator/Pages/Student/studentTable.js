@@ -161,7 +161,9 @@ return(
               <Th>Name</Th>
             </Tr>
           </Thead>
-          <Tbody>
+          
+          {(this.state.data.length>0) ?
+        <Tbody>
             {this.state.data.map(data=>
 
 <Tr>
@@ -169,9 +171,12 @@ return(
 <Td>{data.Name}</Td>
 </Tr>
               )}
+              </Tbody>:
+        <Tbody></Tbody>
+          }
            
            
-          </Tbody>
+          
         </Table>
     
     
@@ -181,8 +186,9 @@ return(
 Created Groups
 </div>
 
-<div className="row">    
-              
+<div className="row">  
+ 
+       
         {this.state.groups.map(groups=>
         <div class="col-sm">
          <Card>
@@ -200,6 +206,7 @@ Created Groups
         </Card>
         </div>
         )}
+        
         </div>
         
 </div>

@@ -15,8 +15,8 @@ function getgroup(name, document) {
     Project.find({ Projectname: name }, 'groups', (err, doc) => {
         if (!err) {
             doc.forEach(element => {
-                element.groups.map(group => {
-                    group.students.map(item => {
+                element.groups.forEach(group => {
+                    group.students.forEach(item => {
                         var Rowdata = {
                             groupnumber: group.groupno,
                             GroupMembers: item.Registrationnumber
@@ -25,6 +25,10 @@ function getgroup(name, document) {
                         document.addRow(1, Rowdata, function (err, rows) {
                             if (err) {
                                 console.log(err)
+
+                            }
+                            else{
+                                console.log(Rowdata)
                             }
                         });
                     })
