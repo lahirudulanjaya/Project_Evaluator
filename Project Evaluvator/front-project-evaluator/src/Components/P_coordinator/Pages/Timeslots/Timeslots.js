@@ -14,6 +14,7 @@ import {
 import './Timeslots.css'
 import axios from 'axios'
 import moment from 'moment'
+import swal from 'sweetalert'
 var Evaluators = []
 var checkedevaluvators = []
 var selectedEvaluvators = []
@@ -201,7 +202,9 @@ class Timeslot extends React.Component {
         this.props.getpresentations(e.target.textContent)
     }
     onchangeDropdown1(e){
-        this.setState({presentation:e.target.value})
+       
+        this.setState({presentation:e.target.textContent})
+
     }
 
     componentDidMount() {
@@ -376,9 +379,6 @@ class Timeslot extends React.Component {
 
         var i = 0
         var index = []
-
-
-
         var newarr = []
         var found = false
 
@@ -452,13 +452,25 @@ class Timeslot extends React.Component {
 
 
     }
-    submittodb(){
+    submittodb=()=>{
         const post ={
             Projectname:this.state.Projectname,
             Milestone:this.state.presentation,
             Timeslots:this.state.timeslots
         }
-        axios.post('http://localhost:4000/api/posttimeslots',)
+        console.log(post)
+        axios.post('http://localhost:4000/api/posttimeslots',post)
+        .then(res=>{
+            swal(
+                'Uploded Success fully!',
+                '',
+                'success'
+              )
+
+        })
+        .catch({
+
+        })
     }
     render() {
         const Projectnames = this.props.projects.project.map(project =>
@@ -470,9 +482,9 @@ class Timeslot extends React.Component {
             })
         )
         var i = 1
-        var presentation
+        
         if (this.state.presentations.length > 0) {
-            presentation = this.state.presentations.map(presentation =>
+        var  presentation = this.state.presentations.map(presentation =>
                 ({
                     key: i++,
                     text: presentation.name,

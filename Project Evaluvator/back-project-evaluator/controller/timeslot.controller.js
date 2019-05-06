@@ -9,7 +9,7 @@ module.exports.addtimeslots=(req,res,next)=>{
     var timeslot = new Timeslot()
     timeslot.Projectname =req.body.Projectname
     timeslot.Milestone =req.body.Milestone
-    timeslot.Timeslosts=req.body.Timeslosts
+    timeslot.Timeslosts=req.body.Timeslots
 
     timeslot.save((err, doc) => {
         if (!err){

@@ -34,6 +34,7 @@ class Register extends Component{
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
     this.handleCpasswordChange = this.handleCpasswordChange.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
+    this.postRegister =this.postRegister.bind(this)
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -114,8 +115,9 @@ class Register extends Component{
         Email.match(mailformat) ? null : "Email is invalid"
     });
   }
-  postRegister = ()=>{
-  
+  postRegister  (e){
+  e.preventDefault()
+  e.target.className += " was-validated";
     // axios.post('http://localhost:4000/api/Student/register',this.state)
     //   .then(res=>{
     //     swal({
@@ -130,8 +132,7 @@ class Register extends Component{
     //   })
 
 
-    const {Password, Cpassword} = this.state;
-    if( Password==Cpassword){
+  
       const newUser = {
         UserName: this.state.UserName,
         Email: this.state.Email,
@@ -140,9 +141,7 @@ class Register extends Component{
         Cpassword:this.state.Cpassword
       };
       this.props.registerUser(newUser, this.props.history);
-    }else{
-      alert("Password Doesn't match");
-    }
+    
 
     
 
@@ -164,8 +163,8 @@ render(){
 
             <MDBCardBody>
               <form className="needs-validation"
-          onSubmit={this.submitHandler}
-          noValidate>
+          onSubmit={this.postRegister}
+          >
           <div className="header pt-3 grey lighten-2">
                 <p className="h4 text-center py-4">Sign up</p>
                 </div>
@@ -255,7 +254,7 @@ render(){
                   <p className="text-danger">{this.state.CpasswordError}</p>
                 </div>
                 <div className="text-center py-4 mt-3">
-                  <MDBBtn color="primary" type="submit" onClick ={this.postRegister}>
+                  <MDBBtn color="primary" type="submit" >
                     Register
                   </MDBBtn>
                 </div>
