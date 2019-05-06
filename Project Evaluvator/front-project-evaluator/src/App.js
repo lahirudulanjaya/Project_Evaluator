@@ -30,6 +30,7 @@ import StudentSideBar from './Components/Student/StudentSideBar';
 import SCoordinatorSideBar from './Components/S_coordinator/Component/SCoordinatorSideBar';
 import EvaluatorSideBar from './Components/Evaluator/SideBar';
 import Test from "./Components/Auth/Register/Test";
+import  Timeslots from './Components/P_coordinator/Pages/Timeslots/Timeslots'
 
 
 class App extends Component {
@@ -47,9 +48,11 @@ class App extends Component {
             <Route path ="/pg/student" component={NewSideBar}/>
             <Route path ="/pg/milestone" component={NewSideBar}/>
             <Route path ="/pg/creategroups" component={NewSideBar}/>
+            <Route path ="/pg/timeslot" component={NewSideBar}/>
             <Route path ="/studentDash" component={StudentSideBar}/>
             <Route path ="/sc" component={SCoordinatorSideBar}/>
             <Route path ="/evaluator" component={EvaluatorSideBar}/>
+
 
 
             <Route exact path ="/student" component ={Student}/>
