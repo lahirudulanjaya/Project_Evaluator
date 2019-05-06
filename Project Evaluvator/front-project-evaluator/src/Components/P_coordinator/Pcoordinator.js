@@ -70,7 +70,7 @@ class Pcoodinater extends Component {
                     <span className='date'>Project Initiate date is {projects.Initiatedate}</span>
                   </Card.Meta>
                   <Card.Content extra>
-                  {/* {!(projects.Sheeturl.length>0) ?
+                  {!(projects.Sheeturl) ?
                     <div className='ui two buttons'>
                       
           <Popup
@@ -83,7 +83,7 @@ class Pcoodinater extends Component {
   />
                     </div>:
                     <div></div>
-                  } */}
+                  }
                   </Card.Content>
                 </Card.Content>
               </Card>
