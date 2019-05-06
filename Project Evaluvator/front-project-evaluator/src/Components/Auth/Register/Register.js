@@ -70,9 +70,11 @@ class Register extends Component{
   }
   validateIndex = () => {
     const { Registrationnumber } = this.state;
+
     this.setState({
       IndexError:
-        Registrationnumber.length == 8 ? null : 'Invalid index number'
+        (Registrationnumber.length==9 && (Registrationnumber.substring(4,6)=='cs'||Registrationnumber.substring(4,6)=='is'||Registrationnumber.substring(4,6)=='CS'||Registrationnumber.substring(4,6)=='IS'))
+        ?null: 'Invalid Registration number'
     });
   }
   //password validation
@@ -204,20 +206,21 @@ render(){
                   />
                   <p className="text-danger">{this.state.emailError}</p>
                   <MDBInput
-                    label="Index Number"
+                    label="Registration Number(Ex: 2016cs000)"
                     name = "Registrationnumber"
                     value ={this.state.Registrationnumber}
                     onChange ={this.handleIndexChange}
                     className="w-75 p-3"
                     onBlur={this.validateIndex}
+                    placeholder="Ex : 2016cs000"
 
                     group
-                    type="number"
+                    type="text"
                     validate
                     error="wrong"
                     success="right"
-                    max = "99999999"
-                    min = "10000000"
+                    minlength="9"
+                    maxlength="9"
                     required
                   />
                   <p className="text-danger">{this.state.IndexError}</p>
