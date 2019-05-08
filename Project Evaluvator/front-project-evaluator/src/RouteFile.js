@@ -8,6 +8,7 @@ import Pcoordinator from './Components/P_coordinator/Pcoordinator';
 import StudentTable from './Components/P_coordinator/Pages/Student/studentTable'
 import  Timeslots from './Components/P_coordinator/Pages/Timeslots/Timeslots'
 import Evaluvator from './Components/P_coordinator/Pages/Evaluvator/envaluvator'
+import Sessioncoodinator from './Components/P_coordinator/Pages/SessionCoodinator/Sessioncoordinator'
 
 class RouteFile extends Component{
     render() {
@@ -21,6 +22,7 @@ class RouteFile extends Component{
             <Route path="/pg/creategroups" component={props => <StudentTable/>}/>    
             <Route path="/pg/timeslot" component={props => <Timeslots/>}/>                       
             <Route path="/pg/evaluvator" component={props=><Evaluvator/>}/>
+            <Route path="/pg/sessioncoordinator" component={props=><Sessioncoodinator/>}/>
             
             </div>
 

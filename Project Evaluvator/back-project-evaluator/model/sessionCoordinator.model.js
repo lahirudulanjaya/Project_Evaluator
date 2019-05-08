@@ -1,7 +1,7 @@
 const mongoose =require('mongoose')
 const bcrypt =require('bcryptjs')
 
-var evaluvator = new mongoose.Schema(
+var sessioncoordinator = new mongoose.Schema(
     {
 
     Registrationnumber :{
@@ -21,12 +21,12 @@ var evaluvator = new mongoose.Schema(
     },
     type:{
         type:String,
-        default:"evaluvator"
+        default:"sessioncoordinator"
     }
 
 })
 
-evaluvator.pre('save', function (next) {
+sessioncoordinator.pre('save', function (next) {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(this.Password, salt, (err, hash) => {
             this.Password = hash;
@@ -35,4 +35,4 @@ evaluvator.pre('save', function (next) {
         });
     });
 });
-mongoose.model("Evaluvator",evaluvator)
+mongoose.model("Sessioncoordinator",sessioncoordinator)

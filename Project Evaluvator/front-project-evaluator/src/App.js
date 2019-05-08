@@ -54,6 +54,7 @@ class App extends Component {
             <Route path ="/sc" component={SCoordinatorSideBar}/>
             <Route path ="/evaluator" component={EvaluatorSideBar}/>
             <Route path ="/pg/evaluvator" component={NewSideBar}/>
+            <Route path ="/pg/sessioncoordinator" component={NewSideBar}/>
 
 
 

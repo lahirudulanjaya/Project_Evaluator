@@ -2,21 +2,21 @@ import React from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput ,MDBIcon} from 'mdbreact';
 import axios from 'axios'
 import swal from 'sweetalert'
-class Evaluvator  extends React.Component {
+class Sessioncoodinator  extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
             Registrationnumber:'',
             Email:'',
-            Evaluvators:[]
+            SessionCoordinator:[]
 
          }
          this.handleChange =this.handleChange.bind(this)
-         this.registerEvaluvator=this.registerEvaluvator.bind(this)
+         this.registersessionCoordinator=this.registersessionCoordinator.bind(this)
     }
     componentDidMount(){
-      axios.get('http://localhost:4000/api/getEvaluvators').then(res=>{
-          this.setState({Evaluvators:res.data})
+      axios.get('http://localhost:4000/api/getSessioncoodinator').then(res=>{
+          this.setState({SessionCoordinator:res.data})
           console.log(res.data)
         })
         .catch(err=>{
@@ -32,15 +32,22 @@ class Evaluvator  extends React.Component {
       
       
     
-    registerEvaluvator(e){
+    registersessionCoordinator(e){
         e.preventDefault();
-      axios.post('http://localhost:4000/api/addEvaluvator',this.state)
+      axios.post('http://localhost:4000/api/addSessioncoodinator',this.state)
       .then(res=>{
         swal({
             title: "Good job!",
             text: "You have succesfully registered!",
             icon: "success",
           });
+          axios.get('http://localhost:4000/api/getSessioncoodinator').then(res=>{
+            this.setState({SessionCoordinator:res.data})
+            console.log(res.data)
+          })
+          .catch(err=>{
+            console.log(err)
+          })
       })
       .catch(err=>
         {
@@ -53,15 +60,15 @@ class Evaluvator  extends React.Component {
     render() { 
         return ( 
             <div>
-                register Evaluvator
+                register SessionCoordinator
                 <MDBContainer className="login">
         <MDBRow>
           
           <MDBCol sm="6">
             <MDBCard className="w-75 p-3">
               <MDBCardBody >
-                <form onSubmit={this.registerEvaluvator}>
-                <div className="header pt-3 grey lighten-2">
+                <form onSubmit={this.registersessionCoordinator}>
+                <div className="form-header indigo rounded">
                 <p className="h4 text-center py-4">Register</p>
                 </div>
                   <MDBInput 
@@ -83,7 +90,7 @@ class Evaluvator  extends React.Component {
                     onChange={this.handleChange}
                     value={this.state.Email}
                     group
-                    type="password"
+                    type="text"
                     className="w-75 p-3"
                     validate
                     error="wrong"
@@ -109,6 +116,7 @@ class Evaluvator  extends React.Component {
                 </MDBContainer>
                 <div class="col-md-12">
               <div class="card">
+              
                   <div class="card-header card-header-danger">
                       <h4 class="card-title ">Project Table</h4>
                      
@@ -134,7 +142,7 @@ class Evaluvator  extends React.Component {
                                    
                               </thead>
                               <tbody  >
-                                {this.state.Evaluvators.map(eva=>
+                                {this.state.SessionCoordinator.map(eva=>
                                   <tr >
                                     <td>{eva.Registrationnumber}</td>
                                   <td>{eva.Email}</td>
@@ -159,4 +167,4 @@ class Evaluvator  extends React.Component {
     }
 }
  
-export default Evaluvator ;
+export default Sessioncoodinator ;

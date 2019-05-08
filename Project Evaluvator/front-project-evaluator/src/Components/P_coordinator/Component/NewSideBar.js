@@ -105,7 +105,7 @@ class NewSideBar extends Component{
                                 Evaluator
                             </NavText>
                         </NavItem>
-                        <NavItem eventKey="devices">
+                        <NavItem eventKey="pg/sessioncoordinator">
                             <NavText>
                                 Session Coordinator
                             </NavText>
