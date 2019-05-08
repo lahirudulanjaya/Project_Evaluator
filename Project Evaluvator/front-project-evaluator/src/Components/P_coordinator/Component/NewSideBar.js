@@ -6,16 +6,19 @@ import {whologgedin} from '../../../actions/authActions'
 import {connect} from 'react-redux'
 import RouteFile from '../../../RouteFile';
 import NavBar from '../../Navbar/Navbar';
+import './NewSideBar.css';
 
 const sideBar={
     backgroundColor : '#302F2F' 
 }
 
-
 class NewSideBar extends Component{
     constructor(props){
         super(props)
         console.log(props)
+        this.state = {
+            navbarPadding :''
+        }
     }
 
     componentDidMount(){
@@ -28,7 +31,11 @@ class NewSideBar extends Component{
     render(){
         return (
             <div>
-            <NavBar className="pb-3"/>
+                
+                <div className='navbarFalse'>
+                      <NavBar className="pb-3"/>   
+                </div>       
+            
             <Router>
     <Route render={({ location, history }) => (
         <React.Fragment>
@@ -42,10 +49,12 @@ class NewSideBar extends Component{
                 }}
                 onToggle={(expanded)=>{
                     if(expanded==true){
-                        console.log("Ture");
+                        this.state.navbarPadding=1;
+                        console.log(this.state.navbarPadding);
                     }
                     else{
-                        console.log("False");
+                        this.state.navbarPadding=2;
+                        console.log(this.state.navbarPadding);
                     }
                 }}
             >

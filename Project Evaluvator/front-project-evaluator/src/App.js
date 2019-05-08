@@ -29,7 +29,7 @@ import Scoordinator from './Components/S_coordinator/Scoordinator';
 import StudentSideBar from './Components/Student/StudentSideBar';
 import SCoordinatorSideBar from './Components/S_coordinator/Component/SCoordinatorSideBar';
 import EvaluatorSideBar from './Components/Evaluator/SideBar';
-import Test from "./Components/Auth/Register/Test";
+import Test from "./Components/Evaluator/Test";
 import  Timeslots from './Components/P_coordinator/Pages/Timeslots/Timeslots'
 
 
@@ -39,7 +39,7 @@ class App extends Component {
   render() {
     return (
     <Provider store={store}>
-      <Router history={history}>
+      <Router history={history} >
         <div className="App">
           <Switch>
             <Route path = "/project" component ={NewSideBar}/>

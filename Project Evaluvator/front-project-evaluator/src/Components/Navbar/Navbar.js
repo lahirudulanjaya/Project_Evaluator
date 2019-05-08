@@ -38,7 +38,7 @@ class NavbarPage extends Component {
     return (
       <MDBNavbar color="light" dark expand="md">
         <MDBNavbarBrand>
-          <strong style={{ color: '#000000' }}>Welcome {this.state.username}</strong>
+          <strong className='title' style={{ color: '#000000'}}>Welcome {this.state.username}</strong>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
