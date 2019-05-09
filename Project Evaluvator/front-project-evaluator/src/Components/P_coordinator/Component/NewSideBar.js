@@ -86,17 +86,48 @@ class NewSideBar extends Component{
                                 Create Groups
                             </NavText>
                         </NavItem>
-                        <NavItem eventKey="pg/milestone">
-                            <NavText>
-                              Managae  Milestones
-                            </NavText>
-                        </NavItem>
+                        
                         <NavItem eventKey="pg/timeslot">
                         <NavText>
                             Set Time Slots for Presentations
                         </NavText>
+                        </NavItem>
+                        <NavItem eventKey="pg/setgooglesheet">
+                        <NavText>
+                            Set Google Sheet
+                        </NavText>
                     </NavItem>
                     </NavItem>
+                    <NavItem eventKey="projects">
+                        <NavIcon>
+                        
+                            <i className="fa fa-cog" style={{ fontSize: '1.75em' }} />
+                        </NavIcon>
+                        <NavText>
+                           Manage Projects
+                        </NavText>
+                        <NavItem eventKey="pg/milestone">
+                            <NavText>
+                              Update  Milestones
+                            </NavText>
+                        </NavItem>
+                        <NavItem eventKey="pg/milestone">
+                            <NavText>
+                              Update  Projects
+                            </NavText>
+                        </NavItem>
+                        <NavItem eventKey="pg/milestone">
+                            <NavText>
+                              Update timeslots
+                            </NavText>
+                        </NavItem>
+                        <NavItem eventKey="pg/milestone">
+                            <NavText>
+                              Update groups
+                            </NavText>
+                        </NavItem>
+
+                        </NavItem>
                     <NavItem eventKey="users">
                         <NavIcon>
                             <i className="fa fa-fw fa-users" style={{ fontSize: '1.75em' }} />

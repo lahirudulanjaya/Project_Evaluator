@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {loginStudent} from '../../../actions/authActions'
 import NavBar from '../Navbar'
+
 class Login extends Component{
   constructor(props){
     super(props);
