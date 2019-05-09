@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import { Header,Input,Popup } from 'semantic-ui-react'
 import axios from 'axios'
 import swal from 'sweetalert';
+import CountUp from 'react-countup';
+
 
 class Pcoodinater extends Component {
   constructor(props) {
@@ -54,9 +56,47 @@ class Pcoodinater extends Component {
   render() {
     return (
       <div className="container">
+      <div class="ui three doubling stackable cards">
+    <Card>
+    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+    <Card.Content>
+      <Card.Header> Total Projects</Card.Header>
+      <Card.Meta>
+     
+       <h1> <span className='date'> <CountUp end={100} /></span></h1>
+      </Card.Meta>
+  
+    </Card.Content>
+ 
+  </Card>
+  <Card>
+    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+    <Card.Content>
+      <Card.Header> Total Students</Card.Header>
+      <Card.Meta>
+      
+       <h1> <span className='date'> <CountUp end={100} /></span></h1>
+      </Card.Meta>
+  
+    </Card.Content>
+   
+  </Card>
+  <Card>
+    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+    <Card.Content>
+      <Card.Header> Total Evaluvators</Card.Header>
+      <Card.Meta>
+      
+       <h1> <span className='date'> <CountUp end={100} /></span></h1>
+      </Card.Meta>
+  
+    </Card.Content>
+   
+  </Card>
 
+  </div>
+    
         <Header as='h2' icon textAlign='center'>
-          <Icon name='settings' circular />
           <Header.Content><Card fluid color='indigo' header='All Projects' /></Header.Content>
           
 

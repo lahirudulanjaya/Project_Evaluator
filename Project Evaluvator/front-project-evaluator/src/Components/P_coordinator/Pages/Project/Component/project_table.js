@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
 import {getallprojects,ChangeStatus} from '../../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
-
+import {Card} from 'semantic-ui-react'
 class Projecttable extends React.Component{
     constructor(props){
         super(props)
@@ -34,10 +34,13 @@ componentWillReceiveProps(nextprops){
 
 render(){
   return (
-      
+      <div> <h2><b>Current Projects </b></h2>
     <MDBTable responsive>
-
+    
       <MDBTableHead color="primary-color" textWhite>
+      
+      
+
         <tr>
           <th>#</th>
           <th>Project Name</th>
@@ -91,6 +94,7 @@ render(){
       </MDBTableBody>
       
     </MDBTable>
+    </div>
   
   );
 }

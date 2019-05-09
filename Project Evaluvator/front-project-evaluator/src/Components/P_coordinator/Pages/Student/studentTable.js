@@ -46,7 +46,7 @@ class StudentTable extends React.Component{
       else{
         this.setState({projects:[]})
   
-          alert("first you need to enter group count")
+        swal({title: "First you need to choose number of group menbers",icon: "warning",dangerMode:true});
         } 
     
       
@@ -60,7 +60,8 @@ class StudentTable extends React.Component{
       else{
         this.setState({projects:[]})
   
-          alert("first you need to enter group count")
+        swal({title: "First you need to deside member count per group",icon: "warning",dangerMode:true});
+
         }
     }
     submitGroups(){
@@ -189,7 +190,7 @@ return(
   <div className="row">
     <div className="col-sm-12">
     
-    <Card fluid color='orange' header='Enter the number of student for group' />
+    <Card fluid color='orange' header='Enter the number of student per group' />
     <Input error type="number" placeholder='Search...' onChange={this.onchange} value={this.state.groupcount}  name="groupcount"/>
     <h1>select the project</h1>
     

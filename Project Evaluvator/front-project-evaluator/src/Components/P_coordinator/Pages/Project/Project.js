@@ -36,7 +36,7 @@ const styles = {
   },
 };
 var cardStyle={
-  backgroundColor: "#DFDFDF",
+  backgroundColor: "#FFFF99",
   size: 'sm'
 }
 var buttonStyle={
@@ -69,7 +69,7 @@ this.state = {
   this.handleChange = this.handleChange.bind(this)
   this.handleChange1 = this.handleChange1.bind(this)
   this.handleChange2 = this.handleChange2.bind(this)
-
+this.addproject =this.addproject.bind(this)
 
 }
 componentDidMount(){
@@ -93,7 +93,8 @@ componentWillReceiveProps(nextProps) {
  
   
   
-  addproject =()=>{
+  addproject(e){
+    e.preventDefault()
     
     const Project = {
       Projectname:this.state.Projectname,
@@ -150,7 +151,7 @@ handleChange2(e){
 
     return (
       <div>
-      <Card fluid color='orange' header='Create New Project' />
+      <Card fluid color='blue' header='Create New Project' />
 
       <div className="container">
       <div className="row">
@@ -172,12 +173,12 @@ handleChange2(e){
       
       </div>
     
-      <Card fluid color='orange' header='Current Projects' />
+      
       <div className="row">
       <div className="col-sm-12">
       
       
-
+<div><br></br></div>
       
       <div className="ml-5">
         <MDBCard>
@@ -204,7 +205,7 @@ handleChange2(e){
               <DialogContent>
           
             
-            <form noValidate autoComplete="off">
+            <form  onSubmit={this.addproject}>
             
             <div>
             <TextField
@@ -218,6 +219,7 @@ handleChange2(e){
                 shrink: true,
               }}
               required
+              
             />
             </div>
             <div>
@@ -241,8 +243,9 @@ handleChange2(e){
                 name="acdemicYear"
                 value={this.state.value}
                 onChange={this.handleChange1}
+                
               >
-              <div pt-0>
+              <div pt-0 required>
                 <FormControlLabel value="2" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange1} checked={this.state.Acadamicyear==='2'} name ="Acadamicyear"/>} label="2nd Year" />
                 <FormControlLabel value="3" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange1} checked={this.state.Acadamicyear==='3'} name ="Acadamicyear"/>} label="3rd Year" />
                 <FormControlLabel value="4" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange1} checked={this.state.Acadamicyear==='4'} name ="Acadamicyear"/>} label="4th Year" />
@@ -259,8 +262,9 @@ handleChange2(e){
                 name="type"
                 value={this.state.value}
                 onChange={this.handleChange2}
+                
               >
-              <div pt-0>
+              <div pt-0 required>
                 <FormControlLabel value="individual" name="type" control={<Radio color="primary" onChange={this.handleChange2} checked={this.state.ProjectType==='Individual' } value='Individual' name ="ProjectType"/>} label="Individual" />
                 <FormControlLabel value="group" name="type" control={<Radio color="primary"onChange={this.handleChange2} checked={this.state.ProjectType==='Group' } value ='Group' name ="ProjectType"/>} label="Group"  />
             
@@ -268,7 +272,7 @@ handleChange2(e){
               </RadioGroup>
 
             </div>
-            <Button variant="contained" color="primary" onClick ={this.addproject}>
+            <Button type="submit" variant="contained" color="primary" >
             Submit
           </Button>
           

@@ -4,7 +4,7 @@ import { getprojectnames, getproject } from '../../../../actions/ProjectActions'
 import { getpresentations } from '../../../../actions/milestoneActions'
 import { connect } from 'react-redux'
 import { Dropdown } from 'semantic-ui-react'
-import { Form, Input, Button, Table, Popup, Checkbox, List } from 'semantic-ui-react'
+import { Form, Input, Button, Table, Popup, Checkbox, List,Card } from 'semantic-ui-react'
 import {
     DateInput,
     TimeInput,
@@ -49,6 +49,7 @@ class Timeslot extends React.Component {
         this.onchangeDropdown = this.onchangeDropdown.bind(this)
         this.change = this.change.bind(this)
         this.onchangeDropdown1=this.onchangeDropdown1.bind(this)
+        this.generateTimeslots=this.generateTimeslots.bind(this)
     }
 
     submitEvaluvators = (time, venue) => {
@@ -85,7 +86,9 @@ class Timeslot extends React.Component {
     }
 
 
-    generateTimeslots = () => {
+    generateTimeslots  (e) {
+        e.preventDefault();
+
         submitted=[]
         Evaluators=[]
         const arrvenue = this.state.venue.split(',')
@@ -501,7 +504,18 @@ class Timeslot extends React.Component {
         return (
 
             <div>
-                Select the project
+                <div class="col-md-12">
+                    <div class="card">
+                    <Form onSubmit={this.generateTimeslots}>
+                        <div class="card-header card-header-danger">
+                       
+                        <Card fluid color='orange' header='Fill the Form' />
+
+                            
+                        </div>
+                    Select the project
+
+                
                 <div>
                     <Dropdown placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
                 </div>
@@ -511,12 +525,7 @@ class Timeslot extends React.Component {
                 </div>
                 
 
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Fill the Form </h4>
-                            
-                        </div>
+                
                         select the start day
 
                 <DateInput
@@ -548,7 +557,7 @@ class Timeslot extends React.Component {
                     />
                 </div>
 
-                    <Form>
+                    
                         <Form.Group widths='equal'>
                             <Form.Field control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='enter the time slot length(minuths)' placeholder='Time slot length' />
                             <Form.Field control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='enter the interval length(minuths)' placeholder='Interval length' />
@@ -561,7 +570,7 @@ class Timeslot extends React.Component {
 
                         <Form.Field control={Input} onChange={this.handleChange} name="evaluvators" value={this.state.evaluvators} label='Enter the Evaluvators' placeholder='Enter the Evaluvators seperated by comma' />
                         </Form.Group>
-                        <Button secondary onClick={this.generateTimeslots}>Generate Time Slots</Button>
+                        <Button secondary type="submit" >Generate Time Slots</Button>
 
                     </Form>
                     </div>
@@ -637,7 +646,7 @@ class Timeslot extends React.Component {
                             )}
                         </Table.Body>
                     </Table>
-                    <Button onClick={this.submittodb} primary> Submit to Database</Button>
+                    <Button  onClick={this.submittodb} primary> Submit to Database</Button>
 
 
                 </div>
