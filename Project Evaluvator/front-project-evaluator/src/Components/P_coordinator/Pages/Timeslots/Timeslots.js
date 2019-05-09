@@ -456,7 +456,8 @@ class Timeslot extends React.Component {
         const post ={
             Projectname:this.state.Projectname,
             Milestone:this.state.presentation,
-            Timeslots:this.state.timeslots
+            Timeslots:this.state.timeslots,
+            evaluvatorsList:this.state.Evaluators
         }
         console.log(post)
         axios.post('http://localhost:4000/api/posttimeslots',post)

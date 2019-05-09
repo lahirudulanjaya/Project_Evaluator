@@ -1,8 +1,15 @@
 
 const mongoose =require('mongoose')
 const Timeslot = mongoose.model("Timeslots")
+var nodemailer = require('nodemailer');
 
-
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'ucscprojectevaluation@gmail.com',
+      pass: 'ucsc@123'
+    }
+  });
 
 
 module.exports.addtimeslots=(req,res,next)=>{
@@ -26,5 +33,26 @@ module.exports.addtimeslots=(req,res,next)=>{
                     }
         }
         });
+var maillist=[]
+console.log(req.body.evaluvatorsList)
+req.body.evaluvatorsList.map(eva=>{
+    var mail =eva.name +"@ucsc.cmb.ac.lk"
+    maillist.push(mail)
+})
 
+var mailOptions = {
+    from: 'ucscprojectevaluation@gmail.com',
+    to: maillist,
+    subject: 'Sending Email using Node.js',
+    text: 'That was easy!'
+  };
+  console.log(maillist)
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error)
+    } else {
+      console.log(info)
+    }
+  });
 }

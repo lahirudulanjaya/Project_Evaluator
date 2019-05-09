@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {loginStudent} from '../../../actions/authActions'
 import NavBar from '../Navbar'
+
 class Login extends Component{
   constructor(props){
     super(props);
@@ -43,7 +44,6 @@ class Login extends Component{
 
    postLogin(e){
     e.preventDefault();
-    alert("dii")
   //   axios.post('http://localhost:4000/api/authenticate',this.state)
   //   .then(res=>{
   //     this.props.history.push('/student')
@@ -72,7 +72,7 @@ class Login extends Component{
             <MDBCard className="w-75 p-3">
               <MDBCardBody >
                 <form onSubmit={this.postLogin}>
-                <div className="header pt-3 grey lighten-2">
+                <div className="form-header indigo rounded">
                 <p className="h4 text-center py-4">Login</p>
                 </div>
                   <MDBInput 

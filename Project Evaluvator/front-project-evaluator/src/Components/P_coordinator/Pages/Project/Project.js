@@ -23,6 +23,7 @@ import axios from'axios'
 import swal from 'sweetalert';
 import Student from '../Student/Student';
 import Settings from '../../../../settings.png';
+import {Card} from 'semantic-ui-react'
 
 
 const styles = {
@@ -149,8 +150,11 @@ handleChange2(e){
 
     return (
       <div>
+      <Card fluid color='orange' header='Create New Project' />
+
       <div className="container">
       <div className="row">
+
         <div className="col-sm-4 pt-2 ml-5">
           <div className="ml-3">
             <MDBCard>
@@ -165,27 +169,15 @@ handleChange2(e){
             </MDBCard>
           </div>
         </div>
-        <div className="col-sm-4 pt-2 ml-5">
-          <div className="ml-3">
-          <MDBCard>
-            <MDBCardBody style={cardStyle}>
-            <div className="card-background">
-            <img src={Settings} alt="" className="logo"/>
-              <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen}>
-                Create Milestones
-              </Button>
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-          </div>
-        </div>
+      
       </div>
+    
+      <Card fluid color='orange' header='Current Projects' />
       <div className="row">
       <div className="col-sm-12">
       
-      <Typography component="h2" variant="display1" gutterBottom>
-      <b><u>Current Projects</u></b>
-        </Typography>
+      
+
       
       <div className="ml-5">
         <MDBCard>
@@ -199,6 +191,7 @@ handleChange2(e){
       <div className="col-sm-4">
             
             </div>
+
             <Dialog
              fullWidth={true}
              maxWidth='sm'

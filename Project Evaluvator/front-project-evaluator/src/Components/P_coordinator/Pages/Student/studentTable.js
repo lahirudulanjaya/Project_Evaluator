@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import {getprojectnames} from '../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown ,Input} from 'semantic-ui-react'
 import _ from 'lodash'
 import {getstudentbyYear}  from '../../../../actions/P_coodinator-Student'
 import Table, {Thead, Tbody, Tr, Th, Td} from "react-row-select-table"
 import swal from 'sweetalert'
 import Axios from 'axios';
-import { Card, Icon, Image,Button } from 'semantic-ui-react'
+import { Card,Button } from 'semantic-ui-react'
 var groupno=1
 var groups=[]
+var Projectnames
 class StudentTable extends React.Component{
     constructor(props){
         super(props)
-        this.props.getprojectnames()
         this.state={
             projectName:'',
             column: null,
@@ -21,18 +21,47 @@ class StudentTable extends React.Component{
             direction: null,
             students:[],
             isChecked: false,
+            groupcount:null,
+            disable:false,
+            projects:[],
+            Projects:[],
             
             groups:[]
         }
         this.onchangeDropdown =this.onchangeDropdown.bind(this)
         this.handleChecked = this.handleChecked.bind(this);
         this.submitGroups=this.submitGroups.bind(this)
+        this.onchange=this.onchange.bind(this)
     }
-    onchangeDropdown(e){
+    componentDidMount(){
+      this.props.getprojectnames()
+    }
+   
+    onchangeDropdown(e){   
+      if(!(this.state.groupcount==null) && this.state.groupcount>0){
         this.setState({projectName:e.target.textContent})
         this.props.getstudentbyYear(e.target.textContent)
-
+      
+      }
+      else{
+        this.setState({projects:[]})
+  
+          alert("first you need to enter group count")
+        } 
+    
+      
         
+      }
+      
+    onclick=()=>{
+      if(!(this.state.groupcount==null) && this.state.groupcount>0){
+      this.setState({projects:this.state.Projects})
+      }
+      else{
+        this.setState({projects:[]})
+  
+          alert("first you need to enter group count")
+        }
     }
     submitGroups(){
       const submitGrps ={
@@ -104,9 +133,20 @@ class StudentTable extends React.Component{
         this.setState({isChecked: !this.state.isChecked});
         console.log(this.state.data)
       }
+
+    onchange(e){
+      if(!(this.state.groupcount==null) && this.state.groupcount>0){
+        this.setState({disable:false})
+      }
+      this.setState({groupcount:e.target.value})
+
+    }
     componentWillReceiveProps(nextProps){
+      this.setState({projects:nextProps.project.project,
+        Projects:nextProps.project.project}
+        )
         this.setState({data:nextProps.student.studentbyYear})
-        console.log(nextProps.student.studentbyYear)
+        console.log(nextProps.project.project)
 
     }
 
@@ -131,7 +171,9 @@ class StudentTable extends React.Component{
 
 
     render(){
-        const Projectnames = this.props.project.project.map(project=>
+      console.log(this.state.projects)
+      if(this.state.projects.length>0){
+       var  Projectnames = this.state.projects.map(project=>
             ({
                 key:project._id,
                 text:project.Projectname,
@@ -139,19 +181,25 @@ class StudentTable extends React.Component{
 
             })
         )
+          }
         
 
 return(
   <div className="container">
   <div className="row">
     <div className="col-sm-12">
+    
+    <Card fluid color='orange' header='Enter the number of student for group' />
+    <Input error type="number" placeholder='Search...' onChange={this.onchange} value={this.state.groupcount}  name="groupcount"/>
     <h1>select the project</h1>
     
    
-    <Dropdown placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
+    <Dropdown placeholder='State' search selection options={Projectnames} defaultValue=""  onChange={this.onchangeDropdown} onClick={this.onclick} disabled={this.state.disable}/>
    
-    <Button secondary  onClick={this.submitGroups}>Submit Groups</Button>
-    <Table onCheck={(value) => value.length>=4 
+   
+    {(this.state.data.length>0) ?
+    <div>
+    <Table onCheck={(value) => value.length>=this.state.groupcount
     ? this.createGroup(value)
     : console.log("fvfvf")
     }  >
@@ -161,7 +209,10 @@ return(
               <Th>Name</Th>
             </Tr>
           </Thead>
-          <Tbody>
+          
+         
+          
+        <Tbody>
             {this.state.data.map(data=>
 
 <Tr>
@@ -169,20 +220,28 @@ return(
 <Td>{data.Name}</Td>
 </Tr>
               )}
+               
+              </Tbody>
+       
+          
            
            
-          </Tbody>
+           
         </Table>
     
-    
+        <div className="col-sm-6">
+           <Button secondary  onClick={this.submitGroups}>Submit Groups</Button>
+           </div>
+           </div>:<div></div>}
 </div>
  
 <div className="col-sm-12">
 Created Groups
 </div>
 
-<div className="row">    
-              
+<div className="row">  
+ 
+       
         {this.state.groups.map(groups=>
         <div class="col-sm">
          <Card>
@@ -200,6 +259,7 @@ Created Groups
         </Card>
         </div>
         )}
+        
         </div>
         
 </div>

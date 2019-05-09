@@ -13,6 +13,9 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom'
+import { Dropdown } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
+
 
 class Products extends React.Component {
 
@@ -255,23 +258,25 @@ class Products extends React.Component {
             id: this.props.product.id
           }}/>
           
-            <EditableCell  onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
-            type:"MilstoneType",
+           
+            <Editabledropdowntype onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+            "type": "MilstoneType",
             value: this.props.product.MilstoneType,
             id: this.props.product.id
-          }}>
-            </EditableCell>
+          }}  ></Editabledropdowntype>
+            
 
           <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
             type: "Markspresentatge",
             value: this.props.product.Markspresentatge,
             id: this.props.product.id
           }}/>
-          <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
+          
+          <EditableGroupInd onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
             type: "Grp_or_I",
             value: this.props.product.Grp_or_I,
             id: this.props.product.id
-          }}/>
+          }}></EditableGroupInd>
            
            
            <EditableCell onProductTableUpdate={this.props.onProductTableUpdate} cellData={{
@@ -300,6 +305,47 @@ class Products extends React.Component {
         <td>
           <input type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate} />
         </td>
+      
+      );
+  
+    }
+  
+  }
+  class Editabledropdowntype extends React.Component {
+    
+   
+    render() {
+    
+      return (
+        
+    
+    <td>
+      <select type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}>
+  <option value="presentation">presentation</option>
+  <option value="document">document</option>
+  
+</select>
+    </td>
+
+      
+      );
+  
+    }
+  
+  }
+  class EditableGroupInd extends React.Component {
+   
+    render() {
+      return (
+        
+        
+        <td> <td>
+        <select type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}>
+    <option value="group">group</option>
+    <option value="individual">individual</option>
+    
+  </select>
+      </td></td>
       
       );
   

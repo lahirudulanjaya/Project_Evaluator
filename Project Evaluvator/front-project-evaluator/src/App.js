@@ -31,6 +31,7 @@ import SCoordinatorSideBar from './Components/S_coordinator/Component/SCoordinat
 import EvaluatorSideBar from './Components/Evaluator/SideBar';
 import Test from "./Components/Evaluator/Test";
 import  Timeslots from './Components/P_coordinator/Pages/Timeslots/Timeslots'
+import Evaluator from './Components/Evaluator/Evaluator';
 
 
 class App extends Component {
@@ -52,8 +53,9 @@ class App extends Component {
             <Route path ="/studentDash" component={StudentSideBar}/>
             <Route path ="/sc" component={SCoordinatorSideBar}/>
             <Route path ="/evaluator" component={EvaluatorSideBar}/>
-
-
+            <Route path ="/pg/evaluvator" component={NewSideBar}/>
+            <Route path ="/pg/sessioncoordinator" component={NewSideBar}/>
+            <Route path ="/pg/setgooglesheet" component={NewSideBar}/>
 
             <Route exact path ="/student" component ={Student}/>
 

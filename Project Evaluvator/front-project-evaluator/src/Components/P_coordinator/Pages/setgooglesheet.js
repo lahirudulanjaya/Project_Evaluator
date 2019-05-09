@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import Sidebar from './Component/Sidebar2'
 import { Route } from 'react-router-dom';
-import Project from './Pages/Project/Project'
 import { Card, Icon, Image, Button } from 'semantic-ui-react'
-import { getallprojects } from '../../actions/ProjectActions'
+import { getallprojects } from '../../../actions/ProjectActions'
 import { connect } from 'react-redux'
 import { Header,Input,Popup } from 'semantic-ui-react'
 import axios from 'axios'
 import swal from 'sweetalert';
 
-class Pcoodinater extends Component {
+class Setgooglesheet extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,6 +19,7 @@ class Pcoodinater extends Component {
     this.props.getallprojects()
     this.onChange = this.onChange.bind(this)
   }
+
 
 
   onChange(e) {
@@ -51,18 +50,21 @@ class Pcoodinater extends Component {
     })
 
   }
+  
   render() {
+   
     return (
       <div className="container">
 
-        <Header as='h2' icon textAlign='center'>
-          <Icon name='settings' circular />
-          <Header.Content><Card fluid color='indigo' header='All Projects' /></Header.Content>
-          
-
-        </Header>
+        
         <div className="row">
+        <Card.Group>
+        <Card fluid color='orange' header='Before add googlesheet to project you need to create groups' />
+    <Card fluid color='green' header='When adding googlesheet to project you need to share your googlesheet with  ucscprojectevaluation@ucsc-projec-tevaluation.iam.gserviceaccount.com ' />
+    
+  </Card.Group>
 
+       
           {this.props.project.projects.map(projects =>
           
             <div class="col-sm">
@@ -78,7 +80,7 @@ class Pcoodinater extends Component {
                     <div className='ui two buttons'>
                       
           <Popup
-    trigger={<Button  color='blue' >
+    trigger={<Button basic color='green' >
    Add Google sheet details
 </Button>}
     on ='click'
@@ -113,4 +115,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, { getallprojects })(Pcoodinater)
+export default connect(mapStateToProps, { getallprojects })(Setgooglesheet)
