@@ -49,6 +49,16 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
+
+
+
+
+
+
+
+
+
+
 function SessionListTable(props) {
   const { classes } = props;
 
@@ -58,10 +68,12 @@ function SessionListTable(props) {
         <TableHead>
           <TableRow>
             <CustomTableCell>Project</CustomTableCell>
+
+    <CustomTableCell align="right"></CustomTableCell>
             <CustomTableCell align="right"></CustomTableCell>
             <CustomTableCell align="right"></CustomTableCell>
             <CustomTableCell align="right"></CustomTableCell>
-            <CustomTableCell align="right"></CustomTableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>

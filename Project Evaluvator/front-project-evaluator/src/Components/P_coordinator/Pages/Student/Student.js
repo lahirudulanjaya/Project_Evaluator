@@ -12,16 +12,12 @@ import axios from 'axios'
 import swal from 'sweetalert';
 import { MDBBtn,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
+import {whologgedin} from '../../../../actions/authActions'
 import {connect} from 'react-redux'
+import { Card} from 'semantic-ui-react'
 import './Student.css'
 
 
-
-
-const studentdetail ={
-  Registrationnumber :String,
-  Name:String
-}
 
 const background={
   backgroundColor : '#C4C4C4'
@@ -35,6 +31,8 @@ class Student extends Component{
       arr :[],
       students:[]
   }
+  
+
     this.uploadfile = this.uploadfile.bind(this)
     this.props.getstudentdetails()
 
@@ -122,12 +120,17 @@ uploadtoDB=()=>{
             <div className="row">
               <div className="col-sm-12">
                 
-      <div className="row">
       <div className="reg">
-        send email to register
-        <MDBBtn color="default" onClick={this.sendmail}>
-        <MDBIcon icon="magic" className="mr-1"  /> Send Emails
-      </MDBBtn>
+      <div className="row">
+        <div className="col-sm-4">
+          <Card className="ml-5" fluid color='orange' header='send email to register' />
+        </div>
+        <div className="col-sm-4">
+          <MDBBtn color="default" onClick={this.sendmail}>
+            <MDBIcon icon="magic" className="mr-1"  /> Send Emails
+          </MDBBtn>
+        </div>
+      </div>
 
 
 
@@ -224,7 +227,6 @@ uploadtoDB=()=>{
                 </div>
                 {/* <BasicTable></BasicTable> */}
                 </div>
-                </div>
           </div>
         )
     }
@@ -237,4 +239,4 @@ student :state.studentDetail
   }
 }
 
-export default connect(mapStateToProps,{getstudentdetails})(Student)
+export default connect(mapStateToProps,{getstudentdetails,whologgedin})(Student)

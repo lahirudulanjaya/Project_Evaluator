@@ -9,9 +9,11 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {loginStudent} from '../../../actions/authActions'
 import NavBar from '../Navbar'
+
 class Login extends Component{
   constructor(props){
     super(props);
+    console.log(props)
     this.state ={
       UserName :'',
       password : '',
@@ -20,6 +22,7 @@ class Login extends Component{
 
     }
     this.handleChange = this.handleChange.bind(this);
+    this.postLogin =this.postLogin.bind(this)
   }
 
   componentWillReceiveProps(nextprops){
@@ -39,7 +42,8 @@ class Login extends Component{
     this.setState({[e.target.name]: e.target.value});
   }
 
-   postLogin=()=>{
+   postLogin(e){
+    e.preventDefault();
   //   axios.post('http://localhost:4000/api/authenticate',this.state)
   //   .then(res=>{
   //     this.props.history.push('/student')
@@ -61,14 +65,19 @@ class Login extends Component{
     return (
       <div>
         <NavBar/>
-      <MDBContainer className="login">
+        <div className="container">
+        <div className="row">
+        <div className="col-sm-2">
+        </div>
+        <div className="col-sm-8 pt-5">
+      <MDBContainer className=''>
         <MDBRow>
           
-          <MDBCol sm="6">
+          <MDBCol sm="10">
             <MDBCard className="w-75 p-3">
               <MDBCardBody >
-                <form>
-                <div className="header pt-3 grey lighten-2">
+                <form onSubmit={this.postLogin}>
+                <div className="form-header indigo rounded">
                 <p className="h4 text-center py-4">Login</p>
                 </div>
                   <MDBInput 
@@ -110,7 +119,7 @@ class Login extends Component{
                   <div className="text-center mb-4 mt-5">
                     <MDBBtn
                       color="indigo"
-                      onClick ={this.postLogin}
+                      type="submit"
                     >
                       Log in
                     </MDBBtn>
@@ -129,7 +138,9 @@ class Login extends Component{
           <MDBCol sm="6"></MDBCol>
         </MDBRow>
       </MDBContainer>
-
+      </div>
+      </div>
+      </div>
 
 
     </div>

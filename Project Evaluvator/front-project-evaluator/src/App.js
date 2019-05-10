@@ -29,13 +29,18 @@ import Scoordinator from './Components/S_coordinator/Scoordinator';
 import StudentSideBar from './Components/Student/StudentSideBar';
 import SCoordinatorSideBar from './Components/S_coordinator/Component/SCoordinatorSideBar';
 import EvaluatorSideBar from './Components/Evaluator/SideBar';
+import Test from "./Components/Evaluator/Test";
+import  Timeslots from './Components/P_coordinator/Pages/Timeslots/Timeslots'
+import Evaluator from './Components/Evaluator/Evaluator';
 
 
 class App extends Component {
+
+  
   render() {
     return (
     <Provider store={store}>
-      <Router history={history}>
+      <Router history={history} >
         <div className="App">
           <Switch>
             <Route path = "/project" component ={NewSideBar}/>
@@ -44,14 +49,18 @@ class App extends Component {
             <Route path ="/pg/student" component={NewSideBar}/>
             <Route path ="/pg/milestone" component={NewSideBar}/>
             <Route path ="/pg/creategroups" component={NewSideBar}/>
+            <Route path ="/pg/timeslot" component={NewSideBar}/>
             <Route path ="/studentDash" component={StudentSideBar}/>
             <Route path ="/sc" component={SCoordinatorSideBar}/>
             <Route path ="/evaluator" component={EvaluatorSideBar}/>
-
+            <Route path ="/pg/evaluvator" component={NewSideBar}/>
+            <Route path ="/pg/sessioncoordinator" component={NewSideBar}/>
+            <Route path ="/pg/setgooglesheet" component={NewSideBar}/>
 
             <Route exact path ="/student" component ={Student}/>
 
             <Route exact path ="/" component={Login}/>
+            <Route exact path ="/test" component={Test}/>
             <Route exact path ="/login" component={Login}/>  
             <Route exact path ="/register" component={Register}/>
             {/* <Route component={PageNotFound} /> */}

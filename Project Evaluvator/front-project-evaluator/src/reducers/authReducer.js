@@ -1,10 +1,12 @@
-import {SET_CURRENT_USER} from '../actions/types'
+import {SET_CURRENT_USER,SET_ROLE,GET_USER_PROFILE} from '../actions/types'
 import { object } from 'prop-types';
 
 
 const initialState ={
     isAuthenticated :false,
-    user :{}
+    user :{},
+    Role:'',
+
 }
 export default function(state = initialState ,action){
     switch(action.type){
@@ -14,6 +16,20 @@ export default function(state = initialState ,action){
             isAuthenticated : !isEmpty(action.payload),
             user :action.payload
         }
+    case SET_ROLE:
+    console.log(action.payload)
+        return{
+            ...state,
+            Role:action.payload
+        }
+    case GET_USER_PROFILE:{
+        
+        return{
+            ...state,
+            user:action.payload
+        }
+    }
+
     default:
         return state;
 }

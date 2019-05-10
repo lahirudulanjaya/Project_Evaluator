@@ -1,4 +1,4 @@
-import {GET_ERRORS} from './types'
+import {GET_ERRORS,SET_ROLE,GET_USER_PROFILE} from './types'
 import axios from 'axios'
 import setAuthtoken from '../utils/setAuthToken'
 import { SET_CURRENT_USER } from './types';
@@ -48,7 +48,7 @@ export const loginStudent = userData => dispatch =>{
             localStorage.setItem('jwttoken',token)
             setAuthtoken(token)
             var decoded =jwt_decode(token);
-            axios.get('http://localhost:4000/api/userprofile/'+decoded._id).then(res=>{
+            axios.get('http://localhost:4000/api/userprofile',{headers:{"Authorization" : `Bearer ${token}`}}).then(res=>{
                 decoded.user=res.data
                 dispatch(setCurrentUser(decoded))
                 console.log(decoded)
@@ -66,10 +66,85 @@ export const loginStudent = userData => dispatch =>{
         }
     )
 };
+
+export const getuserprofile=()=>dispatch=>{
+
+  var token =localStorage.getItem('jwttoken')
+
+  axios.get('http://localhost:4000/api/userprofile',{headers:{"Authorization" : `Bearer ${token}`}}).then(res=>{
+    dispatch({
+      type : GET_USER_PROFILE,
+      payload:res.data.user
+  },console.log(res.data.user))
+
+            })
+            .catch( err=>{
+              dispatch({
+                  type :GET_ERRORS,
+                  payload:err.response.data
+              })
+
+  })
+
+}
+
+
+
 export const setCurrentUser =(decoded)=>{
     return {
         type:SET_CURRENT_USER,
         payload:decoded
     }
 };
+
+function getuserpayload(){
+    var token =localStorage.getItem('jwttoken')
+    console.log(token +"====")
+    if (token) {
+        var userPayload = atob(token.split('.')[1]);
+        return JSON.parse(userPayload);
+      }
+      else
+        return null;
+
+}
+
+export function whologgedin(){
+    var payload = getuserpayload()
+    if (payload){
+      console.log(payload)
+      if((payload.exp > Date.now() / 1000)&&(payload.type=="pcoordinator")){
+        return "pcoordinator"
+       
+      }
+      else if(((payload.exp > Date.now() / 1000)&&(payload.type=="student"))){
+        return "student"
+     
+      }
+      else{
+        return ""
+      }
+
+      
+    }
+    else{
+    return ""
+
+    }
+}
+
+export const isStudentLoggedin=()=>{
+    var payload = getuserpayload()
+    if (payload)
+      return (payload.exp > Date.now() / 1000)&&(payload.type=="student");
+    else
+      return false;
+
+
+}
+
+export const deletetoken=()=>{
+  localStorage.removeItem('jwttoken');
+
+}
 

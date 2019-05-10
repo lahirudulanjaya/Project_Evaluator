@@ -3,9 +3,12 @@ import Navbar from '../Navbar/Navbar'
 import { connect } from 'react-redux'
 import { getstudentProject, getstudentbyYear } from '../../actions/P_coodinator-Student'
 import { getsendrequest, getrequest, cheackallaccepted } from '../../actions/requestActions'
+import {getuserprofile} from '../../actions/authActions'
 import { Table, Button, Icon, Popup } from 'semantic-ui-react'
 import Tables, { Thead, Tbody, Tr, Th, Td } from "react-row-select-table"
 import Axios from 'axios';
+import {whologgedin} from '../../actions/authActions'
+
 import swal from 'sweetalert';
 import { request } from 'https';
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
@@ -23,25 +26,49 @@ class Student extends React.Component {
       students: [],
       request: null,
       requests: [],
-      isaccepted: false
+      isaccepted: false,
+
 
 
     }
+    
+    this.showlist = this.showlist.bind(this)
+    this.creategroup = this.creategroup.bind(this)
+    this.props.getuserprofile()
+    
+
+  }
+  componentDidMount() {
+    if(!(whologgedin()=="student")){
+      this.props.history.push('/login')
+  }
+
+  this.props.getuserprofile()
+
+  this.props.getstudentProject(this.props.user.Registrationnumber)
+    this.props.getstudentbyYear(this.props.user.Registrationnumber)
+    this.props.getsendrequest(this.props.user.Registrationnumber)
+    this.props.getrequest(this.props.user.Registrationnumber)
+
+  }
+ 
+  componentWillMount(){
+    this.props.getuserprofile()
     this.props.getstudentProject(this.props.user.Registrationnumber)
     this.props.getstudentbyYear(this.props.user.Registrationnumber)
     this.props.getsendrequest(this.props.user.Registrationnumber)
     this.props.getrequest(this.props.user.Registrationnumber)
-    this.showlist = this.showlist.bind(this)
-    this.creategroup = this.creategroup.bind(this)
-  }
-  componentDidMount() {
-    this.setState({ user: this.props.user })
-    this.props.getsendrequest(this.props.user.Registrationnumber)
-    this.props.getrequest(this.props.user.Registrationnumber)
-    this.props.cheackallaccepted(this.props.user.Registrationnumber)
 
 
   }
+
+  componentWillUpdate(){
+    console.log(this.state)
+
+  }
+  
+ 
+  
   sendgroupRequest = (value) => {
 
     swal({
@@ -67,7 +94,7 @@ class Student extends React.Component {
             newGroup.push(reciver)
           });
           const request = {
-            sender: this.props.user.Registrationnumber,
+            sender: this.state.user.Registrationnumber,
             reciver: newGroup
           }
 
@@ -82,7 +109,7 @@ class Student extends React.Component {
                 'Group has been created.',
                 'success'
               )
-              this.props.getsendrequest(this.props.user.Registrationnumber)
+              this.props.getsendrequest(this.state.user.Registrationnumber)
             })
             .catch(err => {
               swal("Oops", "Something went wrong!!!", "error")
@@ -98,24 +125,37 @@ class Student extends React.Component {
   }
   showlist = () => {
     { this.props.getstudentbyYear(this.state.student.Projectname) }
-    this.props.getsendrequest(this.props.user.Registrationnumber)
+    this.props.getsendrequest(this.state.user.Registrationnumber)
 
   }
 
   // componentWillMount(){
-  //     this.setState({user:this.props.user})
-  //     var year =this.props.user.Registrationnumber
+  //     this.setState({user:this.state.user})
+  //     var year =this.state.user.Registrationnumber
   //     this.setState({studentyear:year.substring(0,4)})
   //     const curyear=parseInt(new Date().getFullYear())
-  //     const studentyear =parseInt(this.props.user.Registrationnumber.substring(0,4))
+  //     const studentyear =parseInt(this.state.user.Registrationnumber.substring(0,4))
   //     this.setState({academicyear:curyear-studentyear})
-  //     this.props.getstudentProject(this.props.user.Registrationnumber)
-  //     this.props.getstudentbyYear(this.props.user.Registrationnumber)
+  //     this.props.getstudentProject(this.state.user.Registrationnumber)
+  //     this.props.getstudentbyYear(this.state.user.Registrationnumber)
 
   // }
   componentWillReceiveProps(nextprops) {
+
+    if(!(this.props.user===nextprops.user)){
+      this.props.getstudentProject(nextprops.user.Registrationnumber)
+    this.props.getstudentbyYear(nextprops.user.Registrationnumber)
+    this.props.getsendrequest(nextprops.user.Registrationnumber)
+    this.props.getrequest(nextprops.user.Registrationnumber)
+
+    }
+    console.log(nextprops.student.studentbyYear.length)
+    this.setState({user:nextprops.user})
+    console.log(this.state)
+    if(nextprops.student.studentbyYear.length>0){
     this.setState(
       {
+        
         student: nextprops.student.studentbyYear[0],
         groups: nextprops.student.studentProject[0],
         students: nextprops.student.studentbyYear,
@@ -124,8 +164,10 @@ class Student extends React.Component {
         isaccepted: nextprops.request.isaccepted,
         recive: true
       }
+    
 
     )
+    }
 
 
     this.setState({ request: nextprops.request.request.reciver })
@@ -133,7 +175,7 @@ class Student extends React.Component {
 
   }
   creategroup() {
-    this.props.getstudentProject(this.props.user.Registrationnumber)
+    this.props.getstudentProject(this.state.user.Registrationnumber)
 
     const students = []
     this.state.request.forEach(element => {
@@ -141,7 +183,7 @@ class Student extends React.Component {
       student.Registrationnumber = element.Registrationnumber
       students.push(student)
     });
-    students.push({ Registrationnumber: this.props.user.Registrationnumber })
+    students.push({ Registrationnumber: this.state.user.Registrationnumber })
     var groupnumber
     if (!this.state.groups) {
       groupnumber = 1
@@ -169,19 +211,18 @@ class Student extends React.Component {
           text: "You have succesfully Submit Groups!",
           icon: "success",
         });
-        this.props.getstudentProject(this.props.user.Registrationnumber)
+        this.props.getstudentProject(this.state.user.Registrationnumber)
 
       })
       .catch(err => {
         swal("Oops", "Something went wrong!!!", "error")
-        console.log(err)
       })
 
   }
   confirmRequest(id) {
     Axios.get("http://localhost:4000/api/checkaccepted/" + id).then(res => {
       swal("sucess")
-      this.props.getsendrequest(this.props.user.Registrationnumber)
+      this.props.getsendrequest(this.state.user.Registrationnumber)
 
     })
       .catch(err => {
@@ -190,9 +231,10 @@ class Student extends React.Component {
   }
 
   render() {
+    
     return (
       <div>
-        <Navbar username={this.props.user.UserName} requestcount={this.state.requests.length} requests={this.state.requests} accept={() => this.confirmRequest(this.props.user.Registrationnumber)}></Navbar>
+        <Navbar username={this.state.user.UserName} requestcount={this.state.requests.length} requests={this.state.requests} accept={() => this.confirmRequest(this.state.user.Registrationnumber)}></Navbar>
 
         {(this.state.student == null)
           ?
@@ -217,7 +259,6 @@ class Student extends React.Component {
                           <Table.HeaderCell>Supervisor</Table.HeaderCell>
                           <Table.HeaderCell>Mentors</Table.HeaderCell>
                         </Table.Row>
-                        {console.log(this.state)}
                       </Table.Header>
 
 
@@ -402,18 +443,17 @@ class Student extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  { console.log(state) }
   return (
 
 
 
-    (state.auth.user.user) ?
+    
       {
-        user: state.auth.user.user,
+        user: state.auth.user,
         student: state.studentDetail,
         request: state.requests
-      } :
-      { user: [] }
+      } 
+      
   )
 
 
@@ -421,4 +461,4 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps, { getstudentProject, getstudentbyYear, getsendrequest, getrequest, cheackallaccepted })(Student);
+export default connect(mapStateToProps, { getstudentProject, getstudentbyYear, getsendrequest, getrequest, cheackallaccepted,getuserprofile })(Student);

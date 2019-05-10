@@ -4,7 +4,8 @@ import {GET_ERRORS} from './types'
 import {ADD_PROJECT}from './types'
 import swal from 'sweetalert';
 
-export const getprojectnames =()=>dispatch=>{
+export const getprojectnames =()=>dispatch=>
+{
     axios.get("http://localhost:4000/api/pg/getprojectsnames")
     .then(res=>{
         dispatch({
