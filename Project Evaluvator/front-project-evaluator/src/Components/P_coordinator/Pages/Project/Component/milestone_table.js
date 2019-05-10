@@ -14,7 +14,7 @@ import axios from 'axios'
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom'
 import { Dropdown } from 'semantic-ui-react'
-import { Input } from 'semantic-ui-react'
+import { Icon ,Input} from 'semantic-ui-react'
 
 
 class Products extends React.Component {
@@ -35,10 +35,10 @@ class Products extends React.Component {
           id: '',
           open:false,
           Projectname: props.proname,
-          name: 'football',
+          name: 'Priliminary',
           MilstoneType:'',
           Markspresentatge: 12,
-          Grp_or_I: 'Group',
+          Grp_or_I: '',
           Duration:''
         }
       ];
@@ -163,7 +163,7 @@ class Products extends React.Component {
               </DialogContent>
                <DialogActions>
                
-                <Link to="/pg/project/creategroups"><Button  color="primary" autoFocus >
+                <Link to="/pg/creategroups"><Button  color="primary" autoFocus >
                   Create Groups
                 </Button></Link>
                 <Button onClick={this.handleClose} color="primary" autoFocus>
@@ -233,7 +233,9 @@ class Products extends React.Component {
             </tbody>
   
           </table>
-          <button type="button" onClick={this.props.onRowAdd} className="btn btn-success pull-right">Add</button>
+          <Icon type="button" onClick={this.props.onRowAdd}  size='big' name='add circle' />
+          
+          
           
 
 
@@ -320,11 +322,15 @@ class Products extends React.Component {
         
     
     <td>
-      <select type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}>
-  <option value="presentation">presentation</option>
-  <option value="document">document</option>
+    
+  <Input list='languages' placeholder='Choose Milestone Type...' type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}/>
+    <datalist id='languages'>
+      <option value='presentation' />
+      <option value='document' />
+      
+    </datalist>
   
-</select>
+
     </td>
 
       
@@ -339,13 +345,16 @@ class Products extends React.Component {
       return (
         
         
-        <td> <td>
-        <select type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}>
-    <option value="group">group</option>
-    <option value="individual">individual</option>
-    
-  </select>
-      </td></td>
+        <td> 
+      
+
+  <Input list='language' placeholder='Choose individual or group...' type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}/>
+    <datalist id='language'>
+      <option value='group' />
+      <option value='individual' />
+      
+    </datalist>
+      </td>
       
       );
   

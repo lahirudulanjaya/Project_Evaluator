@@ -56,6 +56,8 @@ class App extends Component {
             <Route path ="/pg/evaluvator" component={NewSideBar}/>
             <Route path ="/pg/sessioncoordinator" component={NewSideBar}/>
             <Route path ="/pg/setgooglesheet" component={NewSideBar}/>
+            <Route path ="/pg/updateprojects" component={NewSideBar}/>
+            
 
             <Route exact path ="/student" component ={Student}/>
 

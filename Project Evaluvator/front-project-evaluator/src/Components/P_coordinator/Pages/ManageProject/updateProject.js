@@ -1,9 +1,10 @@
 import React,{Component} from 'react';
-import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
-import {getallprojects,ChangeStatus} from '../../../../../actions/ProjectActions'
+import { MDBTable, MDBTableBody, MDBTableHead ,MDBIcon} from 'mdbreact';
+
+import {getallprojects} from '../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
-import {Card} from 'semantic-ui-react'
-class Projecttable extends React.Component{
+import {Search} from 'semantic-ui-react'
+class UpdateProject extends React.Component{
     constructor(props){
         super(props)
         this.state={
@@ -20,11 +21,14 @@ componentWillMount(){
   this.props.getallprojects()
 
 }
+Searchchange=(e,value)=>{
+    this.setState({ isLoading: true, value })
+
+}
 
 
 changeState=(projects)=>{
 this.props.getallprojects()
-this.props.ChangeStatus(projects)
 
 }
 componentWillReceiveProps(nextprops){
@@ -33,8 +37,19 @@ componentWillReceiveProps(nextprops){
 }
 
 render(){
+    const { isLoading, value, results } = this.state
   return (
-      <div> <h2><b>Current Projects </b></h2>
+      <div>
+          <Search
+            loading={isLoading}
+            // onResultSelect={this.handleResultSelect}
+            onSearchChange={this.Searchchange}
+            
+            results={results}
+            value={value}
+            {...this.props}
+          />
+           <h2><b>All Projects</b></h2>
     <MDBTable responsive>
     
       <MDBTableHead color="primary-color" textWhite>
@@ -47,8 +62,8 @@ render(){
           <th>Initiate Date</th>
           <th>Academic Year</th>
           <th>Project Type</th>
-          <th>Project Status</th>
-          <th>Start/Stop</th>
+          <th>Update</th>
+          <th>Delete</th>
         </tr>
       </MDBTableHead>
       <MDBTableBody>
@@ -61,9 +76,8 @@ render(){
           <td >{projects.Initiatedate}</td>
           <td >{projects.Acadamicyear}</td>
           <td >{projects.ProjectType}</td>
-          <td >{projects.Status.toString()                            
-              }</td>
-          <td key={projects._id}><MDBBtn  onClick ={()=>this.changeState(projects)} size="sm">Click</MDBBtn ></td>
+          <td><MDBIcon far icon="edit" className="indigo-text pr-3" size="2x" onClick={()=>this.handleClickOpen(projects)} /></td>
+       <td><MDBIcon icon="trash" className="red-text pr-3" size="2x"onClick={()=>this.ondelete(projects)}/> </td> 
          
           </tr>
 
@@ -107,7 +121,7 @@ const mapStateToProps = state => {
    dd:state
   }};
 
-export default connect(mapStateToProps,{getallprojects,ChangeStatus})(Projecttable);
+export default connect(mapStateToProps,{getallprojects})(UpdateProject);
 
 
 
