@@ -112,3 +112,31 @@ module.exports.getproject =(req,res,next)=>{
 }
 
 
+module.exports.updateproject=(req,res,next)=>{
+    const project ={
+        ProjectType:req.body.ProjectType,
+        Initiatedate:req.body.Initiatedate,
+        Acadamicyear:req.body.Acadamicyear,
+       
+    }
+    Project.findOneAndUpdate({Projectname:req.params.Projectname},{$set:{project}},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
+module.exports.deleteproject=(req,body,next)=>{
+    Project.findOneAndRemove({Projectname:req.params.Projectname},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
+
+

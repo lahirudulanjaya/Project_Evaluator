@@ -56,5 +56,15 @@ router.get('/getEvaluvators' ,Ctrlevaluvator.getEvaluvators)
 router.post('/addSessioncoodinator' ,CtrlSC.addsessioncoodinator)
 
 router.get('/getSessioncoodinator' ,CtrlSC.getsessioncoodinator)
+
+//crud milestones
+router.put('/pg/updatemilestone',CtrlMilestone.updatemilestones)
+router.delete('/pg/deletemilestone',CtrlMilestone.deletemilestone)
+
+//crud project
+
+router.put('/pg/updateproject',CtrlProject.updateproject)
+router.delete('/pg/deleteproject',CtrlProject.deleteproject)
+
 module.exports=router 
 

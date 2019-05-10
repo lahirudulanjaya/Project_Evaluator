@@ -12,13 +12,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Sidebar from '../../Component/Sidebar2';
 import Products from './Component/milestone_table';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
+import { MDBCard, MDBCardBody} from 'mdbreact';
 import {AddProject,getprojectnames} from '../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
 import {addmilstones} from '../../../../actions/milestoneActions'
 import blue from '@material-ui/core/colors/blue';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import axios from'axios'
 import swal from 'sweetalert';
 import Student from '../Student/Student';

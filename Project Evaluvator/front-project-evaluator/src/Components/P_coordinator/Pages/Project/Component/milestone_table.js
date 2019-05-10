@@ -14,7 +14,7 @@ import axios from 'axios'
 import swal from 'sweetalert';
 import {Link} from 'react-router-dom'
 import { Dropdown } from 'semantic-ui-react'
-import { Icon } from 'semantic-ui-react'
+import { Icon ,Input} from 'semantic-ui-react'
 
 
 class Products extends React.Component {
@@ -322,11 +322,17 @@ class Products extends React.Component {
         
     
     <td>
-      <select type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}>
+      {/* <select type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}>
   <option value="presentation">presentation</option>
-  <option value="document">document</option>
+  <option value="document">document</option> */}
+  <Input list='languages' placeholder='Choose Milestone Type...' type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}/>
+    <datalist id='languages'>
+      <option value='presentation' />
+      <option value='document' />
+      
+    </datalist>
   
-</select>
+
     </td>
 
       
@@ -342,11 +348,18 @@ class Products extends React.Component {
         
         
         <td> 
-        <select type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}>
+        {/* <select type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}>
     <option value="group">group</option>
     <option value="individual">individual</option>
     
-  </select>
+  </select> */}
+
+  <Input list='language' placeholder='Choose individual or group...' type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}/>
+    <datalist id='language'>
+      <option value='group' />
+      <option value='individual' />
+      
+    </datalist>
       </td>
       
       );

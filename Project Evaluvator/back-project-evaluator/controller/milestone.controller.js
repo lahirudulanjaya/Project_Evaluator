@@ -40,3 +40,32 @@ module.exports.getpresentationmilstones=(req,res,next)=>{
         }
     })
 }
+
+module.exports.updatemilestones=(req,res,next)=>{
+    const milestone ={
+        MilstoneType:req.body.MilstoneType,
+        Markspresentatge:req.body.Markspresentatge,
+        Grp_or_I:req.body.Grp_or_I,
+        Duration:req.body.Duration
+    }
+    console.log(milestone)
+    Milestone.findOneAndUpdate({name:req.body.name,Projectname:req.body.Projectname},{$set:milestone},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
+module.exports.deletemilestone=(req,res,next)=>{
+    console.log(req.body)
+    Milestone.findOneAndRemove({name:req.body.name,Projectname:req.body.Projectname},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}

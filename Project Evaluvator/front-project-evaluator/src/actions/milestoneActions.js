@@ -1,6 +1,6 @@
-import {GET_MILSTONES,GET_ERRORS,GET_PRESENTATIONS} from './types'
-import axios from 'axios'
+import axios from 'axios';
 import swal from 'sweetalert';
+import { GET_ERRORS, GET_MILSTONES, GET_PRESENTATIONS, UPDATE_MILSTONE,DELETE_MILESTONE } from './types';
 
 
 export const addmilstones=(milestones)=>dispath=>{
@@ -50,4 +50,27 @@ export const getpresentations=(name)=>dispatch=>{
             })
         }
     )
+}
+export const updatemilestone=(milestone)=>dispatch=>{
+    console.log(milestone)
+    axios.put("http://localhost:4000/api/pg/updatemilestone",milestone)
+    .then(res=>{
+        swal("sucess")
+
+        .catch(err=>{
+            swal("error")
+
+        })
+    })
+}
+
+export const delemilestone=(name)=>dispatch=>{
+    console.log(name)
+    axios.delete("http://localhost:4000/api/pg/deletemilestone",name)
+    .then(res=>{
+       swal("sucess")
+        .catch(err=>{
+            swal("error")
+        })
+    })
 }

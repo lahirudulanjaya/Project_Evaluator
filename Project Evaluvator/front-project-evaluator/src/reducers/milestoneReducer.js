@@ -1,9 +1,10 @@
-import {ADD_MILESTONE,GET_MILSTONES,GET_PRESENTATIONS} from "../actions/types";
+import {ADD_MILESTONE,GET_MILSTONES,GET_PRESENTATIONS,DELETE_MILESTONE,UPDATE_MILSTONE} from "../actions/types";
 
 const initialState={
     milestones:[],
     milestone:[],
-    presentation:[]
+    presentation:[],
+    info:[]
 };
 
 export default function(state =initialState,action){
@@ -29,6 +30,17 @@ export default function(state =initialState,action){
             presentation:action.payload
             
         }
+        case UPDATE_MILSTONE:
+        return{
+            ...state,
+            info:action.payload
+        }
+        case DELETE_MILESTONE:
+        return{
+            ...state,
+            info:action.payload
+        }
+
         default:
             return state
     }

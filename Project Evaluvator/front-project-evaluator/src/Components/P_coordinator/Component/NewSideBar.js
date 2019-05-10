@@ -111,7 +111,7 @@ class NewSideBar extends Component{
                               Update  Milestones
                             </NavText>
                         </NavItem>
-                        <NavItem eventKey="pg/milestone">
+                        <NavItem eventKey="pg/updateprojects">
                             <NavText>
                               Update  Projects
                             </NavText>
