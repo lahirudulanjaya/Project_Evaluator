@@ -65,10 +65,15 @@ class Login extends Component{
     return (
       <div>
         <NavBar/>
-      <MDBContainer className="login">
+        <div className="container">
+        <div className="row">
+        <div className="col-sm-2">
+        </div>
+        <div className="col-sm-8 pt-5">
+      <MDBContainer className=''>
         <MDBRow>
           
-          <MDBCol sm="6">
+          <MDBCol sm="10">
             <MDBCard className="w-75 p-3">
               <MDBCardBody >
                 <form onSubmit={this.postLogin}>
@@ -133,7 +138,9 @@ class Login extends Component{
           <MDBCol sm="6"></MDBCol>
         </MDBRow>
       </MDBContainer>
-
+      </div>
+      </div>
+      </div>
 
 
     </div>

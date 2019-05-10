@@ -156,11 +156,14 @@ render(){
     return(
       <div>
         <Navbar/>
-<MDBContainer className="register">
+        <div className="container pt-3">
+        <div className="row">
+        <div className="col-sm-2">
+        </div>
+        <div className="col-sm-8">
+<MDBContainer >
       <MDBRow>
-        <MDBCol md="3">
-        </MDBCol>
-        <MDBCol md="6">
+        <MDBCol sm="10">
         <MDBCard className="w-100 p-3">
 
             <MDBCardBody>
@@ -271,10 +274,12 @@ render(){
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
-        <MDBCol md="3">
-        </MDBCol>
+        
       </MDBRow>
     </MDBContainer>
+    </div>
+    </div>
+    </div>
     </div>
     )
 }
