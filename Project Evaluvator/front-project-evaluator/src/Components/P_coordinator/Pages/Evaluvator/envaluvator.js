@@ -2,6 +2,7 @@ import React from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput ,MDBIcon} from 'mdbreact';
 import axios from 'axios'
 import swal from 'sweetalert'
+import { Card} from 'semantic-ui-react'
 class Evaluvator  extends React.Component {
     constructor(props) {
         super(props);
@@ -53,61 +54,68 @@ class Evaluvator  extends React.Component {
     render() { 
         return ( 
             <div>
-                register Evaluvator
-                <MDBContainer className="login">
-        <MDBRow>
-          
-          <MDBCol sm="6">
-            <MDBCard className="w-75 p-3">
-              <MDBCardBody >
-                <form onSubmit={this.registerEvaluvator}>
-                <div className="header pt-3 grey lighten-2">
-                <p className="h4 text-center py-4">Register</p>
-                </div>
-                  <MDBInput 
-                  required
-                    label="Registration Number"  
-                    className="w-75 p-3"
-                    name="Registrationnumber"
-                    onChange={this.handleChange}
-                    value={this.state.Registrationnumber}
-
-                    group 
-                    type="text"
-                    validate
-                    error="wrong"
-                    success="right" />
-                  <MDBInput
-                    label="Email"
-                    name="Email"
-                    onChange={this.handleChange}
-                    value={this.state.Email}
-                    group
-                    type="password"
-                    className="w-75 p-3"
-                    validate
-                    error="wrong"
-                    success="right"
-                    containerClass="mb-0"
-                    required
-                  />
-                   
-                 
-                  <div className="text-center mb-4 mt-5">
-                    <MDBBtn
-                      color="indigo"
-                      type="submit"
-                    >
-                     Register
-                    </MDBBtn>
+              <div className="container pt-2">
+                <div className="row">
+                  <Card className="ml-5" fluid color='white' header='register Evaluvator' />
+                  <div className="col-sm-3">
                   </div>
-                </form>
-                </MDBCardBody>
-                </MDBCard>
-                </MDBCol>
-                </MDBRow>
-                </MDBContainer>
-                <div class="col-md-12">
+                  <div className="col-sm-6">
+                  <MDBContainer>
+                  <MDBRow>
+                    <MDBCol sm="12">
+                      <MDBCard className="w-75 p-1">
+                        <MDBCardBody >
+                          <form onSubmit={this.registerEvaluvator}>
+                          <div className="header pt-1 grey lighten-2">
+                          <p className="h4 text-center py-4">Register</p>
+                          </div>
+                            <MDBInput 
+                            required
+                              label="Registration Number"  
+                              className="w-75 p-3"
+                              name="Registrationnumber"
+                              onChange={this.handleChange}
+                              value={this.state.Registrationnumber}
+
+                              group 
+                              type="text"
+                              validate
+                              error="wrong"
+                              success="right" />
+                            <MDBInput
+                              label="Email"
+                              name="Email"
+                              onChange={this.handleChange}
+                              value={this.state.Email}
+                              group
+                              type="password"
+                              className="w-75 p-3"
+                              validate
+                              error="wrong"
+                              success="right"
+                              containerClass="mb-0"
+                              required
+                            />
+                            
+                          
+                            <div className="text-center mb-4 mt-5">
+                              <MDBBtn
+                                color="indigo"
+                                type="submit"
+                              >
+                              Register
+                              </MDBBtn>
+                            </div>
+                          </form>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </MDBCol>
+                  </MDBRow>
+                  </MDBContainer>
+                  </div>
+                  </div>
+                </div>
+                <div class="col-md-12 pt-3 mb-5">
               <div class="card">
                   <div class="card-header card-header-danger">
                       <h4 class="card-title ">Project Table</h4>

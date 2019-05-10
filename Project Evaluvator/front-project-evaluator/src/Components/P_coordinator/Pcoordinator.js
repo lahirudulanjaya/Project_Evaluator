@@ -56,6 +56,7 @@ class Pcoodinater extends Component {
   render() {
     return (
       <div className="container">
+{/* <<<<<<< HEAD */}
       <div class="ui three doubling stackable cards">
     <Card>
     <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
@@ -98,6 +99,7 @@ class Pcoodinater extends Component {
     
         <Header as='h2' icon textAlign='center'>
           <Header.Content><Card fluid color='indigo' header='All Projects' /></Header.Content>
+
           
 
         </Header>
@@ -105,7 +107,7 @@ class Pcoodinater extends Component {
 
           {this.props.project.projects.map(projects =>
           
-            <div class="col-sm">
+            <div className="col-sm ml-5 pt-3">
             {console.log(projects)}
               <Card>
                 <Card.Content>

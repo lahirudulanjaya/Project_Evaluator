@@ -14,6 +14,7 @@ import { MDBBtn,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
 import {whologgedin} from '../../../../actions/authActions'
 import {connect} from 'react-redux'
+import { Card} from 'semantic-ui-react'
 import './Student.css'
 
 
@@ -119,12 +120,17 @@ uploadtoDB=()=>{
             <div className="row">
               <div className="col-sm-12">
                 
-      <div className="row">
       <div className="reg">
-        send email to register
-        <MDBBtn color="default" onClick={this.sendmail}>
-        <MDBIcon icon="magic" className="mr-1"  /> Send Emails
-      </MDBBtn>
+      <div className="row">
+        <div className="col-sm-4">
+          <Card className="ml-5" fluid color='orange' header='send email to register' />
+        </div>
+        <div className="col-sm-4">
+          <MDBBtn color="default" onClick={this.sendmail}>
+            <MDBIcon icon="magic" className="mr-1"  /> Send Emails
+          </MDBBtn>
+        </div>
+      </div>
 
 
 
@@ -220,7 +226,6 @@ uploadtoDB=()=>{
         
                 </div>
                 {/* <BasicTable></BasicTable> */}
-                </div>
                 </div>
           </div>
         )

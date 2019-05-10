@@ -57,17 +57,17 @@ class Setgooglesheet extends Component {
       <div className="container">
 
         
-        <div className="row">
+        <div className="row pt-2 ml-3">
         <Card.Group>
-        <Card fluid color='orange' header='Before add googlesheet to project you need to create groups' />
-    <Card fluid color='green' header='When adding googlesheet to project you need to share your googlesheet with  ucscprojectevaluation@ucsc-projec-tevaluation.iam.gserviceaccount.com ' />
+        <Card className="ml-5" fluid color='orange' header='Before add googlesheet to project you need to create groups' />
+        <Card className="ml-5" fluid color='green' header='When adding googlesheet to project you need to share your googlesheet with  ucscprojectevaluation@ucsc-projec-tevaluation.iam.gserviceaccount.com ' />
     
   </Card.Group>
 
        
           {this.props.project.projects.map(projects =>
           
-            <div class="col-sm">
+            <div class="col-sm ml-5 pt-3">
             {console.log(projects)}
               <Card>
                 <Card.Content>

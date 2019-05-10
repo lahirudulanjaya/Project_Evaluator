@@ -7,7 +7,7 @@ import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBBadge} from 'mdbreact';
 import Sidebar from '../../Component/Sidebar2';
 import './updateMilestone.css'
 import FormLabel from '@material-ui/core/FormLabel';
-import { MDBCard, MDBCardBody, MDBIcon} from 'mdbreact';
+
 import axios from'axios'
 import swal from 'sweetalert'
 import Button from '@material-ui/core/Button';
@@ -17,6 +17,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {Form,Dropdown} from 'semantic-ui-react'
+
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer,MDBIcon} from 'mdbreact';
+import { Card} from 'semantic-ui-react'
+
+
 
 var cardStyle={
   backgroundColor: "#DFDFDF",
@@ -171,15 +176,15 @@ handleClose = () => {
 
     <div className="container">
       <div className="row">
-        <div className="col-sm-12" >
-          <h1><b>select project</b></h1>
-        {/* <select  className="form-control" value={this.state.id} onChange={this.handleChange} >
+
+        <div className="col-sm-12 pt-3" >
+        <Card className="ml-5" fluid color='orange' header='select project' />
        
-          {this.props.project.project.map((project) => <option  value={project.Projectname}>{project.Projectname}</option>)}
-              </select> */}
+
                     <Dropdown placeholder='Select Project to Update Milestone'  selection options={stateOptions3}  value={this.state.id} onChange={this.handleChange}/>
 
               
+
         <div className="ml-5 pt-2">
         <Dialog
           open={this.state.open}
@@ -224,6 +229,9 @@ handleClose = () => {
           </Button>
         </DialogActions>
       </Dialog>
+{/* =======
+        <div className="ml-1 pt-2">
+>>>>>>> 877d4078e5655883afe16b6f3b377cd25e26d91b */}
         <MDBCard>
           <MDBCardBody style={cardStyle}>
           <MDBTable responsive>

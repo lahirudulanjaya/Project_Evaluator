@@ -35,10 +35,10 @@ class Products extends React.Component {
           id: '',
           open:false,
           Projectname: props.proname,
-          name: 'football',
+          name: 'Priliminary',
           MilstoneType:'',
           Markspresentatge: 12,
-          Grp_or_I: 'Group',
+          Grp_or_I: '',
           Duration:''
         }
       ];
@@ -322,9 +322,7 @@ class Products extends React.Component {
         
     
     <td>
-      {/* <select type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}>
-  <option value="presentation">presentation</option>
-  <option value="document">document</option> */}
+    
   <Input list='languages' placeholder='Choose Milestone Type...' type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}/>
     <datalist id='languages'>
       <option value='presentation' />
@@ -348,11 +346,7 @@ class Products extends React.Component {
         
         
         <td> 
-        {/* <select type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}>
-    <option value="group">group</option>
-    <option value="individual">individual</option>
-    
-  </select> */}
+      
 
   <Input list='language' placeholder='Choose individual or group...' type='text' name={this.props.cellData.type} id={this.props.cellData.id} value={this.props.cellData.value} onChange={this.props.onProductTableUpdate}/>
     <datalist id='language'>
