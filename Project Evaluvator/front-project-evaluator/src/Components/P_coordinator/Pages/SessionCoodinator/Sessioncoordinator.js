@@ -2,6 +2,8 @@ import React from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput ,MDBIcon} from 'mdbreact';
 import axios from 'axios'
 import swal from 'sweetalert'
+import { Card} from 'semantic-ui-react'
+
 class Sessioncoodinator  extends React.Component {
     constructor(props) {
         super(props);
@@ -60,15 +62,20 @@ class Sessioncoodinator  extends React.Component {
     render() { 
         return ( 
             <div>
-                register SessionCoordinator
-                <MDBContainer className="login">
+              <div className="container pt-2">
+                <div className="row">
+                <Card className="ml-5" fluid color="white" header='register Session Coordinator' />
+                <div className="col-sm-3">
+                </div>
+                <div className="col-sm-6">
+                <MDBContainer>
         <MDBRow>
           
-          <MDBCol sm="6">
+          <MDBCol sm="12">
             <MDBCard className="w-75 p-3">
               <MDBCardBody >
                 <form onSubmit={this.registersessionCoordinator}>
-                <div className="form-header indigo rounded">
+                <div className="form-header grey lighten-2 rounded">
                 <p className="h4 text-center py-4">Register</p>
                 </div>
                   <MDBInput 
@@ -114,9 +121,12 @@ class Sessioncoodinator  extends React.Component {
                 </MDBCol>
                 </MDBRow>
                 </MDBContainer>
+                </div>
+                </div>
+                </div>
                 <div class="col-md-12">
               <div class="card">
-              
+              <div class="col-md-12 pt-3 mb-5">
                   <div class="card-header card-header-danger">
                       <h4 class="card-title ">Project Table</h4>
                      
@@ -160,6 +170,7 @@ class Sessioncoodinator  extends React.Component {
                       </div>
                   </div>
               </div>
+          </div>
           </div>
                 
             </div>
