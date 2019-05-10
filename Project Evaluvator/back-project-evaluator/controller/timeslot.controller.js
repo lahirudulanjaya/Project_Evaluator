@@ -56,3 +56,15 @@ var mailOptions = {
     }
   });
 }
+
+module.exports.gettimeslots=(req,res,next)=>{
+  Timeslot.findOne({Projectname:req.params.Projectname},(err,doc)=>{
+    if(!err){
+      console.log(doc)
+      res.send(doc)
+    }
+    else{
+      res.send(err)
+    }
+  })
+}

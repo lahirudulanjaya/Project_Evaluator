@@ -17,6 +17,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {Form,Dropdown} from 'semantic-ui-react'
+import _ from 'lodash'
 
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer,MDBIcon} from 'mdbreact';
 import { Card} from 'semantic-ui-react'
@@ -179,12 +180,7 @@ handleClose = () => {
 
         <div className="col-sm-12 pt-3" >
         <Card className="ml-5" fluid color='orange' header='select project' />
-       
-
                     <Dropdown placeholder='Select Project to Update Milestone'  selection options={stateOptions3}  value={this.state.id} onChange={this.handleChange}/>
-
-              
-
         <div className="ml-5 pt-2">
         <Dialog
           open={this.state.open}

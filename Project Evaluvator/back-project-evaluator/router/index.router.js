@@ -45,6 +45,7 @@ router.post('/setgooglesheet',CtrlSheet.createspreadsheet)
 //timeslots
 
 router.post('/posttimeslots',Ctrltimeslot.addtimeslots)
+router.get('/gettimeslots/:Projectname',Ctrltimeslot.gettimeslots)
 
 //evaluvators
 
@@ -64,7 +65,7 @@ router.delete('/pg/deletemilestone',CtrlMilestone.deletemilestone)
 //crud project
 
 router.put('/pg/updateproject',CtrlProject.updateproject)
-router.delete('/pg/deleteproject',CtrlProject.deleteproject)
+router.delete('/pg/deleteproject/:projectname',CtrlProject.deleteproject)
 
 module.exports=router 
 

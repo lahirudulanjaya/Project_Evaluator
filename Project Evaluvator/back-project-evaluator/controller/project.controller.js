@@ -119,7 +119,7 @@ module.exports.updateproject=(req,res,next)=>{
         Acadamicyear:req.body.Acadamicyear,
        
     }
-    Project.findOneAndUpdate({Projectname:req.params.Projectname},{$set:{project}},(err,doc)=>{
+    Project.findOneAndUpdate({Projectname:req.body.Projectname},{$set:project},(err,doc)=>{
         if(!err){
             res.send(doc)
         }
@@ -128,12 +128,13 @@ module.exports.updateproject=(req,res,next)=>{
         }
     })
 }
-module.exports.deleteproject=(req,body,next)=>{
-    Project.findOneAndRemove({Projectname:req.params.Projectname},(err,doc)=>{
+module.exports.deleteproject=(req,res,next)=>{
+    Project.findOneAndRemove({Projectname:req.params.projectname},(err,doc)=>{
         if(!err){
             res.send(doc)
         }
         else{
+            console.log(err)
             res.send(err)
         }
     })
