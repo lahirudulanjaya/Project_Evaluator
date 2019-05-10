@@ -150,13 +150,14 @@ handleChange2(e){
 
     return (
       <div>
-      <Card fluid color='orange' header='Create New Project' />
+        <div className="container pt-3">
+          <Card fluid color='orange' header='Create New Project' />
+        </div>
 
       <div className="container">
       <div className="row">
-
-        <div className="col-sm-4 pt-2 ml-5">
-          <div className="ml-3">
+        <div className="col-sm-4 pt-2">
+          <div className="">
             <MDBCard>
               <MDBCardBody style={cardStyle}>
               <div className="card-background">
@@ -174,12 +175,12 @@ handleChange2(e){
     
       <Card fluid color='orange' header='Current Projects' />
       <div className="row">
-      <div className="col-sm-12">
+      <div className="col-sm-11">
       
       
 
       
-      <div className="ml-5">
+      <div className="">
         <MDBCard>
           <MDBCardBody style={cardStyle}>
             <Projecttable></Projecttable>
