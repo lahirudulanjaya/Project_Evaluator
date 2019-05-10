@@ -8,6 +8,7 @@ import Sidebar from '../../Component/Sidebar2';
 import './updateMilestone.css'
 import FormLabel from '@material-ui/core/FormLabel';
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
+import { Card} from 'semantic-ui-react'
 
 
 var cardStyle={
@@ -52,14 +53,14 @@ class Milestones extends Component
 
     <div className="container">
       <div className="row">
-        <div className="col-sm-12" >
-          <h1><b>select project</b></h1>
+        <div className="col-sm-12 pt-3" >
+        <Card className="ml-5" fluid color='orange' header='select project' />
         <select  className="form-control" value={this.state.id} onChange={this.handleChange} >
        
           {this.props.project.project.map((project) => <option  value={project.Projectname}>{project.Projectname}</option>)}
               </select>
               
-        <div className="ml-5 pt-2">
+        <div className="ml-1 pt-2">
         <MDBCard>
           <MDBCardBody style={cardStyle}>
           <MDBTable responsive>
