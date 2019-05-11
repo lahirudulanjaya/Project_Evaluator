@@ -46,6 +46,7 @@ class Timeslot extends React.Component {
 
         }
         this.props.getprojectnames()
+        
         this.onchangeDropdown = this.onchangeDropdown.bind(this)
         this.change = this.change.bind(this)
         this.onchangeDropdown1=this.onchangeDropdown1.bind(this)
@@ -132,6 +133,7 @@ class Timeslot extends React.Component {
                     if (getintervalstart > start && num < this.state.numberofgroups) {
 
                         var slot = {
+                            groupno:num+1,
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
                             venue: arrvenue[i],
@@ -161,6 +163,7 @@ class Timeslot extends React.Component {
                     if (start < getdayend && num < this.state.numberofgroups) {
 
                         var slot = {
+                            groupno:num+1,
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
                             venue: arrvenue[i],
@@ -215,6 +218,9 @@ class Timeslot extends React.Component {
 
     }
     componentWillReceiveProps(nextprops) {
+        if(nextprops.projects.Currentproject[0]){
+            this.setState({numberofgroups:nextprops.projects.Currentproject[0].groups.length})
+        }
         this.setState({ presentations: nextprops.presentations.presentation })
     }
 
@@ -561,7 +567,7 @@ class Timeslot extends React.Component {
                         <Form.Group widths='equal'>
                             <Form.Field control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='enter the time slot length(minuths)' placeholder='Time slot length' />
                             <Form.Field control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='enter the interval length(minuths)' placeholder='Interval length' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
+                            <Form.Field readOnly={true}  control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
                             <Form.Field control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Enter the evaluvater Count for one presentation' placeholder='Enter the evaluvater Count for one presentation' />
                             </Form.Group>
                             <Form.Group widths='equal'>
@@ -604,7 +610,7 @@ class Timeslot extends React.Component {
 
                                 !timeslots.interval ?
                                     <Table.Row verticalAlign='top'>
-                                        <Table.Cell>{i++}</Table.Cell>
+                                        <Table.Cell>{timeslots.groupno}</Table.Cell>
                                         <Table.Cell>
                                             <div>
                                                 Start time :{timeslots.start}
@@ -658,7 +664,7 @@ class Timeslot extends React.Component {
 
 }
 const mapStateToProps = state => {
-
+console.log(state)
     return {
         projects: state.project,
         presentations: state.milestone

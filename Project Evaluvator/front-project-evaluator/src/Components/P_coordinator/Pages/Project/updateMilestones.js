@@ -4,17 +4,12 @@ import {connect} from 'react-redux'
 import {getprojectnames} from '../../../../actions/ProjectActions'
 
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBBadge} from 'mdbreact';
-import Sidebar from '../../Component/Sidebar2';
-import './updateMilestone.css'
-import FormLabel from '@material-ui/core/FormLabel';
-
 import axios from'axios'
 import swal from 'sweetalert'
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {Form,Dropdown} from 'semantic-ui-react'
 import _ from 'lodash'
@@ -225,9 +220,7 @@ handleClose = () => {
           </Button>
         </DialogActions>
       </Dialog>
-{/* =======
-        <div className="ml-1 pt-2">
->>>>>>> 877d4078e5655883afe16b6f3b377cd25e26d91b */}
+
         <MDBCard>
           <MDBCardBody style={cardStyle}>
           <MDBTable responsive>
@@ -270,31 +263,6 @@ handleClose = () => {
              </div>
              </div>
              </div>
-           
-          
-
-//       <div className='container-fluid'>
-//         <div className='row'>
-//           <div className='col-sm-3' style={divStyle}>
-//             <Sidebar></Sidebar>
-//           </div>
-//           <div className='col-sm-9'>
-//             <h1>hii</h1>
-//           <div className="row">
-//             <div className="col-sm-3 pb-3 pt-2"> 
-//               <select  class="form-control" value={this.state.id} onChange={this.handleChange} >
-//               {console.log(this.props.ss)}
-//                 {this.props.project.project.map((project) => <option key={project._id} value={project.Projectname}>{project.Projectname}</option>)}
-//                     </select>
-//             </div>
-//             <div className="col-sm-3 pb-3">
-//               <a className="btn btn-primary" onClick={this.onClick}>show milestones</a>
-//             </div>
-//           </div>
-//                   <BasicTable></BasicTable>
-//           </div>
-//         </div>
-//       </div>
 
     )
   }

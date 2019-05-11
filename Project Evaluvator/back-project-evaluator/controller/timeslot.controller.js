@@ -17,7 +17,7 @@ module.exports.addtimeslots=(req,res,next)=>{
     timeslot.Projectname =req.body.Projectname
     timeslot.Milestone =req.body.Milestone
     timeslot.Timeslosts=req.body.Timeslots
-
+  timeslot.Evaluvatorlist= req.body.evaluvatorsList
     timeslot.save((err, doc) => {
         if (!err){
             res.send(doc);            

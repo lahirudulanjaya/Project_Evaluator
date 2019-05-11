@@ -52,11 +52,14 @@ router.get('/gettimeslots/:Projectname',Ctrltimeslot.gettimeslots)
 router.post('/addEvaluvator' ,Ctrlevaluvator.addEvaluvator)
 
 router.get('/getEvaluvators' ,Ctrlevaluvator.getEvaluvators)
+router.delete('/deleteevaluvator/:Registrationnumber',Ctrlevaluvator.deleteEvaluvator)
+
 
 //sessioncoodinator
 router.post('/addSessioncoodinator' ,CtrlSC.addsessioncoodinator)
 
 router.get('/getSessioncoodinator' ,CtrlSC.getsessioncoodinator)
+router.delete('/deletesc/:Registrationnumber',CtrlSC.deleteSessionCoordinator)
 
 //crud milestones
 router.put('/pg/updatemilestone',CtrlMilestone.updatemilestones)
@@ -67,5 +70,7 @@ router.delete('/pg/deletemilestone',CtrlMilestone.deletemilestone)
 router.put('/pg/updateproject',CtrlProject.updateproject)
 router.delete('/pg/deleteproject/:projectname',CtrlProject.deleteproject)
 
+router.put('/pg/updatestudent',CtrlStudent.UpdateStudentDetail)
+router.delete('/pg/deletestudent/:Registrationnumber',CtrlStudent.deleteStudent)
 module.exports=router 
 

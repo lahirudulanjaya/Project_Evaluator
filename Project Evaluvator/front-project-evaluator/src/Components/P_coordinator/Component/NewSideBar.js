@@ -121,7 +121,7 @@ class NewSideBar extends Component{
                               Update timeslots
                             </NavText>
                         </NavItem>
-                        <NavItem eventKey="pg/milestone">
+                        <NavItem eventKey="pg/updategroups">
                             <NavText>
                               Update groups
                             </NavText>
@@ -135,7 +135,7 @@ class NewSideBar extends Component{
                         <NavText>
                             Manage Users
                         </NavText>
-                        <NavItem eventKey="student">
+                        <NavItem eventKey="pg/updatestudents">
                             <NavText>
                                 Students
                             </NavText>
