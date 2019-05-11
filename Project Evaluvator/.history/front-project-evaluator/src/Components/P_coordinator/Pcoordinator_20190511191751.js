@@ -10,11 +10,6 @@ import axios from 'axios'
 import swal from 'sweetalert';
 import CountUp from 'react-countup';
 
-import evaluaterImg from '../../images/project-coordinater-images/evaluaters.jpg'
-import projectImg from '../../images/project-coordinater-images/project.jpg'
-import studentImg from '../../images/project-coordinater-images/student.jpg'
-
-
 
 class Pcoodinater extends Component {
   constructor(props) {
@@ -58,54 +53,47 @@ class Pcoodinater extends Component {
     })
 
   }
-  
-
-
   render() {
     return (
       <div className="container">
 {/* <<<<<<< HEAD */}
-      <div class="ui three doubling stackable cards">
-        
-          <Card style={{width: '15%',height: '15%',margin: '60px'}}>
-          <img  src={projectImg} wrapped ui={false} />
-          <Card.Content>
-            <Card.Header> Total Projects</Card.Header>
-            <Card.Meta>
-          
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
+      <div class="ui three doubling stackable cards">//images\project-coordinater-images\project.jpg
+    <Card>
+    <Image src='../../../public/images/project-coordinater-images/project.jpg' wrapped ui={false} />
+    <Card.Content>
+      <Card.Header> Total Projects</Card.Header>
+      <Card.Meta>
+     
+       <h1> <span className='date'> <CountUp end={100} /></span></h1>
+      </Card.Meta>
+  
+    </Card.Content>
+ 
+  </Card>
+  <Card>
+    <Image src='../../../public/images/project-coordinater-images/student.jpg' wrapped ui={false} />
+    <Card.Content>
+      <Card.Header> Total Students</Card.Header>
+      <Card.Meta>
       
-        </Card>
-        <Card style={{width: '15%',height: '15%',margin: '60px'}}>
-          <img src={studentImg} wrapped ui={false} />
-
-          <Card.Content>
-            <Card.Header> Total Students</Card.Header>
-            <Card.Meta>
-            
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-        
-        </Card>
-        <Card style={{width: '15%',height: '15%',margin: '60px'}}>
-        
-          <img src={evaluaterImg} wrapped ui={false} />
-
-          <Card.Content>
-            <Card.Header> Total Evaluvators</Card.Header>
-            <Card.Meta>
-            
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-        
-        </Card>
+       <h1> <span className='date'> <CountUp end={100} /></span></h1>
+      </Card.Meta>
+  
+    </Card.Content>
+   
+  </Card>
+  <Card>
+    <Image src='../../../public/images/project-coordinater-images/evaluaters.jpg' wrapped ui={false} />
+    <Card.Content>
+      <Card.Header> Total Evaluvators</Card.Header>
+      <Card.Meta>
+      
+       <h1> <span className='date'> <CountUp end={100} /></span></h1>
+      </Card.Meta>
+  
+    </Card.Content>
+   
+  </Card>
 
   </div>
     

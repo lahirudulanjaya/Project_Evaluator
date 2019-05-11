@@ -66,46 +66,46 @@ class Pcoodinater extends Component {
       <div className="container">
 {/* <<<<<<< HEAD */}
       <div class="ui three doubling stackable cards">
-        
-          <Card style={{width: '15%',height: '15%',margin: '60px'}}>
-          <img  src={projectImg} wrapped ui={false} />
-          <Card.Content>
-            <Card.Header> Total Projects</Card.Header>
-            <Card.Meta>
-          
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
+    <Card>
+    <img style={height:300,width:null} src={projectImg} wrapped ui={false} />
+    <Card.Content>
+      <Card.Header> Total Projects</Card.Header>
+      <Card.Meta>
+     
+       <h1> <span className='date'> <CountUp end={100} /></span></h1>
+      </Card.Meta>
+  
+    </Card.Content>
+ 
+  </Card>
+  <Card>
+    {/* <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} /> */}
+    <img src={studentImg} wrapped ui={false} />
+
+    <Card.Content>
+      <Card.Header> Total Students</Card.Header>
+      <Card.Meta>
       
-        </Card>
-        <Card style={{width: '15%',height: '15%',margin: '60px'}}>
-          <img src={studentImg} wrapped ui={false} />
+       <h1> <span className='date'> <CountUp end={100} /></span></h1>
+      </Card.Meta>
+  
+    </Card.Content>
+   
+  </Card>
+  <Card>
+    {/* <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} /> */}
+    <img src={evaluaterImg} wrapped ui={false} />
 
-          <Card.Content>
-            <Card.Header> Total Students</Card.Header>
-            <Card.Meta>
-            
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-        
-        </Card>
-        <Card style={{width: '15%',height: '15%',margin: '60px'}}>
-        
-          <img src={evaluaterImg} wrapped ui={false} />
-
-          <Card.Content>
-            <Card.Header> Total Evaluvators</Card.Header>
-            <Card.Meta>
-            
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-        
-        </Card>
+    <Card.Content>
+      <Card.Header> Total Evaluvators</Card.Header>
+      <Card.Meta>
+      
+       <h1> <span className='date'> <CountUp end={100} /></span></h1>
+      </Card.Meta>
+  
+    </Card.Content>
+   
+  </Card>
 
   </div>
     
