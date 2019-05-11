@@ -11,7 +11,7 @@ import swal from 'sweetalert';
 import CountUp from 'react-countup';
 
 import evaluaterImg from '../../images/project-coordinater-images/evaluaters.jpg';
-import projectImg from   '../../images/project-coordinater-images/project.jpg';
+import projectImg from   '../../images/project-coordinater-images/evaluaters.jpg';
 import studentImg from   '../../images/project-coordinater-images/student.jpg';
 
 
@@ -67,7 +67,7 @@ class Pcoodinater extends Component {
 {/* <<<<<<< HEAD */}
       <div class="ui three doubling stackable cards">
         
-          <Card style={{width: '15%',height: '15%',margin: '100px'}}>
+          <Card style={{width: '15%',height: '15%',margin: '60px'}}>
           <img  src={projectImg} wrapped ui={false} />
           <Card.Content>
             <Card.Header> Total Projects</Card.Header>
@@ -79,7 +79,7 @@ class Pcoodinater extends Component {
           </Card.Content>
       
         </Card>
-        <Card style={{width: '15%',height: '15%',margin: '100px'}}>
+        <Card style={{width: '15%',height: '15%',margin: '60px'}}>
           <img src={studentImg} wrapped ui={false} />
 
           <Card.Content>
@@ -92,7 +92,7 @@ class Pcoodinater extends Component {
           </Card.Content>
         
         </Card>
-        <Card style={{width: '15%',height: '15%',margin: '100px'}}>
+        <Card style={{width: '15%',height: '15%',margin: '60px'}}>
         
           <img src={evaluaterImg} wrapped ui={false} />
 

@@ -67,7 +67,7 @@ class Pcoodinater extends Component {
 {/* <<<<<<< HEAD */}
       <div class="ui three doubling stackable cards">
         
-          <Card style={{width: '15%',height: '15%',margin: '100px'}}>
+          <Card style={{width: '15%',height: '15%',margin: '60px'}}>
           <img  src={projectImg} wrapped ui={false} />
           <Card.Content>
             <Card.Header> Total Projects</Card.Header>
@@ -79,7 +79,7 @@ class Pcoodinater extends Component {
           </Card.Content>
       
         </Card>
-        <Card style={{width: '15%',height: '15%',margin: '100px'}}>
+        <Card style={{width: '15%',height: '15%',margin: '60px'}}>
           <img src={studentImg} wrapped ui={false} />
 
           <Card.Content>
@@ -92,7 +92,7 @@ class Pcoodinater extends Component {
           </Card.Content>
         
         </Card>
-        <Card style={{width: '15%',height: '15%',margin: '100px'}}>
+        <Card style={{width: '15%',height: '15%',margin: '60px'}}>
         
           <img src={evaluaterImg} wrapped ui={false} />
 

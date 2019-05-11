@@ -8,13 +8,6 @@ import { connect } from 'react-redux'
 import { Header,Input,Popup } from 'semantic-ui-react'
 import axios from 'axios'
 import swal from 'sweetalert';
-import CountUp from 'react-countup';
-
-import evaluaterImg from '../../images/project-coordinater-images/evaluaters.jpg';
-import projectImg from   '../../images/project-coordinater-images/project.jpg';
-import studentImg from   '../../images/project-coordinater-images/student.jpg';
-
-
 
 class Pcoodinater extends Component {
   constructor(props) {
@@ -58,60 +51,13 @@ class Pcoodinater extends Component {
     })
 
   }
-  
-
-
   render() {
     return (
       <div className="container">
-{/* <<<<<<< HEAD */}
-      <div class="ui three doubling stackable cards">
-        
-          <Card style={{width: '15%',height: '15%',margin: '100px'}}>
-          <img  src={projectImg} wrapped ui={false} />
-          <Card.Content>
-            <Card.Header> Total Projects</Card.Header>
-            <Card.Meta>
-          
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-      
-        </Card>
-        <Card style={{width: '15%',height: '15%',margin: '100px'}}>
-          <img src={studentImg} wrapped ui={false} />
 
-          <Card.Content>
-            <Card.Header> Total Students</Card.Header>
-            <Card.Meta>
-            
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-        
-        </Card>
-        <Card style={{width: '15%',height: '15%',margin: '100px'}}>
-        
-          <img src={evaluaterImg} wrapped ui={false} />
-
-          <Card.Content>
-            <Card.Header> Total Evaluvators</Card.Header>
-            <Card.Meta>
-            
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-        
-        </Card>
-
-  </div>
-    
-        <Header as='h2' icon textAlign='center'>
-          <Header.Content><Card fluid color='indigo' header='All Projects' /></Header.Content>
-
+        <Header className="pt-2" as='h2' icon textAlign='center'>
+          <Icon name='settings' circular />
+          <Header.Content><Card className="pt-2 pb-2" fluid color='indigo' header='All Projects' /></Header.Content>
           
 
         </Header>
