@@ -11,6 +11,9 @@ import Evaluvator from './Components/P_coordinator/Pages/Evaluvator/envaluvator'
 import Sessioncoodinator from './Components/P_coordinator/Pages/SessionCoodinator/Sessioncoordinator'
 import Setgooglesheet from './Components/P_coordinator/Pages/setgooglesheet'
 import  UpdateProjects  from './Components/P_coordinator/Pages/ManageProject/updateProject'
+import Updatetimeslots from './Components/P_coordinator/Pages/ManageProject/updateTimeslots'
+import UpdateStudents from './Components/P_coordinator/Pages/Student/UpdateStudents'
+import UpdateGroups from './Components/P_coordinator/Pages/ManageProject/updateGroups'
 class RouteFile extends Component{
     render() {
         return (
@@ -27,6 +30,10 @@ class RouteFile extends Component{
             <Route path ="/pg/setgooglesheet" component={props=><Setgooglesheet/>}/>
             
             <Route path ="/pg/updateprojects" component={props=><UpdateProjects/>}/>
+            
+            <Route path ="/pg/updatetimeslots" component={props=><Updatetimeslots/>}/>
+            <Route path ="/pg/updatestudents" component ={props=><UpdateStudents/>}/>
+            <Route path ="/pg/updategroups" component ={props=><UpdateGroups/>}/>
 
             
             </div>

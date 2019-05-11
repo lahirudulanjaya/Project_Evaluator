@@ -17,7 +17,7 @@ module.exports.addtimeslots=(req,res,next)=>{
     timeslot.Projectname =req.body.Projectname
     timeslot.Milestone =req.body.Milestone
     timeslot.Timeslosts=req.body.Timeslots
-
+  timeslot.Evaluvatorlist= req.body.evaluvatorsList
     timeslot.save((err, doc) => {
         if (!err){
             res.send(doc);            
@@ -55,4 +55,16 @@ var mailOptions = {
       console.log(info)
     }
   });
+}
+
+module.exports.gettimeslots=(req,res,next)=>{
+  Timeslot.findOne({Projectname:req.params.Projectname},(err,doc)=>{
+    if(!err){
+      console.log(doc)
+      res.send(doc)
+    }
+    else{
+      res.send(err)
+    }
+  })
 }

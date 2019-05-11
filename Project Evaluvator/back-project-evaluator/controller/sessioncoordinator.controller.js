@@ -2,7 +2,8 @@ const mongoose =require('mongoose')
 
 const Sessioncoordinator = mongoose.model('Sessioncoordinator')
 var generator = require('generate-password');
- 
+const Student = mongoose.model('Students')
+
 
 
 module.exports.addsessioncoodinator=(req,res,next)=>{
@@ -17,7 +18,28 @@ module.exports.addsessioncoodinator=(req,res,next)=>{
     sessioncoordinator.Password =password
     sessioncoordinator.save((err, doc) => {
         if (!err){
-            res.send(doc);            
+            var student = new Student()
+            student.UserName = req.body.Email
+            student.Email = req.body.Email +"@ucsc.cmb.ac.lk"
+            student.Registrationnumber =req.body.Registrationnumber
+            student.Password =password
+            student.Cpassword = password
+            student.type ="sessioncoordinator"
+            student.save((err, doc) => {
+                if (!err){
+                    res.send(doc);            
+                }
+                else
+                {
+                        if (err.code === 11000){
+                            res.status(422).send('Data you entered has already been used');
+                        }
+                        else{
+                            console.log(err)
+                            return next(err);
+                            }
+                }
+                });            
         }
         else
         {
@@ -40,6 +62,23 @@ module.exports.getsessioncoodinator =(req,res,next)=>{
         }
         else{
             res.status(422).send(err)
+        }
+    })
+}
+module.exports.deleteSessionCoordinator =(req,res,next)=>{
+    Sessioncoordinator.findOneAndDelete({Registrationnumber:req.params.Registrationnumber},(err,doc)=>{
+        if(!err){
+            Student.findOneAndDelete({Registrationnumber:req.params.Registrationnumber},(err,doc)=>{
+                if(!err){
+                    res.send(doc)
+                }
+                else{
+                    res.send(err)
+                }
+            })
+        }
+        else{
+            res.send(err)
         }
     })
 }

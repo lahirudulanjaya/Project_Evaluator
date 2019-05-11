@@ -18,7 +18,8 @@ var timeslotSchema = new mongoose.Schema(
                 venue:String
 
             }
-        ]
+        ],
+        Evaluvatorlist:[]
 
     }
     

@@ -2,7 +2,8 @@ const mongoose =require('mongoose')
 
 const Evaluvator = mongoose.model('Evaluvator')
 var generator = require('generate-password');
- 
+const Student = mongoose.model('Students')
+
 
 
 module.exports.addEvaluvator=(req,res,next)=>{
@@ -17,7 +18,28 @@ module.exports.addEvaluvator=(req,res,next)=>{
     evaluvator.Password =password
     evaluvator.save((err, doc) => {
         if (!err){
-            res.send(doc);            
+            var student = new Student()
+            student.UserName = req.body.Email
+            student.Email = req.body.Email +"@ucsc.cmb.ac.lk"
+            student.Registrationnumber =req.body.Registrationnumber
+            student.Password =password
+            student.Cpassword = password
+            student.type ="evaluvator"
+            student.save((err, doc) => {
+                if (!err){
+                    res.send(doc);            
+                }
+                else
+                {
+                        if (err.code === 11000){
+                            res.status(422).send('Data you entered has already been used');
+                        }
+                        else{
+                            console.log(err)
+                            return next(err);
+                            }
+                }
+                });               
         }
         else
         {
@@ -40,6 +62,23 @@ module.exports.getEvaluvators =(req,res,next)=>{
         }
         else{
             res.status(422).send(err)
+        }
+    })
+}
+module.exports.deleteEvaluvator =(req,res,next)=>{
+    Evaluvator.findOneAndDelete({Registrationnumber:req.params.Registrationnumber},(err,doc)=>{
+        if(!err){
+            Student.findOneAndDelete({Registrationnumber:req.params.Registrationnumber},(err,doc)=>{
+                if(!err){
+                    res.send(doc)
+                }
+                else{
+                    res.send(err)
+                }
+            })
+        }
+        else{
+            res.send(err)
         }
     })
 }

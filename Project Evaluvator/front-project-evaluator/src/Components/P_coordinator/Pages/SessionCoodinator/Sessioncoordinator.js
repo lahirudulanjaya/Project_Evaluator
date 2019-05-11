@@ -146,9 +146,7 @@ class Sessioncoodinator  extends React.Component {
                                   <th>
                                         delete
                                     </th>
-                                    <th>
-                                        Update
-                                    </th>
+                                  
                                    
                               </thead>
                               <tbody  >
@@ -156,9 +154,8 @@ class Sessioncoodinator  extends React.Component {
                                   <tr >
                                     <td>{eva.Registrationnumber}</td>
                                   <td>{eva.Email}</td>
-                                  <td><MDBIcon icon="trash" className="red-text pr-3" size="2x" /></td>   
-                                  <td><MDBIcon far icon="edit" className="indigo-text pr-3" size="2x" />
-                                  </td>
+                                  <td><MDBIcon icon="trash" className="red-text pr-3" size="2x" onClick={()=>this.deleteSC(eva.Registrationnumber)} /></td>   
+                                 
                                   </tr>
                                 )}
                                   

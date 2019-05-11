@@ -137,6 +137,38 @@ module.exports.getstudentsbyYear =(req,res,next)=>{
     })
 }
 
+
+
+
+module.exports.UpdateStudentDetail=(req,res,next)=>{
+    const student ={
+        Name :req.body.Name,
+        Email:req.body.Email,
+
+
+
+    }
+    Studentdetail.findOneAndUpdate({Registrationnumber:req.body.Registrationnumber},{$set:student},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
+
+module.exports.deleteStudent =(req,res,next)=>{
+    Studentdetail.findOneAndDelete({Registrationnumber:req.params.Registrationnumber},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
+
 // module.exports.userprofile =(req,res,next)=>{
 //     Student.findOne({ _id: req.params._id },(err,doc)=>{
 //         if(!err){

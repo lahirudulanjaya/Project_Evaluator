@@ -4,7 +4,7 @@ import {ADD_PROJECT,CHANGE_STATE,GET_MILSTONES,GET_PROJECT} from "../actions/typ
 const initialState ={
     project:[],
     projects:[],
-    Currentproject:null
+    Currentproject:{}
 };
 
 export default function(state =initialState,action){

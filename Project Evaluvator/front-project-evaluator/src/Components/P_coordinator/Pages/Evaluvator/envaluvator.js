@@ -28,7 +28,22 @@ class Evaluvator  extends React.Component {
     handleChange(e){
         this.setState({[e.target.name]: e.target.value});
       }
-     
+      deleteEvaluvator=(name)=>{
+        axios.delete("http://localhost:4000/api/deleteevaluvator/"+ name)
+      .then(res=>{
+         swal("sucess")
+         axios.get('http://localhost:4000/api/getEvaluvators').then(res=>{
+          this.setState({Evaluvators:res.data})
+          console.log(res.data)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+          .catch(err=>{
+              swal("error")
+          })
+      })
+      }
         
       
       
@@ -42,6 +57,13 @@ class Evaluvator  extends React.Component {
             text: "You have succesfully registered!",
             icon: "success",
           });
+          axios.get('http://localhost:4000/api/getEvaluvators').then(res=>{
+            this.setState({Evaluvators:res.data})
+            console.log(res.data)
+          })
+          .catch(err=>{
+            console.log(err)
+          })
       })
       .catch(err=>
         {
@@ -88,7 +110,7 @@ class Evaluvator  extends React.Component {
                               onChange={this.handleChange}
                               value={this.state.Email}
                               group
-                              type="password"
+                              type="text"
                               className="w-75 p-3"
                               validate
                               error="wrong"
@@ -136,9 +158,7 @@ class Evaluvator  extends React.Component {
                                   <th>
                                         delete
                                     </th>
-                                    <th>
-                                        Update
-                                    </th>
+                                  
                                    
                               </thead>
                               <tbody  >
@@ -146,9 +166,9 @@ class Evaluvator  extends React.Component {
                                   <tr >
                                     <td>{eva.Registrationnumber}</td>
                                   <td>{eva.Email}</td>
-                                  <td><MDBIcon icon="trash" className="red-text pr-3" size="2x" /></td>   
-                                  <td><MDBIcon far icon="edit" className="indigo-text pr-3" size="2x" />
-                                  </td>
+                                  <td><MDBIcon icon="trash" className="red-text pr-3" size="2x" onClick={()=>this.deleteEvaluvator(eva.Registrationnumber)} /></td>   
+                                
+                               
                                   </tr>
                                 )}
                                   
