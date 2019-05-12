@@ -225,7 +225,7 @@ handleChange2(e){
             <div>
             <TextField
               id="standard-name"
-              type="datetime"
+              type="date"
               label="Project Initail Date"
               name="Initiatedate"
               value={this.state.Initiatedate}

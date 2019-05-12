@@ -45,7 +45,9 @@ router.post('/setgooglesheet',CtrlSheet.createspreadsheet)
 //timeslots
 
 router.post('/posttimeslots',Ctrltimeslot.addtimeslots)
-router.get('/gettimeslots/:Projectname',Ctrltimeslot.gettimeslots)
+router.get('/gettimeslots',Ctrltimeslot.gettimeslots)
+router.put('/updatetimeslot',Ctrltimeslot.updatetimeslots)
+router.delete('/deletetimeslot',Ctrltimeslot.deletetimeslot)
 
 //evaluvators
 

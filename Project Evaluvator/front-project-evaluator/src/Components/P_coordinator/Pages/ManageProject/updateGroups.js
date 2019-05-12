@@ -3,7 +3,7 @@ import {getmilestones,updatemilestone,delemilestone} from '../../../../actions/m
 import {connect} from 'react-redux'
 import {getprojectnames} from '../../../../actions/ProjectActions'
 
-import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBBadge} from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBDataTable} from 'mdbreact';
 import axios from'axios'
 import swal from 'sweetalert'
 import Button from '@material-ui/core/Button';
