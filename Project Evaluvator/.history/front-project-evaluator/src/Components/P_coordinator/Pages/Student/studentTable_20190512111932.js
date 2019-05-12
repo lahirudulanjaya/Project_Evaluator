@@ -8,7 +8,6 @@ import Table, {Thead, Tbody, Tr, Th, Td} from "react-row-select-table"
 import swal from 'sweetalert'
 import Axios from 'axios';
 import { Card,Button } from 'semantic-ui-react'
-import { MDBBtn } from 'mdbreact';
 var groupno=1
 var groups=[]
 var Projectnames
@@ -186,20 +185,20 @@ class StudentTable extends React.Component{
         
 
 return(
-  <div className="container" style={{borderBlockColor:'red'}}>
+  <div className="container">
   <div className="row">
     <div className="col-sm-12">
     
     {/* <Card fluid color='orange' header='Enter the number of student for group' /> */}
     <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Enter the number of student for group</h3>
 
-    <Input error style={{width:'175px'}} type="number" placeholder='max student' onChange={this.onchange} value={this.state.groupcount}  name="groupcount"/>
+    <Input error type="number" placeholder='max student' onChange={this.onchange} value={this.state.groupcount}  name="groupcount"/>
     {/* <h1>select the project</h1> */}
     <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Select the project</h3>
 
     
    
-    <Dropdown  placeholder='project' search selection options={Projectnames} defaultValue=""  onChange={this.onchangeDropdown} onClick={this.onclick} disabled={this.state.disable}/>
+    <Dropdown placeholder='State' search selection options={Projectnames} defaultValue=""  onChange={this.onchangeDropdown} onClick={this.onclick} disabled={this.state.disable}/>
    
    
     {(this.state.data.length>0) ?
@@ -241,7 +240,7 @@ return(
 </div>
  
 <div className="col-sm-12">
-  <MDBBtn>Created Groups</MDBBtn>
+Created Groups
 </div>
 
 <div className="row">  
