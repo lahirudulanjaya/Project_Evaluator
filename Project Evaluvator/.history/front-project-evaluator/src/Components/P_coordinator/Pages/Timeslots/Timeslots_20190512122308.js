@@ -500,40 +500,24 @@ class Timeslot extends React.Component {
         var i = 0
         return (
 
-            <div className="container">
-                 <div class="col-md-12" style={{marginBottom:'50px',marginTop:'50px'}}>
+            <div>
+                Select the projectt
+                <div>
+                    <Dropdown placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
+                </div>
+                Select the Presentation
+            <div>
+                    <Dropdown placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
+                </div>
+                
+
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-danger">
-                        {/* <h4 class="card-title ">Fill the Form </h4> */}
+                        <h4 class="card-title ">Fill the Form </h4>
                             
                         </div>
-                <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Set Time Slots for Presentation</h3>
-
-                <div className="row">
-                    <div className="col-md-2"></div>
-                    <div className="col-md-2 text-left" >Select the project</div>
-                    <div className="col-md-4">
-                        <Dropdown placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
-                    </div>
-                    <div className="col-md-4"></div>
-                </div>
-                <div className="row">
-                    <div className="col-md-2"></div>
-                    <div className="col-md-2 text-left" >Select the Presentation</div>
-                    <div className="col-md-4">
-                        <Dropdown placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
-
-                    </div>
-                    <div className="col-md-4"></div>
-               
-                    
-                </div>
-                
-               
-                
-
-               
-                    Select the start day
+                        select the start day
                         
 
                 <DateInput
@@ -567,10 +551,10 @@ class Timeslot extends React.Component {
 
                     <Form>
                         <Form.Group widths='equal'>
-                            <Form.Field control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='Enter the Time Slot Length(minuths)' placeholder='Time slot length' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='Enter the Interval Length(minuths)' placeholder='Interval length' />
+                            <Form.Field control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='enter the time slot length(minuths)' placeholder='Time slot length' />
+                            <Form.Field control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='enter the interval length(minuths)' placeholder='Interval length' />
                             <Form.Field control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Number of Evaluvaters for Presentation' placeholder='Enter the evaluvater Count for one presentation' />
+                            <Form.Field control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Enter the evaluvater Count for one presentation' placeholder='Enter the evaluvater Count for one presentation' />
                             </Form.Group>
                             <Form.Group widths='equal'>
 
@@ -654,8 +638,7 @@ class Timeslot extends React.Component {
                             )}
                         </Table.Body>
                     </Table>
-                    <Button secondary onClick={this.submittodb} > Submit to Database</Button>
-
+                    <Button onClick={this.submittodb} primary> Submit to Database</Button>
 
 
                 </div>
