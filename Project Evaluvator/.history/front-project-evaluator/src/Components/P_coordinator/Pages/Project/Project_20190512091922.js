@@ -151,8 +151,8 @@ handleChange2(e){
     return (
       <div>
         <div className="container pt-3" >
-          {/* <Card fluid color="orange" header='Create New Project' /> */}
-          <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Create New Project</h3>
+          <Card fluid color="orange" header='Create New Project' />
+          <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px'}} >Create New Project</h3>
         </div>
 
       <div className="container">
@@ -174,8 +174,7 @@ handleChange2(e){
       
       </div>
     
-      {/* <Card fluid color='orange' header='Current Projects' /> */}
-      <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Current Projects</h3>
+      <Card fluid color='orange' header='Current Projects' />
       <div className="row">
       <div className="col-sm-11">
       
@@ -220,9 +219,7 @@ handleChange2(e){
               InputLabelProps={{
                 shrink: true,
               }}
-              
               required
-
             />
             </div>
             <div>

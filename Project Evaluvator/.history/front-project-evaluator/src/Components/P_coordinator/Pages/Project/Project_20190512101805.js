@@ -229,7 +229,7 @@ handleChange2(e){
             <TextField
               id="standard-name"
               type="date"
-              label="Project Initail Date"
+              label="Project Initail Date1"
               name="Initiatedate"
               value={this.state.Initiatedate}
               onChange={this.handleChange}

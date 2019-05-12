@@ -256,7 +256,7 @@ handleChange2(e){
 
             </div>
             <div className="pt-3">
-              <FormLabel component="legend">Project Type</FormLabel>
+              <FormLabel component="legend">Project Type1</FormLabel>
 
               <RadioGroup
 

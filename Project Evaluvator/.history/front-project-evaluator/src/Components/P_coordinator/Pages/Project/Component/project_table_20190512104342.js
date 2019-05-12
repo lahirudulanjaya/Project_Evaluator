@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
 import {getallprojects,ChangeStatus} from '../../../../../actions/ProjectActions'
-import {connect} from 'react-redux';
-import controlProjecticonImg from   '../../../../../../src/images/icon/controlProjecticon.png';
-
+import {connect} from 'react-redux'
 
 class Projecttable extends React.Component{
     constructor(props){
@@ -37,11 +35,11 @@ componentWillReceiveProps(nextprops){
 render(){
   return (
       
-    <MDBTable style={{borderRadius:'5px'}} responsive>
+    <MDBTable responsive>
 
       <MDBTableHead color="primary-color" textWhite>
         <tr style={{color:'#dfdfdf',backgroundColor:'#302f2f'}}>
-          <th><img src={controlProjecticonImg} alt='#'/></th>
+          <th>#</th>
           <th>Project Name</th>
           <th>Initiate Date</th>
           <th>Academic Year</th>
@@ -62,7 +60,7 @@ render(){
           <td >{projects.ProjectType}</td>
           <td >{projects.Status.toString()                            
               }</td>
-          <td key={projects._id}><MDBBtn  onClick ={()=>this.changeState(projects)} size="sm" >Click</MDBBtn ></td>
+          <td style={{backgroundColor:'#bca8a8'}} key={projects._id}><MDBBtn  onClick ={()=>this.changeState(projects)} size="sm">Click</MDBBtn ></td>
          
           </tr>
 

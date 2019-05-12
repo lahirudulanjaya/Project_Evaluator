@@ -220,9 +220,7 @@ handleChange2(e){
               InputLabelProps={{
                 shrink: true,
               }}
-              
               required
-
             />
             </div>
             <div>

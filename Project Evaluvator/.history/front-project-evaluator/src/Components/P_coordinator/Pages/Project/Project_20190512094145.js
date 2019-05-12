@@ -202,8 +202,9 @@ handleChange2(e){
               onClose={this.handleClose1}
               aria-labelledby="alert-dialog-title1"
               aria-describedby="alert-dialog-description"
+              color='red'
             >
-              <DialogTitle id="alert-dialog-title1"><FormLabel><b>Create New Project</b></FormLabel></DialogTitle>
+              <DialogTitle id="alert-dialog-title1"><FormLabel style={{backgroundColor:'red'}} ><b>Create New Project</b></FormLabel></DialogTitle>
               <DialogContent>
           
             
