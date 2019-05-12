@@ -151,7 +151,7 @@ handleChange2(e){
     return (
       <div>
         <div className="container pt-3" >
-          <Card fluid style={{backgroundColor:'#302f2f',color:'red'}} header='Create New Project' />
+          <Card fluid style={{backgroundColor:'#302f2f',color:'red'}} <h1> style={{color:'red'}}>Create New Project</h1> />
         </div>
 
       <div className="container">

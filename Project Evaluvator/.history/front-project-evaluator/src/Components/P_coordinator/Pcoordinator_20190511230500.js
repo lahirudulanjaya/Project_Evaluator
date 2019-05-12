@@ -70,7 +70,7 @@ class Pcoodinater extends Component {
           <Card style={{width: '15%',height: '15%',margin: '100px'}}>
           <img  src={projectImg} wrapped ui={false} />
           <Card.Content>
-            <Card.Header style={{color:'#061b70'}}> Total Projects</Card.Header>
+            <Card.Header> Total Projects</Card.Header>
             <Card.Meta>
           
             <h1> <span className='date'> <CountUp end={100} /></span></h1>
@@ -83,7 +83,7 @@ class Pcoodinater extends Component {
           <img src={studentImg} wrapped ui={false} />
 
           <Card.Content>
-            <Card.Header style={{color:'#061b70'}}> Total Students</Card.Header>
+            <Card.Header> Total Students</Card.Header>
             <Card.Meta>
             
             <h1> <span className='date'> <CountUp end={100} /></span></h1>
@@ -97,7 +97,7 @@ class Pcoodinater extends Component {
           <img src={evaluaterImg} wrapped ui={false} />
 
           <Card.Content>
-            <Card.Header style={{color:'#061b70'}}> Total Evaluvators</Card.Header>
+            <Card.Header> Total Evaluvators</Card.Header>
             <Card.Meta>
             
             <h1> <span className='date'> <CountUp end={100} /></span></h1>
@@ -123,7 +123,7 @@ class Pcoodinater extends Component {
             {console.log(projects)}
               <Card>
                 <Card.Content>
-                  <Card.Header style={{color:'#061b70'}} onClick={this.sd}>{projects.Projectname}</Card.Header>
+                  <Card.Header style={{color:blue}} onClick={this.sd}>{projects.Projectname}</Card.Header>
                   <Card.Meta>
                     <span className='date'>Project Initiate date is {projects.Initiatedate}</span>
                   </Card.Meta>
