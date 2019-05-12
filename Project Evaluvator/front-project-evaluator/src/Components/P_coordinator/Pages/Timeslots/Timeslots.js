@@ -59,8 +59,11 @@ class Timeslot extends React.Component {
             if (st.start == time && st.venue == venue) {
                 var slot = {
                     start: st.start,
+                    starttime:st.starttime,
                     end: st.end,
+                    endtime:st.endtime,
                     venue: st.venue,
+                    groupno:st.groupno,
                     evaluvators: selectedEvaluvators
                 }
                 arr.push(slot)
@@ -135,7 +138,9 @@ class Timeslot extends React.Component {
                         var slot = {
                             groupno:num+1,
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
+                            starttime:moment(start).format("DD-MM-YYYY HH:mm").toString(),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
+                            endtime:moment(start + timeslot).format("DD-MM-YYYY HH:mm").toString(),
                             venue: arrvenue[i],
                             evaluvators: []
                         }
@@ -152,7 +157,8 @@ class Timeslot extends React.Component {
 
             else if (start < getintervalend) {
                 var rest = {
-                    interval: moment(start + interval).format("DD-MM-YYYY HH:mm")
+                    interval: moment(start + interval).format("DD-MM-YYYY HH:mm"),
+                    intervaltime:moment(start + interval).format("DD-MM-YYYY HH:mm").toString()
                 }
                 timeslots.push(rest)
                 start = getintervalend
@@ -165,7 +171,9 @@ class Timeslot extends React.Component {
                         var slot = {
                             groupno:num+1,
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
+                            starttime:moment(start).format("DD-MM-YYYY HH:mm").toString(),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
+                            endtime:moment(start + timeslot).format("DD-MM-YYYY HH:mm").toString(),
                             venue: arrvenue[i],
                             evaluvators: []
 
@@ -193,7 +201,7 @@ class Timeslot extends React.Component {
 
             }
 
-
+            console.log(timeslots)
 
 
         }

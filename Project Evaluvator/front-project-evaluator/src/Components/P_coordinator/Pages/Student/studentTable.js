@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { Dropdown ,Input} from 'semantic-ui-react'
 import _ from 'lodash'
 import {getstudentbyYear}  from '../../../../actions/P_coodinator-Student'
+
 import Table, {Thead, Tbody, Tr, Th, Td} from "react-row-select-table"
 import swal from 'sweetalert'
 import Axios from 'axios';
@@ -95,7 +96,9 @@ class StudentTable extends React.Component{
         if (result) {
           value.sort().reverse()
           const newGroup =[]
-          newGroup.push.apply(newGroup,[this.state.data[value[0]],this.state.data[value[1]],this.state.data[value[2]],this.state.data[value[3]]])
+          value.forEach(value => {
+            newGroup.push(this.state.data[value])
+          });
          
           const  group ={
             groupno :groupno,

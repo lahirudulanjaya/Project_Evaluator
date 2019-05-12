@@ -12,8 +12,9 @@ var timeslotSchema = new mongoose.Schema(
         },
         Timeslosts:[
             {
-                start:Date,
-                end:Date,
+                groupno:String,
+                starttime:String,
+                endtime:String,
                 evaluvators:[],
                 venue:String
 

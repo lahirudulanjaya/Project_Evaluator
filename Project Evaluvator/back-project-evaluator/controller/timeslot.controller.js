@@ -58,7 +58,8 @@ var mailOptions = {
 }
 
 module.exports.gettimeslots=(req,res,next)=>{
-  Timeslot.findOne({Projectname:req.params.Projectname},(err,doc)=>{
+  console.log(req.params)
+  Timeslot.findOne({Projectname:req.query.Projectname,Milestone:req.query.Milestone},(err,doc)=>{
     if(!err){
       console.log(doc)
       res.send(doc)
@@ -66,5 +67,28 @@ module.exports.gettimeslots=(req,res,next)=>{
     else{
       res.send(err)
     }
+  })
+}
+module.exports.updatetimeslots=(req,res,next)=>{
+  console.log(req.body.Timeslots)
+  Timeslot.findOneAndUpdate({Projectname:req.body.Projectname,Milestone:req.body.Milestone},{$set:{Timeslosts:req.body.Timeslots}},(err,doc)=>{
+    if(!err){
+      res.send(doc)
+    }
+    else{
+      res.send(err)
+    }
+  })
+}
+
+
+module.exports.deletetimeslot =(req,res,next)=>{
+  Timeslot.findOneAndDelete({Projectname:req.body.Projectname,Milestone:req.body.Milestone},(err,doc)=>{
+      if(!err){
+          res.send(doc)
+      }
+      else{
+          res.send(err)
+      }
   })
 }
