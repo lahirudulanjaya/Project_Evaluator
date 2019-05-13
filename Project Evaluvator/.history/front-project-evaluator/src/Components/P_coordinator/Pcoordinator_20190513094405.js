@@ -110,9 +110,7 @@ class Pcoodinater extends Component {
   </div>
     
         <Header as='h2' icon textAlign='center'>
-          {/* <Header.Content><Card fluid color='indigo' header='All Projects' /></Header.Content> */}
-          <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >All Projects</h3>
-
+          <Header.Content><Card fluid color='indigo' header='All Projects' /></Header.Content>
 
           
 
