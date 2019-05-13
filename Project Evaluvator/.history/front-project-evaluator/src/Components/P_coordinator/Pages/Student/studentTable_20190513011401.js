@@ -4,11 +4,11 @@ import {connect} from 'react-redux'
 import { Dropdown ,Input} from 'semantic-ui-react'
 import _ from 'lodash'
 import {getstudentbyYear}  from '../../../../actions/P_coodinator-Student'
+
 import Table, {Thead, Tbody, Tr, Th, Td} from "react-row-select-table"
 import swal from 'sweetalert'
 import Axios from 'axios';
 import { Card,Button } from 'semantic-ui-react'
-import { MDBBtn } from 'mdbreact';
 var groupno=1
 var groups=[]
 var Projectnames
@@ -47,7 +47,7 @@ class StudentTable extends React.Component{
       else{
         this.setState({projects:[]})
   
-          alert("first you need to enter group count")
+        swal({title: "First you need to choose number of group menbers",icon: "warning",dangerMode:true});
         } 
     
       
@@ -61,7 +61,8 @@ class StudentTable extends React.Component{
       else{
         this.setState({projects:[]})
   
-          alert("first you need to enter group count")
+        swal({title: "First you need to deside member count per group",icon: "warning",dangerMode:true});
+
         }
     }
     submitGroups(){
@@ -95,7 +96,9 @@ class StudentTable extends React.Component{
         if (result) {
           value.sort().reverse()
           const newGroup =[]
-          newGroup.push.apply(newGroup,[this.state.data[value[0]],this.state.data[value[1]],this.state.data[value[2]],this.state.data[value[3]]])
+          value.forEach(value => {
+            newGroup.push(this.state.data[value])
+          });
          
           const  group ={
             groupno :groupno,
@@ -186,20 +189,16 @@ class StudentTable extends React.Component{
         
 
 return(
-  <div className="container" style={{borderBlockColor:'red'}}>
+  <div className="container">
   <div className="row">
     <div className="col-sm-12">
     
-    {/* <Card fluid color='orange' header='Enter the number of student for group' /> */}
-    <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Enter the number of student for group</h3>
-
-    <Input error style={{width:'175px'}} type="number" placeholder='max student' onChange={this.onchange} value={this.state.groupcount}  name="groupcount"/>
-    {/* <h1>select the project</h1> */}
-    <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Select the project</h3>
-
+    <Card fluid color='orange' header='Enter the number of student per group' />
+    <Input error type="number" placeholder='Search...' onChange={this.onchange} value={this.state.groupcount}  name="groupcount"/>
+    <h1>select the project</h1>
     
    
-    <Dropdown  placeholder='project' search selection options={Projectnames} defaultValue=""  onChange={this.onchangeDropdown} onClick={this.onclick} disabled={this.state.disable}/>
+    <Dropdown placeholder='State' search selection options={Projectnames} defaultValue=""  onChange={this.onchangeDropdown} onClick={this.onclick} disabled={this.state.disable}/>
    
    
     {(this.state.data.length>0) ?
@@ -241,7 +240,7 @@ return(
 </div>
  
 <div className="col-sm-12">
-  Created Groups
+Created Groups
 </div>
 
 <div className="row">  

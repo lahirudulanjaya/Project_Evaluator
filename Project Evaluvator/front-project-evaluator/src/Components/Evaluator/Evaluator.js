@@ -20,10 +20,12 @@ export default class Evaluator extends React.Component {
           mark01: 0,
           mark02: 0,
           groupbutton: true,
-          studentbutton: true
+          studentbutton: true,
+          chooseForm : 'group'
       }
       this.handleChange = this.handleChange.bind(this)
       this.handleChange2 = this.handleChange2.bind(this)
+      this.setTypeForm = this.setTypeForm.bind(this)
     };
 
   handleChange(event) {
@@ -53,6 +55,10 @@ export default class Evaluator extends React.Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
+  setTypeForm(event){
+    this.setState({chooseForm : event.target.value});
+  }
+
   handleClickOpen2 = () => {
     this.setState({ open2: true });
   };
@@ -67,142 +73,130 @@ export default class Evaluator extends React.Component {
 //   }
 
   render() {
+    const {chooseForm} = this.state;
+    const groupMarks = (
+      <div className="text-center pt-4">
+        <MDBCard className="w-75">
+          <MDBCardTitle>
+            <h3>Group Marking From</h3>
+          </MDBCardTitle>
+          <MDBCardBody>
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol sm="3"></MDBCol>
+                <MDBCol sm="6">
+                  <form>
+                    <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Marks 01"
+                    type="number"
+                    name = "mark01"
+                    placeholder="Maximum mark = 10"
+                    defaultValue = "0"
+                    onChange={this.handleChange}
+                    fullWidth
+                    />
+                    <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    name="mark02"
+                    label="Marks 02"
+                    type="number"
+                    placeholder="Maximum mark = 10"
+                    defaultValue = "0"
+                    onChange={this.handleChange}
+                    fullWidth
+                    />
+                  </form>
+                  <br />
+                  <b>Total Marks : {parseInt(this.state.mark01) + parseInt(this.state.mark02)}</b>
+                  <br/><br/><br/>
+                  <Button className="btn btn-primary" onClick='' color="primary">
+                    Submit
+                  </Button>
+                </MDBCol>
+                <MDBCol sm="3"></MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          </MDBCardBody>
+        </MDBCard>
+      </div>
+    );
+    const studentMarks = (
+      <div className="text-center pt-4">
+        <MDBCard className="w-75">
+          <MDBCardTitle>
+            <h3>Individual Marking From</h3>
+          </MDBCardTitle>
+          <MDBCardBody>
+            <MDBContainer>
+              <MDBRow>
+                <MDBCol sm="3"></MDBCol>
+                <MDBCol sm="6">
+                  <ImageAvatars/>
+                  <form>
+                    <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Marks 01"
+                    type="number"
+                    name = "mark01"
+                    placeholder="Maximum mark = 10"
+                    defaultValue = "0"
+                    onChange={this.handleChange2}
+                    fullWidth 
+                    />
+                    <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    name="mark02"
+                    label="Marks 02"
+                    type="number"
+                    placeholder="Maximum mark = 10"
+                    defaultValue = "0"
+                    onChange={this.handleChange2}
+                    fullWidth 
+                    />
+                </form>
+                  <br />
+                  <b>Total Marks : {parseInt(this.state.mark01) + parseInt(this.state.mark02)}</b>
+                  <br/><br/><br/>
+                  <Button className="btn btn-primary" onClick='' color="primary">
+                    Submit
+                  </Button>
+                </MDBCol>
+                <MDBCol sm="3"></MDBCol>
+              </MDBRow>
+            </MDBContainer>
+          </MDBCardBody>
+        </MDBCard>
+      </div>
+    )
     return (
       <div>
+        <div className="container pt-3">
+          <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Marking Forms</h3>
+        </div>
         <div className="container">
-          <div className="row">
-            <div className="col-sm-4 pt-2 ml-5">
-              <div className="ml-3">
-                <MDBCard>
-                  <MDBCardBody>
-                  <div>
-                    <Button variant="outlined" color="dark" disabled={!this.state.groupbutton} onClick={this.handleClickOpen}>
-                      Group Marks
-                    </Button>
-                  </div>
-                  </MDBCardBody>
-                </MDBCard>
-              </div>
-            </div>
-            <div className="col-sm-4 pt-2 ml-5">
-              <div className="ml-3">
-                <MDBCard>
-                  <MDBCardBody>
-                  <div>
-                    <Button variant="outlined" color="dark" disabled={!this.state.studentbutton} onClick={this.handleClickOpen2}>
-                      Student Marks
-                    </Button>
-                  </div>
-                  </MDBCardBody>
-                </MDBCard>
-              </div>
+          <div onChange={this.setTypeForm}>
+            <div className="btn-group btn-group-toggle" data-toggle="buttons">
+              <label className="btn btn-grey">
+                <input type="radio" name="options" id="option1" value="group" autocomplete="off" /> {'  '}Group{'  '}
+              </label>
+              <label className="btn btn-grey">
+                <input type="radio" name="options" id="option2" value="student" autocomplete="off" /> Individual
+              </label>
             </div>
           </div>
         </div>
-
-        
-        {/* Group marks form */}
-        <Dialog
-          fullWidth={true}
-          maxWidth='sm'
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Group Marks</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Enter group marks
-            </DialogContentText>
-                <form>
-                    <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Marks 01"
-                    type="number"
-                    name = "mark01"
-                    placeholder="Maximum mark = 10"
-                    defaultValue = "0"
-                    onChange={this.handleChange}
-                    fullWidth 
-                    />
-                    <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    name="mark02"
-                    label="Marks 02"
-                    type="number"
-                    placeholder="Maximum mark = 10"
-                    defaultValue = "0"
-                    onChange={this.handleChange}
-                    fullWidth 
-                    />
-                </form>
-                <b>Total Marks : {parseInt(this.state.mark01) + parseInt(this.state.mark02)}</b>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleClose} color="primary">
-              Subscribe
-            </Button>
-          </DialogActions>
-        </Dialog>
-
-        {/* Student marks form */}
-        <Dialog
-          fullWidth={true}
-          maxWidth='sm'
-          open={this.state.open2}
-          onClose={this.handleClose2}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Student Marks</DialogTitle>
-          <DialogContent>
-            <ImageAvatars/>
-            <DialogContentText>
-              Enter Student Marks
-            </DialogContentText>
-                <form>
-                    <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Marks 01"
-                    type="number"
-                    name = "mark01"
-                    placeholder="Maximum mark = 10"
-                    defaultValue = "0"
-                    onChange={this.handleChange2}
-                    fullWidth 
-                    />
-                    <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    name="mark02"
-                    label="Marks 02"
-                    type="number"
-                    placeholder="Maximum mark = 10"
-                    defaultValue = "0"
-                    onChange={this.handleChange2}
-                    fullWidth 
-                    />
-                </form>
-                <b>Total Marks : {parseInt(this.state.mark01) + parseInt(this.state.mark02)}</b>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose2} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleClose2} color="primary">
-              Subscribe
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <div className="container">
+            {chooseForm==='group' ? groupMarks : studentMarks}
+        </div>
       </div>
     );
   }
