@@ -130,7 +130,9 @@ class Timeslot extends React.Component {
 
                         var slot = {
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
+                            starttime: moment(start).format("DD-MM-YYYY HH:mm").toString(),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
+                            endtime:moment(start + timeslot).format("DD-MM-YYYY HH:mm").toString(),
                             venue: arrvenue[i],
                             evaluvators: []
                         }
@@ -147,7 +149,7 @@ class Timeslot extends React.Component {
 
             else if (start < getintervalend) {
                 var rest = {
-                    interval: moment(start + interval).format("DD-MM-YYYY HH:mm")
+                    interval:moment(start + interval).format("DD-MM-YYYY HH:mm").toString()
                 }
                 timeslots.push(rest)
                 start = getintervalend
@@ -159,7 +161,9 @@ class Timeslot extends React.Component {
 
                         var slot = {
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
+                            starttime: moment(start).format("DD-MM-YYYY HH:mm").toString(),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
+                            endtime:moment(start + timeslot).format("DD-MM-YYYY HH:mm").toString(),
                             venue: arrvenue[i],
                             evaluvators: []
 
@@ -212,6 +216,9 @@ class Timeslot extends React.Component {
 
     }
     componentWillReceiveProps(nextprops) {
+        if(nextprops.projects.Currentproject.length>0){
+        this.setState({numberofgroups:nextprops.projects.Currentproject[0].groups.length})
+        }
         this.setState({ presentations: nextprops.presentations.presentation })
     }
 
@@ -224,51 +231,7 @@ class Timeslot extends React.Component {
 
     }
 
-    // verify(start,venue){
-    //     var arr1=[]
-
-    //    var changed =false
-    //    console.log(start)
-    //     this.state.Evaluators.map(ee=>{
-    //     this.state.timeslots.map(timeslot=>{
-    //         console.log(timeslot)
-    //         if((timeslot.start ==start) && (!timeslot.venue==venue)){
-
-    //             console.log(timeslot.evaluvators)
-    //             timeslot.evaluvators.forEach(eee=>{
-    //                 alert(eee)
-
-    //             })
-    //             timeslot.evaluvators.map(eva=>{
-    //                 console.log(eva)
-    //                 if(eva==ee.name){
-    //                     var newslot={
-    //                         name:eva,
-    //                         checked:ee.checked,
-    //                         already:true
-    //                     }
-    //                     arr1.push(newslot)
-    //                     changed=true
-
-    //                 }
-
-    //             })
-    //         }
-
-
-    //     })
-    //     if(changed==false){
-    //         arr1.push(ee)
-    //         changed=false
-    //     }
-
-    // })
-    // console.log(arr1)
-    // this.setState({Evaluators:arr1})
-    // console.log(this.state)
-
-
-    // }
+    
     verify(start, venue) {
 
         var newarr = []
@@ -569,7 +532,7 @@ class Timeslot extends React.Component {
                         <Form.Group widths='equal'>
                             <Form.Field control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='Enter the Time Slot Length(minuths)' placeholder='Time slot length' />
                             <Form.Field control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='Enter the Interval Length(minuths)' placeholder='Interval length' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
+                            <Form.Field readOnly control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
                             <Form.Field control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Number of Evaluvaters for Presentation' placeholder='Enter the evaluvater Count for one presentation' />
                             </Form.Group>
                             <Form.Group widths='equal'>
