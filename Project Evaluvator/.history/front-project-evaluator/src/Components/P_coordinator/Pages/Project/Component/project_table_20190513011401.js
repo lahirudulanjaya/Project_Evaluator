@@ -1,10 +1,8 @@
 import React,{Component} from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
 import {getallprojects,ChangeStatus} from '../../../../../actions/ProjectActions'
-import {connect} from 'react-redux';
-import controlProjecticonImg from   '../../../../../../src/images/icon/controlProjecticon.png';
-
-
+import {connect} from 'react-redux'
+import {Card} from 'semantic-ui-react'
 class Projecttable extends React.Component{
     constructor(props){
         super(props)
@@ -36,12 +34,15 @@ componentWillReceiveProps(nextprops){
 
 render(){
   return (
-      
-    <MDBTable style={{borderRadius:'5px'}} responsive>
-
+      <div> <h2><b>Current Projects </b></h2>
+    <MDBTable responsive>
+    
       <MDBTableHead color="primary-color" textWhite>
-        <tr style={{color:'#dfdfdf',backgroundColor:'#302f2f'}}>
-          <th><img src={controlProjecticonImg} alt='#'/></th>
+      
+      
+
+        <tr>
+          <th>#</th>
           <th>Project Name</th>
           <th>Initiate Date</th>
           <th>Academic Year</th>
@@ -62,7 +63,7 @@ render(){
           <td >{projects.ProjectType}</td>
           <td >{projects.Status.toString()                            
               }</td>
-          <td key={projects._id}><MDBBtn  onClick ={()=>this.changeState(projects)} size="sm" >Click</MDBBtn ></td>
+          <td key={projects._id}><MDBBtn  onClick ={()=>this.changeState(projects)} size="sm">Click</MDBBtn ></td>
          
           </tr>
 
@@ -72,27 +73,11 @@ render(){
                 
     {console.log(this.props.project)}
 
-        {/* <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr> */}
+ 
       </MDBTableBody>
       
     </MDBTable>
+    </div>
   
   );
 }

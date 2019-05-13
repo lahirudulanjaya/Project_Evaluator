@@ -67,9 +67,7 @@ class UpdateGroups extends React.Component{
       <div className="row">
 
         <div className="col-sm-12 pt-3" >
-        {/* <Card className="ml-5" fluid color='orange' header='Select Project' /> */}
-        <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Update Groups</h3>
-
+        <Card className="ml-5" fluid color='orange' header='Select project' />
                     <Dropdown placeholder='Select Project to Update Milestone'  selection options={stateOptions3}  value={this.state.Projectname} onChange={this.handleChange}/>
         <div className="ml-5 pt-2">
         
@@ -77,7 +75,7 @@ class UpdateGroups extends React.Component{
           <MDBCardBody style={cardStyle}>
           <MDBTable responsive>
             <MDBTableHead color="primary-color" textWhite>
-              <tr style={{color:'#dfdfdf',backgroundColor:'#302f2f'}}>
+              <tr>
                 <th>Group No</th>
                 <th>Students</th>
                 <th>Supervisor</th>
