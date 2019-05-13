@@ -63,11 +63,8 @@ class Sessioncoodinator  extends React.Component {
         return ( 
             <div>
               <div className="container pt-2">
-              <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Manage Session Coordinator</h3>
-
                 <div className="row">
-                {/* <Card className="ml-5" fluid color="white" header='register Session Coordinator' /> */}
-
+                <Card className="ml-5" fluid color="white" header='register Session Coordinator' />
                 <div className="col-sm-3">
                 </div>
                 <div className="col-sm-6">
