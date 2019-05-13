@@ -202,7 +202,7 @@ render(){
       
       
 
-        <tr style={{color:'#dfdfdf',backgroundColor:'#302f2f'}}>
+        <tr>
           <th>#</th>
           <th>Project Name</th>
           <th>Initiate Date</th>

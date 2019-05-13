@@ -227,7 +227,7 @@ handleClose = () => {
           <MDBCardBody style={cardStyle}>
           <MDBTable responsive>
             <MDBTableHead color="primary-color" textWhite>
-              <tr style={{color:'#dfdfdf',backgroundColor:'#302f2f'}}>
+              <tr>
                 <th>Milestone</th>
                 <th>Milstone Type</th>
                 <th>Markspresentatge</th>

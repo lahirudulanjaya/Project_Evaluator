@@ -77,7 +77,7 @@ class UpdateGroups extends React.Component{
           <MDBCardBody style={cardStyle}>
           <MDBTable responsive>
             <MDBTableHead color="primary-color" textWhite>
-              <tr style={{color:'#dfdfdf',backgroundColor:'#302f2f'}}>
+              <tr>
                 <th>Group No</th>
                 <th>Students</th>
                 <th>Supervisor</th>
