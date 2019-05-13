@@ -4,7 +4,7 @@ import { getprojectnames, getproject } from '../../../../actions/ProjectActions'
 import { getpresentations } from '../../../../actions/milestoneActions'
 import { connect } from 'react-redux'
 import { Dropdown } from 'semantic-ui-react'
-import { Form, Input, Button, Table, Popup, Checkbox, List } from 'semantic-ui-react'
+import { Form, Input, Button, Table, Popup, Checkbox, List,Card } from 'semantic-ui-react'
 import {
     DateInput,
     TimeInput,
@@ -46,9 +46,11 @@ class Timeslot extends React.Component {
 
         }
         this.props.getprojectnames()
+        
         this.onchangeDropdown = this.onchangeDropdown.bind(this)
         this.change = this.change.bind(this)
         this.onchangeDropdown1=this.onchangeDropdown1.bind(this)
+        this.generateTimeslots=this.generateTimeslots.bind(this)
     }
 
     submitEvaluvators = (time, venue) => {
@@ -57,8 +59,11 @@ class Timeslot extends React.Component {
             if (st.start == time && st.venue == venue) {
                 var slot = {
                     start: st.start,
+                    starttime:st.starttime,
                     end: st.end,
+                    endtime:st.endtime,
                     venue: st.venue,
+                    groupno:st.groupno,
                     evaluvators: selectedEvaluvators
                 }
                 arr.push(slot)
@@ -85,7 +90,9 @@ class Timeslot extends React.Component {
     }
 
 
-    generateTimeslots = () => {
+    generateTimeslots  (e) {
+        e.preventDefault();
+
         submitted=[]
         Evaluators=[]
         const arrvenue = this.state.venue.split(',')
@@ -129,8 +136,11 @@ class Timeslot extends React.Component {
                     if (getintervalstart > start && num < this.state.numberofgroups) {
 
                         var slot = {
+                            groupno:num+1,
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
+                            starttime:moment(start).format("DD-MM-YYYY HH:mm").toString(),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
+                            endtime:moment(start + timeslot).format("DD-MM-YYYY HH:mm").toString(),
                             venue: arrvenue[i],
                             evaluvators: []
                         }
@@ -147,7 +157,8 @@ class Timeslot extends React.Component {
 
             else if (start < getintervalend) {
                 var rest = {
-                    interval: moment(start + interval).format("DD-MM-YYYY HH:mm")
+                    interval: moment(start + interval).format("DD-MM-YYYY HH:mm"),
+                    intervaltime:moment(start + interval).format("DD-MM-YYYY HH:mm").toString()
                 }
                 timeslots.push(rest)
                 start = getintervalend
@@ -158,8 +169,11 @@ class Timeslot extends React.Component {
                     if (start < getdayend && num < this.state.numberofgroups) {
 
                         var slot = {
+                            groupno:num+1,
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
+                            starttime:moment(start).format("DD-MM-YYYY HH:mm").toString(),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
+                            endtime:moment(start + timeslot).format("DD-MM-YYYY HH:mm").toString(),
                             venue: arrvenue[i],
                             evaluvators: []
 
@@ -187,7 +201,7 @@ class Timeslot extends React.Component {
 
             }
 
-
+            console.log(timeslots)
 
 
         }
@@ -212,6 +226,9 @@ class Timeslot extends React.Component {
 
     }
     componentWillReceiveProps(nextprops) {
+        if(nextprops.projects.Currentproject[0]){
+            this.setState({numberofgroups:nextprops.projects.Currentproject[0].groups.length})
+        }
         this.setState({ presentations: nextprops.presentations.presentation })
     }
 
@@ -500,41 +517,30 @@ class Timeslot extends React.Component {
         var i = 0
         return (
 
-            <div className="container">
-                 <div class="col-md-12" style={{marginBottom:'50px',marginTop:'50px'}}>
+            <div>
+                <div class="col-md-12">
                     <div class="card">
+                    <Form onSubmit={this.generateTimeslots}>
                         <div class="card-header card-header-danger">
-                        {/* <h4 class="card-title ">Fill the Form </h4> */}
+                       
+                        <Card fluid color='orange' header='Fill the Form' />
+
                             
                         </div>
-                <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Set Time Slots for Presentation</h3>
+                    Select the project
 
-                <div className="row">
-                    <div className="col-md-2"></div>
-                    <div className="col-md-2 text-left" >Select the project</div>
-                    <div className="col-md-4">
-                        <Dropdown placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
-                    </div>
-                    <div className="col-md-4"></div>
+                
+                <div>
+                    <Dropdown placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
                 </div>
-                <div className="row">
-                    <div className="col-md-2"></div>
-                    <div className="col-md-2 text-left" >Select the Presentation</div>
-                    <div className="col-md-4">
-                        <Dropdown placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
-
-                    </div>
-                    <div className="col-md-4"></div>
-               
-                    
+                Select the Presentation
+            <div>
+                    <Dropdown placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
                 </div>
                 
-               
-                
 
-               
-                    Select the start day
-                        
+                
+                        select the start day
 
                 <DateInput
 
@@ -565,12 +571,12 @@ class Timeslot extends React.Component {
                     />
                 </div>
 
-                    <Form>
+                    
                         <Form.Group widths='equal'>
-                            <Form.Field control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='Enter the Time Slot Length(minuths)' placeholder='Time slot length' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='Enter the Interval Length(minuths)' placeholder='Interval length' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Number of Evaluvaters for Presentation' placeholder='Enter the evaluvater Count for one presentation' />
+                            <Form.Field control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='enter the time slot length(minuths)' placeholder='Time slot length' />
+                            <Form.Field control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='enter the interval length(minuths)' placeholder='Interval length' />
+                            <Form.Field readOnly={true}  control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
+                            <Form.Field control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Enter the evaluvater Count for one presentation' placeholder='Enter the evaluvater Count for one presentation' />
                             </Form.Group>
                             <Form.Group widths='equal'>
 
@@ -578,7 +584,7 @@ class Timeslot extends React.Component {
 
                         <Form.Field control={Input} onChange={this.handleChange} name="evaluvators" value={this.state.evaluvators} label='Enter the Evaluvators' placeholder='Enter the Evaluvators seperated by comma' />
                         </Form.Group>
-                        <Button secondary onClick={this.generateTimeslots}>Generate Time Slots</Button>
+                        <Button secondary type="submit" >Generate Time Slots</Button>
 
                     </Form>
                     </div>
@@ -612,7 +618,7 @@ class Timeslot extends React.Component {
 
                                 !timeslots.interval ?
                                     <Table.Row verticalAlign='top'>
-                                        <Table.Cell>{i++}</Table.Cell>
+                                        <Table.Cell>{timeslots.groupno}</Table.Cell>
                                         <Table.Cell>
                                             <div>
                                                 Start time :{timeslots.start}
@@ -654,8 +660,7 @@ class Timeslot extends React.Component {
                             )}
                         </Table.Body>
                     </Table>
-                    <Button secondary onClick={this.submittodb} > Submit to Database</Button>
-
+                    <Button  onClick={this.submittodb} primary> Submit to Database</Button>
 
 
                 </div>
@@ -667,7 +672,7 @@ class Timeslot extends React.Component {
 
 }
 const mapStateToProps = state => {
-
+console.log(state)
     return {
         projects: state.project,
         presentations: state.milestone
