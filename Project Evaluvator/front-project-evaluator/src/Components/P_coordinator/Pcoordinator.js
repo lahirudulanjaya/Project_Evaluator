@@ -110,7 +110,7 @@ class Pcoodinater extends Component {
   </div>
     
         <Header as='h2' icon textAlign='center'>
-          <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >All Projects</h3>
+          <h3 style={{backgroundColor:'#F9A602',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >All Projects</h3>
 
 
           
@@ -120,7 +120,7 @@ class Pcoodinater extends Component {
 
           {this.props.project.projects.map(projects =>
           
-            <div className="col-sm ml-5 pt-3">
+            <div className="col-sm ml-5 pt-3 pb-3">
             {console.log(projects)}
               <Card color="blue">
                 <Card.Content>
