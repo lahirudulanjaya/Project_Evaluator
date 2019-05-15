@@ -133,10 +133,11 @@ handleClose = () => {
     .then(res=>{
        swal("sucess")
        this.props.getmilestones(this.state.id)
-        .catch(err=>{
-            swal("error")
-        })
+       
     })
+    .catch(err=>{
+      swal("error")
+  })
  }
   render() {
    var stateOptions=[
