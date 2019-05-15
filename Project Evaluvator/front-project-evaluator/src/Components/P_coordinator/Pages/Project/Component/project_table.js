@@ -3,6 +3,7 @@ import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
 import {getallprojects,ChangeStatus} from '../../../../../actions/ProjectActions'
 import {connect} from 'react-redux';
 import controlProjecticonImg from   '../../../../../../src/images/icon/controlProjecticon.png';
+import {Card} from 'semantic-ui-react'
 
 
 class Projecttable extends React.Component{
@@ -36,7 +37,8 @@ componentWillReceiveProps(nextprops){
 
 render(){
   return (
-      
+      <div>
+        {this.state.projects.length>0 ?
     <MDBTable style={{borderRadius:'5px'}} responsive>
 
       <MDBTableHead color="primary-color" textWhite>
@@ -70,7 +72,7 @@ render(){
     
    
                 
-    {console.log(this.props.project)}
+    
 
         {/* <tr>
           <td>1</td>
@@ -93,6 +95,10 @@ render(){
       </MDBTableBody>
       
     </MDBTable>
+    :
+    <div><Card fluid color="red" header="You haven't created any Projects click CREATE PROJECT to create a new project" /></div>
+      }
+    </div>
   
   );
 }

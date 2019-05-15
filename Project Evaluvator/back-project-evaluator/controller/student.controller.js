@@ -81,7 +81,7 @@ module.exports.Importstudent =(req,res,next)=>{
             res.send(doc)
         }
         else{
-            res.status(422).send(error)
+            res.status(422).send(err)
         }
     })
 }

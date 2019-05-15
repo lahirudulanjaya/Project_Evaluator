@@ -14,7 +14,7 @@ import axios from 'axios'
 import swal from 'sweetalert';
 import {getprojectnames} from '../../../../actions/ProjectActions'
 import { getpresentations } from '../../../../actions/milestoneActions'
-
+import {Link }from 'react-router-dom'
 
 import { Card} from 'semantic-ui-react'
 import Timeslots from '../Timeslots/Timeslots';
@@ -347,7 +347,9 @@ rows.push(row)
         })
       }
       else{
-        notice=<a>you havent create time slot click here to create timeslot<Button>Click</Button></a>
+        notice= <div><Card fluid color='red' header='you havent create time slot click here to create timeslot' /><Button secondary onClick={this.updateGroup}><Link to="/pg/timeslot"> create</Link></Button>
+</div>
+      
       }
       
 
@@ -386,7 +388,7 @@ rows.push(row)
             <div>
                     <Dropdown placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
                 </div>
-           <h2><b>All Projects</b></h2>
+         
            <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -396,9 +398,8 @@ rows.push(row)
           aria-describedby="alert-dialog-description"
         ><DialogTitle id="alert-dialog-title">{"Change Evaluvator"}</DialogTitle>
         <DialogContent>
-         
-         <Form>
-    
+     Still not developed    
+         {/* <Form>
     <Form.Field>
       <label>Select the Evaluvator</label>
       <Dropdown placeholder='Choose Evaluvator to Change'  selection options={selectEvaluvators} value={this.state.selectedEvaluvator} name ="selectedEvaluvator"onChange={this.onchange1}/>
@@ -407,16 +408,16 @@ rows.push(row)
       <label>Select evaluvator for change with</label>
       <Dropdown placeholder='Choose Evaluvator to Exchange'  selection options={changewithEvaluvators} value={this.state.changewith} name ="changewith"onChange={this.onchange1}/>
     </Form.Field>
-  </Form>
+  </Form> */}
         </DialogContent>
-        <DialogActions>
+        {/* <DialogActions>
           <Button onClick={this.handleClose} color="primary">
             Cansel
           </Button>
-          <Button onClick={this.updateProject} color="primary" autoFocus>
+          <Button  color="primary" autoFocus>
             Save
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
 
       <Dialog
@@ -451,19 +452,20 @@ rows.push(row)
         </DialogActions>
       </Dialog>
 
-      <Button secondary  onClick={()=>this.handleClickOpen()} >Change Evaluvators</Button>
-       <Button secondary onClick={()=>this.handleClickOpen1()}>Replace Evaluvator</Button>
-       <Button secondary onClick={this.deleteTimelost}>Detele All Timeslot and Create Again</Button>
+      <Button secondary hidden={!(rows.length>0)}  onClick={()=>this.handleClickOpen()} >Change Evaluvators</Button>
+       <Button secondary hidden={!(rows.length>0)} onClick={()=>this.handleClickOpen1()}>Replace Evaluvator</Button>
+       <Button secondary hidden={!(rows.length>0)} onClick={this.deleteTimelost}>Detele All Timeslot and Create Again</Button>
 <h2>{notice}</h2>
-  
-    <MDBDataTable striped
+  <div hidden={!(rows.length>0)}>
+    <MDBDataTable striped 
       bordered
       hover
       data={data}></MDBDataTable>
-    {
-      
-     
-    }
+      </div>
+      {/* <div hidden={!(!(rows.length>0) && (this.state.presentation.length>0))}>
+    you havent create any timeslots yet
+      </div> */}
+   
     </div>
   
   );

@@ -37,6 +37,7 @@ router.get('/getresquest/:id',Ctrlrequest.getrequest)
 router.get('/checkaccepted/:id',Ctrlrequest.checkaccepted)
 router.get('/checkallaccepted/:id',Ctrlrequest.checkallaccepted)
 
+router.put('/deletegroups/:Projectname',CtrlProject.deletegroups)
 
 //google sheet
 

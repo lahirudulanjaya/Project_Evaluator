@@ -64,7 +64,7 @@ class Pcoodinater extends Component {
   render() {
     return (
       <div className="container">
-{/* <<<<<<< HEAD */}
+
       <div class="ui three doubling stackable cards">
         
           <Card style={{width: '15%',height: '15%',margin: '100px'}}>
@@ -110,7 +110,6 @@ class Pcoodinater extends Component {
   </div>
     
         <Header as='h2' icon textAlign='center'>
-          {/* <Header.Content><Card fluid color='indigo' header='All Projects' /></Header.Content> */}
           <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >All Projects</h3>
 
 
@@ -123,29 +122,15 @@ class Pcoodinater extends Component {
           
             <div className="col-sm ml-5 pt-3">
             {console.log(projects)}
-              <Card>
+              <Card color="blue">
                 <Card.Content>
                   <Card.Header onClick={this.sd}>{projects.Projectname}</Card.Header>
                   <Card.Meta>
                     <span className='date'>Project Initiate date is {projects.Initiatedate}</span>
                   </Card.Meta>
                   <Card.Content extra>
-                  {!(projects.Sheeturl) ?
-                    <div className='ui two buttons'>
-                      
-          <Popup
-    trigger={<Button  color='blue' >
-   Add Google sheet details
-</Button>}
-    on ='click'
-    content={<div><Input  focus placeholder='Enter Sheetid' value={this.state.sheeturl} onChange={this.onChange} name="sheetid" /><Button basic color='green' onClick={()=>this.onOpen(projects.Projectname)}>Submit</Button></div>}
-    basic
-  />
-                    </div>:
-                    <div basic color='green'>
-                      Sheeturl : <a onClick={()=>this.openSheet(projects.Sheeturl)}>{projects.Sheeturl}</a>
-                    </div>
-                  }
+                  
+                  
                   </Card.Content>
                 </Card.Content>
               </Card>
