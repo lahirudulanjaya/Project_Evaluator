@@ -398,8 +398,8 @@ rows.push(row)
           aria-describedby="alert-dialog-description"
         ><DialogTitle id="alert-dialog-title">{"Change Evaluvator"}</DialogTitle>
         <DialogContent>
-         
-         <Form>
+     Still not developed    
+         {/* <Form>
     <Form.Field>
       <label>Select the Evaluvator</label>
       <Dropdown placeholder='Choose Evaluvator to Change'  selection options={selectEvaluvators} value={this.state.selectedEvaluvator} name ="selectedEvaluvator"onChange={this.onchange1}/>
@@ -408,16 +408,16 @@ rows.push(row)
       <label>Select evaluvator for change with</label>
       <Dropdown placeholder='Choose Evaluvator to Exchange'  selection options={changewithEvaluvators} value={this.state.changewith} name ="changewith"onChange={this.onchange1}/>
     </Form.Field>
-  </Form>
+  </Form> */}
         </DialogContent>
-        <DialogActions>
+        {/* <DialogActions>
           <Button onClick={this.handleClose} color="primary">
             Cansel
           </Button>
-          <Button onClick={this.updateProject} color="primary" autoFocus>
+          <Button  color="primary" autoFocus>
             Save
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
 
       <Dialog

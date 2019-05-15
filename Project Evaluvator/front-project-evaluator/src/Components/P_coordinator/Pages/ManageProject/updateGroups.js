@@ -6,7 +6,6 @@ import {getprojectnames} from '../../../../actions/ProjectActions'
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBDataTable, Input} from 'mdbreact';
 import axios from'axios'
 import swal from 'sweetalert'
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -15,7 +14,7 @@ import {Form,Dropdown} from 'semantic-ui-react'
 import _ from 'lodash'
 
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer,MDBIcon} from 'mdbreact';
-import { Card} from 'semantic-ui-react'
+import { Button,Card} from 'semantic-ui-react'
 var stud
 
 var cardStyle={
@@ -89,6 +88,19 @@ class UpdateGroups extends React.Component{
       })
      .catch(err=>{
       console.log(err)
+    })
+  }
+  
+
+  deletegroups=(value)=>{
+
+    axios.put("http://localhost:4000/api/deletegroups/"+value)
+     .then(res=>{
+       swal('success')
+      })
+     .catch(err=>{
+      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+
     })
   }
   componentDidMount(){
@@ -210,8 +222,14 @@ console.log(this.state)
           </Button>
         </DialogActions>
       </Dialog>
+      {this.state.groups.length>0 ?
         <MDBCard>
+          <div>
+          <Button secondary onClick={()=>this.deletegroups(this.state.Projectname)}>Delete all</Button>
+          </div>
           <MDBCardBody style={cardStyle}>
+          
+
           <MDBTable responsive>
             <MDBTableHead color="primary-color" textWhite>
               <tr style={{color:'#dfdfdf',backgroundColor:'#302f2f'}}>
@@ -226,7 +244,6 @@ console.log(this.state)
               </tr>
             </MDBTableHead>
          
-              {this.state.groups.length>0 ?
               <MDBTableBody>
                     {this.state.groups[0].groups.map(group=>
                 <tr>
@@ -248,14 +265,16 @@ console.log(this.state)
                 </tr>
               )}
              </MDBTableBody>
-               :
-        <div></div>
-                    }
+              
              
 
             </MDBTable>
+            
           </MDBCardBody>
         </MDBCard>
+         :
+         <div></div>
+                     }
         </div>
        
         
