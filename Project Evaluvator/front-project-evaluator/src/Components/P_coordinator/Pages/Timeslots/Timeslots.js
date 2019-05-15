@@ -4,7 +4,7 @@ import { getprojectnames, getproject } from '../../../../actions/ProjectActions'
 import { getpresentations } from '../../../../actions/milestoneActions'
 import { connect } from 'react-redux'
 import { Dropdown } from 'semantic-ui-react'
-import { Form, Input, Button, Table, Popup, Checkbox, List } from 'semantic-ui-react'
+import { Form, Input, Button, Table, Popup, Checkbox, List,Card } from 'semantic-ui-react'
 import {
     DateInput,
     TimeInput,
@@ -15,10 +15,16 @@ import './Timeslots.css'
 import axios from 'axios'
 import moment from 'moment'
 import swal from 'sweetalert'
+import {Link} from 'react-router-dom'
+
 var Evaluators = []
 var checkedevaluvators = []
 var selectedEvaluvators = []
 var submitted = []
+var cardStyle={
+    backgroundColor: "#DFDFDF",
+    size: 'sm'
+  }
 class Timeslot extends React.Component {
     constructor(props) {
         super(props)
@@ -33,6 +39,7 @@ class Timeslot extends React.Component {
             datesRange: '',
             timeslots: [],
             timeslotlength: null,
+            already:false,
             intervallength: null,
             numberofgroups: null,
             numberofplaces: null,
@@ -43,6 +50,9 @@ class Timeslot extends React.Component {
             checked: false,
             Evaluators: [],
             SelectedEvaluvators: [],
+            alreadycreated:false
+           
+
 
         }
         this.props.getprojectnames()
@@ -85,7 +95,8 @@ class Timeslot extends React.Component {
     }
 
 
-    generateTimeslots = () => {
+    generateTimeslots = (e) => {
+        e.preventDefault();
         submitted=[]
         Evaluators=[]
         const arrvenue = this.state.venue.split(',')
@@ -129,6 +140,7 @@ class Timeslot extends React.Component {
                     if (getintervalstart > start && num < this.state.numberofgroups) {
 
                         var slot = {
+                            groupno:num+1,
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
                             starttime: moment(start).format("DD-MM-YYYY HH:mm").toString(),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
@@ -160,6 +172,7 @@ class Timeslot extends React.Component {
                     if (start < getdayend && num < this.state.numberofgroups) {
 
                         var slot = {
+                            groupno:num+1,
                             start: moment(start).format("DD-MM-YYYY HH:mm"),
                             starttime: moment(start).format("DD-MM-YYYY HH:mm").toString(),
                             end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
@@ -198,7 +211,7 @@ class Timeslot extends React.Component {
 
         this.setState({ timeslots: timeslots })
 
-
+        console.log(timeslots)
     }
     onchangeDropdown(e) {
         this.setState({ Projectname: e.target.textContent })
@@ -208,6 +221,27 @@ class Timeslot extends React.Component {
     onchangeDropdown1(e){
        
         this.setState({presentation:e.target.textContent})
+        axios.get("http://localhost:4000/api/gettimeslots",{ params: {
+          Milestone:e.target.textContent,
+          Projectname:this.state.Projectname
+        }
+})
+        
+        .then(res=>{
+            if(res.data.Timeslosts.length>0){
+         this.setState({alreadycreated:true})
+         swal({
+            title: "You have already created timeslots!",
+            
+            icon: "info",
+            dangerMode:true
+          });
+            }
+         
+        })
+        .catch(err=>{
+
+        })
 
     }
 
@@ -219,12 +253,17 @@ class Timeslot extends React.Component {
         if(nextprops.projects.Currentproject.length>0){
         this.setState({numberofgroups:nextprops.projects.Currentproject[0].groups.length})
         }
+       
         this.setState({ presentations: nextprops.presentations.presentation })
     }
 
     handleChange = (event, { name, value }) => {
         if (this.state.hasOwnProperty(name)) {
             this.setState({ [name]: value });
+        }
+        if(this.state.numberofgroups==0){
+            alert("You havent create groups for this project")
+
         }
 
 
@@ -463,20 +502,22 @@ class Timeslot extends React.Component {
         var i = 0
         return (
 
-            <div className="container">
+            <div className="container" >
                  <div class="col-md-12" style={{marginBottom:'50px',marginTop:'50px'}}>
-                    <div class="card">
+                    <div class="card" style={cardStyle}>
                         <div class="card-header card-header-danger">
                         {/* <h4 class="card-title ">Fill the Form </h4> */}
                             
                         </div>
-                <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Set Time Slots for Presentation</h3>
+                <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Set Time Slots for Presentation</h3>
+                <Form onSubmit={this.generateTimeslots}>
 
                 <div className="row">
                     <div className="col-md-2"></div>
                     <div className="col-md-2 text-left" >Select the project</div>
                     <div className="col-md-4">
-                        <Dropdown placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
+                    
+                        <Dropdown required placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
                     </div>
                     <div className="col-md-4"></div>
                 </div>
@@ -484,7 +525,7 @@ class Timeslot extends React.Component {
                     <div className="col-md-2"></div>
                     <div className="col-md-2 text-left" >Select the Presentation</div>
                     <div className="col-md-4">
-                        <Dropdown placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
+                        <Dropdown required placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
 
                     </div>
                     <div className="col-md-4"></div>
@@ -496,10 +537,11 @@ class Timeslot extends React.Component {
                 
 
                
+                   
+                    <Form.Group widths='equal'>        
+                    <Form.Field >
                     Select the start day
-                        
-
-                <DateInput
+                <DateInput required
 
                     name="dateTime"
                     placeholder="Date Time"
@@ -507,9 +549,11 @@ class Timeslot extends React.Component {
                     iconPosition="left"
                     onChange={this.handleChange}
                 />
+                </Form.Field>
+                <Form.Field >
                 <div>
                     Enter the start of time in day
-        <TimeInput
+                     <TimeInput required
                         name="starttime"
                         placeholder="Time"
                         value={this.state.starttime}
@@ -517,9 +561,11 @@ class Timeslot extends React.Component {
                         onChange={this.handleChange}
                     />
                 </div>
+                </Form.Field>
+                <Form.Field>
                 <div>
                     Enter the end of time in day
-        <TimeInput
+        <TimeInput required
                         name="endtime"
                         placeholder="Time"
                         value={this.state.endtime}
@@ -527,21 +573,22 @@ class Timeslot extends React.Component {
                         onChange={this.handleChange}
                     />
                 </div>
+                </Form.Field>
+                </Form.Group>
 
-                    <Form>
-                        <Form.Group widths='equal'>
-                            <Form.Field control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='Enter the Time Slot Length(minuths)' placeholder='Time slot length' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='Enter the Interval Length(minuths)' placeholder='Interval length' />
+                        <Form.Group widths='equal' required>
+                            <Form.Field required control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='Enter the Time Slot Length(minuths)' placeholder='Time slot length' />
+                            <Form.Field required control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='Enter the Interval Length(minuths)' placeholder='Interval length' />
                             <Form.Field readOnly control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
-                            <Form.Field control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Number of Evaluvaters for Presentation' placeholder='Enter the evaluvater Count for one presentation' />
+                            <Form.Field required control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Number of Evaluvaters for Presentation' placeholder='Enter the evaluvater Count for one presentation' />
                             </Form.Group>
                             <Form.Group widths='equal'>
 
-                            <Form.Field control={Input} onChange={this.handleChange} name="venue" value={this.state.venue} label='Enter the Places' placeholder='Enter places seperated by comma' />
+                            <Form.Field required control={Input} onChange={this.handleChange} name="venue" value={this.state.venue} label='Enter the Places' placeholder='Enter places seperated by comma' />
 
-                        <Form.Field control={Input} onChange={this.handleChange} name="evaluvators" value={this.state.evaluvators} label='Enter the Evaluvators' placeholder='Enter the Evaluvators seperated by comma' />
+                        <Form.Field required control={Input} onChange={this.handleChange} name="evaluvators" value={this.state.evaluvators} label='Enter the Evaluvators' placeholder='Enter the Evaluvators seperated by comma' />
                         </Form.Group>
-                        <Button secondary onClick={this.generateTimeslots}>Generate Time Slots</Button>
+                        <Button secondary type="submit" >Generate Time Slots</Button>
 
                     </Form>
                     </div>
@@ -551,10 +598,10 @@ class Timeslot extends React.Component {
                 </div>
 
 
-                
+                {(this.state.timeslots.length>0) && (!this.state.alreadycreated) ?
+
 
                 <div class="tableclass">
-
 
                     <Table striped>
                         <Table.Header>
@@ -622,6 +669,11 @@ class Timeslot extends React.Component {
 
 
                 </div>
+                : this.state.alreadycreated ? <div> <Card fluid color='red' header='You have already created timeslots ...... click here for update groups' /><Button secondary onClick={this.updateGroup}><Link to="/pg/updatetimeslots"> Update</Link></Button></div> 
+            
+            :<div></div>
+            }
+                
 
             </div>
 

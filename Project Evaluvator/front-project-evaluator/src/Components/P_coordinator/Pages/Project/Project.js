@@ -152,7 +152,7 @@ handleChange2(e){
       <div>
         <div className="container pt-3" >
           {/* <Card fluid color="orange" header='Create New Project' /> */}
-          <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Create New Project</h3>
+          <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Create New Project</h3>
         </div>
 
       <div className="container">
@@ -175,7 +175,7 @@ handleChange2(e){
       </div>
     
       {/* <Card fluid color='orange' header='Current Projects' /> */}
-      <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Current Projects</h3>
+      <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Current Projects</h3>
       <div className="row">
       <div className="col-sm-11">
       
@@ -203,7 +203,7 @@ handleChange2(e){
               aria-labelledby="alert-dialog-title1"
               aria-describedby="alert-dialog-description"
             >
-              <DialogTitle id="alert-dialog-title1"><FormLabel><b>Create New Project</b></FormLabel></DialogTitle>
+              <DialogTitle id="alert-dialog-title1"><FormLabel ><b>Create New Project</b></FormLabel></DialogTitle>
               <DialogContent>
           
             

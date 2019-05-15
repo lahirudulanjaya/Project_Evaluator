@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getprojectnames} from '../../../../actions/ProjectActions'
+import {getprojectnames,getproject} from '../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
 import { Dropdown ,Input} from 'semantic-ui-react'
 import _ from 'lodash'
@@ -8,6 +8,7 @@ import Table, {Thead, Tbody, Tr, Th, Td} from "react-row-select-table"
 import swal from 'sweetalert'
 import Axios from 'axios';
 import { Card,Button } from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 import { MDBBtn } from 'mdbreact';
 var groupno=1
 var groups=[]
@@ -26,7 +27,8 @@ class StudentTable extends React.Component{
             disable:false,
             projects:[],
             Projects:[],
-            
+            hidden:true,
+            created:false,
             groups:[]
         }
         this.onchangeDropdown =this.onchangeDropdown.bind(this)
@@ -35,19 +37,24 @@ class StudentTable extends React.Component{
         this.onchange=this.onchange.bind(this)
     }
     componentDidMount(){
+     
+      this.setState({data:[]})
       this.props.getprojectnames()
     }
    
-    onchangeDropdown(e){   
+    onchangeDropdown(e){  
+      
       if(!(this.state.groupcount==null) && this.state.groupcount>0){
         this.setState({projectName:e.target.textContent})
         this.props.getstudentbyYear(e.target.textContent)
+        this.props.getproject(e.target.textContent)
+
+        this.setState({disable:true})
       
       }
       else{
         this.setState({projects:[]})
   
-          alert("first you need to enter group count")
         } 
     
       
@@ -59,9 +66,13 @@ class StudentTable extends React.Component{
       this.setState({projects:this.state.Projects})
       }
       else{
-        this.setState({projects:[]})
-  
-          alert("first you need to enter group count")
+       
+          swal({
+            title: "first you need to enter group count!",
+            
+            icon: "info",
+            dangerMode:true
+          });
         }
     }
     submitGroups(){
@@ -95,8 +106,10 @@ class StudentTable extends React.Component{
         if (result) {
           value.sort().reverse()
           const newGroup =[]
-          newGroup.push.apply(newGroup,[this.state.data[value[0]],this.state.data[value[1]],this.state.data[value[2]],this.state.data[value[3]]])
-         
+          value.forEach(element => {
+            newGroup.push(this.state.data[element])
+          });
+          
           const  group ={
             groupno :groupno,
             students :newGroup
@@ -137,19 +150,25 @@ class StudentTable extends React.Component{
 
     onchange(e){
       if(!(this.state.groupcount==null) && this.state.groupcount>0){
-        this.setState({disable:false})
+        this.setState({hidden:false})
       }
       this.setState({groupcount:e.target.value})
 
     }
     componentWillReceiveProps(nextProps){
+      if(nextProps.project.Currentproject.length>0  && !this.state.hidden && nextProps.project.Currentproject[0].groups.length>0){
+        this.setState({created:true})
+      }
       this.setState({projects:nextProps.project.project,
         Projects:nextProps.project.project}
         )
+        if(!this.state.hidden){
         this.setState({data:nextProps.student.studentbyYear})
+        }
         console.log(nextProps.project.project)
 
     }
+   
 
     handleSort = (clickedColumn) => () => {
         const { column, data, direction } = this.state
@@ -169,6 +188,7 @@ class StudentTable extends React.Component{
           direction: direction === 'ascending' ? 'descending' : 'ascending',
         })
       }
+      
 
 
     render(){
@@ -191,17 +211,20 @@ return(
     <div className="col-sm-12">
     
     {/* <Card fluid color='orange' header='Enter the number of student for group' /> */}
-    <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Enter the number of student for group</h3>
+    <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Enter the number of student for group</h3>
 
-    <Input error style={{width:'175px'}} type="number" placeholder='max student' onChange={this.onchange} value={this.state.groupcount}  name="groupcount"/>
+    <Input disabled={this.state.disable} error style={{width:'175px'}} type="number" placeholder='max student' onChange={this.onchange} value={this.state.groupcount}  name="groupcount"/>
     {/* <h1>select the project</h1> */}
-    <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Select the project</h3>
+    <div hidden ={this.state.hidden}>
+    <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Select the project</h3>
 
     
    
-    <Dropdown  placeholder='project' search selection options={Projectnames} defaultValue=""  onChange={this.onchangeDropdown} onClick={this.onclick} disabled={this.state.disable}/>
+    <Dropdown   placeholder='project' search selection options={Projectnames} defaultValue=""  onChange={this.onchangeDropdown} onClick={this.onclick} />
    
-   
+    </div>
+{!(this.state.created) ?
+  <div>
     {(this.state.data.length>0) ?
     <div>
     <Table onCheck={(value) => value.length>=this.state.groupcount
@@ -237,15 +260,24 @@ return(
         <div className="col-sm-6">
            <Button secondary  onClick={this.submitGroups}>Submit Groups</Button>
            </div>
-           </div>:<div></div>}
+           </div>: !this.state.hidden && this.state.disable ? <div><Card fluid color='red' header='No students allowed to this Project' /> </div>
+          :<div></div> 
+          }
+           </div>
+           :
+           <div><Card fluid color='red' header='You have already created groups ...... click here for update groups' /><Button secondary onClick={this.updateGroup}><Link to="/pg/updategroups"> Update</Link></Button></div>
+            }
 </div>
+
  
+
+
+<div className="row">  
+ {this.state.groups.length>0 ?
 <div className="col-sm-12">
   Created Groups
 </div>
-
-<div className="row">  
- 
+:<div></div>}
        
         {this.state.groups.map(groups=>
         <div class="col-sm">
@@ -283,4 +315,4 @@ const mapStateToProps = state => {
    
   }};
 
-export default connect(mapStateToProps,{getstudentbyYear,getprojectnames})(StudentTable)
+export default connect(mapStateToProps,{getstudentbyYear,getprojectnames,getproject})(StudentTable)
