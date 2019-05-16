@@ -1,5 +1,6 @@
 const mongoose =require('mongoose')
 const Milestone = mongoose.model('Milestone')
+const Project =mongoose.model('Project')
 
 module.exports.addmilestone=(req,res,next)=>{
     Milestone.insertMany(req.body.Milestones,(err,doc)=>{
@@ -68,4 +69,17 @@ module.exports.deletemilestone=(req,res,next)=>{
             res.send(err)
         }
     })
+}
+
+module.exports.getallmilstones=(req,res,next)=>{
+   
+               Milestone.find({},(err,doc)=>{
+                   if(!err){
+                       res.send(doc)
+                   }
+                   else{
+                       res.send(err)
+                   }
+               })
+           
 }

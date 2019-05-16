@@ -1,9 +1,7 @@
 import React ,{ Component }  from 'react';
 import { Route } from 'react-router-dom';
 import Calendar from "react-calendar";
-import {connect} from'react-redux'
 
-import { getallprojects,getprojectnames } from '../../actions/ProjectActions';
 import SessionListTable from './Component/SessionListTable';
 
 
@@ -11,14 +9,14 @@ class Scoodinater extends Component{
 
     constructor(props){
         super(props)
-        this.props.getprojectnames()
 
         this.state={
             projectnames:[]
         }
     }
 
-   componentWillReceiveProps(){
+   componentWillReceiveProps()
+   {
        console.log(this.props)
    }
     render(){
@@ -37,14 +35,6 @@ class Scoodinater extends Component{
     }
 } 
 
-const  mapStateToProps=(state)=>{
-    console.log(state)
-return{
-    projects:state.project
-}
 
 
-
-}
-
-export default connect(mapStateToProps,{getprojectnames})(Scoodinater)
+export default (Scoodinater)

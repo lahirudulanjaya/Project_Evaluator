@@ -75,5 +75,7 @@ router.delete('/pg/deleteproject/:projectname',CtrlProject.deleteproject)
 
 router.put('/pg/updatestudent',CtrlStudent.UpdateStudentDetail)
 router.delete('/pg/deletestudent/:Registrationnumber',CtrlStudent.deleteStudent)
+
+router.get('/allmilestone',CtrlMilestone.getallmilstones)
 module.exports=router 
 
