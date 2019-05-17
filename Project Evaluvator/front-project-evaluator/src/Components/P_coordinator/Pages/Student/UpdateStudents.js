@@ -3,7 +3,7 @@ import React from 'react'
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBIcon} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
 import {connect} from 'react-redux'
-import {Input }from 'semantic-ui-react'
+import {Input ,Card}from 'semantic-ui-react'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -36,10 +36,11 @@ class UpdateStudent extends React.Component {
     .then(res=>{
        swal("sucess")
        this.props.getstudentdetails()
-        .catch(err=>{
-            swal("error")
-        })
+        
     })
+    .catch(err=>{
+      swal("error")
+  })
     }
     updateStudent=()=>{
       axios.put("http://localhost:4000/api/pg/updatestudent",this.state.UpdateStudent)
@@ -140,7 +141,7 @@ class UpdateStudent extends React.Component {
           </Button>
         </DialogActions>
       </Dialog>
-
+      {this.state.students.length>0 ?
             <MDBTable responsive>
             
               <MDBTableHead color="primary-color" textWhite>
@@ -183,6 +184,9 @@ class UpdateStudent extends React.Component {
               </MDBTableBody>
               
             </MDBTable>
+            :
+            <div><Card className="ml-5" fluid color='red' header='No Student Found' /></div>
+                  }
             </div>
 
           );

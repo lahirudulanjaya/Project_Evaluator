@@ -24,6 +24,7 @@ import swal from 'sweetalert';
 import Student from '../Student/Student';
 import Settings from '../../../../settings.png';
 import {Card} from 'semantic-ui-react'
+import './Project.css';
 
 
 const styles = {
@@ -35,6 +36,7 @@ const styles = {
     color: blue[600],
   },
 };
+
 var cardStyle={
   backgroundColor: "#DFDFDF",
   size: 'sm'
@@ -101,16 +103,20 @@ componentWillReceiveProps(nextProps) {
       ProjectType :this.state.ProjectType,
       Initiatedate:this.state.Initiatedate
       }
-      axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
-        this.setState({open1:false})
-        this.setState({open:true})
-        this.props.getprojectnames()
-    }
-    )
-    .catch(err=>{
-      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
-      console.log(err.response.data)
-    })
+      if(this.ProjectType!=''&& this.Initiatedate!=''){
+          axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
+            this.setState({open1:false})
+            this.setState({open:true})
+            this.props.getprojectnames()
+        }
+        )
+        .catch(err=>{
+          swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+          console.log(err.response.data)
+        })
+      }else{
+        swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+      }
       
   }
   addMilstones=()=>{
@@ -152,7 +158,7 @@ handleChange2(e){
       <div>
         <div className="container pt-3" >
           {/* <Card fluid color="orange" header='Create New Project' /> */}
-          <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Create New Project</h3>
+          <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Create New Project</h3>
         </div>
 
       <div className="container">
@@ -175,7 +181,7 @@ handleChange2(e){
       </div>
     
       {/* <Card fluid color='orange' header='Current Projects' /> */}
-      <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Current Projects</h3>
+      <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Current Projects</h3>
       <div className="row">
       <div className="col-sm-11">
       
@@ -203,11 +209,11 @@ handleChange2(e){
               aria-labelledby="alert-dialog-title1"
               aria-describedby="alert-dialog-description"
             >
-              <DialogTitle id="alert-dialog-title1"><FormLabel><b>Create New Project</b></FormLabel></DialogTitle>
+              <DialogTitle id="alert-dialog-title1"><FormLabel ><b>Create New Project</b></FormLabel></DialogTitle>
               <DialogContent>
           
             
-            <form noValidate autoComplete="off">
+            <form autoComplete="off">
             
             <div>
             <TextField
@@ -217,11 +223,10 @@ handleChange2(e){
               value = {this.state.Projectname}
               onChange={this.handleChange}
               margin="normal"
+              required
               InputLabelProps={{
                 shrink: true,
               }}
-              
-              required
 
             />
             </div>
@@ -246,6 +251,7 @@ handleChange2(e){
                 name="acdemicYear"
                 value={this.state.value}
                 onChange={this.handleChange1}
+                required
               >
               <div pt-0>
                 <FormControlLabel value="2" name="acdemicYear" control={<Radio color="primary" onChange={this.handleChange1} checked={this.state.Acadamicyear==='2'} name ="Acadamicyear"/>} label="2nd Year" />
@@ -264,6 +270,7 @@ handleChange2(e){
                 name="type"
                 value={this.state.value}
                 onChange={this.handleChange2}
+                required
               >
               <div pt-0>
                 <FormControlLabel value="individual" name="type" control={<Radio color="primary" onChange={this.handleChange2} checked={this.state.ProjectType==='Individual' } value='Individual' name ="ProjectType"/>} label="Individual" />
@@ -279,7 +286,6 @@ handleChange2(e){
           
           </form>
               </DialogContent>
-            
             </Dialog>
      
               

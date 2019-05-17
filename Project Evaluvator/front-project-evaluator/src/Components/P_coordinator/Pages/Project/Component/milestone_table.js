@@ -146,7 +146,7 @@ class Products extends React.Component {
               </div>
               </div>
           <ProductTable onProductTableUpdate={this.handleProductTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} products={this.state.products} filterText={this.state.filterText}/>
-        <button onClick={this.importMilestones}>Add Milestone</button>
+        <button className="btn btn-primary" onClick={this.importMilestones}>Add Milestone</button>
 
         <Dialog 
             
@@ -217,7 +217,7 @@ class Products extends React.Component {
             
            
           <table className="table table-bordered">
-            <thead>
+            <thead style={{backgroundColor:"#F9A602"}}>
               <tr>
                 <th>name</th>
                 <th>Milestone Type</th>
@@ -227,13 +227,13 @@ class Products extends React.Component {
               </tr>
             </thead>
   
-            <tbody>
+            <tbody style={{backgroundColor:"#F9A607"}}>
               {product}
   
             </tbody>
   
           </table>
-          <Icon type="button" onClick={this.props.onRowAdd}  size='big' name='add circle' />
+          <button className="btn btn-primary" type="button" onClick={this.props.onRowAdd}>ADD</button>
           
           
           
@@ -289,7 +289,7 @@ class Products extends React.Component {
           }}
           />
           <td className="del-cell">
-            <input type="button" onClick={this.onDelEvent.bind(this)} value="X" className="del-btn"/>
+            <input classname="btn btn-danger" type="button" onClick={this.onDelEvent.bind(this)} value="X" className="del-btn"/>
           </td>
         </tr>
         

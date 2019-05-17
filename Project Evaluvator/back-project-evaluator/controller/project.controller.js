@@ -139,5 +139,18 @@ module.exports.deleteproject=(req,res,next)=>{
         }
     })
 }
+module.exports.deletegroups =(req,res,next)=>{
+    Project.update({Projectname:req.params.Projectname}, {$unset: {groups:1}} , {multi: true},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+  
+}
+
+
 
 

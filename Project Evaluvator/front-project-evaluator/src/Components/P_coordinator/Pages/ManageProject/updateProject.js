@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { MDBTable, MDBTableBody, MDBTableHead ,MDBIcon} from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead ,MDBIcon,MDBCard} from 'mdbreact';
 
 import {getallprojects} from '../../../../actions/ProjectActions'
 import {connect} from 'react-redux'
@@ -189,13 +189,21 @@ render(){
         </DialogContent>
         <DialogActions>
           <Button onClick={this.handleClose} color="primary">
-            Cansel
+            Cancel
           </Button>
           <Button onClick={this.updateProject} color="primary" autoFocus>
             Save
           </Button>
         </DialogActions>
       </Dialog>
+      <div className="row">
+      <div className="col-sm-11">
+      
+      
+
+      
+      <div className="">
+        <MDBCard>
     <MDBTable responsive>
     
       <MDBTableHead color="primary-color" textWhite>
@@ -231,30 +239,16 @@ render(){
     
    
                 
-    {console.log(this.props.project)}
-
-        {/* <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr> */}
+   
       </MDBTableBody>
       
     </MDBTable>
-    </div>
+   </MDBCard>
+   </div>
+   </div>
+   </div>
+   </div>
+    
   
   );
 }
