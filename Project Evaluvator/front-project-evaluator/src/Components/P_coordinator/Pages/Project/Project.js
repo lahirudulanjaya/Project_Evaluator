@@ -103,7 +103,7 @@ componentWillReceiveProps(nextProps) {
       ProjectType :this.state.ProjectType,
       Initiatedate:this.state.Initiatedate
       }
-      if(this.ProjectType!=''&& this.Initiatedate!=''){
+      if(this.state.ProjectType!='' && this.state.Initiatedate!=null && this.state.Acadamicyear!=''){
           axios.post("http://localhost:4000/api/pg/addproject",Project).then(res=>{
             this.setState({open1:false})
             this.setState({open:true})
