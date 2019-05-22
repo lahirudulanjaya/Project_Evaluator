@@ -97,18 +97,23 @@ class Products extends React.Component {
     }
     importMilestones=()=>
     {
-      const newdetatil=
-      {
-        Milestones :this.state.products
-      }
-      axios.post("http://localhost:4000/api/pg/postmilestone",newdetatil)
-    .then(res=>{
-      this.setState({open:true})
+      if(this.state.products.MilstoneType!='' && this.state.products.Grp_or_I!='' && this.state.products.Duration!=''){
+        const newdetatil=
+        {
+          Milestones :this.state.products
+        }
+          axios.post("http://localhost:4000/api/pg/postmilestone",newdetatil)
+        .then(res=>{
+          this.setState({open:true})
 
-    })
-    .catch(err =>{
-        swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
-    })
+        })
+        .catch(err =>{
+            swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+        })
+      }else{
+          swal ( "Oops" ,  "Something went wrong!!!" ,  "error" );
+      }
+      
       
     }
   
@@ -285,7 +290,6 @@ class Products extends React.Component {
             type: "Duration",
             value: this.props.product.Duration,
             id: this.props.product.id
-            
           }}
           />
           <td className="del-cell">
