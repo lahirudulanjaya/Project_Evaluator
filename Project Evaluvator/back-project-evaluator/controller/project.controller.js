@@ -152,5 +152,13 @@ module.exports.deletegroups =(req,res,next)=>{
 }
 
 
-
-
+module.exports.getprojectscount = (req, res, next) => {
+    Project.countDocuments({}, function (err, count) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.status(200).json(count);
+        }
+    })
+}

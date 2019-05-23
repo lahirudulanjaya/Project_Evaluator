@@ -21,10 +21,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import axios from'axios'
 import swal from 'sweetalert';
-import Student from '../Student/Student';
+import Student from './uploadStudent'
 import Settings from '../../../../settings.png';
 import {Card} from 'semantic-ui-react'
 import './Project.css';
+import {Link} from 'react-router-dom'
 
 
 const styles = {
@@ -131,6 +132,11 @@ componentWillReceiveProps(nextProps) {
   handleClose = () => {
     this.setState({ open: false });
   };
+  handleCloses = () => {
+    this.setState({ open: false });
+    this.setState({open3:true})
+    
+  };
   handleClickOpen1 = () => {
     this.setState({ open1: true });
   };
@@ -138,6 +144,10 @@ componentWillReceiveProps(nextProps) {
   handleClose1 = () => {
     this.setState({ open1: false });
   };
+  handleClose3=()=>{
+    this.setState({ open3: false });
+
+  }
   handleChange(e){
     this.setState({[e.target.name]: e.target.value});
  }
@@ -156,6 +166,30 @@ handleChange2(e){
 
     return (
       <div>
+         <Dialog 
+            
+            open={this.state.open3}
+            onClose={this.handleClose}
+            aria-labelledby="responsive-dialog-title"
+          >
+            <DialogTitle id="responsive-dialog-title"><FormLabel><b>Import Student Details</b></FormLabel></DialogTitle>
+            <DialogContent >
+           
+    <Student proname ={this.state.Projectname}></Student>
+
+          
+            </DialogContent>
+             <DialogActions>
+             
+              <Link to="/pg/creategroups"><Button  color="primary" autoFocus >
+                Create Groups
+              </Button></Link>
+              <Button onClick={this.handleClose3} color="primary" autoFocus>
+                Close
+              </Button>
+              
+            </DialogActions>  
+          </Dialog>
         <div className="container pt-3" >
           {/* <Card fluid color="orange" header='Create New Project' /> */}
           <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Create New Project</h3>
@@ -302,7 +336,7 @@ handleChange2(e){
               <DialogTitle id="responsive-dialog-title"><FormLabel><b>Define MIlestones for Project</b></FormLabel></DialogTitle>
               <DialogContent >
              
-      <Products proname={this.state.Projectname}/>
+      <Products proname={this.state.Projectname} closepropt={this.handleCloses}/>
 
             
               </DialogContent>
@@ -317,7 +351,7 @@ handleChange2(e){
             </Dialog>
 
 
-            <Dialog 
+            {/* <Dialog 
             fullWidth={true}
             maxWidth='xl'
               open={this.state.open2}
@@ -327,7 +361,7 @@ handleChange2(e){
               <DialogTitle id="responsive-dialog-title"><FormLabel><b>Define MIlestones for Project</b></FormLabel></DialogTitle>
               <DialogContent >
              
-      <Products proname={this.state.Projectname}></Products>
+      <Products proname={this.state.Projectname} closepropt={this.handleClose}></Products>
 
             
               </DialogContent>
@@ -339,7 +373,7 @@ handleChange2(e){
                   Close
                 </Button>
               </DialogActions> 
-            </Dialog>
+            </Dialog> */}
 
             <form noValidate autoComplete="off">
             

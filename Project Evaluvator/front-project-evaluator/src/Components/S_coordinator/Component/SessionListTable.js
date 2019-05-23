@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+
 
 import Paper from '@material-ui/core/Paper';
 import {getallprojects} from '../../../actions/ProjectActions';
@@ -72,7 +71,7 @@ var rows=[]
 var i=1
 this.state.Projects.map(Projects=>{
   this.state.Presentations.map(pres=>{
-    if(Projects.Projectname == pres.Projectname){
+    if(Projects.Projectname === pres.Projectname){
       var dat = new Date(Projects.Initiatedate)
       var date =  moment(Number(dat.getTime() + 60000*60*24*7*(pres.Duration))).format("DD MMM YYYY hh:mm a")
       var element={

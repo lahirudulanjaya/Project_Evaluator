@@ -13,7 +13,8 @@ import {Form,Dropdown,Button} from 'semantic-ui-react'
 import axios from 'axios'
 import swal from 'sweetalert'
 class UpdateStudent extends React.Component {
-    constructor(props) {
+    constructor(props) 
+    {
         super(props);
         this.state = {
             students:[],
@@ -32,16 +33,30 @@ class UpdateStudent extends React.Component {
           this.onchange=this.onchange.bind(this)
     }
    deleteStudent(name){
-      axios.delete("http://localhost:4000/api/pg/deletestudent/"+ name)
-    .then(res=>{
-       swal("sucess")
-       this.props.getstudentdetails()
-        
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
     })
-    .catch(err=>{
-      swal("error")
-  })
-    }
+    .then((willDelete) => {
+      if (willDelete) {
+
+        axios.delete("http://localhost:4000/api/pg/deletestudent/"+ name)
+        .then(res=>{
+           swal("sucess")
+           this.props.getstudentdetails()
+            
+        })
+        .catch(err=>{
+          swal("error")
+      })
+        
+       
+      } 
+    });
+}
     updateStudent=()=>{
       axios.put("http://localhost:4000/api/pg/updatestudent",this.state.UpdateStudent)
     .then(res=>{
@@ -94,7 +109,8 @@ class UpdateStudent extends React.Component {
         })
         this.setState({students:Students})
         }
-    componentDidMount(){
+    componentDidMount()
+    {
         this.props.getstudentdetails()
     }
     componentWillReceiveProps(nProps){

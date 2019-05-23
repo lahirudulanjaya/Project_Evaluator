@@ -169,6 +169,17 @@ module.exports.deleteStudent =(req,res,next)=>{
     })
 }
 
+module.exports.getstudentscount = (req, res, next) => {
+    Studentdetail.countDocuments({}, function (err, count) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.status(200).json(count);
+        }
+    })
+}
+
 // module.exports.userprofile =(req,res,next)=>{
 //     Student.findOne({ _id: req.params._id },(err,doc)=>{
 //         if(!err){

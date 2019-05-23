@@ -8,10 +8,19 @@ const bodyparser = require('body-parser')
 const cors =require('cors')
 const passport = require('passport');
 const rtsIndex = require('./router/index.router');
-
+const path =require('path')
 var app = express();
 var port = process.env.PORT || 4000
 
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('../front-project-evaluator/build'));
+  
+    app.get('*', (req, res) => {
+        let reqPath = path.join(__dirname, '../')
+      res.sendFile(path.resolve(reqPath, 'front-project-evaluator', 'build', 'index.html'));
+    });
+  }
 app.use(bodyparser.json())
 app.use(cors())
 app.use(passport.initialize())

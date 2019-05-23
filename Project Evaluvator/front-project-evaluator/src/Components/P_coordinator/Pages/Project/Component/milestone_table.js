@@ -33,7 +33,7 @@ class Products extends React.Component {
       this.state.products = [
         {
           id: '',
-          open:false,
+          open1:false,
           Projectname: props.proname,
           name: 'Priliminary',
           MilstoneType:'',
@@ -59,9 +59,9 @@ class Products extends React.Component {
     handleUserInput(filterText) {
       this.setState({filterText: filterText});
     };
-    handleClose = () => {
-      this.setState({ open: false });
-    };
+    // handleClose = () => {
+    //   this.setState({ open: false });
+    // };
     handleRowDel(product) {
       var index = this.state.products.indexOf(product);
       this.state.products.splice(index, 1);
@@ -103,9 +103,14 @@ class Products extends React.Component {
       }
       axios.post("http://localhost:4000/api/pg/postmilestone",newdetatil)
     .then(res=>{
-      this.setState({open:true})
+      this.setState({open1:true})
+      if(this.state.open1){
+      this.props.closepropt()
+      }
+      
 
-    })
+    }     
+    )
     .catch(err =>{
         swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
     })
@@ -148,30 +153,7 @@ class Products extends React.Component {
           <ProductTable onProductTableUpdate={this.handleProductTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} products={this.state.products} filterText={this.state.filterText}/>
         <button className="btn btn-primary" onClick={this.importMilestones}>Add Milestone</button>
 
-        <Dialog 
-            
-              open={this.state.open}
-             // onClose={this.handleClose}
-              aria-labelledby="responsive-dialog-title"
-            >
-              <DialogTitle id="responsive-dialog-title"><FormLabel><b>Import Student Details</b></FormLabel></DialogTitle>
-              <DialogContent >
-             
-      <Student proname ={this.state.Projectname}></Student>
-
-            
-              </DialogContent>
-               <DialogActions>
-               
-                <Link to="/pg/creategroups"><Button  color="primary" autoFocus >
-                  Create Groups
-                </Button></Link>
-                <Button onClick={this.handleClose} color="primary" autoFocus>
-                  Close
-                </Button>
-                
-              </DialogActions>  
-            </Dialog>
+       
         </div>
       );
   
@@ -217,17 +199,17 @@ class Products extends React.Component {
             
            
           <table className="table table-bordered">
-            <thead style={{backgroundColor:"#F9A602"}}>
-              <tr>
-                <th>name</th>
-                <th>Milestone Type</th>
-                <th>marks Presentage</th>
-                <th>Group or Individual</th>
-                <th>Time duration(Weeks)</th>
+            <thead style={{backgroundColor:'#00003f',color:'white'}}>
+              <tr >
+                <th><b>name</b></th>
+                <th><b>Milestone Type</b></th>
+                <th><b>marks Presentage</b></th>
+                <th><b>Group or Individual</b></th>
+                <th><b>Time duration(Weeks)</b></th>
               </tr>
             </thead>
   
-            <tbody style={{backgroundColor:"#F9A607"}}>
+            <tbody style={{backgroundColor:'#00003f',color:'white'}}>
               {product}
   
             </tbody>

@@ -4,15 +4,13 @@ import { connect } from 'react-redux'
 import { getstudentProject, getstudentbyYear } from '../../actions/P_coodinator-Student'
 import { getsendrequest, getrequest, cheackallaccepted } from '../../actions/requestActions'
 import {getuserprofile} from '../../actions/authActions'
-import { Table, Button, Icon, Popup } from 'semantic-ui-react'
+import { Table, Button, Icon } from 'semantic-ui-react'
 import Tables, { Thead, Tbody, Tr, Th, Td } from "react-row-select-table"
 import Axios from 'axios';
 import {whologgedin} from '../../actions/authActions'
 
 import swal from 'sweetalert';
-import { request } from 'https';
-import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn} from 'mdbreact';
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer} from 'mdbreact';
+
 
 class Student extends React.Component {
   constructor(props) {

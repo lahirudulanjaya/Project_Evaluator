@@ -8,8 +8,7 @@ import { Form, Input, Button, Table, Popup, Checkbox, List,Card } from 'semantic
 import {
     DateInput,
     TimeInput,
-    DateTimeInput,
-    DatesRangeInput
+    
 } from 'semantic-ui-calendar-react';
 import './Timeslots.css'
 import axios from 'axios'
