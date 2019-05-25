@@ -26,6 +26,11 @@ class Register extends Component{
       PasswordError: '',
       CpasswordError:'',
       emailError:'',
+      nameErrStyle:{},
+      regNoErrStyle:{},
+      passwordErrStyle:{},
+      cpasswordErrStyle:{},
+      emailErrStyle:{},
       errors:{}
     }
     this.handleChange = this.handleChange.bind(this)
@@ -59,7 +64,9 @@ class Register extends Component{
     const { UserName } = this.state;
     this.setState({
       nameError:
-        UserName.length > 3 ? null : 'Name must be longer than 3 characters'
+        UserName.length > 3 ? null : 'Name must be longer than 3 characters',
+      nameErrStyle:
+        UserName.length > 3 ? {} : {borderStyle: 'solid', borderColor:'red'}
     });
   }
   //index number validation
@@ -74,7 +81,10 @@ class Register extends Component{
     this.setState({
       IndexError:
         (Registrationnumber.length==9 && (Registrationnumber.substring(4,6)=='cs'||Registrationnumber.substring(4,6)=='is'||Registrationnumber.substring(4,6)=='CS'||Registrationnumber.substring(4,6)=='IS'))
-        ?null: 'Invalid Registration number'
+        ?null: 'Invalid Registration number',
+      regNoErrStyle:
+        (Registrationnumber.length==9 && (Registrationnumber.substring(4,6)=='cs'||Registrationnumber.substring(4,6)=='is'||Registrationnumber.substring(4,6)=='CS'||Registrationnumber.substring(4,6)=='IS'))
+        ? {} : {borderStyle: 'solid', borderColor:'red'}
     });
   }
   //password validation
@@ -87,7 +97,9 @@ class Register extends Component{
     const { Password } = this.state;
     this.setState({
       PasswordError:
-        Password.length > 8 ? null : Password.length > 5 ? "Fair Length" : 'Password length should be more than 5 characters' 
+        Password.length > 8 ? null : Password.length > 5 ? "Fair Length" : 'Password length should be more than 5 characters',
+      passwordErrStyle:
+        Password.length > 8 ? {} : Password.length > 5 ? {borderStyle: 'solid', borderColor:'orange'} : {borderStyle: 'solid', borderColor:'red'},
     });
   }
   //confirm password validation
@@ -100,7 +112,9 @@ class Register extends Component{
     const { Cpassword,Password } = this.state;
     this.setState({
       CpasswordError:
-       Cpassword=== Password ? null : "Password Doesn't match"
+       Cpassword=== Password ? null : "Password Doesn't match",
+      cpasswordErrStyle:
+      Cpassword=== Password ? {} : {borderStyle: 'solid', borderColor:'red'}
     });
   }
   //email validation
@@ -114,7 +128,9 @@ class Register extends Component{
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     this.setState({
       emailError:
-        Email.match(mailformat) ? null : "Email is invalid"
+        Email.match(mailformat) ? null : "Email is invalid",
+      emailErrStyle:
+        Email.match(mailformat) ? {} : {borderStyle: 'solid', borderColor:'red'}
     });
   }
   postRegister  (e){
@@ -151,7 +167,9 @@ class Register extends Component{
 
   }
 render(){
-  const { errors } = this.state;
+  const { errors, nameErrStyle,regNoErrStyle,passwordErrStyle,cpasswordErrStyle,emailErrStyle } = this.state;
+  // const errorStyle = {borderStyle: 'solid'};
+  // const correctStyle = {};
 
     return(
       <div>
@@ -173,7 +191,7 @@ render(){
           <div className="header pt-3 grey lighten-2">
                 <p className="h4 text-center py-4">Sign up</p>
                 </div>
-             
+
                 <div className="grey-text">
                   <MDBInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
                     label="User Name"
@@ -189,6 +207,7 @@ render(){
                     success="right"
                     onBlur={this.validateName}
                     minlength="3"
+                    style = {nameErrStyle}
                     required
                   />
                   <p className="text-danger">{this.state.nameError}</p>
@@ -205,6 +224,7 @@ render(){
                     validate
                     error="wrong"
                     success="right"
+                    style = {emailErrStyle}
                     required
                   />
                   <p className="text-danger">{this.state.emailError}</p>
@@ -224,6 +244,7 @@ render(){
                     success="right"
                     minlength="9"
                     maxlength="9"
+                    style = {regNoErrStyle}
                     required
                   />
                   <p className="text-danger">{this.state.IndexError}</p>
@@ -241,6 +262,7 @@ render(){
                     error="wrong"
                     success="right"
                     minlength="6"
+                    style = {passwordErrStyle}
                     required
                   />
                   <p className="text-danger">{this.state.PasswordError}</p>
@@ -254,6 +276,7 @@ render(){
                     group
                     className="w-75 p-3"
                     type="password"
+                    style= {cpasswordErrStyle}
                     validate
                     required
                   />
