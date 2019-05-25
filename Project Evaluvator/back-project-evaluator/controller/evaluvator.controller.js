@@ -82,3 +82,14 @@ module.exports.deleteEvaluvator =(req,res,next)=>{
         }
     })
 }
+
+module.exports.getevaluvatorscount = (req, res, next) => {
+    Evaluvator.countDocuments({}, function (err, count) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.status(200).json(count);
+        }
+    })
+}

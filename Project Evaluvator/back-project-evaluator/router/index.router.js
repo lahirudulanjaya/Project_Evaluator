@@ -77,5 +77,11 @@ router.put('/pg/updatestudent',CtrlStudent.UpdateStudentDetail)
 router.delete('/pg/deletestudent/:Registrationnumber',CtrlStudent.deleteStudent)
 
 router.get('/allmilestone',CtrlMilestone.getallmilstones)
+
+
+
+router.get('/getprojectscount',CtrlProject.getprojectscount)
+router.get('/getstudentcount',CtrlStudent.getstudentscount)
+router.get('/getevaluvatorscount',Ctrlevaluvator.getevaluvatorscount)
 module.exports=router 
 

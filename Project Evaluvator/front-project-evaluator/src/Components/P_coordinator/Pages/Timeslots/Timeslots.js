@@ -8,14 +8,18 @@ import { Form, Input, Button, Table, Popup, Checkbox, List,Card } from 'semantic
 import {
     DateInput,
     TimeInput,
-    DateTimeInput,
-    DatesRangeInput
+    
 } from 'semantic-ui-calendar-react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import './Timeslots.css'
 import axios from 'axios'
 import moment from 'moment'
 import swal from 'sweetalert'
 import {Link} from 'react-router-dom'
+import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 
 var Evaluators = []
 var checkedevaluvators = []
@@ -25,6 +29,8 @@ var cardStyle={
     backgroundColor: "#DFDFDF",
     size: 'sm'
   }
+ 
+
 class Timeslot extends React.Component {
     constructor(props) {
         super(props)
@@ -50,16 +56,25 @@ class Timeslot extends React.Component {
             checked: false,
             Evaluators: [],
             SelectedEvaluvators: [],
-            alreadycreated:false
+            alreadycreated:false,
+            open:false,
+            Days:[]
            
 
 
         }
+
         this.props.getprojectnames()
         this.onchangeDropdown = this.onchangeDropdown.bind(this)
         this.change = this.change.bind(this)
         this.onchangeDropdown1=this.onchangeDropdown1.bind(this)
     }
+
+
+   
+
+   
+
 
     submitEvaluvators = (time, venue) => {
         var arr = []
@@ -93,6 +108,86 @@ class Timeslot extends React.Component {
         this.setState({ SelectedEvaluvators: [] })
 
     }
+
+
+
+
+
+generateTimeslots1=(e)=>{
+    e.preventDefault();
+    submitted=[]
+    Evaluators=[]
+    this.state.evaluvators.split(',').forEach(evaluvaters => {
+        var evaluvator = {
+            name: evaluvaters,
+            checked: false,
+            already: false
+        }
+        Evaluators.push(evaluvator)
+    })
+    this.setState({ Evaluators: Evaluators })
+
+    var timeslots=[]
+    var num = 0
+    const timeslot = this.state.timeslotlength * 60000
+
+    this.state.Days.forEach(element => {
+        var getyear = moment(element.date, "DD-MM-YYYY").year()
+        var getmonth = moment(element.date, "DD-MM-YYYY").month() + 1
+        var date = moment(element.date, "DD-MM-YYYY").date()
+        var withouttime = `${getyear}-${getmonth}-${date}`
+        var start = moment(withouttime + " " + element.starttime, "YYYY-MM-DD HH:mm").toDate().getTime()
+        var getdayend = moment(withouttime + " " + element.endtime, "YYYY-MM-DD HH:mm").toDate().getTime()
+        const arrvenue = element.locations.split(',')
+
+console.log(start)
+if (num < this.state.numberofgroups) {
+while(start<getdayend){
+var i=0
+    for (i; i < arrvenue.length; i++) {
+        if (num < this.state.numberofgroups && start<getdayend) {
+
+            var slot = {
+                groupno:num+1,
+                start: moment(start).format("DD-MM-YYYY HH:mm"),
+                starttime: moment(start).format("DD-MM-YYYY HH:mm").toString(),
+                end: moment(start + timeslot).format("DD-MM-YYYY HH:mm"),
+                endtime:moment(start + timeslot).format("DD-MM-YYYY HH:mm").toString(),
+                venue: arrvenue[i],
+                evaluvators: []
+            }
+console.log(i)
+            timeslots.push(slot)
+            num++
+
+        }
+
+
+    }
+    start=start+timeslot
+}
+}
+    });
+
+console.log(timeslots)
+this.setState({ timeslots: timeslots })
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     generateTimeslots = (e) => {
@@ -266,8 +361,18 @@ class Timeslot extends React.Component {
 
         }
 
+    }
 
+    addDay=(e)=>{
+        e.preventDefault();
 
+        var day ={
+            date:this.state.dateTime,
+            starttime:this.state.starttime,
+            endtime:this.state.endtime,
+            locations:this.state.venue
+        }
+        this.setState(prevstate=>({Days:[...prevstate.Days,day]}))
     }
 
     
@@ -346,31 +451,20 @@ class Timeslot extends React.Component {
         })
 
 
-
-
-
-        //  newarr.map(eva=>{
-
-
-        // if(value==eva.name){
-
-        //     var newele ={
-        //         name:value,
-        //         checked:!eva.checked,
-        //         already:eva.already
-
-        //     }
-        //     index.push(newele)
-
-        // }else{
-        //     index.push(eva)
-        // }
-
-        // })
         this.setState({ Evaluators: newarr })
     }
 
+    remove=(name)=>{
+        var arr = [...this.state.Days]
 
+        arr.map(ar=>{
+            if(ar.date == name){
+                var index = arr.indexOf(ar)
+                arr.splice(index,1)
+            }
+        })
+        this.setState({Days:arr})
+    }
 
 
 
@@ -454,6 +548,14 @@ class Timeslot extends React.Component {
 
 
     }
+    handleClose = (e) => {
+        e.preventDefault();
+
+        this.setState({ open: false });
+      };
+      handleOpen = () => {
+        this.setState({ open: true });
+      };
     submittodb=()=>{
         const post ={
             Projectname:this.state.Projectname,
@@ -475,7 +577,11 @@ class Timeslot extends React.Component {
 
         })
     }
+
     render() {
+    
+    
+
         const Projectnames = this.props.projects.project.map(project =>
             ({
                 key: project._id,
@@ -503,44 +609,20 @@ class Timeslot extends React.Component {
         return (
 
             <div className="container" >
-                 <div class="col-md-12" style={{marginBottom:'50px',marginTop:'50px'}}>
-                    <div class="card" style={cardStyle}>
-                        <div class="card-header card-header-danger">
-                        {/* <h4 class="card-title ">Fill the Form </h4> */}
-                            
-                        </div>
-                <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Set Time Slots for Presentation</h3>
-                <Form onSubmit={this.generateTimeslots}>
+                     <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          fullWidth={true}
+          maxWidth="sm"
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        ><DialogTitle id="alert-dialog-title">{"Add a day"}</DialogTitle>
+                 <Form onSubmit={this.addDay}>
 
-                <div className="row">
-                    <div className="col-md-2"></div>
-                    <div className="col-md-2 text-left" >Select the project</div>
-                    <div className="col-md-4">
-                    
-                        <Dropdown required placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
-                    </div>
-                    <div className="col-md-4"></div>
-                </div>
-                <div className="row">
-                    <div className="col-md-2"></div>
-                    <div className="col-md-2 text-left" >Select the Presentation</div>
-                    <div className="col-md-4">
-                        <Dropdown required placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
-
-                    </div>
-                    <div className="col-md-4"></div>
-               
-                    
-                </div>
-                
-               
-                
-
-               
-                   
-                    <Form.Group widths='equal'>        
-                    <Form.Field >
-                    Select the start day
+        <DialogContent>
+         
+         <Form.Field >
+                   <label>Select the start day</label> 
                 <DateInput required
 
                     name="dateTime"
@@ -574,29 +656,115 @@ class Timeslot extends React.Component {
                     />
                 </div>
                 </Form.Field>
+                <Form.Field required control={Input} onChange={this.handleChange} name="venue" value={this.state.venue} label='Enter the Locations' placeholder='Enter places seperated by comma' />
+
+        </DialogContent>
+        <DialogActions>
+          <Button type="cansel" onClick={this.handleClose} color="primary">
+            Cansel
+          </Button>
+          <Button type ='submit' color="primary" autoFocus>
+            Save
+          </Button>
+        </DialogActions>
+        </Form>
+
+      </Dialog>
+      <Form onSubmit={this.generateTimeslots1}>
+
+                 <div class="col-md-12" style={{marginBottom:'50px',marginTop:'50px'}}>
+                    <div class="card" style={cardStyle}>
+                        <div class="card-header card-header-danger">
+                            
+                        </div>
+                <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Set Time Slots for Presentation</h3>
+
+                <div className="row">
+                    <div className="col-md-2"></div>
+                    <div className="col-md-2 text-left" >Select the project</div>
+                    <div className="col-md-4">
+                    
+                        <Dropdown required placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
+                    </div>
+                    <div className="col-md-4"></div>
+                </div>
+                <div className="row">
+                    <div className="col-md-2"></div>
+                    <div className="col-md-2 text-left" >Select the Presentation</div>
+                    <div className="col-md-4">
+                        <Dropdown required placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
+
+                    </div>
+                    <div className="col-md-4"></div>
+               
+                    
+                </div>
+                
+               
+                
+
+               
+                   
+                    <Form.Group widths='equal'>        
+                    
+                
+              
                 </Form.Group>
 
                         <Form.Group widths='equal' required>
                             <Form.Field required control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='Enter the Time Slot Length(minuths)' placeholder='Time slot length' />
-                            <Form.Field required control={Input} onChange={this.handleChange} name="intervallength" value={this.state.intervallength} label='Enter the Interval Length(minuths)' placeholder='Interval length' />
-                            <Form.Field readOnly control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
-                            <Form.Field required control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Number of Evaluvaters for Presentation' placeholder='Enter the evaluvater Count for one presentation' />
+                            <Form.Field  control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
+                            <Form.Field required control={Input} onChange={this.handleChange} name="evaluvateCount" value={this.state.evaluvateCount} label='Maximum evaluvators count' placeholder='Maximum evaluvators count for presentation' />
                             </Form.Group>
                             <Form.Group widths='equal'>
 
-                            <Form.Field required control={Input} onChange={this.handleChange} name="venue" value={this.state.venue} label='Enter the Places' placeholder='Enter places seperated by comma' />
-
                         <Form.Field required control={Input} onChange={this.handleChange} name="evaluvators" value={this.state.evaluvators} label='Enter the Evaluvators' placeholder='Enter the Evaluvators seperated by comma' />
                         </Form.Group>
-                        <Button secondary type="submit" >Generate Time Slots</Button>
 
-                    </Form>
                     </div>
 
 
 
                 </div>
+                <div class="col-md-12" style={{marginBottom:'50px',marginTop:'50px'}}>
+                    <div class="card" style={cardStyle}>
+                    <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Add presentation Days</h3>
+                   <div>
+                    <Button primary onClick={this.handleOpen} >Add a Day</Button>
+                    </div>
+                    <MDBTable hidden={!this.state.Days.length>0}>
+      <MDBTableHead color="primary-color" textWhite>
+        <tr>
+          <th>#</th>
+          <th>Day</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Locations</th>
+          <th>remove</th>
+        </tr>
+      </MDBTableHead>
+      <MDBTableBody>
+          {this.state.Days.map(day=>
+<tr>
+    <td></td>
+    <td>{day.date}</td>
+    <td>{day.starttime}</td>
+    <td>{day.endtime}</td>
+    <td>{day.locations}</td>
+    <td><Button secondary onClick={()=>this.remove(day.date)}>remove</Button></td>
+</tr>
+          )}
+       
+      </MDBTableBody>
+    </MDBTable>
+    
 
+                    </div>
+                    </div>
+                    <div>
+    <Button secondary type="submit" >Generate Time Slots</Button>
+    </div>
+    </Form>
 
                 {(this.state.timeslots.length>0) && (!this.state.alreadycreated) ?
 
@@ -646,9 +814,6 @@ class Timeslot extends React.Component {
                                                         )}
                                                         <Button onClick={() => this.submitEvaluvators(timeslots.start, timeslots.venue)}> Submit</Button>
                                                     </List>
-
-
-
 
                                                 }
                                                 on='click'

@@ -128,17 +128,13 @@ uploadtoDB=()=>{
                 <div className="col-sm-9">
                 
       <div className="row">
-      <div className="reg">
-        send email to register
-        <MDBBtn color="default" onClick={this.sendmail}>
-        <MDBIcon icon="magic" className="mr-1"  /> Send Emails
-      </MDBBtn>
+      
 
 
 
-      <div className="col-sm-4 pt-3">
+      <div >
             <MDBBtn variant="outlined" color="primary" id ="add" size="lg" onClick={this.handleClickOpen}>
-              Add Student Details
+              Upload Excel Sheet
             </MDBBtn>
             <Dialog
               open={this.state.open}
@@ -170,13 +166,18 @@ uploadtoDB=()=>{
               </div>
       </div>
      
-      
+      <div className="reg">
+        send emails to register
+        <MDBBtn color="default" onClick={this.sendmail}>
+        <MDBIcon icon="magic" className="mr-1"  /> Send Emails
+      </MDBBtn>
+      </div>
 
 
         
                 </div>
   
-                </div>
+
 
         )
     }

@@ -20,6 +20,9 @@ class Pcoodinater extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      projectcount:0,
+      evaluvatorscount:0,
+      studentcount:0,
       projects: [],
       sheetid:'',
       sheeturl:'',
@@ -29,7 +32,17 @@ class Pcoodinater extends Component {
     this.onChange = this.onChange.bind(this)
   }
 
-
+componentDidMount(){
+  axios.get("http://localhost:4000/api/getprojectscount").then(res=>{
+    this.setState({projectcount:res.data})
+  })
+  axios.get("http://localhost:4000/api/getstudentcount").then(res=>{
+    this.setState({studentcount:res.data})
+  })
+  axios.get("http://localhost:4000/api/getevaluvatorscount").then(res=>{
+    this.setState({evaluvatorscount:res.data})
+  })
+}
   onChange(e) {
     this.setState(
       {sheeturl: e.target.value},
@@ -73,7 +86,7 @@ class Pcoodinater extends Component {
             <Card.Header> Total Projects</Card.Header>
             <Card.Meta>
           
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
+            <h1> <span className='date'> <CountUp end={this.state.projectcount} /></span></h1>
             </Card.Meta>
         
           </Card.Content>
@@ -86,7 +99,7 @@ class Pcoodinater extends Component {
             <Card.Header> Total Students</Card.Header>
             <Card.Meta>
             
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
+            <h1> <span className='date'> <CountUp end={this.state.studentcount} /></span></h1>
             </Card.Meta>
         
           </Card.Content>
@@ -100,7 +113,7 @@ class Pcoodinater extends Component {
             <Card.Header> Total Evaluvators</Card.Header>
             <Card.Meta>
             
-            <h1> <span className='date'> <CountUp end={100} /></span></h1>
+            <h1> <span className='date'> <CountUp end={this.state.evaluvatorscount} /></span></h1>
             </Card.Meta>
         
           </Card.Content>
@@ -108,7 +121,8 @@ class Pcoodinater extends Component {
         </Card>
 
   </div>
-    
+    {this.props.project.projects.length>0 ?
+    <div>
         <Header as='h2' icon textAlign='center'>
           <h3 style={{backgroundColor:'#F9A602',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >All Projects</h3>
 
@@ -141,6 +155,10 @@ class Pcoodinater extends Component {
 
 
         </div>
+        </div>
+        :
+        <div>  <h3 style={{backgroundColor:'#00003f',color:'white',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >No Projects Found</h3>
+        </div>}
 
       </div>
     )
