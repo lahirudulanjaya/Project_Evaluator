@@ -47,7 +47,7 @@ class Timeslot extends React.Component {
             timeslotlength: null,
             already:false,
             intervallength: null,
-            numberofgroups: null,
+            numberofgroups: 0,
             numberofplaces: null,
             venue: "",
             evaluvators: "",
@@ -81,8 +81,11 @@ class Timeslot extends React.Component {
         this.state.timeslots.map(st => {
             if (st.start == time && st.venue == venue) {
                 var slot = {
+                    groupno:st.groupno,
+                    starttime: st.starttime,
                     start: st.start,
                     end: st.end,
+                    endtime: st.endtime,
                     venue: st.venue,
                     evaluvators: selectedEvaluvators
                 }
@@ -345,7 +348,7 @@ this.setState({ timeslots: timeslots })
 
     }
     componentWillReceiveProps(nextprops) {
-        if(nextprops.projects.Currentproject.length>0){
+        if(nextprops.projects.Currentproject.length>0 && this.state.Projectname.length>0){
         this.setState({numberofgroups:nextprops.projects.Currentproject[0].groups.length})
         }
        
@@ -580,7 +583,6 @@ this.setState({ timeslots: timeslots })
 
     render() {
     
-    
 
         const Projectnames = this.props.projects.project.map(project =>
             ({
@@ -765,7 +767,6 @@ this.setState({ timeslots: timeslots })
     <Button secondary type="submit" >Generate Time Slots</Button>
     </div>
     </Form>
-
                 {(this.state.timeslots.length>0) && (!this.state.alreadycreated) ?
 
 
@@ -834,7 +835,9 @@ this.setState({ timeslots: timeslots })
 
 
                 </div>
-                : this.state.alreadycreated ? <div> <Card fluid color='red' header='You have already created timeslots ...... click here for update groups' /><Button secondary onClick={this.updateGroup}><Link to="/pg/updatetimeslots"> Update</Link></Button></div> 
+                
+                : this.state.alreadycreated ? <div> 
+                <Card fluid color='red' header='You have already created timeslots ...... click here for update groups' /><Button secondary onClick={this.updateGroup}><Link to="/pg/updatetimeslots"> Update</Link></Button></div> 
             
             :<div></div>
             }
