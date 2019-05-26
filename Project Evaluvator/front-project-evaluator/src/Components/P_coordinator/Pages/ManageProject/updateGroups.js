@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {getmilestones,updatemilestone,delemilestone} from '../../../../actions/milestoneActions'
 import {connect} from 'react-redux'
 import {getprojectnames} from '../../../../actions/ProjectActions'
-
+import { Link } from 'react-router-dom'
 import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBDataTable, Input} from 'mdbreact';
 import axios from'axios'
 import swal from 'sweetalert'
@@ -15,6 +15,7 @@ import _ from 'lodash'
 
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer,MDBIcon} from 'mdbreact';
 import { Button,Card} from 'semantic-ui-react'
+import { consolidateStreamedStyles } from 'styled-components';
 var stud
 
 var cardStyle={
@@ -28,21 +29,22 @@ class UpdateGroups extends React.Component{
     this.state={
       Projectname:'',
        groups:[],
-       updategroups:[
+       updategroups:
          {
         groupno:'',
         students:[{
           Registrationnumber:'',
           Name:''
         }],
-        Supervisor:'',
-        Mentor:'',
-        open:false,
-        Registrationnumber:'',
-        Name:''
+        supervisor:'',
+        mentor:'',
+       
 
          }
-       ]
+       ,
+       open:false,
+       Registrationnumber:'',
+       Name:''
 
     }
     this.handleChange =this.handleChange.bind(this)
@@ -59,8 +61,8 @@ class UpdateGroups extends React.Component{
           ...prevState.updategroups,
           groupno: group.groupno,
           students:group.students,
-          Supervisor:group.Supervisor,
-          Mentor:group.Mentor
+          supervisor:group.supervisor,
+          mentor:group.mentor
       }
   }))
   groupno=group.groupno
@@ -97,11 +99,95 @@ class UpdateGroups extends React.Component{
     axios.put("http://localhost:4000/api/deletegroups/"+value)
      .then(res=>{
        swal('success')
+       axios.get("http://localhost:4000/api/pg/getproject/"+this.state.Projectname)
+       .then(res=>{
+         console.log(res.data)
+         this.setState({groups:res.data})
+        })
+       .catch(err=>{
+        console.log(err)
+      })
       })
      .catch(err=>{
       swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
 
     })
+  }
+
+  updateGroups=(groupno)=>{
+var groups=[]
+    this.state.groups[0].groups.forEach(element => {
+      if(element.groupno==groupno)
+      {
+        groups.push(this.state.updategroups)
+      }
+      else{
+        groups.push(element)
+      }
+});
+var Grps={
+  Projectname: this.state.Projectname,
+groups:groups
+}
+console.log(Grps)
+axios.put("http://localhost:4000/api/pg/addGroups", Grps)
+.then(res => {
+  swal({
+    title: "Good job!",
+    text: "You have succesfully Submit Groups!",
+    icon: "success",
+  });
+
+  axios.get("http://localhost:4000/api/pg/getproject/"+this.state.Projectname)
+  .then(res=>{
+    console.log(res.data)
+    this.setState({groups:res.data})
+   })
+  .catch(err=>{
+   console.log(err)
+ })
+})
+.catch(err => {
+  console.log(err)
+})
+    
+    
+  }
+
+  deleteoneGroup=(groupno)=>{
+    var groups=[]
+    this.state.groups[0].groups.forEach(element => {
+      if(!(element.groupno==groupno))
+      {
+        groups.push(element)
+      }
+      
+});
+var Grps={
+  Projectname: this.state.Projectname,
+groups:groups
+}
+console.log(Grps)
+axios.put("http://localhost:4000/api/pg/addGroups", Grps)
+.then(res => {
+  swal({
+    title: "Good job!",
+    text: "You have succesfully Submit Groups!",
+    icon: "success",
+  });
+
+  axios.get("http://localhost:4000/api/pg/getproject/"+this.state.Projectname)
+  .then(res=>{
+    console.log(res.data)
+    this.setState({groups:res.data})
+   })
+  .catch(err=>{
+   console.log(err)
+ })
+})
+.catch(err => {
+  console.log(err)
+})
   }
   componentDidMount(){
     this.props.getprojectnames()
@@ -204,11 +290,11 @@ console.log(this.state)
             </Form.Field>
     <Form.Field>
       <label>Supervisor</label>
-      <input value={this.state.updategroups.Supervisor} name="Supervisor"onChange={this.onchange} />
+      <input value={this.state.updategroups.supervisor} name="supervisor"onChange={this.onchange} />
     </Form.Field>
     <Form.Field>
       <label>Mentor</label>
-      <input value={this.state.updategroups.Mentor} name="Mentor"onChange={this.onchange} />
+      <input value={this.state.updategroups.mentor} name="mentor"onChange={this.onchange} />
     </Form.Field>
    
   </Form>
@@ -217,12 +303,12 @@ console.log(this.state)
           <Button onClick={this.handleClose} color="primary">
             Cansel
           </Button>
-          <Button onClick={this.updateProject} color="primary" autoFocus>
+          <Button onClick={()=>this.updateGroups(this.state.updategroups.groupno)} color="primary" autoFocus>
             Save
           </Button>
         </DialogActions>
       </Dialog>
-      {this.state.groups.length>0 ?
+      {this.state.groups.length>0 && this.state.groups[0].groups.length>0 ?
         <MDBCard>
           <div>
           <Button secondary onClick={()=>this.deletegroups(this.state.Projectname)}>Delete all</Button>
@@ -236,8 +322,7 @@ console.log(this.state)
                 <th>Group No</th>
                 <th>Students</th>
                 <th>Supervisor</th>
-                <th>Mentors</th>
-               
+                <th>Mentors</th>               
                 <th>Update</th>
                 <th>Delete</th>
                 
@@ -254,12 +339,12 @@ console.log(this.state)
 {grp.Name}
 </div>
                 )}</td>
-                <td></td>
-                <td></td>
+                <td>{group.supervisor}</td>
+                <td>{group.mentor}</td>
                 
                 
         <td><MDBIcon far icon="edit" className="indigo-text pr-3" size="2x" onClick={()=>this.handleClickOpen(group)} /></td>
-       <td><MDBIcon icon="trash" className="red-text pr-3" size="2x"onClick={()=>this.ondelete()}/> </td>     
+       <td><MDBIcon icon="trash" className="red-text pr-3" size="2x"onClick={()=>this.deleteoneGroup(group.groupno)}/> </td>     
 
 
                 </tr>
@@ -273,7 +358,8 @@ console.log(this.state)
           </MDBCardBody>
         </MDBCard>
          :
-         <div></div>
+         <div hidden={!(this.state.Projectname.length>0)}>              <Card fluid color='red' header='No groups found ...... click here for create groups' /><Button secondary ><Link to="/pg/creategroups"> Create</Link></Button></div>
+        
                      }
         </div>
        

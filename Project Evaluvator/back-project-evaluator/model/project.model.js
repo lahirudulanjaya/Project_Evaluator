@@ -24,7 +24,9 @@ var ProjectSchema = new mongoose.Schema({
         groupno:{
             type:Number
         },
-        students:[]
+        students:[],
+        supervisor:String,
+        mentor:String
     }],
     Sheeturl:{
         type:String
