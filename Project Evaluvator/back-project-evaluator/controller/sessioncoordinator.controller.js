@@ -11,7 +11,7 @@ module.exports.addsessioncoodinator=(req,res,next)=>{
         length: 6,
         uppercase: false
     });
-
+console.log(password)
     var sessioncoordinator = new Sessioncoordinator()
     sessioncoordinator.Registrationnumber = req.body.Registrationnumber
     sessioncoordinator.Email = req.body.Email

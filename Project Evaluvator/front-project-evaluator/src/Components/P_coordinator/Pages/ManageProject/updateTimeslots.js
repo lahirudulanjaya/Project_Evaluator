@@ -17,7 +17,6 @@ import { getpresentations } from '../../../../actions/milestoneActions'
 import {Link }from 'react-router-dom'
 
 import { Card} from 'semantic-ui-react'
-import Timeslots from '../Timeslots/Timeslots';
 class Updatetimeslots extends React.Component{
     constructor(props){
         super(props)

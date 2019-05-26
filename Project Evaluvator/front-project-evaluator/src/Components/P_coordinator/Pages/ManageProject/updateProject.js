@@ -14,7 +14,6 @@ import _ from 'lodash'
 import axios from 'axios'
 import swal from 'sweetalert';
 
-import { Card} from 'semantic-ui-react'
 class UpdateProject extends React.Component{
     constructor(props){
         super(props)
@@ -118,12 +117,22 @@ handleClickOpen = (project) => {
     
   }
   ondelete(name){
-   
-    axios.delete("http://localhost:4000/api/pg/deleteproject/"+name)
+
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+
+axios.delete("http://localhost:4000/api/pg/deleteproject/"+name)
      .then(res=>{
         swal({
             title: "Good job!",
-            text: "You have succesfully Change Status!",
+            text: " succesfully Deleted!",
             icon: "success",
           });
           this.props.getallprojects()
@@ -131,6 +140,16 @@ handleClickOpen = (project) => {
      .catch(err=>{
         swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
     })
+
+       
+      } 
+    });
+
+
+
+
+   
+    
   }
 
 componentWillReceiveProps(nextprops){
