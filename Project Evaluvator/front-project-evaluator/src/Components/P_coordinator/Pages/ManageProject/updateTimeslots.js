@@ -246,9 +246,9 @@ componentWillReceiveProps(nextprops){
 render(){
   var rows =[]
   var notice =""
- if(this.state.timeslots){
+ if(this.state.timeslots.Timeslosts){
   this.state.timeslots.Timeslosts.map(timeslot=>{
-   if(timeslot.groupno>0){
+   
 var row={
   groupno:Number(timeslot.groupno),
   starttime:timeslot.starttime,
@@ -259,8 +259,8 @@ var row={
   venue:timeslot.venue
 }
 rows.push(row)
-   }
-
+   
+console.log(rows)
 
   })
 
@@ -451,11 +451,12 @@ rows.push(row)
         </DialogActions>
       </Dialog>
 
-      <Button secondary hidden={!(rows.length>0)}  onClick={()=>this.handleClickOpen()} >Change Evaluvators</Button>
-       <Button secondary hidden={!(rows.length>0)} onClick={()=>this.handleClickOpen1()}>Replace Evaluvator</Button>
-       <Button secondary hidden={!(rows.length>0)} onClick={this.deleteTimelost}>Detele All Timeslot and Create Again</Button>
+      <Button secondary hidden={!(rows.length>1)}  onClick={()=>this.handleClickOpen()} >Change Evaluvators</Button>
+       <Button secondary hidden={!(rows.length>1)} onClick={()=>this.handleClickOpen1()}>Replace Evaluvator</Button>
+       <Button secondary hidden={!(rows.length>1)} onClick={this.deleteTimelost}>Detele All Timeslot and Create Again</Button>
 <h2>{notice}</h2>
-  <div hidden={!(rows.length>0)}>
+{console.log(rows)}
+  <div hidden={!(rows.length>1)}>
     <MDBDataTable striped 
       bordered
       hover

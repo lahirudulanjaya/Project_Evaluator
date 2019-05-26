@@ -33,6 +33,7 @@ class Milestones extends Component
   constructor(props){
     super(props)
     this.state={
+      Projectname:'',
       updateMilestone:{
         name:'',
         Grp_or_I:'',
@@ -72,7 +73,7 @@ handleClose = () => {
   handleChange(e,data){
     
     let value = data.value
-
+    this.setState({Projectname:value})
     this.setState({
       id: value,
     })
@@ -120,6 +121,7 @@ handleClose = () => {
     this.props.getmilestones(this.state.id)
   }
  componentWillReceiveProps(nextprops){
+   if(this.state.Projectname.length>0)
    this.setState({milestones:nextprops.milestone.milestone})
  }
  ondelete(name){

@@ -77,7 +77,7 @@ class StudentTable extends React.Component {
 
 
   onchangeDropdown(e) {
-    this.setState({ clicked: false })
+    this.setState({ clicked: false ,created:false})
     this.setState({ data: [], groups: [] })
     this.setState({ projectName: e.target.textContent })
     this.props.getstudentbyYear(e.target.textContent)
@@ -235,8 +235,13 @@ class StudentTable extends React.Component {
 
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.project.Currentproject.length > 0 && nextProps.project.Currentproject[0].groups.length > 0) {
+    console.log(nextProps.project.Currentproject.length > 0 && nextProps.project.Currentproject[0].groups.length > 0 && this.state.projectName.length>0)
+    if (nextProps.project.Currentproject.length > 0 && nextProps.project.Currentproject[0].groups.length > 0 && this.state.projectName.length>0) {
       this.setState({ created: true })
+    }
+    else{
+      this.setState({ created: false })
+
     }
     this.setState({
       projects: nextProps.project.project,
@@ -244,8 +249,8 @@ class StudentTable extends React.Component {
     }
     )
 
-    console.log(this.state)
-
+    console.log(nextProps)
+console.log(this.state)
   }
   setdata = () => {
     this.setState({Data:[],Selectedstudent:[],groups:[]})
@@ -328,14 +333,14 @@ class StudentTable extends React.Component {
             <h3 style={{ backgroundColor: '#F9A602', color: 'black', padding: '12px', borderRadius: '5px', marginBottom: '30px' }} >Select the project</h3>
             <Dropdown placeholder='project' search selection options={Projectnames} defaultValue="" onChange={this.onchangeDropdown} />
 
-            <div >
+            <div hidden={this.state.created} >
 
 
               <h3 style={{ backgroundColor: '#F9A602', color: 'black', padding: '12px', borderRadius: '5px', marginBottom: '30px' }} >Enter the number of student for group</h3>
 
               <Input disabled={this.state.disable} error style={{ width: '175px' }} type="number" placeholder='max student' onChange={this.onchange} value={this.state.groupcount} name="groupcount" />
               <div>
-                <Button primary onClick={this.setdata}>show Student list</Button>
+                <Button  primary onClick={this.setdata}>show Student list</Button>
               </div>
 
             </div>
@@ -383,7 +388,8 @@ class StudentTable extends React.Component {
                             </Table>
 
 
-                          </div> : ((this.state.clicked) && (this.state.data.length < 1) && (this.state.selectcount)) ? <div><Card fluid color='red' header='No student Found' /> </div>
+                          </div> : ((this.state.clicked) && (this.state.data.length < 1) && (this.state.selectcount)) ? <div>        {console.log(this.state)}
+<Card fluid color='red' header='No student Found' /> </div>
                             : <div></div>
                         }
                       </div>
@@ -417,7 +423,8 @@ class StudentTable extends React.Component {
               </div>
 
               :
-              <div><Card fluid color='red' header='You have already created groups ...... click here for update groups' /><Button secondary onClick={this.updateGroup}><Link to="/pg/updategroups"> Update</Link></Button></div>
+              <div>        {console.log(this.state)}
+              <Card fluid color='red' header='You have already created groups ...... click here for update groups' /><Button secondary onClick={this.updateGroup}><Link to="/pg/updategroups"> Update</Link></Button></div>
             }
           </div>
 
