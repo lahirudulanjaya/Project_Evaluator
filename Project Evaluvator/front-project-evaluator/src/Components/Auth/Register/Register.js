@@ -66,7 +66,7 @@ class Register extends Component{
       nameError:
         UserName.length > 3 ? null : 'Name must be longer than 3 characters',
       nameErrStyle:
-        UserName.length > 3 ? {} : {borderStyle: 'solid', borderColor:'red'}
+        UserName.length > 3 ? {} : {borderStyle: 'none none solid none', borderWidth: '2px', borderColor:'red'}
     });
   }
   //index number validation
@@ -84,7 +84,7 @@ class Register extends Component{
         ?null: 'Invalid Registration number',
       regNoErrStyle:
         (Registrationnumber.length==9 && (Registrationnumber.substring(4,6)=='cs'||Registrationnumber.substring(4,6)=='is'||Registrationnumber.substring(4,6)=='CS'||Registrationnumber.substring(4,6)=='IS'))
-        ? {} : {borderStyle: 'solid', borderColor:'red'}
+        ? {} : {borderStyle: 'none none solid none', borderWidth: '2px', borderColor:'red'}
     });
   }
   //password validation
@@ -99,7 +99,7 @@ class Register extends Component{
       PasswordError:
         Password.length > 8 ? null : Password.length > 5 ? "Fair Length" : 'Password length should be more than 5 characters',
       passwordErrStyle:
-        Password.length > 8 ? {} : Password.length > 5 ? {borderStyle: 'solid', borderColor:'orange'} : {borderStyle: 'solid', borderColor:'red'},
+        Password.length > 8 ? {} : Password.length > 5 ? {borderStyle: 'none none solid none', borderWidth: '2px', borderColor:'orange'} : {borderStyle: 'none none solid none', borderWidth: '2px', borderColor:'red'},
     });
   }
   //confirm password validation
@@ -112,9 +112,9 @@ class Register extends Component{
     const { Cpassword,Password } = this.state;
     this.setState({
       CpasswordError:
-       Cpassword=== Password ? null : "Password Doesn't match",
+       (Cpassword=== Password && Cpassword.length > 5) ? null : "Password Doesn't match",
       cpasswordErrStyle:
-      Cpassword=== Password ? {} : {borderStyle: 'solid', borderColor:'red'}
+      (Cpassword=== Password && Cpassword.length > 5) ? {} : {borderStyle: 'none none solid none', borderWidth: '2px', borderColor:'red'}
     });
   }
   //email validation
@@ -128,9 +128,9 @@ class Register extends Component{
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     this.setState({
       emailError:
-        Email.match(mailformat) ? null : "Email is invalid",
+        (Email.match(mailformat) && Email.length > 3) ? null : "Email is invalid",
       emailErrStyle:
-        Email.match(mailformat) ? {} : {borderStyle: 'solid', borderColor:'red'}
+        (Email.match(mailformat) && Email.length > 3) ? {} : {borderStyle: 'none none solid none', borderWidth: '2px', borderColor:'red'}
     });
   }
   postRegister  (e){
@@ -148,9 +148,11 @@ class Register extends Component{
     //    swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
     //     console.log(err.response.data)
     //   })
-
-
-  
+    if(this.state.UserName==''){
+      console.log('username');
+    }else{
+      console.log('right');
+    }
       const newUser = {
         UserName: this.state.UserName,
         Email: this.state.Email,
@@ -167,10 +169,13 @@ class Register extends Component{
 
   }
 render(){
-  const { errors, nameErrStyle,regNoErrStyle,passwordErrStyle,cpasswordErrStyle,emailErrStyle } = this.state;
-  // const errorStyle = {borderStyle: 'solid'};
-  // const correctStyle = {};
-
+  const { nameError,IndexError,PasswordError,CpasswordError,emailError,nameErrStyle,regNoErrStyle,passwordErrStyle,cpasswordErrStyle,emailErrStyle } = this.state;
+  const userNameLabel = <p style ={{color:'red'}}>Username</p>
+  const emailLabel = <p style ={{color:'red'}}>Email</p>
+  const indexLabel = <p style ={{color:'red'}}>Registration Number(Ex: 2016cs000)</p>
+  const passwordLabel = <p style ={{color:'red'}}>Password</p>
+  const cpasswordLabel = <p style ={{color:'red'}}>Confirm Password</p>
+  
     return(
       <div>
         <Navbar/>
@@ -194,7 +199,7 @@ render(){
 
                 <div className="grey-text">
                   <MDBInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-                    label="User Name"
+                    label={(nameError==''|| nameError==null) ? 'Username': userNameLabel}
                     name = "UserName"
                     onChange ={this.handleNameChange}    
                     value ={this.state.UserName}
@@ -212,7 +217,7 @@ render(){
                   />
                   <p className="text-danger">{this.state.nameError}</p>
                   <MDBInput
-                    label="Email"
+                    label={(emailError=='' || emailError==null) ? "Email" : emailLabel}
                     name ="Email"
                     value ={this.state.Email}
                     onChange ={this.handleEmailChange}
@@ -229,7 +234,7 @@ render(){
                   />
                   <p className="text-danger">{this.state.emailError}</p>
                   <MDBInput
-                    label="Registration Number(Ex: 2016cs000)"
+                    label={(IndexError=='' || IndexError==null) ? "Registration Number(Ex: 2016cs000)" : indexLabel}
                     name = "Registrationnumber"
                     value ={this.state.Registrationnumber}
                     onChange ={this.handleIndexChange}
@@ -249,7 +254,7 @@ render(){
                   />
                   <p className="text-danger">{this.state.IndexError}</p>
                   <MDBInput
-                    label="Password"
+                    label={(PasswordError=='' || PasswordError==null) ? "Password" : passwordLabel}
                     name ="Password"
                     value ={this.state.Password}
                     onChange ={this.handlePasswordChange}
@@ -267,7 +272,7 @@ render(){
                   />
                   <p className="text-danger">{this.state.PasswordError}</p>
                   <MDBInput
-                    label="Confirm Password"
+                    label={(CpasswordError=='' || CpasswordError==null) ? "Confirm Password" : cpasswordLabel}
                     name = "Cpassword"
                     value ={this.state.Cpassword}
                     onChange ={this.handleCpasswordChange}
