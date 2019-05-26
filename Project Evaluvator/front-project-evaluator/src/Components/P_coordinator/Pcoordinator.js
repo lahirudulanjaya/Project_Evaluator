@@ -80,47 +80,30 @@ componentDidMount(){
 
       <div class="ui three doubling stackable cards">
         
-          <Card style={{width: '15%',height: '15%',margin: '100px'}}>
-          <img  src={projectImg} wrapped ui={false} />
-          <Card.Content>
-            <Card.Header> Total Projects</Card.Header>
-            <Card.Meta>
-          
-            <h1> <span className='date'> <CountUp end={this.state.projectcount} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-      
-        </Card>
-        <Card style={{width: '15%',height: '15%',margin: '100px'}}>
-          <img src={studentImg} wrapped ui={false} />
-
-          <Card.Content>
-            <Card.Header> Total Students</Card.Header>
-            <Card.Meta>
-            
-            <h1> <span className='date'> <CountUp end={this.state.studentcount} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-        
-        </Card>
-        <Card style={{width: '15%',height: '15%',margin: '100px'}}>
-        
-          <img src={evaluaterImg} wrapped ui={false} />
-
-          <Card.Content>
-            <Card.Header> Total Evaluvators</Card.Header>
-            <Card.Meta>
-            
-            <h1> <span className='date'> <CountUp end={this.state.evaluvatorscount} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-        
-        </Card>
-
+  
+        <div class="card text-white bg-primary mb-3" style={{maxWidth:"25rem", height:"120px",fontSize:25,margin: '100px'}}>
+  <div class="card-header">Total Projects</div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p style={{fontSize:25}} class="card-text text-white">{this.state.projectcount}</p>
   </div>
+</div>
+  
+
+
+<div class="card text-white bg-primary mb-3" style={{maxWidth:"25rem", height:"120px",fontSize:25,margin: '100px'}}>
+  <div class="card-header">Registered Students</div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p style={{fontSize:25}} class="card-text text-white">{this.state.studentcount}</p>
+  </div>
+</div>
+
+
+</div>
+
+
+
     {this.props.project.projects.length>0 ?
     <div>
         <Header as='h2' icon textAlign='center'>
