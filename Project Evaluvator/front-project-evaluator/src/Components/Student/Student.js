@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar'
+import Header from './Component/Header'
 import { connect } from 'react-redux'
 import { getstudentProject, getstudentbyYear } from '../../actions/P_coodinator-Student'
 import { getsendrequest, getrequest, cheackallaccepted } from '../../actions/requestActions'
@@ -20,11 +20,12 @@ class Student extends React.Component {
       academicyear: null,
       studentProject: null,
       student: null,
-      groups: null,
+      groups: [],
       students: [],
       request: null,
       requests: [],
       isaccepted: false,
+      clicked:false
 
 
 
@@ -124,7 +125,7 @@ class Student extends React.Component {
   showlist = () => {
     { this.props.getstudentbyYear(this.state.student.Projectname) }
     this.props.getsendrequest(this.state.user.Registrationnumber)
-
+this.setState({clicked:true})
   }
 
   // componentWillMount(){
@@ -229,10 +230,10 @@ class Student extends React.Component {
   }
 
   render() {
-    
+    {console.log(this.state)}
     return (
       <div>
-        <Navbar username={this.state.user.UserName} requestcount={this.state.requests.length} requests={this.state.requests} accept={() => this.confirmRequest(this.state.user.Registrationnumber)}></Navbar>
+        <Header username={this.state.user.UserName} requestcount={this.state.requests.length} requests={this.state.requests} accept={() => this.confirmRequest(this.state.user.Registrationnumber)}></Header>
 
         {(this.state.student == null)
           ?
@@ -302,12 +303,10 @@ class Student extends React.Component {
                 </div>
               </div> :
               <div>
-                you have to create own groups
 
 
                 <div>
-                  group list
-                <div>
+                <div >
                     {!(this.state.groups == null) ? <div>
                       <Table striped>
                         <Table.Header>
@@ -365,9 +364,10 @@ class Student extends React.Component {
                 </div>
 
                 {this.state.request ?
+<div>
+<h3 style={{backgroundColor:'#feda6a',color:'#1d1e22',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} > Your Request. </h3>
 
                   <Table celled>
-                    <h1>Your Request</h1>
                     <Table.Header>
                       <Table.Row>
                         <Table.HeaderCell>Registartionnumber</Table.HeaderCell>
@@ -393,12 +393,14 @@ class Student extends React.Component {
                     <Button secondary disabled={!this.state.isaccepted} onClick={this.creategroup}>create your group</Button>
 
                   </Table>
-
+</div>
                   :
                   <div>
-                    You Haven't Send Any Request Yet. If you wish to create group click show list and select three students
-                    <Button onClick={this.showlist}> Create Group</Button>
-                    <Tables onCheck={(value) => value.length >= 3
+    <h3 style={{backgroundColor:'#feda6a',color:'#1d1e22',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} > You Haven't Send Any Request Yet. </h3>
+
+                    <Button onClick={this.showlist} secondary> Show Student list</Button>
+<div hidden={!this.state.clicked}>
+                    <Tables  onCheck={(value) => value.length >= 3
                       ? this.sendgroupRequest(value)
                       : console.log("fvfvf")
                     }  >
@@ -420,7 +422,7 @@ class Student extends React.Component {
 
                       </Tbody>
                     </Tables>
-
+</div>
                   </div>
 
 
