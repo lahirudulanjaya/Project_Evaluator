@@ -76,55 +76,38 @@ componentDidMount(){
 
   render() {
     return (
-      <div className="container">
+      <div className="container" >
 
-      <div class="ui three doubling stackable cards">
+      <div class="ui three doubling stackable cards" style={{ marginBottom:'10px',marginTop:'10px' , borderStyle:'solid'}}>
         
-          <Card style={{width: '15%',height: '15%',margin: '100px'}}>
-          <img  src={projectImg} wrapped ui={false} />
-          <Card.Content>
-            <Card.Header> Total Projects</Card.Header>
-            <Card.Meta>
-          
-            <h1> <span className='date'> <CountUp end={this.state.projectcount} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-      
-        </Card>
-        <Card style={{width: '15%',height: '15%',margin: '100px'}}>
-          <img src={studentImg} wrapped ui={false} />
-
-          <Card.Content>
-            <Card.Header> Total Students</Card.Header>
-            <Card.Meta>
-            
-            <h1> <span className='date'> <CountUp end={this.state.studentcount} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-        
-        </Card>
-        <Card style={{width: '15%',height: '15%',margin: '100px'}}>
-        
-          <img src={evaluaterImg} wrapped ui={false} />
-
-          <Card.Content>
-            <Card.Header> Total Evaluvators</Card.Header>
-            <Card.Meta>
-            
-            <h1> <span className='date'> <CountUp end={this.state.evaluvatorscount} /></span></h1>
-            </Card.Meta>
-        
-          </Card.Content>
-        
-        </Card>
-
+  
+        <div class="card text-white bg-dark mb-3" style={{maxWidth:"25rem", height:"120px",fontSize:25,margin: '100px'}}>
+  <div class="card-header"><b>Total Projects</b></div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p style={{fontSize:25}} class="card-text text-white"><CountUp end={this.state.projectcount}></CountUp></p>
   </div>
+</div>
+  
+
+
+<div class="card text-white bg-dark mb-3" style={{maxWidth:"25rem", height:"120px",fontSize:25,margin: '100px'}}>
+  <div class="card-header"><b>Registered Students</b></div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p style={{fontSize:25}} class="card-text text-white"><CountUp end={this.state.studentcount}></CountUp></p>
+  </div>
+</div>
+
+
+</div>
+
+
+
     {this.props.project.projects.length>0 ?
     <div>
         <Header as='h2' icon textAlign='center'>
-          <h3 style={{backgroundColor:'#F9A602',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >All Projects</h3>
+          <h3 style={{backgroundColor:'#feda6a',color:'#1d1e22',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >All Projects</h3>
 
 
           
@@ -136,7 +119,7 @@ componentDidMount(){
           
             <div className="col-sm ml-5 pt-3 pb-3">
             {console.log(projects)}
-              <Card color="blue">
+              <Card color="grey">
                 <Card.Content>
                   <Card.Header onClick={this.sd}>{projects.Projectname}</Card.Header>
                   <Card.Meta>
