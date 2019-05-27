@@ -3,10 +3,8 @@ import {getmilestones,updatemilestone,delemilestone} from '../../../../actions/m
 import {connect} from 'react-redux'
 import {getprojectnames} from '../../../../actions/ProjectActions'
 
-import { MDBTable, MDBTableBody, MDBTableHead ,MDBBtn,MDBBadge} from 'mdbreact';
-import Sidebar from '../../Component/Sidebar2';
+import { MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
 import './updateMilestone.css'
-import FormLabel from '@material-ui/core/FormLabel';
 
 import axios from'axios'
 import swal from 'sweetalert'
@@ -19,7 +17,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {Form,Dropdown} from 'semantic-ui-react'
 import _ from 'lodash'
 
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer,MDBIcon} from 'mdbreact';
+import { MDBCard, MDBCardBody,MDBIcon} from 'mdbreact';
 import { Card} from 'semantic-ui-react'
 
 
@@ -35,6 +33,7 @@ class Milestones extends Component
   constructor(props){
     super(props)
     this.state={
+      Projectname:'',
       updateMilestone:{
         name:'',
         Grp_or_I:'',
@@ -74,7 +73,7 @@ handleClose = () => {
   handleChange(e,data){
     
     let value = data.value
-
+    this.setState({Projectname:value})
     this.setState({
       id: value,
     })
@@ -122,6 +121,7 @@ handleClose = () => {
     this.props.getmilestones(this.state.id)
   }
  componentWillReceiveProps(nextprops){
+   if(this.state.Projectname.length>0)
    this.setState({milestones:nextprops.milestone.milestone})
  }
  ondelete(name){
@@ -129,7 +129,18 @@ handleClose = () => {
      name:name,
      Projectname:this.state.id
    }
-   axios.delete("http://localhost:4000/api/pg/deletemilestone",{data:milestone})
+
+   swal({
+    title: "Are you sure?",
+    text: "Once deleted, you will not be able to recover!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+
+  axios.delete("http://localhost:4000/api/pg/deletemilestone",{data:milestone})
     .then(res=>{
        swal("sucess")
        this.props.getmilestones(this.state.id)
@@ -138,6 +149,13 @@ handleClose = () => {
     .catch(err=>{
       swal("error")
   })
+    } 
+  });
+
+
+
+
+ 
  }
   render() {
    var stateOptions=[

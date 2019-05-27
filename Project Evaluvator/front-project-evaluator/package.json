@@ -12,6 +12,7 @@
     "google-spreadsheet": "^2.0.7",
     "googleapis": "^27.0.0",
     "jwt-decode": "^2.2.0",
+    "material-table": "^1.36.4",
     "mdbreact": "^4.10.0",
     "moments": "0.0.2",
     "nodemailer": "^6.0.0",
@@ -56,5 +57,6 @@
   ],
   "devDependencies": {
     "ws": "3.3.2"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }

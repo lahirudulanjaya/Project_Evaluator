@@ -33,6 +33,9 @@ class Login extends Component{
     else if(nextprops.auth.isAuthenticated && nextprops.auth.user.type=="student"){
       this.props.history.push('/student')
     }
+    else if(nextprops.auth.isAuthenticated && nextprops.auth.user.type=="sessioncoordinator"){
+      this.props.history.push('/sc')
+    }
     this.setState({user:nextprops.auth.user.user})
     
   }

@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import {
   MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
-  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon
 } from "mdbreact";
-import Ucsc from "../../Ucsc.jpg";
-import "./Navbar.css";
+import "./Header.css";
 import NotificationBadge from 'react-notification-badge';
 import { Effect } from 'react-notification-badge';
 import { Icon, Popup, Button, List } from 'semantic-ui-react'
-import  {deletetoken} from '../../actions/authActions'
-class NavbarPage extends Component {
+import  {deletetoken} from '../../../actions/authActions'
+class Header extends Component {
   constructor(props) {
     super(props)
 
@@ -47,7 +45,32 @@ class NavbarPage extends Component {
               <MDBNavItem active>
                 <NotificationBadge count={this.state.requestcount} effect={Effect.SCALE} />
 
-               
+                <Popup
+                  trigger={<Icon size='big' name='user' />}
+                  content={<List>
+                    {this.state.requests.map(requests =>
+                      <List.Item>{requests.sender} wants to make a group with {requests.reciver.map(reciver =>
+                        <div inlist>
+                          {reciver.Registrationnumber}
+                        </div>
+                      )}
+                        <div className='ui two buttons'>
+                          <Button basic color='green' onClick={this.props.accept}>
+                            Approve
+          </Button>
+                          <Button basic color='red'>
+                            Decline
+          </Button>
+                        </div>
+
+                      </List.Item>
+
+                    )}
+
+                    {console.log(this.state.requests)}
+                  </List>}
+                  on='click'
+                />
               </MDBNavItem>
             </MDBNavItem>
             <MDBNavItem active>
@@ -57,40 +80,10 @@ class NavbarPage extends Component {
               <MDBNavLink to="/login"><b onClick={this.logout} style={{ color: '#000000' }}>log out </b></MDBNavLink>
             </MDBNavItem>
            
-            {/* <MDBNavItem>
-            <MDBDropdown>
-              <MDBDropdownToggle nav caret>
-                <div className="d-none d-md-inline"><b>Dropdown</b></div>
-              </MDBDropdownToggle>
-              <MDBDropdownMenu className="dropdown-default" right>
-                <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-              </MDBDropdownMenu>
-            </MDBDropdown>
-          </MDBNavItem> */}
+            
           </MDBNavbarNav>
 
-          {/*    <MDBNavItem>
-            <MDBNavLink className="waves-effect waves-light" to="#!">
-              <MDBIcon fab icon="google-plus-g" />
-            </MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBDropdown>
-              <MDBDropdownToggle nav caret>
-                <MDBIcon icon="user" />
-              </MDBDropdownToggle>
-              <MDBDropdownMenu className="dropdown-default" right>
-                <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-              </MDBDropdownMenu>
-            </MDBDropdown>
-          </MDBNavItem>
-        </MDBNavbarNav> */}
+         
         </MDBCollapse>
       </MDBNavbar>
 
@@ -98,4 +91,4 @@ class NavbarPage extends Component {
   }
 }
 
-export default NavbarPage;
+export default Header;

@@ -2,7 +2,6 @@ import React from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput ,MDBIcon} from 'mdbreact';
 import axios from 'axios'
 import swal from 'sweetalert'
-import { Card} from 'semantic-ui-react'
 class Evaluvator  extends React.Component {
     constructor(props) {
         super(props);
@@ -29,20 +28,38 @@ class Evaluvator  extends React.Component {
         this.setState({[e.target.name]: e.target.value});
       }
       deleteEvaluvator=(name)=>{
-        axios.delete("http://localhost:4000/api/deleteevaluvator/"+ name)
-      .then(res=>{
-         swal("sucess")
-         axios.get('http://localhost:4000/api/getEvaluvators').then(res=>{
-          this.setState({Evaluvators:res.data})
-          console.log(res.data)
+
+        swal({
+          title: "Are you sure?",
+          text: "Once deleted, you will not be able to recover!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
         })
-        .catch(err=>{
-          console.log(err)
-        })
-          .catch(err=>{
-              swal("error")
-          })
-      })
+        .then((willDelete) => {
+          if (willDelete) {
+            axios.delete("http://localhost:4000/api/deleteevaluvator/"+ name)
+            .then(res=>{
+               swal("sucess")
+               axios.get('http://localhost:4000/api/getEvaluvators').then(res=>{
+                this.setState({Evaluvators:res.data})
+                console.log(res.data)
+              })
+              .catch(err=>{
+                console.log(err)
+              })
+                .catch(err=>{
+                    swal("error")
+                })
+            })
+           
+            
+           
+          } 
+        });
+
+        
+       
       }
         
       
@@ -142,7 +159,7 @@ class Evaluvator  extends React.Component {
                 <div class="col-md-12 pt-3 mb-5">
               <div class="card">
                   <div class="card-header card-header-danger">
-                      <h4 class="card-title ">Project Table</h4>
+                      <h4 class="card-title ">Evaluvators</h4>
                      
                   </div>
                   <div class="card-body">

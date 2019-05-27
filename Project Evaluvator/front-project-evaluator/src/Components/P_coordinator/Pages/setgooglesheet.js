@@ -52,7 +52,7 @@ class Setgooglesheet extends Component {
   }
   
   render() {
-   
+   var headerrrr =<div><h3>When adding googlesheet to project you need to share your googlesheet with</h3><h3 style={{color:"yellow"}}> ucscprojectevaluation@ucsc-projec-tevaluation.iam.gserviceaccount.com</h3></div>
     return (
       <div className="container">
 
@@ -60,7 +60,7 @@ class Setgooglesheet extends Component {
         <div className="row pt-2 ml-3">
         <Card.Group>
         <Card className="ml-5" fluid color='orange' header='Before add googlesheet to project you need to create groups' />
-        <Card className="ml-5" fluid color='green' header='When adding googlesheet to project you need to share your googlesheet with  ucscprojectevaluation@ucsc-projec-tevaluation.iam.gserviceaccount.com ' />
+        <Card className="ml-5" fluid color='green' header= {headerrrr}/>
     
   </Card.Group>
 

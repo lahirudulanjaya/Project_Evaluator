@@ -2,7 +2,6 @@ import React from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput ,MDBIcon} from 'mdbreact';
 import axios from 'axios'
 import swal from 'sweetalert'
-import { Card} from 'semantic-ui-react'
 
 class Sessioncoodinator  extends React.Component {
     constructor(props) {
@@ -31,7 +30,36 @@ class Sessioncoodinator  extends React.Component {
       }
      
         
-      
+      deleteSC=(name)=>{
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          axios.delete("http://localhost:4000/api/deletesc/"+ name)
+          .then(res=>{
+             swal("sucess")
+             axios.get('http://localhost:4000/api/getSessioncoodinator').then(res=>{
+              this.setState({SessionCoordinator:res.data})
+              console.log(res.data)
+            })
+            .catch(err=>{
+              console.log(err)
+            })
+              .catch(err=>{
+                  swal("error")
+              })
+          })
+         
+          
+         
+        } 
+      });
+    }
       
     
     registersessionCoordinator(e){
@@ -131,7 +159,7 @@ class Sessioncoodinator  extends React.Component {
               <div class="card">
               <div class="col-md-12 pt-3 mb-5">
                   <div class="card-header card-header-danger">
-                      <h4 class="card-title ">Project Table</h4>
+                      <h4 class="card-title ">Session Coordinators</h4>
                      
                   </div>
                   <div class="card-body">
