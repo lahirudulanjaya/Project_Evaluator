@@ -3,16 +3,16 @@ const Googlespreadsheet = require('google-spreadsheet')
 var async = require('async');
 const Milestone = mongoose.model('Milestone')
 const Project = mongoose.model('Project')
-
+const {promisify} =require('util')
 
 var groups = []
 var gropnumbers = []
 var groupstudents = []
 var Rowheader = ["groupnumber", "GroupMembers", "Supervisor", "Mentor"]
+var rowdata=[]
 
-
-function getgroup(name, document) {
-    Project.find({ Projectname: name }, 'groups', (err, doc) => {
+async function getgroup(name, document) {
+    Project.find({ Projectname: name }, 'groups', async (err, doc) => {
         if (!err) {
             doc.forEach(element => {
                 element.groups.forEach(group => {
@@ -21,28 +21,54 @@ function getgroup(name, document) {
                             groupnumber: group.groupno,
                             GroupMembers: item.Registrationnumber
                         }
-                        console.log(Rowdata)
-                        async ()=>{
-                            await promisify(document.addRow(Rowdata))
-
-                        }
-                        // document.addRow(1, Rowdata, function (err, rows) {
-                        //     if (err) {
-                        //         console.log(err)
-
-                        //     }
-                        //     else{
-                        //         console.log(Rowdata)
-                        //     }
-                        // })
+                        rowdata.push(Rowdata)
+                       
+                        
                     })
                 })
+
             });
+            addgroup(name,document)
         }
         else {
             res.status(422).send(err)
         }
     })
+}
+
+async function addgroups(name,document){
+    try {
+        const projects = await Project.find({ Projectname: name }, 'groups').exec();
+        console.log(projects);
+        for(const ele of projects){
+            for(const group of ele){
+                for(const item of group ){
+                    var Rowdata = {
+                        groupnumber: group.groupno,
+                        GroupMembers: item.Registrationnumber
+                    }
+                    console.log(Rowdata)
+                    await promisify(document.addRow(Rowdata))
+
+                }
+            }
+        }
+      
+
+        return projects;
+      } catch (err) {
+        return 'error occured';
+      }
+}
+
+
+async function addgroup(name,document){
+    for(const ss of rowdata){
+        await promisify(document.addRow)(1,ss)
+
+        
+    }
+    
 }
 
 
