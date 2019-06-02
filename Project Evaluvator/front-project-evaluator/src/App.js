@@ -33,7 +33,6 @@ import Test from "./Components/Evaluator/Test";
 import  Timeslots from './Components/P_coordinator/Pages/Timeslots/Timeslots'
 import Evaluator from './Components/Evaluator/Evaluator';
 
-
 class App extends Component {
 
   
@@ -50,7 +49,10 @@ class App extends Component {
             <Route path ="/pg/milestone" component={NewSideBar}/>
             <Route path ="/pg/creategroups" component={NewSideBar}/>
             <Route path ="/pg/timeslot" component={NewSideBar}/>
-            <Route path ="/studentDash" component={StudentSideBar}/>
+            <Route path ="/stu/home" component={StudentSideBar}/>
+            <Route path = "/stu/creategroups" component ={StudentSideBar}/>
+            <Route path = "/stu/profile" component ={StudentSideBar}/>
+      
             <Route path ="/sc" component={SCoordinatorSideBar}/>
             <Route path ="/evaluator" component={EvaluatorSideBar}/>
             <Route path ="/pg/evaluvator" component={NewSideBar}/>
