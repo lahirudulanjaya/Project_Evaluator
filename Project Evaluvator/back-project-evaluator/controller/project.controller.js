@@ -162,5 +162,15 @@ module.exports.getprojectscount = (req, res, next) => {
         }
     })
 }
+module.exports.deletegooglesheet =(req,res,next)=>{
+    Project.update({Projectname:req.params.Projectname},{$unset:{Sheeturl:1}},{multi:true},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
 
 
