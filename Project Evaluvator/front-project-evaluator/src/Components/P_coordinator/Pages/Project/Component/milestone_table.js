@@ -106,6 +106,7 @@ class Products extends React.Component {
           axios.post("http://localhost:4000/api/pg/postmilestone",newdetatil)
         .then(res=>{
           this.setState({open:true})
+          this.props.closepropt()
 
         })
         .catch(err =>{

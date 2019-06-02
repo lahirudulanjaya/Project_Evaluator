@@ -22,15 +22,19 @@ function getgroup(name, document) {
                             GroupMembers: item.Registrationnumber
                         }
                         console.log(Rowdata)
-                        document.addRow(1, Rowdata, function (err, rows) {
-                            if (err) {
-                                console.log(err)
+                        async ()=>{
+                            await promisify(document.addRow(Rowdata))
 
-                            }
-                            else{
-                                console.log(Rowdata)
-                            }
-                        });
+                        }
+                        // document.addRow(1, Rowdata, function (err, rows) {
+                        //     if (err) {
+                        //         console.log(err)
+
+                        //     }
+                        //     else{
+                        //         console.log(Rowdata)
+                        //     }
+                        // })
                     })
                 })
             });
