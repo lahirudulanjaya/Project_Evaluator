@@ -42,6 +42,7 @@ router.put('/deletegroups/:Projectname',CtrlProject.deletegroups)
 //google sheet
 
 router.post('/setgooglesheet',CtrlSheet.createspreadsheet)
+router.delete('/deletesheet/:Projectname',CtrlProject.deletegooglesheet)
 
 //timeslots
 

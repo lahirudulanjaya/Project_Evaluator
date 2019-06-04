@@ -80,10 +80,7 @@ componentDidMount(){
 //  this.props.project.map()
 }
 
-// componentWillMount(){
-//   this.props.getprojectnames()
-  
-// }
+
    
 
 componentWillReceiveProps(nextProps) {

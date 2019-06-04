@@ -8,7 +8,6 @@ import { Table, Button, Icon } from 'semantic-ui-react'
 import Tables, { Thead, Tbody, Tr, Th, Td } from "react-row-select-table"
 import Axios from 'axios';
 import {whologgedin} from '../../actions/authActions'
-
 import swal from 'sweetalert';
 
 
@@ -51,15 +50,15 @@ class Student extends React.Component {
 
   }
  
-  componentWillMount(){
-    this.props.getuserprofile()
-    this.props.getstudentProject(this.props.user.Registrationnumber)
-    this.props.getstudentbyYear(this.props.user.Registrationnumber)
-    this.props.getsendrequest(this.props.user.Registrationnumber)
-    this.props.getrequest(this.props.user.Registrationnumber)
+  // componentWillMount(){
+  //   this.props.getuserprofile()
+  //   this.props.getstudentProject(this.props.user.Registrationnumber)
+  //   this.props.getstudentbyYear(this.props.user.Registrationnumber)
+  //   this.props.getsendrequest(this.props.user.Registrationnumber)
+  //   this.props.getrequest(this.props.user.Registrationnumber)
 
 
-  }
+  // }
 
   componentWillUpdate(){
     console.log(this.state)
@@ -233,7 +232,6 @@ this.setState({clicked:true})
     {console.log(this.state)}
     return (
       <div>
-        <Header username={this.state.user.UserName} requestcount={this.state.requests.length} requests={this.state.requests} accept={() => this.confirmRequest(this.state.user.Registrationnumber)}></Header>
 
         {(this.state.student == null)
           ?
