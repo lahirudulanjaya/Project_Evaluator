@@ -11,6 +11,7 @@ module.exports.addEvaluvator=(req,res,next)=>{
         length: 6,
         uppercase: false
     });
+    console.log(password)
 
     var evaluvator = new Evaluvator()
     evaluvator.Registrationnumber = req.body.Registrationnumber
@@ -24,7 +25,7 @@ module.exports.addEvaluvator=(req,res,next)=>{
             student.Registrationnumber =req.body.Registrationnumber
             student.Password =password
             student.Cpassword = password
-            student.type ="evaluvator"
+            student.type ="evaluator"
             student.save((err, doc) => {
                 if (!err){
                     res.send(doc);            

@@ -45,7 +45,7 @@ class SideBar extends Component{
                             DashBoard
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="stu/group">
+                    <NavItem eventKey="examGroup">
                         <NavIcon>
                             <i className="fa fa-fw fa-users" style={{ fontSize: '1.75em' }} />
                         </NavIcon>
