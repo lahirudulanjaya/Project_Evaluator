@@ -46,7 +46,7 @@ class ExamGroup  extends React.Component {
             for(q=0;q<teamMemberLength;q++){
                 var iteam=milestoneList[j]+'-'+teamMember[q];
                 // rowElement.iteam=iteam;
-                // Object.assign(rowElement,{teamMember:iteam});
+                Object.assign(rowElement,{teamMember:iteam});
                 
 
             }

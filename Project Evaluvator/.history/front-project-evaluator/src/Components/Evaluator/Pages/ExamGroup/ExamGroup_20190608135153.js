@@ -36,21 +36,28 @@ class ExamGroup  extends React.Component {
               }
             columns.push(member)
         }
+
         const rows=[]
        
 
           var j,q;
+         
           for(j=0;j<milestoneListLength;j++){
-              var rowElement={}
+            var tempMember
+            var rowElement={}
               rowElement.milestone=milestoneList[j];
+              
             for(q=0;q<teamMemberLength;q++){
                 var iteam=milestoneList[j]+'-'+teamMember[q];
-                // rowElement.iteam=iteam;
-                // Object.assign(rowElement,{teamMember:iteam});
-                
+                 tempMember=teamMember[q];
+                rowElement.tempMember=iteam;
+
+                console.log("11111111111111111111111111"+rowElement);
+
 
             }
             rows.push(rowElement);
+            console.log("2222222222222222222"+rowElement);
           }
 
 
