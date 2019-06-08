@@ -2,7 +2,7 @@ import React from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput ,MDBIcon ,MDBTable ,MDBTableBody ,MDBTableHead, Row} from 'mdbreact';
 import axios from 'axios'
 import swal from 'sweetalert'
-import {Form,Dropdown, Item,Button} from 'semantic-ui-react'
+import {Form,Dropdown, Item} from 'semantic-ui-react'
 import Paper from '@material-ui/core/Paper';
 import {connect} from 'react-redux';
 import {Input} from 'semantic-ui-react';

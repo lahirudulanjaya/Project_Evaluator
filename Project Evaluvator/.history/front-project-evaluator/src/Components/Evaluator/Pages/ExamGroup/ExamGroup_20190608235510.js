@@ -15,6 +15,24 @@ var groupno
 
 class ExamGroup  extends React.Component {
 
+    
+  handleChange(e,data){
+    
+    let value = data.value
+
+    this.setState({
+      Projectname: value,
+    })
+    axios.get("http://localhost:4000/api/pg/getproject/"+value)
+     .then(res=>{
+       console.log(res.data)
+       this.setState({groups:res.data})
+      })
+     .catch(err=>{
+      console.log(err)
+    })
+  }
+
     addSlot(milestone,m1,m2,m3){
         var rowElement={
             milestone:milestone,
@@ -51,6 +69,16 @@ class ExamGroup  extends React.Component {
     }
 
     render(){
+        var stateOptionsGroups=[]
+        this.props.project.project.map(project=>{
+          
+          var val={
+            id:project._id,
+            text:project.Projectname,
+            value:project.Projectname
+          }
+          stateOptionsGroups.push(val)
+        })
         const teamMember=['2016CS001','2016CS002','2016CS003','2016CS004','2016CS005']
         const teamMemberLength=teamMember.length
         const milestoneList=['milestone1','milestone2','milestone3','milestone4']
@@ -100,7 +128,9 @@ class ExamGroup  extends React.Component {
         return(
             <div>
                  <h1>Exam Group </h1>
-                <Dropdown placeholder='Select Project'  selection options={allProjects} />
+                {/* <Dropdown placeholder='Select Project'  selection options={allProjects} /> */}
+                <Dropdown placeholder='Select Project'  selection options={stateOptionsGroups}  value={this.state.Projectname} onChange={this.handleChange}/>
+
                 <Paper >
                     <Form onSubmit={this.updateToStudentDetails}>
                     <MDBTable btn>

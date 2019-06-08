@@ -2,7 +2,7 @@ import React from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput ,MDBIcon ,MDBTable ,MDBTableBody ,MDBTableHead, Row} from 'mdbreact';
 import axios from 'axios'
 import swal from 'sweetalert'
-import {Form,Dropdown, Item,Button} from 'semantic-ui-react'
+import {Form,Dropdown, Item} from 'semantic-ui-react'
 import Paper from '@material-ui/core/Paper';
 import {connect} from 'react-redux';
 import {Input} from 'semantic-ui-react';
@@ -44,10 +44,6 @@ class ExamGroup  extends React.Component {
             m5:<NumericInput name={milestone+'-'+m5} min={0} max={10} value={0}/>,
         }
         return rowElement;
-    }
-
-    updateToStudentDetails(){
-        console.log('--------updateToStudentDetails-------');
     }
 
     render(){
@@ -102,7 +98,7 @@ class ExamGroup  extends React.Component {
                  <h1>Exam Group </h1>
                 <Dropdown placeholder='Select Project'  selection options={allProjects} />
                 <Paper >
-                    <Form onSubmit={this.updateToStudentDetails}>
+                    <Form>
                     <MDBTable btn>
                         <MDBTableHead columns={columns} />
                         <MDBTableBody rows={rows} />
