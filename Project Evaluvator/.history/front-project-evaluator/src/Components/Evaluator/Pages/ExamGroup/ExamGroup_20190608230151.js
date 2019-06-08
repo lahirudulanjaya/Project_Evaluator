@@ -26,21 +26,21 @@ class ExamGroup  extends React.Component {
     addSlot(milestone,m1,m2,m3,m4){
         var rowElement={
             milestone:milestone,
-            m1:<NumericInput name={milestone+'-'+m1} min={0} max={10} value={0}/>,
-            m2:<NumericInput name={milestone+'-'+m2} min={0} max={10} value={0}/>,
-            m3:<NumericInput name={milestone+'-'+m3} min={0} max={10} value={0}/>,
-            m4:<NumericInput name={milestone+'-'+m4} min={0} max={10} value={0}/>,
+            m1:milestone+'-'+m1,
+            m2:milestone+'-'+m2,
+            m3:milestone+'-'+m3,
+            m4:milestone+'-'+m4
         }
         return rowElement;
     }
     addSlot(milestone,m1,m2,m3,m4,m5){
         var rowElement={
             milestone:milestone,
-            m1:<NumericInput name={milestone+'-'+m1} min={0} max={10} value={0}/>,
-            m2:<NumericInput name={milestone+'-'+m2} min={0} max={10} value={0}/>,
-            m3:<NumericInput name={milestone+'-'+m3} min={0} max={10} value={0}/>,
-            m4:<NumericInput name={milestone+'-'+m4} min={0} max={10} value={0}/>,
-            m5:<NumericInput name={milestone+'-'+m5} min={0} max={10} value={0}/>,
+            m1:milestone+'-'+m1,
+            m2:milestone+'-'+m2,
+            m3:milestone+'-'+m3,
+            m4:milestone+'-'+m4,
+            m5:<NumericInput name={milestone+'-'+m5} min={0} max={10} value={0}/>
         }
         return rowElement;
     }
