@@ -16,30 +16,30 @@ class ExamGroup  extends React.Component {
     addSlot(milestone,m1,m2,m3){
         var rowElement={
             milestone:milestone,
-            m1:milestone+'-'+m1,
-            m2:milestone+'-'+m2,
-            m3:milestone+'-'+m3
+            m1:m1,
+            m2:m2,
+            m3:m3
         }
         return rowElement;
     }
     addSlot(milestone,m1,m2,m3,m4){
         var rowElement={
             milestone:milestone,
-            m1:milestone+'-'+m1,
-            m2:milestone+'-'+m2,
-            m3:milestone+'-'+m3,
-            m4:milestone+'-'+m4
+            m1:m1,
+            m2:m2,
+            m3:m3,
+            m4:m4
         }
         return rowElement;
     }
     addSlot(milestone,m1,m2,m3,m4,m5){
         var rowElement={
             milestone:milestone,
-            m1:milestone+'-'+m1,
-            m2:milestone+'-'+m2,
-            m3:milestone+'-'+m3,
-            m4:milestone+'-'+m4,
-            m5:milestone+'-'+m5
+            m1:m1,
+            m2:m2,
+            m3:m3,
+            m4:m4,
+            m5:m5
         }
         return rowElement;
     }
@@ -69,23 +69,18 @@ class ExamGroup  extends React.Component {
         const rows=[]
        
 
-          var j;
+          var j,q;
           for(j=0;j<milestoneListLength;j++){
-            //   var rowElement={}
-            //   rowElement.milestone=milestoneList[j];
-                if(teamMemberLength==5){
-                    var teamp=this.addSlot(milestoneList[j],teamMember[0],teamMember[1],teamMember[2],teamMember[3],teamMember[4],teamMember[5]);
-                    rows.push(teamp);
-                }
-                else if(teamMemberLength==4){
-                    var teamp=this.addSlot(milestoneList[j],teamMember[0],teamMember[1],teamMember[2],teamMember[3],teamMember[4]);
-                    rows.push(teamp);
-                }
-                else if(teamMemberLength==3){
-                    var teamp=this.addSlot(milestoneList[j],teamMember[0],teamMember[1],teamMember[2],teamMember[3]);
-                    rows.push(teamp);
-                }
-           
+              var rowElement={}
+              rowElement.milestone=milestoneList[j];
+            for(q=0;q<teamMemberLength;q++){
+                var iteam=milestoneList[j]+'-'+teamMember[q];
+                // rowElement.iteam=iteam;
+                Object.assign(rowElement,{q:iteam});
+                
+
+            }
+            rows.push(rowElement);
           }
 
 
