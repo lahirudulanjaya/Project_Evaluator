@@ -81,7 +81,6 @@ class ExamGroup  extends React.Component {
     render(){
         var getAllProjectNameArray=[]
         getAllProjectNameArray=this.getAllProjectName();
-        // console.log('--++----'+getAllProjectNameArray);
         const teamMember=['2016CS001','2016CS002','2016CS003','2016CS004','2016CS005']
         const teamMemberLength=teamMember.length
         const milestoneList=['milestone1','milestone2','milestone3','milestone4']

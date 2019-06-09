@@ -55,21 +55,19 @@ class ExamGroup  extends React.Component {
     getAllProjectName(){
         axios.get("http://localhost:4000/api/pg/getprojectsnames")
      .then(res=>{
-        //  var ar=[];
+         var ar=[];
         console.log(res)
         console.log(res.data)
 
         console.log('----------Projectname')
        console.log(res.status)
        console.log('----------Projectname')
-    //    const len=res.data.length;
-    //    var i;
-    //    for(i=0;i<len;i++){
-    //         ar[i]=res.data[i].Projectname;
-    //    }
-    //    console.log('----------ar')
-    //    console.log('--------'+ ar + '--Projectname')
-       return res.data;
+       const len=res.data.length;
+       var i;
+       for(i=0;i<len;i++){
+            ar[i]=res.data[i];
+       }
+       return ar;
 
     //    this.setState({groups:res.data})
       })
@@ -81,7 +79,6 @@ class ExamGroup  extends React.Component {
     render(){
         var getAllProjectNameArray=[]
         getAllProjectNameArray=this.getAllProjectName();
-        // console.log('--++----'+getAllProjectNameArray);
         const teamMember=['2016CS001','2016CS002','2016CS003','2016CS004','2016CS005']
         const teamMemberLength=teamMember.length
         const milestoneList=['milestone1','milestone2','milestone3','milestone4']
@@ -131,7 +128,7 @@ class ExamGroup  extends React.Component {
         return(
             <div>
                  <h1>Exam Group </h1>
-                <Dropdown placeholder='Select Project'  selection options={getAllProjectNameArray} /*value={this.getAllProjectNameArray.Projectname} */ />
+                <Dropdown placeholder='Select Project'  selection options={getAllProjectNameArray} />
                 <Paper >
                     <Form onSubmit={this.updateToStudentDetails}>
                     <MDBTable btn>
