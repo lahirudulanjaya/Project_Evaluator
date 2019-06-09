@@ -158,28 +158,6 @@ module.exports.UpdateStudentDetail=(req,res,next)=>{
     })
 }
 
-
-module.exports.UpdateStudentDetailMarks=(req,res,next)=>{
-    const student ={
-      
-       Marks:req.body.Marks
-
-
-
-    }
-    console.log('----UpdateStudentDetailMarks-----')
-    Studentdetail.findOneAndUpdate({Registrationnumber:req.body.Registrationnumber},{$set:student},(err,doc)=>{
-        if(!err){
-            // console.log('-------'+doc)
-            res.send(doc)
-        }
-        else{
-            // console.log(err)
-            res.send(err)
-        }
-    })
-}
-
 module.exports.deleteStudent =(req,res,next)=>{
     Studentdetail.findOneAndDelete({Registrationnumber:req.params.Registrationnumber},(err,doc)=>{
         if(!err){

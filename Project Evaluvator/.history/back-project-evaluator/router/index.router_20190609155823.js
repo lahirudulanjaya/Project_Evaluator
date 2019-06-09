@@ -75,8 +75,6 @@ router.put('/pg/updateproject',CtrlProject.updateproject)
 router.delete('/pg/deleteproject/:projectname',CtrlProject.deleteproject)
 
 router.put('/pg/updatestudent',CtrlStudent.UpdateStudentDetail)
-router.put('/pg/UpdateStudentDetailMarks',CtrlStudent.UpdateStudentDetailMarks)
-
 router.delete('/pg/deletestudent/:Registrationnumber',CtrlStudent.deleteStudent)
 
 router.get('/allmilestone',CtrlMilestone.getallmilstones)

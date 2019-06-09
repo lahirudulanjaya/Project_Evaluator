@@ -161,20 +161,21 @@ module.exports.UpdateStudentDetail=(req,res,next)=>{
 
 module.exports.UpdateStudentDetailMarks=(req,res,next)=>{
     const student ={
-      
-       Marks:req.body.Marks
+        Name :req.body.Name,
+        Email:req.body.Email,
+        Marks:['asdad asfaf fssdf','sdfs sdfsd sdfsf']
 
 
 
     }
     console.log('----UpdateStudentDetailMarks-----')
-    Studentdetail.findOneAndUpdate({Registrationnumber:req.body.Registrationnumber},{$set:student},(err,doc)=>{
+    Studentdetail.findOneAndUpdate({Registrationnumber:req.body},{$set:student},(err,doc)=>{
         if(!err){
-            // console.log('-------'+doc)
+            console.log('-------'+doc)
             res.send(doc)
         }
         else{
-            // console.log(err)
+            console.log(err)
             res.send(err)
         }
     })
