@@ -27,6 +27,8 @@ router.get('/pg/getstudents/:year',CtrlStudent.getstudentsbyYear)
 router.put('/pg/addGroups',CtrlProject.addGroups)
 router.get('/getstudentproject/:id',CtrlProject.getreleventProject)
 router.get('/pg/getproject/:id',CtrlProject.getproject)
+router.get('/pg/getGroupMembers/:projectName/:indexOfstudentArray',CtrlProject.getGroupMembers)
+
 
 router.get('/pg/getpresentations/:id',CtrlMilestone.getpresentationmilstones)
 
