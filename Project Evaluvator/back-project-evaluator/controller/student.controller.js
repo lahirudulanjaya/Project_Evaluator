@@ -160,21 +160,15 @@ module.exports.UpdateStudentDetail=(req,res,next)=>{
 
 
 module.exports.UpdateStudentDetailMarks=(req,res,next)=>{
-    const student ={
-      
+    const student ={      
        Marks:req.body.Marks
-
-
-
     }
     console.log('----UpdateStudentDetailMarks-----')
     Studentdetail.findOneAndUpdate({Registrationnumber:req.body.Registrationnumber},{$set:student},(err,doc)=>{
         if(!err){
-            // console.log('-------'+doc)
             res.send(doc)
         }
         else{
-            // console.log(err)
             res.send(err)
         }
     })
