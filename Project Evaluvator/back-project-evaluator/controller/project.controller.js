@@ -117,7 +117,12 @@ module.exports.getGroupMembers =(req,res,next)=>{//using project name & students
     console.log(req.params.indexOfstudentArray)
     Project.find({Projectname:req.params.projectName},'groups',(err,doc)=>{
         if(!err){
-            res.send(doc)
+            res.send(doc[0].groups[req.params.indexOfstudentArray-1].students)
+            // doc.groups.find({groupno: req.params.indexOfstudentArray}, (err,doc)=>{
+            //     if(!err){
+            //         console.log(doc);
+            //     }
+            // })
         }
         else{
             res.status(422).send(err)
