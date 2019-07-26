@@ -90,7 +90,6 @@ uploadfile(event){
 
  
     this.setState({arr : data1})
-    alert(this.state.arr)
   }
   // let data = excel.read(file,{type:'binary'})
   // console.log(data)

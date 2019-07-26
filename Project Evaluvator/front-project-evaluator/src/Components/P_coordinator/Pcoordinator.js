@@ -92,7 +92,7 @@ componentDidMount(){
 
 
 <div class="card text-white bg-dark mb-3" style={{maxWidth:"25rem", height:"120px",fontSize:25,margin: '100px'}}>
-  <div class="card-header"><b>Registered Students</b></div>
+  <div class="card-header"><b>Total Students</b></div>
   <div class="card-body">
     <h5 class="card-title"></h5>
     <p style={{fontSize:25}} class="card-text text-white"><CountUp end={this.state.studentcount}></CountUp></p>

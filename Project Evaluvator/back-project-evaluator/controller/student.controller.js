@@ -12,6 +12,7 @@ var transporter = nodemailer.createTransport({
     pass: 'ucsc@123'
   }
 });
+
 module.exports.register=(req,res,next)=>{
     var student = new Student()
     student.UserName = req.body.UserName
@@ -21,7 +22,8 @@ module.exports.register=(req,res,next)=>{
     student.Cpassword = req.body.Cpassword
     student.save((err, doc) => {
         if (!err){
-            res.send(doc);            
+            res.send(doc);
+                        
         }
         else
         {
@@ -113,8 +115,8 @@ module.exports.sendemail =(req,res,next)=>{
     var mailOptions = {
         from: 'ucscprojectevaluation@gmail.com',
         to: maillist,
-        subject: 'Sending Email using Node.js',
-        text: 'That was easy!'
+        subject: 'Group Project',
+        html: 'use registation link to register for your group project <br> <a href=http://localhost:3000/register>registartion link</a>'
       };
       
       transporter.sendMail(mailOptions, function(error, info){
