@@ -66,7 +66,8 @@ class Login extends Component{
     const {user} =this.props.auth
     
     return (
-      <div>
+      <div >
+  
         <NavBar/>
         <div className="container">
         <div className="row">

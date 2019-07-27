@@ -32,7 +32,8 @@ import EvaluatorSideBar from './Components/Evaluator/SideBar';
 import Test from "./Components/Evaluator/Test";
 import  Timeslots from './Components/P_coordinator/Pages/Timeslots/Timeslots'
 import Evaluator from './Components/Evaluator/Evaluator';
-
+import Loading from 'react-loading-bar'
+import 'react-loading-bar/dist/index.css'
 class App extends Component {
 
   
@@ -41,6 +42,12 @@ class App extends Component {
     <Provider store={store}>
       <Router history={history} >
         <div className="App">
+        <Loading
+  show={true}
+  color="red"
+  change={false}
+  showSpinner={true}
+/>
           <Switch>
             <Route path = "/project" component ={NewSideBar}/>
             <Route path = "/devices" component ={NewSideBar}/>
