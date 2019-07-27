@@ -243,7 +243,7 @@ this.setState({clicked:true})
 
             {(this.state.student.Projectname.substring(7, 8) == 2) ?
 
-              <div>
+              <div style={{marginLeft:'100px'}}>
                 group list
                 <div>
                   {!(this.state.groups == null) ? <div>
@@ -362,10 +362,10 @@ this.setState({clicked:true})
                 </div>
 
                 {this.state.request ?
-<div>
+<div style={{marginLeft:'200px'}}>
 <h3 style={{backgroundColor:'#feda6a',color:'#1d1e22',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} > Your Request. </h3>
 
-                  <Table celled>
+                  <Table celled >
                     <Table.Header>
                       <Table.Row>
                         <Table.HeaderCell>Registartionnumber</Table.HeaderCell>
@@ -393,7 +393,7 @@ this.setState({clicked:true})
                   </Table>
 </div>
                   :
-                  <div>
+                  <div style={{marginLeft:'100px'}}>
     <h3 style={{backgroundColor:'#feda6a',color:'#1d1e22',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} > You Haven't Send Any Request Yet. </h3>
 
                     <Button onClick={this.showlist} secondary> Show Student list</Button>

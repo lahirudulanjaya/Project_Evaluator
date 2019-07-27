@@ -154,7 +154,7 @@ class Products extends React.Component {
               </div>
               </div>
           <ProductTable onProductTableUpdate={this.handleProductTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} products={this.state.products} filterText={this.state.filterText}/>
-        <button className="btn btn-primary" onClick={this.importMilestones}>Add Milestone</button>
+        <button className="btn btn-dark" onClick={this.importMilestones}>Add Milestone</button>
 
        
         </div>
@@ -202,7 +202,7 @@ class Products extends React.Component {
             
            
           <table className="table table-bordered">
-            <thead style={{backgroundColor:'#00003f',color:'white'}}>
+            <thead style={{backgroundColor:'black',color:'white'}}>
               <tr >
                 <th><b>name</b></th>
                 <th><b>Milestone Type</b></th>
@@ -212,7 +212,7 @@ class Products extends React.Component {
               </tr>
             </thead>
   
-            <tbody style={{backgroundColor:'#00003f',color:'white'}}>
+            <tbody style={{backgroundColor:'#feda6a',color:'white'}}>
               {product}
   
             </tbody>

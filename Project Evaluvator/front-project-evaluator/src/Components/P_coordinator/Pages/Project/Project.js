@@ -1,9 +1,10 @@
 import React,{Component} from 'react'
-import Button from '@material-ui/core/Button';
+import Buttonn from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
+import { Button }  from 'semantic-ui-react'
 import Projecttable from './Component/project_table'
 import DialogTitle from '@material-ui/core/DialogTitle';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -93,8 +94,10 @@ componentWillReceiveProps(nextProps) {
  
   
   
-  addproject =()=>{
+  addproject =(e)=>{
     
+    e.preventDefault();
+
     const Project = {
       Projectname:this.state.Projectname,
       Acadamicyear:this.state.Acadamicyear,
@@ -178,12 +181,12 @@ handleChange2(e){
             </DialogContent>
              <DialogActions>
              
-              <Link to="/pg/creategroups"><Button  color="primary" autoFocus >
+              <Link to="/pg/creategroups"><Buttonn  color="primary" autoFocus >
                 Create Groups
-              </Button></Link>
-              <Button onClick={this.handleClose3} color="primary" autoFocus>
+              </Buttonn></Link>
+              <Buttonn onClick={this.handleClose3} color="primary" autoFocus>
                 Close
-              </Button>
+              </Buttonn>
               
             </DialogActions>  
           </Dialog>
@@ -200,9 +203,9 @@ handleChange2(e){
               <MDBCardBody style={cardStyle}>
               <div className="card-background">
               <img src={Settings} alt="" className="logo"/>
-                <Button style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen1}>
+                <Buttonn style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen1}>
                   Create Project
-                </Button>
+                </Buttonn>
               </div>
               </MDBCardBody>
             </MDBCard>
@@ -240,9 +243,16 @@ handleChange2(e){
               aria-labelledby="alert-dialog-title1"
               aria-describedby="alert-dialog-description"
             >
+      
+  <div className="header pt-2 yellow lighten-2">
+              <MDBRow className="d-flex justify-content-start">
               <DialogTitle id="alert-dialog-title1"><FormLabel ><b>Create New Project</b></FormLabel></DialogTitle>
+
+              </MDBRow>
+</div>
+
               <DialogContent>
-          
+              
             
             <form autoComplete="off">
             
@@ -311,7 +321,7 @@ handleChange2(e){
               </RadioGroup>
 
             </div>
-            <Button variant="contained" color="primary" onClick ={this.addproject}>
+            <Button  secondary onClick ={this.addproject}>
             Submit
           </Button>
           
@@ -330,7 +340,11 @@ handleChange2(e){
               onClose={this.handleClose}
               aria-labelledby="responsive-dialog-title"
             >
+              <div className="header pt-2 yellow lighten-2">
+              <MDBRow className="d-flex justify-content-start">
               <DialogTitle id="responsive-dialog-title"><FormLabel><b>Define MIlestones for Project</b></FormLabel></DialogTitle>
+              </MDBRow>
+              </div>
               <DialogContent >
              
       <Products proname={this.state.Projectname} closepropt={this.handleCloses}/>
@@ -338,12 +352,12 @@ handleChange2(e){
             
               </DialogContent>
               <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
+                <Buttonn onClick={this.handleClose} color="primary">
                   Submit 
-                </Button>
-                <Button onClick={this.handleClose} color="primary" autoFocus>
+                </Buttonn>
+                <Buttonn onClick={this.handleClose} color="primary" autoFocus>
                   Close
-                </Button>
+                </Buttonn>
               </DialogActions>
             </Dialog>
 
@@ -363,12 +377,12 @@ handleChange2(e){
             
               </DialogContent>
                <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
+                <Buttonn onClick={this.handleClose} color="primary">
                   Submit 
-                </Button>
-                <Button onClick={this.handleClose} color="primary" autoFocus>
+                </Buttonn>
+                <Buttonn onClick={this.handleClose} color="primary" autoFocus>
                   Close
-                </Button>
+                </Buttonn>
               </DialogActions> 
             </Dialog> */}
 
