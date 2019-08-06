@@ -10,7 +10,7 @@ class StudentProject extends React.Component {
     render() { 
         return (
             <div>            
-                <h2>Your project</h2>
+                <h2>Your Project</h2>
             </div> 
          );
     }
