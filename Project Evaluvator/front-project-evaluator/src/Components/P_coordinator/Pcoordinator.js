@@ -13,6 +13,7 @@ import CountUp from 'react-countup';
 import evaluaterImg from '../../images/project-coordinater-images/evaluaters.jpg'
 import projectImg from '../../images/project-coordinater-images/project.jpg'
 import studentImg from '../../images/project-coordinater-images/student.jpg'
+import LoadingBar from 'react-redux-loading-bar'
 
 
 
@@ -75,8 +76,12 @@ componentDidMount(){
 
 
   render() {
+    
     return (
+      
       <div className="container" >
+
+    
 
       <div class="ui three doubling stackable cards" style={{ marginBottom:'10px',marginTop:'10px' , borderStyle:'solid'}}>
         
@@ -92,7 +97,7 @@ componentDidMount(){
 
 
 <div class="card text-white bg-dark mb-3" style={{maxWidth:"25rem", height:"120px",fontSize:25,margin: '100px'}}>
-  <div class="card-header"><b>Registered Students</b></div>
+  <div class="card-header"><b>Total Students</b></div>
   <div class="card-body">
     <h5 class="card-title"></h5>
     <p style={{fontSize:25}} class="card-text text-white"><CountUp end={this.state.studentcount}></CountUp></p>

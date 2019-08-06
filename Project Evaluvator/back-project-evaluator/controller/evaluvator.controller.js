@@ -3,11 +3,19 @@ const mongoose =require('mongoose')
 const Evaluvator = mongoose.model('Evaluvator')
 var generator = require('generate-password');
 const Student = mongoose.model('Students')
+var nodemailer = require('nodemailer');
+var password
 
-
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'ucscprojectevaluation@gmail.com',
+      pass: 'ucsc@123'
+    }
+  });
 
 module.exports.addEvaluvator=(req,res,next)=>{
-    var password = generator.generate( {
+     password = generator.generate( {
         length: 6,
         uppercase: false
     });
@@ -27,7 +35,21 @@ module.exports.addEvaluvator=(req,res,next)=>{
             student.type ="evaluvator"
             student.save((err, doc) => {
                 if (!err){
-                    res.send(doc);            
+                      
+                    var mailOptions = {
+                        from: 'ucscprojectevaluation@gmail.com',
+                        to: student.Email,
+                        subject: 'Group Project',
+                        html: `use login link to login your username :<br/> <b> ${student.UserName}</b></br>  and password <b> ${password} </b> into the system <br> <a href=http://localhost:3000/login>login link</a>`
+                      };
+                      
+                      transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                          res.status(422).send(error)
+                        } else {
+                          res.status(200).json(info)
+                        }
+                      });         
                 }
                 else
                 {
