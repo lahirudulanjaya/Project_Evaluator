@@ -98,7 +98,7 @@ class NewSideBar extends Component{
                         </NavText>
                     </NavItem>
                     </NavItem>
-                    <NavItem eventKey="projects">
+                    <NavItem eventKey="Mangeprojects">
                         <NavIcon>
                         
                             <i className="fa fa-cog" style={{ fontSize: '1.75em' }} />
