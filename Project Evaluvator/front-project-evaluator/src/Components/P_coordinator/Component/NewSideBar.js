@@ -128,7 +128,7 @@ class NewSideBar extends Component{
                         </NavItem>
 
                         </NavItem>
-                    <NavItem eventKey="users">
+                    <NavItem eventKey="Users">
                         <NavIcon>
                             <i className="fa fa-fw fa-users" style={{ fontSize: '1.75em' }} />
                         </NavIcon>
