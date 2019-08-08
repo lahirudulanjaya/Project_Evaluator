@@ -60,7 +60,7 @@ class NewSideBar extends Component{
             >
                 <SideNav.Toggle />
                 <SideNav.Nav defaultSelected="dashboard">
-                    <NavItem eventKey="dashboard">
+                    <NavItem eventKey="project">
                         <NavIcon>
                             <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
                         </NavIcon>

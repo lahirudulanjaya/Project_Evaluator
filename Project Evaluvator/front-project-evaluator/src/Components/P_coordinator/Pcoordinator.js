@@ -80,39 +80,44 @@ componentDidMount(){
     return (
       
       <div className="container" >
-
-    
-
-      <div class="ui three doubling stackable cards" style={{ marginBottom:'10px',marginTop:'10px' , borderStyle:'solid'}}>
-        
-  
-        <div class="card text-white bg-dark mb-3" style={{maxWidth:"25rem", height:"120px",fontSize:25,margin: '100px'}}>
-  <div class="card-header"><b>Total Projects</b></div>
-  <div class="card-body">
-    <h5 class="card-title"></h5>
-    <p style={{fontSize:25}} class="card-text text-white"><CountUp end={this.state.projectcount}></CountUp></p>
-  </div>
-</div>
-  
-
-
-<div class="card text-white bg-dark mb-3" style={{maxWidth:"25rem", height:"120px",fontSize:25,margin: '100px'}}>
-  <div class="card-header"><b>Total Students</b></div>
-  <div class="card-body">
-    <h5 class="card-title"></h5>
-    <p style={{fontSize:25}} class="card-text text-white"><CountUp end={this.state.studentcount}></CountUp></p>
-  </div>
-</div>
-
-
-</div>
-
-
-
+        <div className="row">
+          <div className="col-sm-1"></div>
+          <div className="col-sm-3 pt-3">
+            <div class="card text-white bg-primary mb-3" style={{width:"20rem", height:"12rem",fontSize:25}}>
+              <div class="card-header text-left"><i className="fa fa-fw fa-file" style={{ fontSize: '1.75em' }} /></div>
+                <div class="card-body">
+                  <h5 class="card-title text-right" style={{fontSize:15}}>Total Project</h5>
+                  <p style={{fontSize:25}} class="card-text text-white text-right"><CountUp end={this.state.projectcount}></CountUp></p>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-3 pt-3">
+            <div class="card text-white bg-primary mb-3" style={{width:"20rem", height:"12rem",fontSize:25,}}>
+              <div class="card-header text-left"><i className="fa fa-fw fa-file" style={{ fontSize: '1.75em' }} /></div>
+                <div class="card-body">
+                  <h5 class="card-title text-right" style={{fontSize:15}}>Total Project</h5>
+                  <p style={{fontSize:25}} class="card-text text-white text-right"><CountUp end={this.state.projectcount}></CountUp></p>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-3 pt-3">
+            <div class="card text-white bg-primary mb-3" style={{width:"20rem", height:"12rem",fontSize:25}}>
+              <div class="card-header text-left"><i className="fa fa-fw fa-users" style={{ fontSize: '1.75em' }} /></div>
+                <div class="card-body">
+                  <h5 class="card-title text-right" style={{fontSize:15}}>Student Count</h5>
+                  <p style={{fontSize:25}} class="card-text text-white text-right"><CountUp end={this.state.studentcount}></CountUp></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="container">
+          <div className="row">
+          <div className="col-sm-2"></div>
+          <div className="col-sm-10 pt-3">
     {this.props.project.projects.length>0 ?
-    <div>
+    <div style={{border:'2px solid #AFB1B4', borderRadius:'5px', backgroundColor:'#C2C5C9'}}>
         <Header as='h2' icon textAlign='center'>
-          <h3 style={{backgroundColor:'#feda6a',color:'#1d1e22',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >All Projects</h3>
+          <h3 style={{backgroundColor:'#AFB1B4',color:'#1d1e22',padding:'12px',marginBottom:'30px'}} ><i className="fa fa-fw fa-file" style={{ fontSize: '1.50em' }} />&nbsp; All Projects</h3>
 
 
           
@@ -122,9 +127,9 @@ componentDidMount(){
 
           {this.props.project.projects.map(projects =>
           
-            <div className="col-sm ml-5 pt-3 pb-3">
+            <div className="col-sm ml-5 pb-4">
             {console.log(projects)}
-              <Card color="grey">
+              <Card style={{backgroundColor:'#E3E6EC'}}>
                 <Card.Content>
                   <Card.Header onClick={this.sd}>{projects.Projectname}</Card.Header>
                   <Card.Meta>
@@ -147,8 +152,10 @@ componentDidMount(){
         :
         <div>  <h3 style={{backgroundColor:'#00003f',color:'white',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >No Projects Found</h3>
         </div>}
-
-      </div>
+        </div>
+        </div>
+        </div>
+        </div>
     )
   }
 }
