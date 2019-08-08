@@ -27,6 +27,8 @@ router.get('/pg/getstudents/:year',CtrlStudent.getstudentsbyYear)
 router.put('/pg/addGroups',CtrlProject.addGroups)
 router.get('/getstudentproject/:id',CtrlProject.getreleventProject)
 router.get('/pg/getproject/:id',CtrlProject.getproject)
+router.get('/pg/getGroupMembers/:projectName/:indexOfstudentArray',CtrlProject.getGroupMembers)
+
 
 router.get('/pg/getpresentations/:id',CtrlMilestone.getpresentationmilstones)
 
@@ -75,6 +77,8 @@ router.put('/pg/updateproject',CtrlProject.updateproject)
 router.delete('/pg/deleteproject/:projectname',CtrlProject.deleteproject)
 
 router.put('/pg/updatestudent',CtrlStudent.UpdateStudentDetail)
+router.put('/pg/UpdateStudentDetailMarks',CtrlStudent.UpdateStudentDetailMarks)
+
 router.delete('/pg/deletestudent/:Registrationnumber',CtrlStudent.deleteStudent)
 
 router.get('/allmilestone',CtrlMilestone.getallmilstones)

@@ -15,6 +15,7 @@ var Studentdetailschema= new mongoose.Schema(
             type:Boolean,
             default:false
         },
+        Marks:[],
         Projectname:'',
     }
 )
