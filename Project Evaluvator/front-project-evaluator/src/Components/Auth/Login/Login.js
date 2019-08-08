@@ -69,7 +69,8 @@ class Login extends Component{
     const {user} =this.props.auth
     
     return (
-      <div>
+      <div >
+  
         <NavBar/>
         <div className="container">
         <div className="row">
@@ -132,7 +133,7 @@ class Login extends Component{
                   </div>
                 </form>
                 <p className="font-small grey-text d-flex justify-content-center">
-                  Don't have an account?
+                  Don't have an account
                  
                  
           <Link to="/register">Sign up</Link>

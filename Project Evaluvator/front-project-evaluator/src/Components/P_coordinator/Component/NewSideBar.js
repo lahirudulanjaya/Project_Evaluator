@@ -59,8 +59,8 @@ class NewSideBar extends Component{
                 }}
             >
                 <SideNav.Toggle />
-                <SideNav.Nav defaultSelected="project">
-                    <NavItem eventKey="project">
+                <SideNav.Nav defaultSelected="dashboard">
+                    <NavItem eventKey="dashboard">
                         <NavIcon>
                             <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
                         </NavIcon>
@@ -98,7 +98,9 @@ class NewSideBar extends Component{
                         </NavText>
                     </NavItem>
                     </NavItem>
-                    <NavItem eventKey="projects">
+
+                    <NavItem eventKey="manageprojects">
+
                         <NavIcon>
                         
                             <i className="fa fa-cog" style={{ fontSize: '1.75em' }} />
@@ -128,7 +130,7 @@ class NewSideBar extends Component{
                         </NavItem>
 
                         </NavItem>
-                    <NavItem eventKey="users">
+                    <NavItem eventKey="Users">
                         <NavIcon>
                             <i className="fa fa-fw fa-users" style={{ fontSize: '1.75em' }} />
                         </NavIcon>

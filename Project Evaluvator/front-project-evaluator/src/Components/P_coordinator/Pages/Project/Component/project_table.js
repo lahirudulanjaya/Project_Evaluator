@@ -42,7 +42,7 @@ render(){
     <MDBTable style={{borderRadius:'5px'}} responsive>
 
       <MDBTableHead color="primary-color" textWhite>
-        <tr style={{color:'#dfdfdf',backgroundColor:'#302f2f'}}>
+        <tr style={{color:'#dfdfdf',backgroundColor:'black'}}>
           <th><img src={controlProjecticonImg} alt='#'/></th>
           <th>Project Name</th>
           <th>Initiate Date</th>
