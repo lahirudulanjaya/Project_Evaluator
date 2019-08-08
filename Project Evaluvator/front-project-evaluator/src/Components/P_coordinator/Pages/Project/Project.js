@@ -190,14 +190,21 @@ handleChange2(e){
               
             </DialogActions>  
           </Dialog>
-        <div className="container pt-3" >
-          {/* <Card fluid color="orange" header='Create New Project' /> */}
-          <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Create New Project</h3>
-        </div>
 
       <div className="container">
       <div className="row">
-        <div className="col-sm-4 pt-2">
+      <div className="col-sm-3 pt-3">
+        <div class="card text-white bg-primary mb-3" style={{width:"20rem", height:"12rem",fontSize:25}}>
+          <div class="card-header text-left"><img src={Settings} alt="" className="logo"/></div>
+            <div class="card-body">
+              <h5 class="card-title text-right" style={{fontSize:15}}>Create A New Project</h5>
+              <Buttonn style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen1}>
+                  Create Project
+                </Buttonn>
+          </div>
+        </div>
+      </div>
+        {/* <div className="col-sm-4 pt-2">
           <div className="">
             <MDBCard>
               <MDBCardBody style={cardStyle}>
@@ -210,24 +217,30 @@ handleChange2(e){
               </MDBCardBody>
             </MDBCard>
           </div>
-        </div>
+        </div> */}
       
       </div>
     
       {/* <Card fluid color='orange' header='Current Projects' /> */}
-      <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Current Projects</h3>
+      <div className="container" >
+        <div className="row">
+        <div className="col-sm-1"></div>
+      <div style={{border:'2px solid #AFB1B4', borderRadius:'5px', backgroundColor:'#C2C5C9'}}>
+      <h3 style={{backgroundColor:'#AFB1B4',color:'black',padding:'12px',marginBottom:'30px'}} ><i className="fa fa-fw fa-file" style={{ fontSize: '1.50em' }} />&nbsp;Current Projects</h3>
       <div className="row">
       <div className="col-sm-11">
       
-      
 
       
-      <div className="">
+      <div className="pb-5">
         <MDBCard>
           <MDBCardBody style={cardStyle}>
             <Projecttable></Projecttable>
           </MDBCardBody>
         </MDBCard>
+      </div>
+      </div>
+      </div>
       </div>
 
       <div className="row">
