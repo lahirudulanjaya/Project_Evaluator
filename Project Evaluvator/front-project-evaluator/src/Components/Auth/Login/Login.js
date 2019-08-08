@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput, MDBFooter  } from 'mdbreact';
 import axios from 'axios';
 import swal from 'sweetalert';
 import './Login.css';
@@ -9,6 +9,8 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {loginStudent} from '../../../actions/authActions'
 import NavBar from '../Navbar'
+
+const ucscpng = require('../../../images/login-window/ucsc-logo.png');
 
 class Login extends Component{
   constructor(props){
@@ -74,13 +76,18 @@ class Login extends Component{
         <NavBar/>
         <div className="container">
         <div className="row">
-        <div className="col-sm-2">
+        <div className="col-sm-7 pt-5">
+          <img src={ucscpng} />
+              <h3>University of Colombo School of Computing</h3>
+              <h4>Welcome to Group Project Evaluation System UCSC</h4>
+              <h4>UCSC කණ්ඩායම් ව්‍යාපෘති ඇගයීම් පද්ධතියට සාදරයෙන් පිළිගනිමු</h4>
+              <h4>UCSC குழு திட்ட மதிப்பீட்டு முறைக்கு வருக</h4>
         </div>
-        <div className="col-sm-8 pt-5">
-      <MDBContainer className=''>
+        <div className="col-sm-5 pt-5">
+      <MDBContainer>
         <MDBRow>
-          
-          <MDBCol sm="10">
+         
+          <MDBCol>
             <MDBCard className="w-75 p-3">
               <MDBCardBody >
                 <form onSubmit={this.postLogin}>
@@ -125,11 +132,12 @@ class Login extends Component{
                   </p>
                   <div className="text-center mb-4 mt-5">
                     <MDBBtn
-                      color="indigo"
+                      color="primary"
                       type="submit"
                     >
                       Log in
                     </MDBBtn>
+                    
                   </div>
                 </form>
                 <p className="font-small grey-text d-flex justify-content-center">
@@ -147,9 +155,19 @@ class Login extends Component{
       </MDBContainer>
       </div>
       </div>
+    
       </div>
-
-
+      <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
+   textAlign: "center"}}>
+      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
+    
+      <div className="footer-copyright text-center py-3">
+        <MDBContainer fluid>
+          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
+        </MDBContainer>
+      </div>
+    </MDBFooter>
+    </div>
     </div>
     )
   }
