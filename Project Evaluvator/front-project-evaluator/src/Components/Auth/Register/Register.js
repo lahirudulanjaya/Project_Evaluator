@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody, MDBFooter } from 'mdbreact';
 import axios from 'axios'
 import PropTypes from 'prop-types';
 import swal from 'sweetalert';
@@ -193,8 +193,9 @@ render(){
               <form className="needs-validation"
           onSubmit={this.postRegister}
           >
-          <div className="header pt-3 grey lighten-2">
+          <div className="form-header indigo rounded">
                 <p className="h4 text-center py-4">Sign up</p>
+                
                 </div>
 
                 <div className="grey-text">
@@ -294,7 +295,7 @@ render(){
                 </div>
               </form>
               <p className="font-small grey-text d-flex justify-content-center">
-                Already have an account..,,,,
+                Already have an account...
                
           <Link to="/login">Login</Link>
              
@@ -307,6 +308,17 @@ render(){
     </MDBContainer>
     </div>
     </div>
+    </div>
+    <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
+   textAlign: "center"}}>
+      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
+    
+      <div className="footer-copyright text-center py-3">
+        <MDBContainer fluid>
+          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
+        </MDBContainer>
+      </div>
+    </MDBFooter>
     </div>
     </div>
     )

@@ -62,7 +62,8 @@ class App extends Component {
       
             <Route path ="/sc" component={SCoordinatorSideBar}/>
             <Route path ="/evaluator" component={EvaluatorSideBar}/>
-            <Route path ="/pg/evaluvator" component={NewSideBar}/>
+            <Route path ="/examGroup" component={EvaluatorSideBar}/>
+            <Route path ="/pg/evaluator" component={NewSideBar}/>
             <Route path ="/pg/sessioncoordinator" component={NewSideBar}/>
             <Route path ="/pg/setgooglesheet" component={NewSideBar}/>
             <Route path ="/pg/updateprojects" component={NewSideBar}/>
