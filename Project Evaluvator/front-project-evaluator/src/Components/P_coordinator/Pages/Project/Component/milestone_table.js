@@ -16,7 +16,7 @@ import {Link} from 'react-router-dom'
 import { Dropdown } from 'semantic-ui-react'
 import { Icon ,Input} from 'semantic-ui-react'
 
-
+var id;
 class Products extends React.Component {
 
     constructor(props) {
@@ -80,9 +80,9 @@ class Products extends React.Component {
   
     handleAddEvent(evt) {
       this.setState({Milestones:[]})
-      var id = 1;
+       
       var product = {
-        id:id,
+        id:this.state.products.length+1,
         Projectname:this.state.Projectname,
         name: "",
         Grp_or_I: "",
@@ -93,7 +93,7 @@ class Products extends React.Component {
       this.state.products.push(product);
       this.setState(this.state.products);
       this.state.Milestones.push(this.state.products);
-      console.log(this.state.products)
+      console.log(this.state.products.length)
     }
     importMilestones=()=>
     {
