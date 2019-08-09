@@ -21,7 +21,20 @@ passport.use(
                 // authentication succeeded
                 else{
                 //   ctrluser.sendsms(user.phonenumber);
+                if(user.type=="student"){
+                    if(!user.Active){
+                    return done(null, false, { message: 'Please Verify Email.' });
+                    }
+                    else{
+                        return done(null, user);
+
+                    }
+
+                }
+                else{
                     return done(null, user);
+
+                }
 
                 }
             });

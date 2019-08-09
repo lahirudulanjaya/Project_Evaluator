@@ -34,6 +34,10 @@ var Studentschema= new mongoose.Schema(
         type:{
             type:String,
             default:"student"
+        },
+        Active:{
+            type:Boolean,
+            default:false
         }
     }
 )

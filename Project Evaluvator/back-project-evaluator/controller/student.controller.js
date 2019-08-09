@@ -4,6 +4,7 @@ const _ = require('lodash')
 const Student = mongoose.model('Students')
 const Studentdetail =mongoose.model('Studentdetail')
 var nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken')
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -20,22 +21,60 @@ module.exports.register=(req,res,next)=>{
     student.Registrationnumber =req.body.Registrationnumber
     student.Password =req.body.Password
     student.Cpassword = req.body.Cpassword
-    student.save((err, doc) => {
-        if (!err){
-            res.send(doc);
-                        
-        }
-        else
-        {
-                if (err.code === 11000){
-                    res.status(422).send('Data you entered has already been used');
-                }
+
+            Studentdetail.findOne({Registrationnumber:student.Registrationnumber},function(err,result){
+                if(err)
+                    throw err;
+                else if(!result)
+                    res.status(422).send('Details of User not found');
+                else if(!(result.Email == student.Email))
+                    res.status(422).send('Details of Email not found');
                 else{
-                    console.log(err)
-                    return next(err);
+                    if(result.Email==student.Email){
+                        student.save((err, user) => {
+                            if (!err){
+                                jwt.sign(
+                                    {
+                                      user: _.pick(user, 'Registrationnumber'),
+                                    },
+                                    process.env.JWT_SECRET,
+                                    {
+                                      expiresIn: '1d',
+                                    },
+                                    (err, emailToken) => {
+                                      const url = `http://localhost:4000/api/confirmation/${emailToken}`;
+                                      transporter.sendMail({
+                                        to: user.Email,
+                                        subject: 'Confirm Email',
+                                        html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+                                      },
+                                      res.send(user)
+                                      );
+
+                                    }
+                                )
+    
+                            }
+    
+                            else
+                            {
+                                    if (err.code === 11000){
+                                        res.status(422).send('Data you entered has already been used');
+                                    }
+                                    else{
+                                        return next(err);
+                                        }
+                            }
+                            });
+    
                     }
-        }
-        });
+                    else{
+                        res.status(422).send('Enter Correct Email Address');
+                    }
+    
+                }
+            });
+     
 
 }
 
@@ -45,7 +84,9 @@ module.exports.authenticate = (req, res, next) => {
         // error from passport middleware
         if (err) return res.status(400).json(err);
         // registered user
-        if (user) return res.status(200).json({ "token": user.generateJwt() });
+        if (user) {
+            return res.status(200).json({ "token": user.generateJwt() });
+        }
         // unknown user or wrong password
         else return res.status(404).json(info);
     })(req, res);
@@ -56,9 +97,11 @@ module.exports.userprofile = (req, res, next) =>{
         (err, user) => {
             if (!user)
                 return res.status(404).json({ status: false, message: 'User record not found.' });
-            else
+            else{  
                 return res.status(200).json({ status: true, user : _.pick(user,['UserName','Email','Registrationnumber']) });
-        }
+       
+            }
+    }
     );
 }
 
@@ -147,8 +190,6 @@ module.exports.UpdateStudentDetail=(req,res,next)=>{
         Name :req.body.Name,
         Email:req.body.Email,
 
-
-
     }
     Studentdetail.findOneAndUpdate({Registrationnumber:req.body.Registrationnumber},{$set:student},(err,doc)=>{
         if(!err){
@@ -194,6 +235,22 @@ module.exports.getstudentscount = (req, res, next) => {
 // }
 
 
+module.exports.verifyemail =(req,res,next)=>{
+
+   const { user: { Registrationnumber } } =   jwt.verify(req.params.token,process.env.JWT_SECRET)
+   console.log(Registrationnumber)
+
+
+   Student.findOneAndUpdate({Registrationnumber:Registrationnumber},{$set:{Active:true}},(err,doc)=>{
+    if(!err){
+        res.send(doc)
+    }
+    else{
+        res.send(err)
+    }
+})
+
+}
 
 
 
