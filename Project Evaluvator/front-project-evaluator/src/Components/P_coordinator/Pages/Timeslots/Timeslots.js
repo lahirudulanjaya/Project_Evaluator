@@ -120,7 +120,8 @@ generateTimeslots1=(e)=>{
     e.preventDefault();
     submitted=[]
     Evaluators=[]
-    this.state.evaluvators.split(',').forEach(evaluvaters => {
+    var uniq =[...new Set(this.state.evaluvators.split(','))] 
+    uniq.forEach(evaluvaters => {
         var evaluvator = {
             name: evaluvaters,
             checked: false,
@@ -141,7 +142,7 @@ generateTimeslots1=(e)=>{
         var withouttime = `${getyear}-${getmonth}-${date}`
         var start = moment(withouttime + " " + element.starttime, "YYYY-MM-DD HH:mm").toDate().getTime()
         var getdayend = moment(withouttime + " " + element.endtime, "YYYY-MM-DD HH:mm").toDate().getTime()
-        const arrvenue = element.locations.split(',')
+        const arrvenue =[...new Set(element.locations.split(','))] 
 
 console.log(start)
 if (num < this.state.numberofgroups) {
@@ -197,8 +198,10 @@ this.setState({ timeslots: timeslots })
         e.preventDefault();
         submitted=[]
         Evaluators=[]
-        const arrvenue = this.state.venue.split(',')
-        this.state.evaluvators.split(',').forEach(evaluvaters => {
+        const arrvenue =[new Set(this.state.venue.split(','))] 
+        var uniq =[...new Set(this.state.evaluvators.split(','))] 
+
+        uniq.forEach(evaluvaters => {
             var evaluvator = {
                 name: evaluvaters,
                 checked: false,
