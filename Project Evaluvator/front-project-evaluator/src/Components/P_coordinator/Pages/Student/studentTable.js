@@ -38,7 +38,10 @@ class StudentTable extends React.Component {
       selectcount: false,
       filtervalue: '',
       Data: [],
-      Selectedstudent: []
+      Selectedstudent: [],
+      total:0,
+      cs:0,
+      is:0
     }
     this.onchangeDropdown = this.onchangeDropdown.bind(this)
     this.handleChecked = this.handleChecked.bind(this);
@@ -232,7 +235,9 @@ class StudentTable extends React.Component {
 
   }
   onChange = (e) => {
-
+   
+      this.setState({[e.target.name]: e.target.value});
+    
   }
   componentWillReceiveProps(nextProps) {
     console.log(nextProps.project.Currentproject.length > 0 && nextProps.project.Currentproject[0].groups.length > 0 && this.state.projectName.length>0)
@@ -309,7 +314,31 @@ console.log(this.state)
       direction: direction === 'ascending' ? 'descending' : 'ascending',
     })
   }
+  submitRestrictions=()=>{
+   
+      
 
+    const  Restrictions={
+        Projectname:this.state.projectName,
+          total :this.state.total,
+          cs:this.state.cs,
+          is :this.state.is
+      }
+  
+  console.log(Restrictions)
+    Axios.put("http://localhost:4000/api/setrestrictions",Restrictions)
+    .then(res => {
+      swal({
+        title: "Good job!",
+        text: "You have succesfully Submit Groups!",
+        icon: "success",
+      });
+    })
+    .catch(err => {
+      swal("Oops", "Something went wrong!!!", "error")
+      console.log(err)
+    })
+  }
 
 
   render() {
@@ -340,7 +369,7 @@ console.log(this.state)
 
               <Input disabled={this.state.disable} error style={{ width: '175px' }} type="number" placeholder='max student' onChange={this.onchange} value={this.state.groupcount} name="groupcount" />
               <div>
-                <Button  primary onClick={this.setdata}>show Student list</Button>
+                <Button  primary onClick={this.setdata}>Show Student list</Button>
               </div>
 
             </div>
@@ -462,6 +491,38 @@ console.log(this.state)
         <div className="col-sm-6">
           <Button hidden={this.state.data.length == 0 && this.state.groups.length < 2} secondary onClick={this.submitGroups}>Submit Groups</Button>
         </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <h3 style={{ backgroundColor: '#F9A602', color: 'black', padding: '12px', borderRadius: '5px', marginBottom: '30px' }} >Set restrictions for Creating groups for 3rd year students</h3>
+
+            <Form>
+            <Dropdown placeholder='project' search selection options={Projectnames} defaultValue="Select the project" onChange={this.onchangeDropdown} />
+
+              <Form.Group widths='equal'>
+  <Form.Field controlId="formBasicEmail">
+    <label>Maximum number of members per group</label>
+    <input type="number" placeholder="Maximum members" name="total" value={this.state.total} onChange={this.onChange}/>
+   
+  </Form.Field>
+  <Form.Field controlId="formBasicPassword">
+    <label>Minimum IS Students per group</label>
+    <input type="number" placeholder="Minimun IS students" name ="is" value={this.state.is} onChange={this.onChange} />
+  </Form.Field>
+  <Form.Field controlId="formBasicPassword">
+    <label>Minimum CS Students per group</label>
+    <input type="number" placeholder="Minimun CS students" name="cs" value={this.state.cs} onChange={this.onChange} />
+  </Form.Field>
+  </Form.Group>
+ 
+  <Button primary type="submit" onClick={this.submitRestrictions} >
+    Submit
+  </Button>
+</Form>
+
+
+
+            </div>
+            </div>
       </div>
 
 

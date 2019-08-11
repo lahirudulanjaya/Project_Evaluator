@@ -192,4 +192,23 @@ module.exports.deletegooglesheet =(req,res,next)=>{
     })
 }
 
+module.exports.setRestrictions=(req,res,next)=>{
+    const Restrictions  ={
+        Restrictions:{
+            total :req.body.total,
+            cs:req.body.cs,
+            is :req.body.is
+        }
+    }
+    console.log(Restrictions)
+    Project.findOneAndUpdate({Projectname:req.body.Projectname},Restrictions,{multi:true},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
+
 
