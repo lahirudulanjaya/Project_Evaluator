@@ -154,6 +154,7 @@ handleClickOpen = (project) => {
         if (index !== -1) {
           arr[index] = this.state.replacevaluvator
       }
+     
      var ts= {
        groupno:timeslot.groupno,
         starttime:timeslot.starttime,
@@ -202,6 +203,90 @@ handleClickOpen = (project) => {
     })
     
   }
+
+  swapEvaluvator=()=>{
+
+    var newset=[]
+    this.state.timeslots.Timeslosts.map(timeslot=>{
+      if(timeslot.evaluvators.includes(this.state.selectedEvaluvator)){
+        var arr =timeslot.evaluvators
+        var index =arr.indexOf(this.state.selectedEvaluvator)
+        if (index !== -1) {
+          arr[index] = this.state.changewith
+      }
+     
+     var ts= {
+       groupno:timeslot.groupno,
+        starttime:timeslot.starttime,
+        endtime:timeslot.endtime,
+        evaluvators:arr,
+        venue:timeslot.venue
+      }
+      newset.push(ts)
+
+      }
+      else if(timeslot.evaluvators.includes(this.state.changewith)){
+        
+          var arr =timeslot.evaluvators
+          var index =arr.indexOf(this.state.changewith)
+          if (index !== -1) {
+            arr[index] = this.state.selectedEvaluvator
+        }
+       
+       var ts= {
+         groupno:timeslot.groupno,
+          starttime:timeslot.starttime,
+          endtime:timeslot.endtime,
+          evaluvators:arr,
+          venue:timeslot.venue
+        }
+        newset.push(ts)
+  
+        }
+      
+      else{
+        newset.push(timeslot)
+      }
+    })
+    const value = {
+      Projectname:this.state.Projectname,
+      Timeslots:newset,
+      Milestone:this.state.presentation
+    }
+    console.log(newset)
+
+    axios.put("http://localhost:4000/api/updatetimeslot",value)
+    .then(res=>{
+      swal(
+        'Updated!',
+        '',
+        'success'
+      )
+      axios.get("http://localhost:4000/api/gettimeslots",{ params: {
+        Milestone:this.state.presentation,
+        Projectname:this.state.Projectname
+      }
+})
+      
+      .then(res=>{
+       this.setState({timeslots:res.data})
+       console.log(res.data)
+      })
+      .catch(err=>{
+
+      })
+    })
+    .catch(err=>{
+      swal ( "Oops" ,  "Something went wrong!!!" ,  "error" )
+
+    })
+  }
+
+
+
+
+
+
   handleClose1 = () => {
     this.setState({ open1: false });
   };
@@ -397,8 +482,7 @@ console.log(rows)
           aria-describedby="alert-dialog-description"
         ><DialogTitle id="alert-dialog-title">{"Change Evaluvator"}</DialogTitle>
         <DialogContent>
-     Still not developed    
-         {/* <Form>
+         <Form>
     <Form.Field>
       <label>Select the Evaluvator</label>
       <Dropdown placeholder='Choose Evaluvator to Change'  selection options={selectEvaluvators} value={this.state.selectedEvaluvator} name ="selectedEvaluvator"onChange={this.onchange1}/>
@@ -407,16 +491,16 @@ console.log(rows)
       <label>Select evaluvator for change with</label>
       <Dropdown placeholder='Choose Evaluvator to Exchange'  selection options={changewithEvaluvators} value={this.state.changewith} name ="changewith"onChange={this.onchange1}/>
     </Form.Field>
-  </Form> */}
+  </Form>
         </DialogContent>
-        {/* <DialogActions>
+        <DialogActions>
           <Button onClick={this.handleClose} color="primary">
             Cansel
           </Button>
-          <Button  color="primary" autoFocus>
-            Save
+          <Button  color="primary" onClick={this.swapEvaluvator} autoFocus>
+            Savee
           </Button>
-        </DialogActions> */}
+        </DialogActions>
       </Dialog>
 
       <Dialog
