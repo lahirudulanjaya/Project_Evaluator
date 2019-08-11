@@ -44,10 +44,8 @@ module.exports.getrequest=(req,res,next)=>{
     })
 }
 module.exports.checkaccepted=(req,res,next)=>{
-
     Grouprequest.find({reciver:{$elemMatch:{Registrationnumber:req.params.id,active:"accepted"}}},(err,doc)=>{
-        if(!err){
-            
+        if(!err){            
                 if(doc.length>0){
                     res.status(404).json("You already accept one reject one")
                 }
@@ -90,9 +88,20 @@ module.exports.checkallaccepted=(req,res,next)=>{
 
 }
 
+module.exports.deleteRequest=(req,res,next)=>{
+    Grouprequest.findOneAndDelete({sender:req.params.id},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+
+            res.send(err)
+        }
+    })
+}
 
 // module.export.acceptRequest=(req,res,next)=>{
-//     Grouprequest.find({'reciver.Registrationnumber'})
+//     Grouprequest.findOneAndUpdate({sender:req.params.id},{reciver})
 
 // }
 
