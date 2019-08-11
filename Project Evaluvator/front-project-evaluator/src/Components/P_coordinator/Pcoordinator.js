@@ -79,15 +79,15 @@ componentDidMount(){
     
     return (
       
-      <div className="container" >
+      <div className="container-fluid" >
         <div className="row">
           <div className="col-sm-1"></div>
           <div className="col-sm-3 pt-3">
             <div class="card text-white bg-primary mb-3" style={{width:"20rem", height:"12rem",fontSize:25}}>
               <div class="card-header text-left"><i className="fa fa-fw fa-file" style={{ fontSize: '1.75em' }} /></div>
-                <div class="card-body">
-                  <h5 class="card-title text-right" style={{fontSize:15}}>Total Project</h5>
-                  <p style={{fontSize:25}} class="card-text text-white text-right"><CountUp end={this.state.projectcount}></CountUp></p>
+              <div class="card-body">
+                <h5 class="card-title text-right" style={{fontSize:15}}>Total Project</h5>
+                <p style={{fontSize:25}} class="card-text text-white text-right"><CountUp end={this.state.projectcount}></CountUp></p>
               </div>
             </div>
           </div>
@@ -112,7 +112,7 @@ componentDidMount(){
         </div>
         <div className="container">
           <div className="row">
-          <div className="col-sm-2"></div>
+          <div className="col-sm-1"></div>
           <div className="col-sm-10 pt-3">
     {this.props.project.projects.length>0 ?
     <div style={{border:'2px solid #AFB1B4', borderRadius:'5px', backgroundColor:'#C2C5C9'}}>
