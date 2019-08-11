@@ -74,7 +74,7 @@ class Login extends Component{
       <div >
   
         <NavBar/>
-        <div className="container">
+        <div className="container pt-3">
         <div className="row">
         <div className="col-sm-7 pt-5">
           <img src={ucscpng} />
