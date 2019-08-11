@@ -327,31 +327,56 @@ console.log(this.state)
 
 
     return (
-      <div className="container" style={{ borderBlockColor: 'red' }}>
-        <div className="row">
-          <div className="col-sm-12">
-            <h3 style={{ backgroundColor: '#F9A602', color: 'black', padding: '12px', borderRadius: '5px', marginBottom: '30px' }} >Select the project</h3>
-            <Dropdown placeholder='project' search selection options={Projectnames} defaultValue="" onChange={this.onchangeDropdown} />
-
-            <div hidden={this.state.created} >
-
-
-              <h3 style={{ backgroundColor: '#F9A602', color: 'black', padding: '12px', borderRadius: '5px', marginBottom: '30px' }} >Enter the number of student for group</h3>
-
-              <Input disabled={this.state.disable} error style={{ width: '175px' }} type="number" placeholder='max student' onChange={this.onchange} value={this.state.groupcount} name="groupcount" />
-              <div>
-                <Button  primary onClick={this.setdata}>show Student list</Button>
+      
+      <div className="container pt-3">
+        <div style={{border:'2px solid #AFB1B4', borderRadius:'5px', backgroundColor:'#C2C5C9'}}>
+        <div className="row pt-3">
+          <div className="col-sm-3"></div>
+          <div className="col-sm-6 " style={{border:'2px', borderRadius:'5px', backgroundColor:'#3E85CD'}}>
+            <div className="row">
+              <div className="col-sm-12">
+                <h3>Create groups for project</h3>
               </div>
-
             </div>
+            <div className="row pb-3 pt-3">
+              <div className="col-sm-6">
+                <h3 style={{textAlign:"left"}}>Select the project</h3>
+              </div>
+              <div className="col-sm-6">
+                <div style={{textAlign:"left"}}>
+                <Dropdown placeholder='project' search selection options={Projectnames} defaultValue="" onChange={this.onchangeDropdown} />
+                </div>
+              </div>
+            </div>
+            <div hidden={this.state.created} >
+            <div className="row pb-3">
+              <div className="col-sm-6">
+                <h3 style={{textAlign:"left"}}>Enter the number of student for a group</h3>
+              </div>
+              <div className="col-sm-6">
+                <div style={{textAlign:"left"}}>
+                  <Input disabled={this.state.disable} error style={{ width: '175px' }} type="number" placeholder='max student' onChange={this.onchange} value={this.state.groupcount} name="groupcount" />
+                </div>
+              </div>
+            </div>
+            <div className="row pb-3">
+              <div className="col-sm-12">
+                <Button secondary onClick={this.setdata}>Show student list</Button>
+              </div>
+            </div>
+            </div>
+          </div>
+          </div>
+          <div className="col-sm-12 pt-3 pb-3">
+            
             {!(this.state.created) ?
-              <div>
+              <div >
 
                 <Segment placeholder>
                   <Grid columns={2} relaxed='very' stackable>
                     <Grid.Column>
 
-                      <div>
+                      <div >
                         <Input icon='search' placeholder='Search...' onChange={this.searchStudent} value={this.state.filtervalue} />
 
                         {(this.state.data.length > 0) ?
@@ -429,12 +454,10 @@ console.log(this.state)
           </div>
 
 
-
-
           <div className="row">
             {this.state.groups.length > 0 ?
               <div className="col-sm-12">
-                Created Groups
+                <h3>Created Groups</h3>
 </div>
               : <div></div>}
 
