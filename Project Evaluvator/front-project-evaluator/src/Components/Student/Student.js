@@ -17,14 +17,19 @@ class Student extends React.Component {
     this.state = {
       user: [],
       academicyear: null,
-      studentProject: null,
+      studentProject: '',
       student: null,
       groups: [],
       students: [],
       request: null,
       requests: [],
       isaccepted: false,
-      clicked:false
+      clicked:false,
+      Restrictions:{
+        cs:2,
+        is:1,
+        total:4
+      }
 
 
 
@@ -47,6 +52,7 @@ class Student extends React.Component {
     this.props.getstudentbyYear(this.props.user.Registrationnumber)
     this.props.getsendrequest(this.props.user.Registrationnumber)
     this.props.getrequest(this.props.user.Registrationnumber)
+    this.props.cheackallaccepted(this.props.user.Registrationnumber)
 
   }
  
@@ -60,15 +66,54 @@ class Student extends React.Component {
 
   // }
 
-  componentWillUpdate(){
-    console.log(this.state)
 
+  deleteRequest =()=>{
+
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Axios.delete("http://localhost:4000/api/deleterequest/"+this.props.user.Registrationnumber).then(res=>{
+      swal({
+        title: "Good job!",
+        text: "You have succesfully Submit Groups!",
+        icon: "success",
+      });
+    })
+    .catch(
+      err=>{
+        swal("Oops", "Something went wrong!!!", "error")
+
+      }
+    )
+      }
+    })
+
+
+
+   
   }
-  
  
   
   sendgroupRequest = (value) => {
-
+    var cs =0;
+    var is =0;
+   
+    value.forEach(ele=>{
+     if(this.state.students[ele].Registrationnumber.substring(4,6)=="cs"){
+      cs++
+     }
+     if(this.state.students[ele].Registrationnumber.substring(4,6)=="is"){
+      is++
+     }
+     
+    })
+    if(cs>=(this.state.Restrictions.cs) && is >=(this.state.Restrictions.is)){
     swal({
       title: "Are you sure you want to group this?",
       icon: "warning",
@@ -120,24 +165,23 @@ class Student extends React.Component {
 
         }
       })
+    }
+    else{
+      value.length=0
+      swal("Oops", "Invalid Group Please Read the Group Restrictions", "error")
+    }
+    
+
+
   }
   showlist = () => {
     { this.props.getstudentbyYear(this.state.student.Projectname) }
     this.props.getsendrequest(this.state.user.Registrationnumber)
 this.setState({clicked:true})
+this.getrestrictions()
   }
 
-  // componentWillMount(){
-  //     this.setState({user:this.state.user})
-  //     var year =this.state.user.Registrationnumber
-  //     this.setState({studentyear:year.substring(0,4)})
-  //     const curyear=parseInt(new Date().getFullYear())
-  //     const studentyear =parseInt(this.state.user.Registrationnumber.substring(0,4))
-  //     this.setState({academicyear:curyear-studentyear})
-  //     this.props.getstudentProject(this.state.user.Registrationnumber)
-  //     this.props.getstudentbyYear(this.state.user.Registrationnumber)
 
-  // }
   componentWillReceiveProps(nextprops) {
 
     if(!(this.props.user===nextprops.user)){
@@ -147,10 +191,9 @@ this.setState({clicked:true})
     this.props.getrequest(nextprops.user.Registrationnumber)
 
     }
-    console.log(nextprops.student.studentbyYear.length)
     this.setState({user:nextprops.user})
-    console.log(this.state)
     if(nextprops.student.studentbyYear.length>0){
+      console.log(nextprops.request)
     this.setState(
       {
         
@@ -160,6 +203,7 @@ this.setState({clicked:true})
         request: nextprops.request.request.reciver,
         requests: nextprops.request.requests,
         isaccepted: nextprops.request.isaccepted,
+        studentProject:nextprops.student.Projectname,
         recive: true
       }
     
@@ -169,7 +213,19 @@ this.setState({clicked:true})
 
 
     this.setState({ request: nextprops.request.request.reciver })
-    console.log(this.state.groups)
+
+  }
+  
+  getrestrictions=()=>{
+ 
+    Axios.get("http://localhost:4000/api/getrestrictions/"+this.state.student.Projectname)
+    .then(res=>{
+      console.log(res.data[0].Restrictions)
+      this.setState({Restrictions:res.data[0].Restrictions})
+    })
+    .catch(err=>{
+
+    })
 
   }
   creategroup() {
@@ -194,14 +250,9 @@ this.setState({clicked:true})
       Projectname: this.state.student.Projectname,
       groups: {
         students: students,
-
         groupno: groupnumber
-
-
-
       }
     }
-    console.log(submitGrps)
     Axios.put("http://localhost:4000/api/pg/addGroups", submitGrps)
       .then(res => {
         swal({
@@ -210,6 +261,9 @@ this.setState({clicked:true})
           icon: "success",
         });
         this.props.getstudentProject(this.state.user.Registrationnumber)
+        Axios.delete("http://localhost:4000/api/deleterequest/"+this.props.user.Registrationnumber).then(res=>{
+         
+        })
 
       })
       .catch(err => {
@@ -315,7 +369,6 @@ this.setState({clicked:true})
                             <Table.HeaderCell>Supervisor</Table.HeaderCell>
                             <Table.HeaderCell>Mentors</Table.HeaderCell>
                           </Table.Row>
-                          {console.log(this.state)}
                         </Table.Header>
 
 
@@ -338,12 +391,7 @@ this.setState({clicked:true})
                                   </div>
                                 )}
                               </Table.Cell>
-                              {/* <Table.cell>
-                               
-                            </Table.cell>
-                            <Table.cell>
-                               
-                            </Table.cell>  */}
+                              
                             </Table.Row>
 
                           )}
@@ -389,16 +437,21 @@ this.setState({clicked:true})
                       )}
                     </Table.Body>
                     <Button secondary disabled={!this.state.isaccepted} onClick={this.creategroup}>create your group</Button>
+                    <Button secondary  onClick={this.deleteRequest}>Delete Request</Button>
 
                   </Table>
 </div>
                   :
-                  <div style={{marginLeft:'100px'}}>
-    <h3 style={{backgroundColor:'#feda6a',color:'#1d1e22',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} > You Haven't Send Any Request Yet. </h3>
+                  
+                  <div style={{marginLeft:'100px'}} >
+    <h3 style={{backgroundColor:'#feda6a',color:'#1d1e22',padding:'12px',borderRadius:'5px',marginBottom:'30px',width:'50%'}} > You Haven't Send Any Request Yet. To send request click showlist </h3>
 
                     <Button onClick={this.showlist} secondary> Show Student list</Button>
+
 <div hidden={!this.state.clicked}>
-                    <Tables  onCheck={(value) => value.length >= 3
+<h3 style={{backgroundColor:'#feda6a',color:'#1d1e22',padding:'12px',borderRadius:'5px',marginBottom:'30px',width:'50%'}} > Total Maximum member count is {this.state.Restrictions.total}. Group must contain atleast {this.state.Restrictions.cs} CS Students and {this.state.Restrictions.is} IS Students  </h3>
+
+                    <Tables  onCheck={(value) => value.length >= this.state.Restrictions.total
                       ? this.sendgroupRequest(value)
                       : console.log("fvfvf")
                     }  >
@@ -422,6 +475,7 @@ this.setState({clicked:true})
                     </Tables>
 </div>
                   </div>
+                 
 
 
 
@@ -441,11 +495,7 @@ this.setState({clicked:true})
   }
 }
 const mapStateToProps = state => {
-  return (
-
-
-
-    
+  return (    
       {
         user: state.auth.user,
         student: state.studentDetail,

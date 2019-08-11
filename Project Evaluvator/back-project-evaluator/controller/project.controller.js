@@ -200,7 +200,6 @@ module.exports.setRestrictions=(req,res,next)=>{
             is :req.body.is
         }
     }
-    console.log(Restrictions)
     Project.findOneAndUpdate({Projectname:req.body.Projectname},Restrictions,{multi:true},(err,doc)=>{
         if(!err){
             res.send(doc)
@@ -210,5 +209,17 @@ module.exports.setRestrictions=(req,res,next)=>{
         }
     })
 }
+
+module.exports.getRestrictions=(req,res,next)=>{
+    Project.find({Projectname:req.params.Projectname},'Restrictions',(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
+
 
 
