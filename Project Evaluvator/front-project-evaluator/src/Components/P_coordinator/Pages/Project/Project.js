@@ -193,7 +193,7 @@ handleChange2(e){
 
       <div className="container">
       <div className="row">
-      <div className="col-sm-3 pt-3">
+      {/* <div className="col-sm-3 pt-3">
         <div class="card text-white bg-primary mb-3" style={{width:"20rem", height:"12rem",fontSize:25}}>
           <div class="card-header text-left"><img src={Settings} alt="" className="logo"/></div>
             <div class="card-body">
@@ -203,7 +203,7 @@ handleChange2(e){
                 </Buttonn>
           </div>
         </div>
-      </div>
+      </div> */}
         {/* <div className="col-sm-4 pt-2">
           <div className="">
             <MDBCard>
@@ -222,11 +222,13 @@ handleChange2(e){
       </div>
     
       {/* <Card fluid color='orange' header='Current Projects' /> */}
-      <div className="container" >
+      <div className="container pt-5" >
         <div className="row">
         <div className="col-sm-1"></div>
       <div style={{border:'2px solid #AFB1B4', borderRadius:'5px', backgroundColor:'#C2C5C9'}}>
-      <h3 style={{backgroundColor:'#AFB1B4',color:'black',padding:'12px',marginBottom:'30px'}} ><i className="fa fa-fw fa-file" style={{ fontSize: '1.50em' }} />&nbsp;Current Projects</h3>
+      <h3 style={{backgroundColor:'#AFB1B4',color:'black',padding:'12px',marginBottom:'30px'}} ><i className="fa fa-fw fa-file" style={{ fontSize: '1.50em' }} />&nbsp;Current Projects <div className='d-flex flex-row-reverse'><Buttonn style={buttonStyle} variant="outlined" color="dark" onClick={this.handleClickOpen1}>
+      <img src={Settings} alt="" className="logo"/><b>Create Project</b>
+                </Buttonn></div></h3>
       <div className="row">
       <div className="col-sm-11">
       
