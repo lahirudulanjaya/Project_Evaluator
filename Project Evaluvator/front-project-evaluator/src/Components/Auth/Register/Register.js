@@ -11,6 +11,8 @@ import Navbar from '../Navbar';
 
 import {Link} from 'react-router-dom'
 import { FormGroup, Form} from '@material-ui/core';
+
+const ucscpng = require('../../../images/login-window/ucsc-logo.png');
 class Register extends Component{
   constructor(props){
     super(props);
@@ -181,9 +183,14 @@ render(){
         <Navbar/>
         <div className="container pt-3">
         <div className="row">
-        <div className="col-sm-2">
+        <div className="col-sm-7 pt-5">
+          <img src={ucscpng} />
+              <h3>University of Colombo School of Computing</h3>
+              <h4>Welcome to Group Project Evaluation System UCSC</h4>
+              <h4>UCSC කණ්ඩායම් ව්‍යාපෘති ඇගයීම් පද්ධතියට සාදරයෙන් පිළිගනිමු</h4>
+              <h4>UCSC குழு திட்ட மதிப்பீட்டு முறைக்கு வருக</h4>
         </div>
-        <div className="col-sm-8">
+        <div className="col-sm-5">
 <MDBContainer >
       <MDBRow>
         <MDBCol sm="10">
