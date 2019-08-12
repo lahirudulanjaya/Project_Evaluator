@@ -40,6 +40,7 @@ router.get('/checkaccepted/:id',Ctrlrequest.checkaccepted)
 router.get('/checkallaccepted/:id',Ctrlrequest.checkallaccepted)
 router.delete('/deleterequest/:id', Ctrlrequest.deleteRequest)
 
+
 router.put('/deletegroups/:Projectname',CtrlProject.deletegroups)
 
 //google sheet
@@ -64,7 +65,6 @@ router.delete('/deleteevaluvator/:Registrationnumber',Ctrlevaluvator.deleteEvalu
 
 //sessioncoodinator
 router.post('/addSessioncoodinator' ,CtrlSC.addsessioncoodinator)
-
 router.get('/getSessioncoodinator' ,CtrlSC.getsessioncoodinator)
 router.delete('/deletesc/:Registrationnumber',CtrlSC.deleteSessionCoordinator)
 
@@ -95,6 +95,8 @@ router.get('/getrestrictions/:Projectname',CtrlProject.getRestrictions)
 
 
 router.get('/confirmation/:token',CtrlStudent.verifyemail)
+
+router.get('/getgroupsbyprojectname/:Projectname',CtrlProject.getGroupsbyProject)
 
 module.exports=router 
 

@@ -172,9 +172,29 @@ render(){
         }
       ]
   return (
+      
       <div>
-          <Input icon='search' placeholder='Search...' onChange={this.serchProject} value={this.state.filtervalue}/>
-           <h2><b>All Projects</b></h2>
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-3"></div>
+            <div className="col-sm-6 pt-3">  
+              <div class="card text-white bg-primary mb-3" style={{width:"35rem", height:"12rem",fontSize:25}}>
+                  <div class="card-header text-center p-3">Search project</div>
+                  <div class="card-body">
+                    <div className="row pt-3" style={{fontSize:15}}>
+                      <div className="col-sm-3 pt-3">
+                        Project name
+                      </div>
+                      <div className="col-sm-9">
+                        <Input icon='search' placeholder='Search...' onChange={this.serchProject} value={this.state.filtervalue}/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+           
            <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -215,21 +235,23 @@ render(){
           </Button>
         </DialogActions>
       </Dialog>
+      <div className="container">
       <div className="row">
-      <div className="col-sm-11">
+      <div className="col-sm-12">
       
       
 
       
       <div className="">
-        <MDBCard>
-    <MDBTable responsive>
+        <MDBCard style={{backgroundColor:"#D4D8DE"}}>
+          <div className="container pt-3 pb-3" >
+    <MDBTable responsive style={{border:'2px solid #AFB1B4', borderRadius:'10px'}}>
     
-      <MDBTableHead color="primary-color" textWhite>
+      <MDBTableHead color="blue" textWhite>
       
       
 
-        <tr style={{color:'#dfdfdf',backgroundColor:'#302f2f'}}>
+        <tr style={{color:'#dfdfdf',backgroundColor:'#3978D7'}}>
           <th>#</th>
           <th>Project Name</th>
           <th>Initiate Date</th>
@@ -262,7 +284,9 @@ render(){
       </MDBTableBody>
       
     </MDBTable>
+    </div>
    </MDBCard>
+   </div>
    </div>
    </div>
    </div>
