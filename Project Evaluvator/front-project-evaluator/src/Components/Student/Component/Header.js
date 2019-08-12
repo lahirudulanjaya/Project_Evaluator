@@ -40,7 +40,7 @@ class Header extends Component {
   componentWillReceiveProps(nextprops) {
     this.setState({ requestcount: nextprops.requestcount })
     this.setState({ requests: nextprops.requests })
-    console.log(nextprops)
+    this.setState({username:nextprops.username})
   }
   accept=()=>{
     Axios.get("http://localhost:4000/api/checkaccepted/"+this.props.user.Registrationnumber)
