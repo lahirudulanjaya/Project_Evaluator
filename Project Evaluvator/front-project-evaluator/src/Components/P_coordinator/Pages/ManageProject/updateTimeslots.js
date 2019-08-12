@@ -464,14 +464,35 @@ console.log(rows)
       
   return (
       <div>
-        <div>
- <Dropdown placeholder='Select Project to Update Milestone'  selection options={stateOptions3}  value={this.state.id} onChange={this.handleChange}/>
- </div>
- 
- Select the Presentation
-            <div>
-                    <Dropdown placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-3"></div>
+            <div className="col-sm-6 pt-3">  
+              <div class="card text-white bg-primary mb-3" style={{width:"35rem",fontSize:25}}>
+                  <div class="card-header text-center p-3">Update Timeslots</div>
+                  <div class="card-body">
+                    <div className="row pt-3" style={{fontSize:15}}>
+                      <div className="col-sm-3 pt-3 text-left">
+                        Select Project
+                      </div>
+                      <div className="col-sm-9 text-left">
+                        <Dropdown placeholder='Select Project to Update Milestone'  selection options={stateOptions3}  value={this.state.id} onChange={this.handleChange}/>
+                      </div>
+                    </div>
+                    <div className="row pt-3" style={{fontSize:15}}>
+                      <div className="col-sm-3 pt-1 text-left">
+                        Select the Presentation
+                      </div>
+                      <div className="col-sm-9 text-left">
+                        <Dropdown placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+            </div>
+          </div>
+        </div>
+        
          
            <Dialog
           open={this.state.open}
@@ -534,22 +555,30 @@ console.log(rows)
           </Button>
         </DialogActions>
       </Dialog>
-
-      <Button secondary hidden={!(rows.length>1)}  onClick={()=>this.handleClickOpen()} >Change Evaluvators</Button>
-       <Button secondary hidden={!(rows.length>1)} onClick={()=>this.handleClickOpen1()}>Replace Evaluvator</Button>
-       <Button secondary hidden={!(rows.length>1)} onClick={this.deleteTimelost}>Detele All Timeslot and Create Again</Button>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12 text-left">
+            <Button style={{marginLeft:'75px'}} secondary hidden={!(rows.length>1)}  onClick={()=>this.handleClickOpen()} >Change Evaluvators</Button>
+            <Button className="ml-5" secondary hidden={!(rows.length>1)} onClick={()=>this.handleClickOpen1()}>Replace Evaluvator</Button>
+            <Button className="ml-5" secondary hidden={!(rows.length>1)} onClick={this.deleteTimelost}>Detele All Timeslot and Create Again</Button>
+          </div>
+        </div>
 <h2>{notice}</h2>
 {console.log(rows)}
   <div hidden={!(rows.length>1)}>
+    <div style={{border:'2px solid #AFB1B4', borderRadius:'5px', backgroundColor:'#CFD1D5', marginLeft: '75px', marginBottom:'50px'}}>
+      <div className="p-3">
     <MDBDataTable striped 
       bordered
       hover
       data={data}></MDBDataTable>
       </div>
+      </div>
+      </div>
       {/* <div hidden={!(!(rows.length>0) && (this.state.presentation.length>0))}>
     you havent create any timeslots yet
       </div> */}
-   
+    </div>
     </div>
   
   );
