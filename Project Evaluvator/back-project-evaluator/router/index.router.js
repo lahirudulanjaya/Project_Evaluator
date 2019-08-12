@@ -10,6 +10,10 @@ const Ctrltimeslot =require('../controller/timeslot.controller')
 const Ctrlevaluvator =require('../controller/evaluvator.controller')
 const CtrlSC =require('../controller/sessioncoordinator.controller')
 
+const multer = require('multer');
+const upload = multer({dest:'uploads/'})
+
+
 
 router.post('/Student/register',CtrlStudent.register)
 router.post('/authenticate',CtrlStudent.authenticate)
@@ -102,6 +106,10 @@ router.get('/getgroupsbyprojectname/:Projectname',CtrlProject.getGroupsbyProject
 //update student
 
 router.put('/updatestudent/:Registrationnumber',CtrlStudent.UpdateStudent)
+
+//image upload
+
+router.post('/imageupload',upload.single('userFile'),CtrlStudent.uploadimage)
 
 module.exports=router 
 

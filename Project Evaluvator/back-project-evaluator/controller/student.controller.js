@@ -1,3 +1,4 @@
+const  Resize= require('../config/Resize')
 const mongoose =require('mongoose')
 const passport = require('passport')
 const _ = require('lodash')
@@ -5,6 +6,7 @@ const Student = mongoose.model('Students')
 const Studentdetail =mongoose.model('Studentdetail')
 var nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken')
+const multer = require('multer');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -13,6 +15,16 @@ var transporter = nodemailer.createTransport({
     pass: 'ucsc@123'
   }
 });
+let storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, 'uploads/')
+    },
+    filename: function(req, file, callback) {
+        console.log(file)
+        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+   })
+
 
 module.exports.register=(req,res,next)=>{
     var student = new Student()
@@ -266,4 +278,20 @@ module.exports.UpdateStudent=(req,res,next)=>{
     })
 }
 
+module.exports.uploadimage =(req,res,next)=>{
+
+    // let upload = multer( {
+    //     storage: storage,
+    //     fileFilter: function(req, file, callback) {
+    //         let ext = path.extname(file.originalname)
+    //         if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+    //             return callback(res.end('Only images are allowed'), null)
+    //         }
+    //         callback(null, true)
+    //     }
+    // }).single('userFile');
+  console.log(req.file)
+
+
+}
 
