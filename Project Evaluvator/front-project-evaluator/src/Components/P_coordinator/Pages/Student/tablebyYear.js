@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBTable, MDBTableBody, MDBTableHead,MDBInput } from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead,MDBInput,MDBFooter,MDBContainer } from 'mdbreact';
 import {getstudentbyYear} from '../../../../actions/P_coodinator-Student'
 import {connect} from 'react-redux'
 import Checkbox from '@material-ui/core/Checkbox';
@@ -73,6 +73,17 @@ handleChange(e){
         
       </MDBTableBody>
     </MDBTable>
+    <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
+   textAlign: "center"}}>
+      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
+    
+      <div className="footer-copyright text-center py-3">
+        <MDBContainer fluid>
+          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
+        </MDBContainer>
+      </div>
+    </MDBFooter>
+    </div>
     </div>
   );
   }
