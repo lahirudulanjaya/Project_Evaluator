@@ -239,24 +239,11 @@ module.exports.getstudentscount = (req, res, next) => {
     })
 }
 
-// module.exports.userprofile =(req,res,next)=>{
-//     Student.findOne({ _id: req.params._id },(err,doc)=>{
-//         if(!err){
-//             res.status(200).json(_.pick(doc,['UserName','Registrationnumber','Email']))
-//         }
-//         else{
-//             res.status(404).json({messeage:"No Record Found"})
-//         }
-//     })
-// }
-
 
 module.exports.verifyemail =(req,res,next)=>{
 
    const { user: { Registrationnumber } } =   jwt.verify(req.params.token,process.env.JWT_SECRET)
    console.log(Registrationnumber)
-
-
    Student.findOneAndUpdate({Registrationnumber:Registrationnumber},{$set:{Active:true}},(err,doc)=>{
     if(!err){
         res.send(doc)
@@ -268,5 +255,15 @@ module.exports.verifyemail =(req,res,next)=>{
 
 }
 
+module.exports.UpdateStudent=(req,res,next)=>{
+    Student.findOneAndUpdate({Registrationnumber:req.params.Registrationnumber},{$set:req.body.student},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
 
 

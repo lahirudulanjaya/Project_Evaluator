@@ -98,5 +98,10 @@ router.get('/confirmation/:token',CtrlStudent.verifyemail)
 
 router.get('/getgroupsbyprojectname/:Projectname',CtrlProject.getGroupsbyProject)
 
+
+//update student
+
+router.put('/updatestudent/:Registrationnumber',CtrlStudent.UpdateStudent)
+
 module.exports=router 
 
