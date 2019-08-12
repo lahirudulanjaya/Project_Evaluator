@@ -196,11 +196,24 @@ handleClose = () => {
 
     <div className="container">
       <div className="row">
-
-        <div className="col-sm-12 pt-3" >
-        <Card className="ml-5" fluid color='orange' header='select project' />
+        <div className="col-sm-3"></div>
+        <div className="col-sm-6 pt-3">  
+          <div class="card text-white bg-primary mb-3" style={{width:"35rem", height:"12rem",fontSize:25}}>
+              <div class="card-header text-center p-3">Update Project Milestones</div>
+              <div class="card-body">
+                <div className="row pt-3" style={{fontSize:15}}>
+                  <div className="col-sm-3 pt-3">
+                    Select Project
+                  </div>
+                  <div className="col-sm-9">
                     <Dropdown placeholder='Select Project to Update Milestone'  selection options={stateOptions3}  value={this.state.id} onChange={this.handleChange}/>
-        <div className="ml-5 pt-2">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div className="col-sm-12 pt-3" >
+        <div className="ml-3 pt-2">
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -246,7 +259,7 @@ handleClose = () => {
       </Dialog>
 
         <MDBCard>
-          <MDBCardBody style={cardStyle}>
+          <MDBCardBody style={{cardStyle,backgroundColor:"#D4D8DE"}}>
           <MDBTable responsive>
             <MDBTableHead color="primary-color" textWhite>
               <tr>
