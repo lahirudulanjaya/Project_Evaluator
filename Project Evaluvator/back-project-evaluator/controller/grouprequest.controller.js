@@ -72,14 +72,18 @@ module.exports.checkaccepted=(req,res,next)=>{
 }
 
 module.exports.checkallaccepted=(req,res,next)=>{
-    Grouprequest.find({$and:[{'reciver.active':"pending"},{sender:req.params.id}]},(err,doc)=>{
+    Grouprequest.find({sender:req.params.id},(err,doc)=>{
+        var accepted=true
         if(!err){
-            if(doc.length>0){
-                res.status(200).json({status:false})
-            }
-            else{
-                res.status(200).json({status:true})
-            }
+            doc.forEach(ee=>{
+ee.reciver.map(ww=>{
+    if(!(ww.active=="accepted")){
+        accepted=false
+    }
+})
+            })
+                res.status(200).json({status:accepted})
+        
         }
         else{
             res.status(404).send(err)
@@ -100,8 +104,4 @@ module.exports.deleteRequest=(req,res,next)=>{
     })
 }
 
-// module.export.acceptRequest=(req,res,next)=>{
-//     Grouprequest.findOneAndUpdate({sender:req.params.id},{reciver})
-
-// }
 

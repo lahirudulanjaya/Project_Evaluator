@@ -1,6 +1,6 @@
 import axios from'axios'
 
-import {GET_STUDENT_DETAILS,GET_ERRORS,GET_STUDENT_DETAILS_Byyear,GET_STUDENT_PROJECT} from './types'
+import {GET_STUDENT_DETAILS,GET_ERRORS,GET_STUDENT_DETAILS_Byyear,GET_STUDENT_PROJECT,GET_GROUPS_BY_PROJECT} from './types'
 
 
 export const getstudentdetails =()=>dispatch =>{
@@ -57,3 +57,20 @@ export const getstudentProject=(id)=>dispatch=>{
 )
 }
 
+export const getgroupsbyproject=(id)=>dispatch=>{
+    axios.get("http://localhost:4000/api/getgroupsbyprojectname/"+id)
+.then(res=>{
+    dispatch({
+        type:GET_GROUPS_BY_PROJECT,
+        payload:res.data
+    },console.log(res.data))
+})
+.catch(
+    err=>{
+        dispatch({
+            type :GET_ERRORS,
+            payload:err.response.data
+        })
+    }
+)
+}

@@ -78,8 +78,8 @@ console.log(err)
 }
 
 module.exports.addGroups=(req,res,err)=>{
-    console.log(req.body.groups)
-    Project.findOneAndUpdate({Projectname:req.body.Projectname},{$set :{groups:req.body.groups} },{$inc:{'groups.$.groupno':1}},(err,doc)=>{
+    console.log(req.body.groups )
+    Project.findOneAndUpdate({Projectname:req.body.Projectname},{$set :{groups:req.body.groups} },{$inc:{'groups.$.groupno':5}},(err,doc)=>{
         if(!err){
             res.send(doc)
         }
@@ -221,5 +221,16 @@ module.exports.getRestrictions=(req,res,next)=>{
     })
 }
 
+
+module.exports.getGroupsbyProject=(req,res,next)=>{
+    Project.find({Projectname:req.params.Projectname},'groups',(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
 
 
