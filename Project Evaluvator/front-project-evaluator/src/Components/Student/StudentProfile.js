@@ -30,6 +30,15 @@ class StudentProfile extends Component {
     componentWillReceiveProps(props){
       console.log(props)
     }
+    upload=(e)=>{
+      e.preventDefault()
+      Axios.post("http://localhost:4000/api/imageupload").then(res=>{
+        console.log(res.data)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
 
  
    
@@ -87,12 +96,13 @@ class StudentProfile extends Component {
                 {/* <p className="h4 text-center py-4">Sign up</p> */}
                 <div className="input-group">
   <div className="input-group-prepend">
-    <span className="input-group-text" id="inputGroupFileAddon01">
+    <span className="input-group-text" id="inputGroupFileAddon01" type="submit" onClick={this.upload} value="Upload File" name="submit">
       Upload
     </span>
   </div>
   <div className="custom-file">
     <input
+    name="userFile"
       type="file"
       className="custom-file-input"
       id="inputGroupFile01"
@@ -106,7 +116,7 @@ class StudentProfile extends Component {
 
                 
                 </div>
-
+           
                 <div className="grey-text">
                   <MDBInput                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
                     label={(nameError==''|| nameError==null) ? 'Username': userNameLabel}

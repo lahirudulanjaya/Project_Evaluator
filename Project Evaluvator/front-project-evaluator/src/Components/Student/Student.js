@@ -9,7 +9,7 @@ import Tables, { Thead, Tbody, Tr, Th, Td } from "react-row-select-table"
 import Axios from 'axios';
 import { whologgedin } from '../../actions/authActions'
 import swal from 'sweetalert';
-
+import PureComponent from './chart'
 
 class Student extends React.Component {
   constructor(props) {
@@ -31,10 +31,6 @@ class Student extends React.Component {
         total: 4
       },
       alreadyin: false,
-      
-
-
-
     }
 
     this.showlist = this.showlist.bind(this)
@@ -163,10 +159,38 @@ class Student extends React.Component {
 
   }
   showlist = () => {
-    { this.props.getstudentbyYear(this.state.student.Projectname) }
-    this.props.getsendrequest(this.state.user.Registrationnumber)
-    this.setState({ clicked: true })
-    this.getrestrictions()
+    var registratinnumbers=[]
+    var newgrp =[]
+    Axios.get('http://localhost:4000/api/pg/getstudents/'+this.props.user.Registrationnumber).then(resp=>{
+    console.log(resp.data[0].Projectname)
+            Axios.get('http://localhost:4000/api/getgroupsbyprojectname/'+resp.data[0].Projectname).then(res=>{
+              res.data[0].groups.map(ele=>{
+                ele.students.map(reg=>{
+                  registratinnumbers.push(reg.Registrationnumber)
+                })
+              })
+
+              Axios.get('http://localhost:4000/api/pg/getstudents/'+resp.data[0].Projectname).then(res=>{
+              
+              console.log(res.data)
+              res.data.map(ele=>{
+                if(!(registratinnumbers.includes(ele.Registrationnumber))){
+                  newgrp.push(ele)
+                }
+              })
+              console.log(newgrp)
+             
+              this.props.getsendrequest(this.state.user.Registrationnumber)
+              this.getrestrictions()
+              this.setState({ clicked: true })
+
+              this.setState({students:newgrp})
+            })
+
+             
+
+            })
+          })
   }
 
 
@@ -189,7 +213,7 @@ class Student extends React.Component {
 
           student: nextprops.student.studentbyYear[0],
           groups: nextprops.student.studentProject[0],
-          students: nextprops.student.studentbyYear,
+          // students: nextprops.student.studentbyYear,
           request: nextprops.request.request.reciver,
           requests: nextprops.request.requests,
           isaccepted: nextprops.request.isaccepted,
@@ -234,47 +258,63 @@ class Student extends React.Component {
 
   }
   creategroup() {
-    this.props.getstudentProject(this.state.user.Registrationnumber)
+var groups=[]
+    Axios.get('http://localhost:4000/api/pg/getstudents/'+this.props.user.Registrationnumber).then(res=>{
+    console.log(res.data[0].Projectname)
+            Axios.get('http://localhost:4000/api/getgroupsbyprojectname/'+res.data[0].Projectname).then(res=>{
+              res.data[0].groups.map(ele=>{
+                groups.push(ele)
+              })
+                     
+              const students = []
+              this.state.request.forEach(element => {
+                const student = {}
+                student.Registrationnumber = element.Registrationnumber
+                students.push(student)
+              });
+              students.push({ Registrationnumber: this.state.user.Registrationnumber })
+              const grp= {
+                students: students,
+                groupno: groups.length+1
+              }
+              console.log(grp)
+              groups.push(grp)
+            
+              const submitGrps = {
+          
+                Projectname: this.state.student.Projectname,
+                groups: groups
+              }
+              console.log(groups)
+              Axios.put("http://localhost:4000/api/pg/addGroups", submitGrps)
+                .then(res => {
+                  swal({
+                    title: "Good job!",
+                    text: "You have succesfully Submit Groups!",
+                    icon: "success",
+                  });
+                  this.props.getstudentProject(this.state.user.Registrationnumber)
+                  this.props.cheackallaccepted(this.state.user.Registrationnumber)
+                  Axios.delete("http://localhost:4000/api/deleterequest/" + this.props.user.Registrationnumber).then(res => {
+          
+                  })
+          
+                })
+                .catch(err => {
+                  console.log(err)
+                  swal("Oops", "Something went wrong!!", "error")
+                })
 
-    const students = []
-    this.state.request.forEach(element => {
-      const student = {}
-      student.Registrationnumber = element.Registrationnumber
-      students.push(student)
-    });
-    students.push({ Registrationnumber: this.state.user.Registrationnumber })
-    var groupnumber
-    if (!this.state.groups) {
-      groupnumber = 1
-    }
-    else {
-      groupnumber = this.state.groups.groups.length + 1
-    }
-    const submitGrps = {
 
-      Projectname: this.state.student.Projectname,
-      groups: {
-        students: students,
-        groupno: groupnumber
-      }
-    }
-    Axios.put("http://localhost:4000/api/pg/addGroups", submitGrps)
-      .then(res => {
-        swal({
-          title: "Good job!",
-          text: "You have succesfully Submit Groups!",
-          icon: "success",
-        });
-        this.props.getstudentProject(this.state.user.Registrationnumber)
-        this.props.cheackallaccepted(this.state.user.Registrationnumber)
-        Axios.delete("http://localhost:4000/api/deleterequest/" + this.props.user.Registrationnumber).then(res => {
+            })
+        })
+        .catch(err=>{
 
         })
+       
+    // this.props.getstudentProject(this.state.user.Registrationnumber)
 
-      })
-      .catch(err => {
-        swal("Oops", "Something went wrong!!", "error")
-      })
+ 
 
   }
   confirmRequest(id) {
@@ -293,6 +333,8 @@ class Student extends React.Component {
    
     return (
       <div>
+        <PureComponent></PureComponent>
+      <div hidden={!(this.state.student == null) && this.state.student.Projectname.substring(7, 8) == 2}>
 
         {(this.state.student == null)
           ?
@@ -301,123 +343,19 @@ class Student extends React.Component {
             you havent assign project right now</div> :
           <div><h2>project = {this.state.student.Projectname}</h2>
 
+</div>
+        }
 
-            {(this.state.student.Projectname.substring(7, 8) == 2) ?
-
-              <div style={{ marginLeft: '100px' }}>
-                group list
-                <div>
-                  {!(this.state.groups == null) ? <div>
-                    <Table striped>
-                      <Table.Header>
-                        <Table.Row>
-                          <Table.HeaderCell>Group No</Table.HeaderCell>
-                          <Table.HeaderCell>Students Registrationnumber</Table.HeaderCell>
-                          <Table.HeaderCell>Student Name</Table.HeaderCell>
-                          <Table.HeaderCell>Supervisor</Table.HeaderCell>
-                          <Table.HeaderCell>Mentors</Table.HeaderCell>
-                        </Table.Row>
-                      </Table.Header>
-
-
-                      <Table.Body>
-
-                        {this.state.groups.groups.map(groups =>
-                          <Table.Row verticalAlign='top'>
-                            <Table.Cell>{groups.groupno}</Table.Cell>
-                            <Table.Cell>
-                              {groups.students.map(students =>
-                                <div>
-                                  {students.Registrationnumber}
-                                </div>
-                              )}
-                            </Table.Cell>
-                            <Table.Cell>
-                              {groups.students.map(students =>
-                                <div>
-                                  {students.Name}
-                                </div>
-                              )}
-                            </Table.Cell>
-                            {/* <Table.cell>
-                               
-                            </Table.cell>
-                            <Table.cell>
-                               
-                            </Table.cell>  */}
-                          </Table.Row>
-
-                        )}
-
-                      </Table.Body>
-
-                    </Table>
-                  </div> :
-
-                    <div>
-
-                    </div>
-                  }
-
-                </div>
-              </div> :
-              <div>
-
-
-                <div>
-                  <div style={{ marginLeft: '100px' }}>
-                    {!(this.state.groups == null) ? <div>
-                      <Table striped>
-                        <Table.Header>
-                          <Table.Row>
-                            <Table.HeaderCell>Group No</Table.HeaderCell>
-                            <Table.HeaderCell>Students Registrationnumber</Table.HeaderCell>
-                            <Table.HeaderCell>Student Name</Table.HeaderCell>
-                            <Table.HeaderCell>Supervisor</Table.HeaderCell>
-                            <Table.HeaderCell>Mentors</Table.HeaderCell>
-                          </Table.Row>
-                        </Table.Header>
-
-
-                        <Table.Body>
-
-                          {this.state.groups.groups.map(groups =>
-                            <Table.Row verticalAlign='top'>
-                              <Table.Cell>{groups.groupno}</Table.Cell>
-                              <Table.Cell>
-                                {groups.students.map(students =>
-                                  <div>
-                                    {students.Registrationnumber}
-                                  </div>
-                                )}
-                              </Table.Cell>
-                              <Table.Cell>
-                                {groups.students.map(students =>
-                                  <div>
-                                    {students.Name}
-                                  </div>
-                                )}
-                              </Table.Cell>
-
-                            </Table.Row>
-
-                          )}
-
-                        </Table.Body>
-
-                      </Table>
-                    </div> :
-
-                      <div>
-
-                      </div>
-                    }
-
-                  </div>
-                </div>
+          <div style={{ marginLeft: '200px' ,width:'50%',borderRadius: '5px', marginBottom: '30px'}} hidden={!this.state.alreadyin} >
+          <h3 style={{ backgroundColor: 'red', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', width: '90%' }} > You already in a group </h3>
+            </div>
 
                 {this.state.request ?
-                  <div style={{ marginLeft: '200px' ,width:'50%'}} hidden={this.state.alreadyin}>
+                  <div style={{ marginLeft: '200px' ,width:'50%'}} hidden={this.state.alreadyin} >
+                        <div>
+
+Group Requests
+</div> 
                     <h3 style={{ backgroundColor: '#feda6a', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px' }} > Your Request. </h3>
 
                     <Table celled >
@@ -443,20 +381,19 @@ class Student extends React.Component {
                           </Table.Row>
                         )}
                       </Table.Body>
-                      <Button secondary disabled={!this.state.isaccepted} onClick={this.creategroup}>create your group</Button>
+                      <Button secondary  onClick={this.creategroup} disabled={!this.state.isaccepted}>create your group</Button>
                       <Button secondary onClick={this.deleteRequest}>Delete Request</Button>
 
                     </Table>
                   </div>
                   :
+                  <div style={{ marginLeft: '100px' }}   hidden={this.state.alreadyin} >
+                    <h3 style={{ backgroundColor: '#feda6a', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', width: '70%' }} > You Haven't Send Any Request Yet. To send request click showlist </h3>
 
-                  <div style={{ marginLeft: '100px' }} hidden={this.state.alreadyin}>
-                    <h3 style={{ backgroundColor: '#feda6a', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', width: '50%' }} > You Haven't Send Any Request Yet. To send request click showlist </h3>
-
-                    <Button onClick={this.showlist} secondary> Show Student list</Button>
+                    <Button onClick={this.showlist} secondary style={{padding:'12px', borderRadius: '5px', marginBottom: '30px'}}> Show Student list</Button>
 
                     <div hidden={!this.state.clicked}>
-                      <h3 style={{ backgroundColor: '#feda6a', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', width: '50%' }} > Total Maximum member count is {this.state.Restrictions.total}. Group must contain atleast {this.state.Restrictions.cs} CS Students and {this.state.Restrictions.is} IS Students  </h3>
+                      <h3 style={{ backgroundColor: 'red', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', width: '90%' }} > Total Maximum member count is {this.state.Restrictions.total}. Group must contain atleast {this.state.Restrictions.cs} CS Students and {this.state.Restrictions.is} IS Students  </h3>
 
                       <Tables onCheck={(value) => value.length >= this.state.Restrictions.total
                         ? this.sendgroupRequest(value)
@@ -482,25 +419,11 @@ class Student extends React.Component {
                       </Tables>
                     </div>
                   </div>
-
-
-
-
                 }
-
-
-
-
               </div>
-
-            }
-          </div>
-
-        }
-      </div>
-    );
-  }
-}
+              </div>
+    )
+  }}
 const mapStateToProps = state => {
   return (
     {
