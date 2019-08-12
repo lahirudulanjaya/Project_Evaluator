@@ -678,15 +678,13 @@ this.setState({ timeslots: timeslots })
       <Form onSubmit={this.generateTimeslots1}>
 
                  <div class="col-md-12" style={{marginBottom:'50px',marginTop:'50px'}}>
-                    <div class="card" style={cardStyle}>
-                        <div class="card-header card-header-danger">
-                            
+                    <div class="card" style={{cardStyle, backgroundColor:"#C2C5C9"}}>
+                        <div class="card-header card-header-danger pt-3" style={{backgroundColor:'#AFB1B4'}}>
+                            <div style={{fontWeight:"5px",backgroundColor:'#AFB1B4'}}><h3>Set Time Slots for Presentation</h3></div>
                         </div>
-                <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Set Time Slots for Presentation</h3>
-
-                <div className="row">
+                <div className="row pt-3">
                     <div className="col-md-2"></div>
-                    <div className="col-md-2 text-left" >Select the project</div>
+                    <div className="col-md-2 text-left" ><b>Select the project</b></div>
                     <div className="col-md-4">
                     
                         <Dropdown required placeholder='State' search selection options={Projectnames} onChange={this.onchangeDropdown} />
@@ -695,7 +693,7 @@ this.setState({ timeslots: timeslots })
                 </div>
                 <div className="row">
                     <div className="col-md-2"></div>
-                    <div className="col-md-2 text-left" >Select the Presentation</div>
+                    <div className="col-md-2 text-left" ><b>Select the Presentation</b></div>
                     <div className="col-md-4">
                         <Dropdown required placeholder='State' search selection options={presentation} onChange={this.onchangeDropdown1}/>
 
@@ -715,7 +713,7 @@ this.setState({ timeslots: timeslots })
                 
               
                 </Form.Group>
-
+                        <div className='container'>
                         <Form.Group widths='equal' required>
                             <Form.Field required control={Input} onChange={this.handleChange} name="timeslotlength" value={this.state.timeslotlength} label='Enter the Time Slot Length(minuths)' placeholder='Time slot length' />
                             <Form.Field  control={Input} onChange={this.handleChange} name="numberofgroups" value={this.state.numberofgroups} label='Number of Groups' placeholder='Number of groups' />
@@ -725,13 +723,47 @@ this.setState({ timeslots: timeslots })
 
                         <Form.Field required control={Input} onChange={this.handleChange} name="evaluvators" value={this.state.evaluvators} label='Enter the Evaluvators' placeholder='Enter the Evaluvators seperated by comma' />
                         </Form.Group>
-
+                        </div>
+                        <h3 style={{backgroundColor:'#AFB1B4',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'15px'}} >Add presentation Days</h3>
+                        <div className='pb-3'>
+                            <Button primary onClick={this.handleOpen} >Add a Day</Button>
+                        </div>
+                        <div className="container">
+                            <MDBTable hidden={!this.state.Days.length>0}>
+                                <MDBTableHead color="primary-color" textWhite>
+                                    <tr>
+                                    <th>#</th>
+                                    <th>Day</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Locations</th>
+                                    <th>remove</th>
+                                    </tr>
+                                </MDBTableHead>
+                            <MDBTableBody style={{backgroundColor:"white"}}>
+                                    {this.state.Days.map(day=>
+                            <tr>
+                                <td></td>
+                                <td>{day.date}</td>
+                                <td>{day.starttime}</td>
+                                <td>{day.endtime}</td>
+                                <td>{day.locations}</td>
+                                <td><Button className="btn btn-danger" onClick={()=>this.remove(day.date)}>remove</Button></td>
+                            </tr>
+                                    )}
+                                
+                                </MDBTableBody>
+                            </MDBTable>
+                        </div>
+                        <div style={{backgroundColor:'#AFB1B4',color:'black',padding:'12px',borderRadius:'5px'}}>
+                            <Button secondary type="submit" >Generate Time Slots</Button>
+                        </div>
                     </div>
 
 
 
                 </div>
-                <div class="col-md-12" style={{marginBottom:'50px',marginTop:'50px'}}>
+                {/* <div class="col-md-12" style={{marginBottom:'50px',marginTop:'50px'}}>
                     <div class="card" style={cardStyle}>
                     <h3 style={{backgroundColor:'#F9A602',color:'black',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Add presentation Days</h3>
                    <div>
@@ -765,78 +797,77 @@ this.setState({ timeslots: timeslots })
     
 
                     </div>
-                    </div>
-                    <div>
-    <Button secondary type="submit" >Generate Time Slots</Button>
-    </div>
+                    </div> */}
     </Form>
                 {(this.state.timeslots.length>0) && (!this.state.alreadycreated) ?
 
+                <div className="container">
+                    <div class="tableclass">
 
-                <div class="tableclass">
+                        <Table striped style={{border:'2px solid #AFB1B4', borderRadius:'5px'}}>
+                            <Table.Header>
+                                <Table.Row style={{backgroundColor:'#568BD3',color:"white"}}>
+                                    <Table.HeaderCell>Group No</Table.HeaderCell>
+                                    <Table.HeaderCell>Timeslot</Table.HeaderCell>
+                                    <Table.HeaderCell>Venue</Table.HeaderCell>
+                                    <Table.HeaderCell>Evaluators</Table.HeaderCell>
 
-                    <Table striped>
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell>Group No</Table.HeaderCell>
-                                <Table.HeaderCell>Timeslot</Table.HeaderCell>
-                                <Table.HeaderCell>Venue</Table.HeaderCell>
-                                <Table.HeaderCell>Evaluators</Table.HeaderCell>
-
-                            </Table.Row>
-                            {console.log(this.state)}
-                        </Table.Header>
-
-
-                        <Table.Body>
-
-                            {this.state.timeslots.map(timeslots =>
-
-                                !timeslots.interval ?
-                                    <Table.Row verticalAlign='top'>
-                                        <Table.Cell>{i++}</Table.Cell>
-                                        <Table.Cell>
-                                            <div>
-                                                Start time :{timeslots.start}
-                                            </div>
-                                            <div>
-                                                End time :{timeslots.end}
-                                            </div>
-                                        </Table.Cell>
-                                        <Table.Cell>{timeslots.venue}</Table.Cell>
-                                        {timeslots.evaluvators.length > 0 ?
-                                            <Table.Cell>{timeslots.evaluvators.toString()}</Table.Cell>
-                                            :
-                                            <Table.Cell><Popup
-                                                trigger={<Button onClick={() => this.onclick(timeslots.start, timeslots.venue)} icon='add' />}
-                                                content={
-                                                    <List>
-                                                        {this.state.Evaluators.map(evaluvator =>
-
-                                                            <List.Item><Checkbox checked={evaluvator.checked} value={evaluvator.name} start={timeslots.start} venue={timeslots.venue} onChange={this.change} disabled={(this.state.SelectedEvaluvators.length >= this.state.evaluvateCount && !evaluvator.checked) || (evaluvator.already)}></Checkbox>{evaluvator.name}</List.Item>
-
-                                                        )}
-                                                        <Button onClick={() => this.submitEvaluvators(timeslots.start, timeslots.venue)}> Submit</Button>
-                                                    </List>
-
-                                                }
-                                                on='click'
-                                                hideOnScroll
-                                            /></Table.Cell>
-                                        }
-                                    </Table.Row>
-                                    :
-                                    <Table.Row verticalAlign='top'>interval</Table.Row>
+                                </Table.Row>
+                                {console.log(this.state)}
+                            </Table.Header>
 
 
+                            <Table.Body>
 
-                            )}
-                        </Table.Body>
-                    </Table>
-                    <Button secondary onClick={this.submittodb} > Submit to Database</Button>
+                                {this.state.timeslots.map(timeslots =>
+
+                                    !timeslots.interval ?
+                                        <Table.Row verticalAlign='top'>
+                                            <Table.Cell>{i++}</Table.Cell>
+                                            <Table.Cell>
+                                                <div>
+                                                    Start time :{timeslots.start}
+                                                </div>
+                                                <div>
+                                                    End time :{timeslots.end}
+                                                </div>
+                                            </Table.Cell>
+                                            <Table.Cell>{timeslots.venue}</Table.Cell>
+                                            {timeslots.evaluvators.length > 0 ?
+                                                <Table.Cell>{timeslots.evaluvators.toString()}</Table.Cell>
+                                                :
+                                                <Table.Cell><Popup
+                                                    trigger={<Button onClick={() => this.onclick(timeslots.start, timeslots.venue)} icon='add' />}
+                                                    content={
+                                                        <List>
+                                                            {this.state.Evaluators.map(evaluvator =>
+
+                                                                <List.Item><Checkbox checked={evaluvator.checked} value={evaluvator.name} start={timeslots.start} venue={timeslots.venue} onChange={this.change} disabled={(this.state.SelectedEvaluvators.length >= this.state.evaluvateCount && !evaluvator.checked) || (evaluvator.already)}></Checkbox>{evaluvator.name}</List.Item>
+
+                                                            )}
+                                                            <Button onClick={() => this.submitEvaluvators(timeslots.start, timeslots.venue)}> Submit</Button>
+                                                        </List>
+
+                                                    }
+                                                    on='click'
+                                                    hideOnScroll
+                                                /></Table.Cell>
+                                            }
+                                        </Table.Row>
+                                        :
+                                        <Table.Row verticalAlign='top'>interval</Table.Row>
 
 
 
+                                )}
+                            </Table.Body>
+                        </Table>
+                        <div className="pt-3 pb-3">
+                            <Button secondary onClick={this.submittodb} > Submit to Database</Button>
+                        </div>
+
+
+                    </div>
                 </div>
                 
                 : this.state.alreadycreated ? <div> 
