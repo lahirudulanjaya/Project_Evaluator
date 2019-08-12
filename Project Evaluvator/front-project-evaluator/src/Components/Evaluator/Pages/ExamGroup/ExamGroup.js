@@ -1,5 +1,5 @@
 import React from 'react'
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput ,MDBIcon ,MDBTable ,MDBTableBody ,MDBTableHead, Row} from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput ,MDBIcon ,MDBTable ,MDBTableBody ,MDBTableHead, Row,MDBFooter} from 'mdbreact';
 import axios from 'axios'
 import swal from 'sweetalert'
 import {Form,Dropdown, Item,Button} from 'semantic-ui-react'
@@ -156,6 +156,17 @@ class ExamGroup  extends React.Component {
                     </Form>
                 </Paper>
                 </MDBContainer>
+                <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
+                    textAlign: "center"}}>
+                        <MDBFooter color="blue" className="font-small pt-4 mt-4" >
+                        
+                        <div className="footer-copyright text-center py-3">
+                            <MDBContainer fluid>
+                            &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
+                            </MDBContainer>
+                        </div>
+                        </MDBFooter>
+                </div>
             </div>
         )
     }
