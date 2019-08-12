@@ -78,6 +78,7 @@ class Header extends Component {
                   trigger={<Icon size='big' name='user' />}
                   content={<List>
                     {this.state.requests.map(requests =>
+                    
                       <List.Item>{requests.sender} wants to make a group with {requests.reciver.map(reciver =>
                         <div inlist>
                           {reciver.Registrationnumber}
