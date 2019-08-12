@@ -96,5 +96,7 @@ router.get('/getrestrictions/:Projectname',CtrlProject.getRestrictions)
 
 router.get('/confirmation/:token',CtrlStudent.verifyemail)
 
+router.get('/getgroupsbyprojectname/:Projectname',CtrlProject.getGroupsbyProject)
+
 module.exports=router 
 

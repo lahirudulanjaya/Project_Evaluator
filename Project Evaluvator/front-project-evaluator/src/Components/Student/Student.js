@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Component/Header'
 import { connect } from 'react-redux'
-import { getstudentProject, getstudentbyYear } from '../../actions/P_coodinator-Student'
+import { getstudentProject, getstudentbyYear,getgroupsbyproject } from '../../actions/P_coodinator-Student'
 import { getsendrequest, getrequest, cheackallaccepted } from '../../actions/requestActions'
 import { getuserprofile } from '../../actions/authActions'
 import { Table, Button, Icon } from 'semantic-ui-react'
@@ -30,7 +30,8 @@ class Student extends React.Component {
         is: 1,
         total: 4
       },
-      alreadyin: false
+      alreadyin: false,
+      
 
 
 
@@ -48,7 +49,6 @@ class Student extends React.Component {
     }
 
     this.props.getuserprofile()
-
     this.props.getstudentProject(this.props.user.Registrationnumber)
     this.props.getstudentbyYear(this.props.user.Registrationnumber)
     this.props.getsendrequest(this.props.user.Registrationnumber)
@@ -87,14 +87,10 @@ class Student extends React.Component {
             )
         }
       })
-
-
-
-
   }
 
-
   sendgroupRequest = (value) => {
+
     var cs = 0;
     var is = 0;
 
@@ -178,15 +174,16 @@ class Student extends React.Component {
 
 
     if (!(this.props.user === nextprops.user)) {
+      console.log(nextprops)
       this.props.getstudentProject(nextprops.user.Registrationnumber)
       this.props.getstudentbyYear(nextprops.user.Registrationnumber)
       this.props.getsendrequest(nextprops.user.Registrationnumber)
       this.props.getrequest(nextprops.user.Registrationnumber)
       this.props.cheackallaccepted(nextprops.user.Registrationnumber)
+      this.props.getgroupsbyproject("2016cs129")
     }
     this.setState({ user: nextprops.user })
     if (nextprops.student.studentbyYear.length > 0) {
-      console.log(nextprops.request)
       this.setState(
         {
 
@@ -203,7 +200,9 @@ class Student extends React.Component {
 
       )
 
+
     }
+    
     if(!(this.state.groups==null )){
       var isexsists=false
       this.state.groups.groups.map(element=>{
@@ -274,7 +273,7 @@ class Student extends React.Component {
 
       })
       .catch(err => {
-        swal("Oops", "Something went wrong!!!", "error")
+        swal("Oops", "Something went wrong!!", "error")
       })
 
   }
@@ -517,4 +516,4 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps, { getstudentProject, getstudentbyYear, getsendrequest, getrequest, cheackallaccepted, getuserprofile })(Student);
+export default connect(mapStateToProps, { getstudentProject, getstudentbyYear, getsendrequest, getrequest, cheackallaccepted, getuserprofile,getgroupsbyproject })(Student);
