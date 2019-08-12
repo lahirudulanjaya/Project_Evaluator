@@ -7,6 +7,11 @@ import NotificationBadge from 'react-notification-badge';
 import { Effect } from 'react-notification-badge';
 import { Icon, Popup, Button, List } from 'semantic-ui-react'
 import  {deletetoken} from '../../../actions/authActions'
+import swal from 'sweetalert';
+import {getuserprofile} from '../../../actions/authActions'
+import { connect } from 'react-redux'
+import Axios from 'axios';
+
 class Header extends Component {
   constructor(props) {
     super(props)
@@ -18,9 +23,15 @@ class Header extends Component {
       requests: []
     };
     console.log(props)
+    this.props.getuserprofile()
+
   }
   logout(){
     deletetoken()
+  }
+  componentDidMount(){
+    this.props.getuserprofile()
+
   }
 
   toggleCollapse = () => {
@@ -29,6 +40,24 @@ class Header extends Component {
   componentWillReceiveProps(nextprops) {
     this.setState({ requestcount: nextprops.requestcount })
     this.setState({ requests: nextprops.requests })
+    console.log(nextprops)
+  }
+  accept=()=>{
+    Axios.get("http://localhost:4000/api/checkaccepted/"+this.props.user.Registrationnumber)
+    .then(res => {
+      swal({
+        title: "Good job!",
+        text: "You have succesfully Submit Groups!",
+        icon: "success",
+      });
+    })
+    .catch(err => {
+      swal("Oops", "Something went wrong!!!", "error")
+      console.log(err)
+    })
+  }
+  reject(){
+    
   }
 
   render() {
@@ -55,10 +84,10 @@ class Header extends Component {
                         </div>
                       )}
                         <div className='ui two buttons'>
-                          <Button basic color='green' onClick={this.props.accept}>
+                          <Button basic color='green' onClick={this.accept}>
                             Approve
           </Button>
-                          <Button basic color='red'>
+                          <Button basic color='red' onClick={this.reject}>
                             Decline
           </Button>
                         </div>
@@ -90,5 +119,17 @@ class Header extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  console.log(state)
+  return (    
+      {
+        user: state.auth.user,
+       
+      } 
+      
+  )
 
-export default Header;
+
+}
+export default connect(mapStateToProps, { getuserprofile })(Header);
+

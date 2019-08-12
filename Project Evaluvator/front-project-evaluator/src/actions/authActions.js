@@ -55,7 +55,7 @@ export const loginStudent = userData => dispatch =>{
 
             })
             .catch(err=>{
-
+              console.log(err)
             })
             
             
@@ -87,8 +87,6 @@ export const getuserprofile=()=>dispatch=>{
   })
 
 }
-
-
 
 export const setCurrentUser =(decoded)=>{
     return {

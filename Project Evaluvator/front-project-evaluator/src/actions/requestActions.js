@@ -43,6 +43,7 @@ export const cheackallaccepted =(id)=>dispatch=>{
             type:IS_ALL_ACCEPTED,
             payload:res.data.status
         })
+        console.log(res.data.status)
     })
     .catch(err=>{
         

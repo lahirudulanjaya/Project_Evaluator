@@ -42,14 +42,14 @@ render(){
     <MDBTable style={{borderRadius:'5px'}} responsive>
 
       <MDBTableHead color="primary-color" textWhite>
-        <tr style={{color:'#dfdfdf',backgroundColor:'black'}}>
+        <tr style={{border:'2px solid black', borderRadius:'5px',color:'white',backgroundColor:'#043E9E'}}>
           <th><img src={controlProjecticonImg} alt='#'/></th>
-          <th>Project Name</th>
-          <th>Initiate Date</th>
-          <th>Academic Year</th>
-          <th>Project Type</th>
-          <th>Project Status</th>
-          <th>Start/Stop</th>
+          <th><b>Project Name</b></th>
+          <th><b>Initiate Date</b></th>
+          <th><b>Academic Year</b></th>
+          <th><b>Project Type</b></th>
+          <th><b>Project Status</b></th>
+          <th><b>Start/Stop</b></th>
         </tr>
       </MDBTableHead>
       <MDBTableBody>
