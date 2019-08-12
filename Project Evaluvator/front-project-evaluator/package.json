@@ -24,6 +24,7 @@
     "react-dialog": "^1.0.2",
     "react-dom": "^16.8.1",
     "react-helmet": "^5.2.0",
+    "react-images-upload": "^1.2.7",
     "react-loading-bar": "0.0.7",
     "react-notification-badge": "^1.4.0",
     "react-redux": "^6.0.0",
