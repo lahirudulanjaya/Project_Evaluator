@@ -30,6 +30,20 @@ var ProjectSchema = new mongoose.Schema({
     }],
     Sheeturl:{
         type:String
+    },
+    Restrictions:{
+        total:{
+            type:Number,
+            default:4
+        },
+        cs:{
+            type:Number,
+            default:2
+        },
+        is:{
+            type:Number,
+            default:1
+        }
     }
 
 

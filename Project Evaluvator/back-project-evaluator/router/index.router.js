@@ -38,6 +38,7 @@ router.get('/getsendresquest/:id',Ctrlrequest.getsendrequest)
 router.get('/getresquest/:id',Ctrlrequest.getrequest)
 router.get('/checkaccepted/:id',Ctrlrequest.checkaccepted)
 router.get('/checkallaccepted/:id',Ctrlrequest.checkallaccepted)
+router.delete('/deleterequest/:id', Ctrlrequest.deleteRequest)
 
 router.put('/deletegroups/:Projectname',CtrlProject.deletegroups)
 
@@ -89,6 +90,8 @@ router.get('/getprojectscount',CtrlProject.getprojectscount)
 router.get('/getstudentcount',CtrlStudent.getstudentscount)
 router.get('/getevaluvatorscount',Ctrlevaluvator.getevaluvatorscount)
 
+router.put('/setrestrictions',CtrlProject.setRestrictions)
+router.get('/getrestrictions/:Projectname',CtrlProject.getRestrictions)
 
 
 router.get('/confirmation/:token',CtrlStudent.verifyemail)
