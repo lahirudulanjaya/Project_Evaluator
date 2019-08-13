@@ -5,13 +5,9 @@ const _ = require('lodash')
 const Student = mongoose.model('Students')
 const Studentdetail =mongoose.model('Studentdetail')
 var nodemailer = require('nodemailer');
-<<<<<<< HEAD
 const jwt = require('jsonwebtoken');
 const bcrypt =require('bcryptjs');
-=======
-const jwt = require('jsonwebtoken')
 const multer = require('multer');
->>>>>>> f920dbdfdaac5b0c6de002226de9906f8d8cd411
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -272,7 +268,6 @@ module.exports.verifyemail =(req,res,next)=>{
 
 }
 
-<<<<<<< HEAD
 module.exports.checkusername = (req,res,next)=>{
     Student.findOne({UserName: req.params.UserName}, function(err, data){
         if(!err){
@@ -327,7 +322,6 @@ module.exports.resetPassword=(req, res, next)=>{
     });
 }
 
-=======
 module.exports.UpdateStudent=(req,res,next)=>{
     Student.findOneAndUpdate({Registrationnumber:req.params.Registrationnumber},{$set:req.body.student},(err,doc)=>{
         if(!err){
@@ -340,7 +334,6 @@ module.exports.UpdateStudent=(req,res,next)=>{
 }
 
 module.exports.uploadimage =(req,res,next)=>{
->>>>>>> f920dbdfdaac5b0c6de002226de9906f8d8cd411
 
     // let upload = multer( {
     //     storage: storage,
