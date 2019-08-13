@@ -15,7 +15,7 @@ class Student extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: [],
+      user: {},
       academicyear: null,
       studentProject: '',
       student: null,
@@ -333,7 +333,9 @@ var groups=[]
    
     return (
       <div>
+        <div style={{padding:'70px'}}>
         <PureComponent></PureComponent>
+        </div>
       <div hidden={!(this.state.student == null) && this.state.student.Projectname.substring(7, 8) == 2}>
 
         {(this.state.student == null)
@@ -341,13 +343,13 @@ var groups=[]
           <div>
 
             you havent assign project right now</div> :
-          <div><h2>project = {this.state.student.Projectname}</h2>
+          <div><h2 style={{ backgroundColor: 'blue', color: 'white', padding: '12px', borderRadius: '5px', marginBottom: '30px',marginLeft:'400px', width: '50%' }}>Project : {this.state.student.Projectname}</h2>
 
 </div>
         }
 
           <div style={{ marginLeft: '200px' ,width:'50%',borderRadius: '5px', marginBottom: '30px'}} hidden={!this.state.alreadyin} >
-          <h3 style={{ backgroundColor: 'red', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', width: '90%' }} > You already in a group </h3>
+          <h3 style={{ backgroundColor: 'red', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px',marginLeft:'200px', width: '90%' }} > You already in a group </h3>
             </div>
 
                 {this.state.request ?
@@ -388,7 +390,7 @@ Group Requests
                   </div>
                   :
                   <div style={{ marginLeft: '100px' }}   hidden={this.state.alreadyin} >
-                    <h3 style={{ backgroundColor: '#feda6a', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', width: '70%' }} > You Haven't Send Any Request Yet. To send request click showlist </h3>
+                    <h3 style={{ backgroundColor: '#feda6a', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px',marginLeft:'100px', width: '70%' }} >Hello {this.state.user.UserName} You Haven't Send Any Request Yet. If you wish to send request for create group click below </h3>
 
                     <Button onClick={this.showlist} secondary style={{padding:'12px', borderRadius: '5px', marginBottom: '30px'}}> Show Student list</Button>
 

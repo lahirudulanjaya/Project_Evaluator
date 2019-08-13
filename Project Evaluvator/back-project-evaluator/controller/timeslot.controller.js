@@ -44,7 +44,7 @@ var mailOptions = {
     from: 'ucscprojectevaluation@gmail.com',
     to: maillist,
     subject: 'Sending Email using Node.js',
-    text: 'That was easy!'
+    text: req.body.Timeslots.toString()
   };
   console.log(maillist)
   
