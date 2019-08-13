@@ -101,15 +101,35 @@ const data = [
   constructor(props){
     super(props)
     this.state={
+      data:[]
 
     }
-    this.props.getuserprofile()
+   // this.props.getuserprofile()
   }
   componentDidMount(){
+    var newarr=[]
       console.log(this.props.user)
     Axios.get('http://localhost:4000/api/pg/getstudents/'+this.props.user.Registrationnumber).then(resp=>{
-          if(resp.data>0)
-          this.props.getmilestones(resp.data[0].Projectname)
+          if(resp.data.length>0){
+          Axios.get('http://localhost:4000/api/pg/getmilestone/'+resp.data[0].Projectname).then(res=>{
+            const fst={
+              name:'Project Begin',
+              week:0
+            }
+            newarr.push(fst)
+            res.data.map(ele=>{
+              var element={
+                name:ele.name,
+                week:Number(ele.Duration)
+              }
+              newarr.push(element)
+            })
+            this.setState({data:newarr})
+          })
+        }
+
+
+          
       })
   }
   componentWillReceiveProps(nextprops){
@@ -118,13 +138,14 @@ const data = [
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <h4>Current Position</h4>
         <LineChart
           width={1500}
-          height={200}
-          data={data}
+          height={400}
+          data={this.state.data}
           syncId="anyId"
           margin={{
             top: 10, right: 30, left: 45, bottom: 0,
@@ -134,7 +155,7 @@ const data = [
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          <Line type="monotone" dataKey="weeks" stroke="#8884d8" fill="#8884d8" />
+          <Line type="monotone" dataKey="week" stroke="#8884d8" fill="#8884d8" />
         </LineChart>
        
    
