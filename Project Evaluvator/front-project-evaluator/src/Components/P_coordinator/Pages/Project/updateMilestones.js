@@ -250,7 +250,7 @@ handleClose = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={this.handleClose} color="primary">
-            Cansel
+            Cancel
           </Button>
           <Button onClick={this.updateMilestone} color="primary" autoFocus>
             Save
