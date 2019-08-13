@@ -592,11 +592,10 @@ console.log(rows)
 
     </div>
     </div>
-  
+  </div>
   );
 }
 }
-
 const mapStateToProps = state => {
     return{
   

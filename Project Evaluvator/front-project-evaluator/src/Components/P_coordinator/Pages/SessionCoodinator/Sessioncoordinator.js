@@ -219,6 +219,9 @@ class Sessioncoodinator  extends React.Component {
     </MDBFooter>
     </div>   
 
+    </div>
+
+
             </div>
          );
     }
