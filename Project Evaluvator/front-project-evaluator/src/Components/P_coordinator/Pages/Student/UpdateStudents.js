@@ -119,8 +119,27 @@ class UpdateStudent extends React.Component {
     }
     render() { 
         return (
-            <div> <h2><b>Students</b></h2>
-                      <Input icon='search' placeholder='Search...' onChange={this.serchStudent} value={this.state.filtervalue}/>
+            <div>
+              <div className="container">
+                <div className="row">
+                  <div className="col-sm-3"></div>
+                  <div className="col-sm-6 pt-3">  
+                    <div class="card text-white bg-primary mb-3" style={{width:"35rem", height:"12rem",fontSize:25}}>
+                        <div class="card-header text-center p-3">Update students</div>
+                        <div class="card-body">
+                          <div className="row pt-3" style={{fontSize:15}}>
+                            <div className="col-sm-4 pt-3">
+                              Search student
+                            </div>
+                            <div className="col-sm-8">
+                              <Input icon='search' placeholder='Search...' onChange={this.serchStudent} value={this.state.filtervalue}/>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
                       <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -158,48 +177,52 @@ class UpdateStudent extends React.Component {
         </DialogActions>
       </Dialog>
       {this.state.students.length>0 ?
-            <MDBTable responsive>
-            
-              <MDBTableHead color="primary-color" textWhite>
+          <div className="container">
+            <div className="row" style={{marginLeft:'75px'}}>
+              <MDBTable responsive>
               
-              
-        
-                <tr>
-                  <th>#</th>
-                  <th>Registartion Number</th>
-                  <th>Student Name</th>
-                  <th>Email</th>
-                  <th>Registered Or Not</th>
-                  <th>Update</th>
-                  <th>Delete</th>
-                </tr>
-              </MDBTableHead>
-              <MDBTableBody>
-             
-                  {this.state.students.map((students) => 
-                 <tr>
-            
-                <td >{""}</td>
-                  <td >{students.Registrationnumber}</td>
-                  <td >{students.Name}</td>
-                  <td >{students.Email}</td>
-                  <td >{students.isRegistered.toString()}</td>
-                  <td><MDBIcon far icon="edit" className="indigo-text pr-3" size="2x" onClick={()=>this.handleClickOpen(students)} /></td>
-       <td><MDBIcon icon="trash" className="red-text pr-3" size="2x"onClick={()=>this.deleteStudent(students.Registrationnumber)}/> </td>     
-
-
-                 
+                <MDBTableHead color="primary-color" textWhite>
+                
+                
+          
+                  <tr>
+                    <th>#</th>
+                    <th>Registartion Number</th>
+                    <th>Student Name</th>
+                    <th>Email</th>
+                    <th>Registered Or Not</th>
+                    <th>Update</th>
+                    <th>Delete</th>
                   </tr>
-        
-                  )}
-            
-           
-                        
-        
-         
-              </MDBTableBody>
+                </MDBTableHead>
+                <MDBTableBody>
               
-            </MDBTable>
+                    {this.state.students.map((students) => 
+                  <tr>
+              
+                  <td >{""}</td>
+                    <td >{students.Registrationnumber}</td>
+                    <td >{students.Name}</td>
+                    <td >{students.Email}</td>
+                    <td >{students.isRegistered.toString()}</td>
+                    <td><MDBIcon far icon="edit" className="indigo-text pr-3" size="2x" onClick={()=>this.handleClickOpen(students)} /></td>
+        <td><MDBIcon icon="trash" className="red-text pr-3" size="2x"onClick={()=>this.deleteStudent(students.Registrationnumber)}/> </td>     
+
+
+                  
+                    </tr>
+          
+                    )}
+              
+            
+                          
+          
+          
+                </MDBTableBody>
+                
+              </MDBTable>
+              </div>
+            </div>
             :
             <div><Card className="ml-5" fluid color='red' header='No Student Found' /></div>
                   }

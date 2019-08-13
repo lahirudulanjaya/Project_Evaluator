@@ -1,3 +1,4 @@
+const  Resize= require('../config/Resize')
 const mongoose =require('mongoose')
 const passport = require('passport')
 const _ = require('lodash')
@@ -5,6 +6,7 @@ const Student = mongoose.model('Students')
 const Studentdetail =mongoose.model('Studentdetail')
 var nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken')
+const multer = require('multer');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -13,6 +15,16 @@ var transporter = nodemailer.createTransport({
     pass: 'ucsc@123'
   }
 });
+let storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, 'uploads/')
+    },
+    filename: function(req, file, callback) {
+        console.log(file)
+        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+   })
+
 
 module.exports.register=(req,res,next)=>{
     var student = new Student()
@@ -239,24 +251,11 @@ module.exports.getstudentscount = (req, res, next) => {
     })
 }
 
-// module.exports.userprofile =(req,res,next)=>{
-//     Student.findOne({ _id: req.params._id },(err,doc)=>{
-//         if(!err){
-//             res.status(200).json(_.pick(doc,['UserName','Registrationnumber','Email']))
-//         }
-//         else{
-//             res.status(404).json({messeage:"No Record Found"})
-//         }
-//     })
-// }
-
 
 module.exports.verifyemail =(req,res,next)=>{
 
    const { user: { Registrationnumber } } =   jwt.verify(req.params.token,process.env.JWT_SECRET)
    console.log(Registrationnumber)
-
-
    Student.findOneAndUpdate({Registrationnumber:Registrationnumber},{$set:{Active:true}},(err,doc)=>{
     if(!err){
         res.send(doc)
@@ -268,5 +267,31 @@ module.exports.verifyemail =(req,res,next)=>{
 
 }
 
+module.exports.UpdateStudent=(req,res,next)=>{
+    Student.findOneAndUpdate({Registrationnumber:req.params.Registrationnumber},{$set:req.body.student},(err,doc)=>{
+        if(!err){
+            res.send(doc)
+        }
+        else{
+            res.send(err)
+        }
+    })
+}
 
+module.exports.uploadimage =(req,res,next)=>{
+
+    // let upload = multer( {
+    //     storage: storage,
+    //     fileFilter: function(req, file, callback) {
+    //         let ext = path.extname(file.originalname)
+    //         if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+    //             return callback(res.end('Only images are allowed'), null)
+    //         }
+    //         callback(null, true)
+    //     }
+    // }).single('userFile');
+  console.log(req.file)
+
+
+}
 

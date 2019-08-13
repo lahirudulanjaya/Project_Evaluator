@@ -260,13 +260,24 @@ console.log(this.state)
 
     <div className="container">
       <div className="row">
-
-        <div className="col-sm-12 pt-3" >
-        {/* <Card className="ml-5" fluid color='orange' header='Select Project' /> */}
-        <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Update Groups</h3>
-
+        <div className="col-sm-3"></div>
+        <div className="col-sm-6 pt-3">  
+          <div class="card text-white bg-primary mb-3" style={{width:"35rem", height:"12rem",fontSize:25}}>
+              <div class="card-header text-center p-3">Update Groups</div>
+              <div class="card-body">
+                <div className="row pt-3" style={{fontSize:15}}>
+                  <div className="col-sm-3 pt-3">
+                    Select Project
+                  </div>
+                  <div className="col-sm-9">
                     <Dropdown placeholder='Select Project to Update Milestone'  selection options={stateOptions3}  value={this.state.Projectname} onChange={this.handleChange}/>
-        <div className="ml-5 pt-2">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div className="col-sm-12 pt-3" >
+        <div className="ml-3 pt-2">
          <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -310,15 +321,14 @@ console.log(this.state)
       </Dialog>
       {this.state.groups.length>0 && this.state.groups[0].groups.length>0 ?
         <MDBCard>
-          <div>
-          <Button secondary onClick={()=>this.deletegroups(this.state.Projectname)}>Delete all</Button>
-          </div>
           <MDBCardBody style={cardStyle}>
-          
-
+          <div className="text-right pb-3">
+          <Button className="btn btn-danger" onClick={()=>this.deletegroups(this.state.Projectname)}>Delete all projects</Button>
+          </div>
+          <div style={{border:'2px solid #AFB1B4', borderRadius:'5px'}}>
           <MDBTable responsive>
             <MDBTableHead color="primary-color" textWhite>
-              <tr style={{color:'#dfdfdf',backgroundColor:'#302f2f'}}>
+              <tr style={{color:'#dfdfdf',backgroundColor:'#3978D7'}}>
                 <th>Group No</th>
                 <th>Students</th>
                 <th>Supervisor</th>
@@ -352,9 +362,9 @@ console.log(this.state)
              </MDBTableBody>
               
              
-
-            </MDBTable>
             
+            </MDBTable>
+            </div>
           </MDBCardBody>
         </MDBCard>
          :

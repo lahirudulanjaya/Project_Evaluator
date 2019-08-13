@@ -91,8 +91,13 @@ class Sessioncoodinator  extends React.Component {
         return ( 
             <div>
               <div className="container pt-2">
-              <h3 style={{backgroundColor:'#302f2f',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Manage Session Coordinator</h3>
-
+                <div className="row">
+                  <div className="col-sm-1">
+                  </div>
+                  <div className="col-sm-11 pt-3">
+                    <h3 style={{backgroundColor:'#346CDC',color:'#e8eaed',padding:'12px',borderRadius:'5px',marginBottom:'30px'}} >Manage Session Coordinator</h3>
+                  </div>               
+                </div>
                 <div className="row">
                 {/* <Card className="ml-5" fluid color="white" header='register Session Coordinator' /> */}
 
@@ -106,8 +111,8 @@ class Sessioncoodinator  extends React.Component {
             <MDBCard className="w-75 p-3">
               <MDBCardBody >
                 <form onSubmit={this.registersessionCoordinator}>
-                <div className="form-header grey lighten-2 rounded">
-                <p className="h4 text-center py-4">Register</p>
+                <div className="form-header lighten-2 rounded" style={{backgroundColor:'#346CDC'}}>
+                <p className="h4 text-center py-4" style={{color:"white"}}>Register</p>
                 </div>
                   <MDBInput 
                   required
@@ -155,17 +160,18 @@ class Sessioncoodinator  extends React.Component {
                 </div>
                 </div>
                 </div>
+                <div class="container">
                 <div class="col-md-12">
               <div class="card">
               <div class="col-md-12 pt-3 mb-5">
-                  <div class="card-header card-header-danger">
+                  <div class="card-header card-header-danger" style={{backgroundColor:"#C2C5C9"}}>
                       <h4 class="card-title ">Session Coordinators</h4>
                      
                   </div>
                   <div class="card-body">
-                      <div class="table-responsive">
+                      <div class="table-responsive" style={{border:'2px solid #AFB1B4', borderRadius:'5px'}}>
                           <table class="table">
-                              <thead class=" text-primary">
+                              <thead style={{backgroundColor:"#346CDC", color:'white'}}>
                                   
                                   <th>
                                      Registration Number
@@ -200,6 +206,7 @@ class Sessioncoodinator  extends React.Component {
               </div>
           </div>
           </div>
+
           <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
    textAlign: "center"}}>
       <MDBFooter color="blue" className="font-small pt-4 mt-4" >
@@ -211,6 +218,7 @@ class Sessioncoodinator  extends React.Component {
       </div>
     </MDBFooter>
     </div>   
+
             </div>
          );
     }
