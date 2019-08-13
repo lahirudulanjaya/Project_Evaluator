@@ -11,6 +11,8 @@ import{BrowserRouter as Router , Route, Switch} from 'react-router-dom'
 import {browserHistory} from 'react-router'
 import store from './store'
 import  Register from './Components/Auth/Register/Register';
+import ForgetPassword from './Components/Auth/ForgetPassword/ForgetPassword';
+import ResetPassword from './Components/Auth/ForgetPassword/ResetPasword';
 
 import Project from './Components/P_coordinator/Pages/Project/Project'
 import Milestones from './Components/P_coordinator/Pages/Project/updateMilestones'
@@ -78,6 +80,8 @@ class App extends Component {
             <Route exact path ="/test" component={Test}/>
             <Route exact path ="/login" component={Login}/>  
             <Route exact path ="/register" component={Register}/>
+            <Route exact path ="/forgetPassword" component={ForgetPassword}/>
+            <Route exact path="/resetPassword/:userName" component={ResetPassword}/>
             {/* <Route component={PageNotFound} /> */}
           </Switch>
         </div>
