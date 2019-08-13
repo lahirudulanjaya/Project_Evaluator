@@ -3,7 +3,7 @@ import {getmilestones,updatemilestone,delemilestone} from '../../../../actions/m
 import {connect} from 'react-redux'
 import {getprojectnames} from '../../../../actions/ProjectActions'
 
-import { MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
+import { MDBTable, MDBTableBody, MDBTableHead,MDBContainer,MDBFooter,MDBCard, MDBCardBody,MDBIcon} from 'mdbreact';
 import './updateMilestone.css'
 
 import axios from'axios'
@@ -16,8 +16,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {Form,Dropdown} from 'semantic-ui-react'
 import _ from 'lodash'
-
-import { MDBCard, MDBCardBody,MDBIcon} from 'mdbreact';
 import { Card} from 'semantic-ui-react'
 
 
@@ -299,6 +297,29 @@ handleClose = () => {
 
              </div>
              </div>
+             <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
+   textAlign: "center"}}>
+      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
+    
+      <div className="footer-copyright text-center py-3">
+        <MDBContainer fluid>
+          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
+        </MDBContainer>
+      </div>
+    </MDBFooter>
+    </div>
+
+    <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
+   textAlign: "center"}}>
+      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
+    
+      <div className="footer-copyright text-center py-3">
+        <MDBContainer fluid>
+          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
+        </MDBContainer>
+      </div>
+    </MDBFooter>
+    </div>
              </div>
            
           

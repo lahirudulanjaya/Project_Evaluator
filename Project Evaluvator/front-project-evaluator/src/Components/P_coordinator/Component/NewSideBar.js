@@ -89,7 +89,7 @@ class NewSideBar extends Component{
                         
                         <NavItem eventKey="pg/timeslot">
                         <NavText>
-                            Set Time Slots for Presentations
+                            Set Time Slots 
                         </NavText>
                         </NavItem>
                         <NavItem eventKey="pg/setgooglesheet">
