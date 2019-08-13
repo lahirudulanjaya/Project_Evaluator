@@ -7,6 +7,7 @@ import { Header,Input,Popup } from 'semantic-ui-react'
 import axios from 'axios'
 import swal from 'sweetalert';
 import { yellow } from '@material-ui/core/colors';
+import {MDBContainer,MDBFooter} from 'mdbreact';
 
 class Setgooglesheet extends Component {
   constructor(props) {
@@ -136,7 +137,17 @@ class Setgooglesheet extends Component {
 
 
         </div>
-
+        <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
+   textAlign: "center"}}>
+      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
+    
+      <div className="footer-copyright text-center py-3">
+        <MDBContainer fluid>
+          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
+        </MDBContainer>
+      </div>
+    </MDBFooter>
+    </div>
       </div>
     )
   }

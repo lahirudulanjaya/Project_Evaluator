@@ -12,7 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios'
 import swal from 'sweetalert';
 
-import { MDBBtn,MDBIcon} from 'mdbreact';
+import { MDBBtn,MDBIcon, MDBFooter,MDBContainer} from 'mdbreact';
 import {getstudentdetails} from '../../../../actions/P_coodinator-Student'
 import {connect} from 'react-redux'
 
@@ -171,8 +171,28 @@ uploadtoDB=()=>{
         <MDBIcon icon="magic" className="mr-1"  /> Send Emails
       </MDBBtn>
       </div>
-
-
+      <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
+   textAlign: "center"}}>
+      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
+    
+      <div className="footer-copyright text-center py-3">
+        <MDBContainer fluid>
+          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
+        </MDBContainer>
+      </div>
+    </MDBFooter>
+    </div>
+    <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
+   textAlign: "center"}}>
+      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
+    
+      <div className="footer-copyright text-center py-3">
+        <MDBContainer fluid>
+          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
+        </MDBContainer>
+      </div>
+    </MDBFooter>
+    </div>
         
                 </div>
   
