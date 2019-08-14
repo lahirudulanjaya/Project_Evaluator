@@ -217,7 +217,9 @@ class Evaluvator  extends React.Component {
       </div>
     </MDBFooter>
     </div>
+
 </div>
+
             </div>
          );
     }
