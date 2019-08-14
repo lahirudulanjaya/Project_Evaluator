@@ -82,15 +82,15 @@ class Setgooglesheet extends Component {
   }
   
   render() {
-   var headerrrr =<div><h3>When adding googlesheet to project you need to share your googlesheet with</h3><h3 style={{color:"yellow"}}> ucscprojectevaluation@ucsc-projec-tevaluation.iam.gserviceaccount.com</h3></div>
+   var headerrrr =<div><h3>When adding googlesheet to project you need to share your googlesheet with</h3><h3 style={{color:"white"}}> ucscprojectevaluation@ucsc-projec-tevaluation.iam.gserviceaccount.com</h3></div>
     return (
       <div className="container">
 
         
         <div className="row pt-2 ml-3">
         <Card.Group>
-        <Card className="ml-5" fluid color='orange' header='Before add googlesheet to project you need to create groups' />
-        <Card className="ml-5" fluid color='green' header= {headerrrr}/>
+        <Card className="ml-5" fluid color='blue' header='Before add googlesheet to project you need to create groups' />
+        <Card className="ml-5" fluid color='blue' header= {headerrrr}/>
     
   </Card.Group>
 
@@ -137,17 +137,9 @@ class Setgooglesheet extends Component {
 
 
         </div>
-        <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
-   textAlign: "center"}}>
-      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
+       
     
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
-        </MDBContainer>
-      </div>
-    </MDBFooter>
-    </div>
+      
       </div>
     )
   }

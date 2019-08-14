@@ -15,13 +15,17 @@ import moment from 'moment'
 
 
 class  SessionListTable extends React.Component {
+  
   constructor(props){
     super(props)
     this.state={
       Projects:[],
-      Presentations:[]
+      Presentations:[],
+      brack :false
     }
+
   }
+  
   componentDidMount()
   {
     this.props.getallprojects()

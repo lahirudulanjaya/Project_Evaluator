@@ -45,22 +45,7 @@ class SCoordinatorSideBar extends Component{
                             DashBoard
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="stu/group">
-                        <NavIcon>
-                            <i className="fa fa-fw fa-users" style={{ fontSize: '1.75em' }} />
-                        </NavIcon>
-                        <NavText>
-                            Group
-                        </NavText>
-                    </NavItem>
-                    <NavItem eventKey="stu/settings">
-                        <NavIcon>
-                            <i className="fa fa-fw fa-cog" style={{ fontSize: '1.75em' }} />
-                        </NavIcon>
-                        <NavText>
-                            Settings
-                        </NavText>
-                    </NavItem>
+            
                 </SideNav.Nav>
             </SideNav>
             <main>

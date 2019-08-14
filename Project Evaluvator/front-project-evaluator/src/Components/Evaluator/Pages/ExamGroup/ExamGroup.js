@@ -2,143 +2,145 @@ import React from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput ,MDBIcon ,MDBTable ,MDBTableBody ,MDBTableHead, Row,MDBFooter} from 'mdbreact';
 import axios from 'axios'
 import swal from 'sweetalert'
-import {Form,Dropdown, Item,Button} from 'semantic-ui-react'
 import Paper from '@material-ui/core/Paper';
 import {connect} from 'react-redux';
 import {Input} from 'semantic-ui-react';
 import NumericInput from 'react-numeric-input';
+import { getuserprofile } from '../../../../actions/authActions'
+import { Card, Icon, Image } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
+import NavBar from '../../EvaHedear'
+import {whologgedin} from '../../../../actions/authActions'
+import NavbarPage from '../../../S_coordinator/Component/SCoordinatorNavBar'
+
 const profileIcon = require('../../image/profile-alt.png');
 
 
-
-
-var teamMember
-var groupno
-
 class ExamGroup  extends React.Component {
 
-   
-
-    addSlot3(milestone,m1,m2,m3){
-        var rowElement={
-            milestone:milestone,
-            m1:milestone+'-'+m1,
-            m2:milestone+'-'+m2,
-            m3:milestone+'-'+m3
-        }
-        return rowElement;
-    }
-    addSlot4(milestone,m1,m2,m3,m4){
-        var rowElement={
-            milestone:milestone,
-            m1:<NumericInput name={milestone+'-'+m1} min={0} max={10} value={0}/>,
-            m2:<NumericInput name={milestone+'-'+m2} min={0} max={10} value={0}/>,
-            m3:<NumericInput name={milestone+'-'+m3} min={0} max={10} value={0}/>,
-            m4:<NumericInput name={milestone+'-'+m4} min={0} max={10} value={0}/>,
-        }
-        return rowElement;
-    }
-    addSlot5(milestone,m1,m2,m3,m4,m5){
-        var rowElement={
-            milestone:milestone,
-            m1:<NumericInput name={milestone+'-'+m1} min={0} max={10} value={0}/>,
-            m2:<NumericInput name={milestone+'-'+m2} min={0} max={10} value={0}/>,
-            m3:<NumericInput name={milestone+'-'+m3} min={0} max={10} value={0}/>,
-            m4:<NumericInput name={milestone+'-'+m4} min={0} max={10} value={0}/>,
-            m5:<NumericInput name={milestone+'-'+m5} min={0} max={10} value={0}/>,
-        }
-        return rowElement;
-    }
-
-    updateToStudentDetails(){
-        console.log('--------updateToStudentDetails-------');
-    }
-
-    getAllProjectName(){
-        axios.get("http://localhost:4000/api/pg/getprojectsnames")
-     .then(res=>{
-        //  var ar=[];
-        console.log(res)
-        console.log(res.data)
-
-        console.log('----------Projectname')
-       console.log(res.status)
-       console.log('----------Projectname')
-    //    const len=res.data.length;
-    //    var i;
-    //    for(i=0;i<len;i++){
-    //         ar[i]=res.data[i].Projectname;
-    //    }
-    //    console.log('----------ar')
-    //    console.log('--------'+ ar + '--Projectname')
-       return res.data;
-
-    //    this.setState({groups:res.data})
-      })
-     .catch(err=>{
-      console.log(err)
-    })
-    }
-
-    render(){
-        var getAllProjectNameArray=[]
-        getAllProjectNameArray=this.getAllProjectName();
-        // console.log('--++----'+getAllProjectNameArray);
-        const teamMember=['2016CS001','2016CS002','2016CS003','2016CS004','2016CS005']
-        const teamMemberImage=[profileIcon,profileIcon,profileIcon,profileIcon,profileIcon]
-        const teamMemberLength=teamMember.length
-        const milestoneList=['Delivery']
-        const milestoneListLength=milestoneList.length
+   constructor(props){
+    super(props)
+    this.state={
+        evaluvator:'',
+        Projectname:'',
+        Milestone:'',
+        groupno:'',
+        show:false,
+        Timeslot:{},
+        group:{
+            groupno:'',
+            students:[]
+        },
+      
+         
+            groupmark:Number,
+            individualmarks:[] 
         
 
-        const columns=[
-            {
-              label: ' ',
-              field: 'id',
-            }
-           
-        ]
 
-        var i;
-        for(i=0;i<teamMemberLength;i++){
-            var member={
-                label: <img style={{width: '100px', height: '100px'}} src={teamMemberImage[i]} />,
-                field: <img src={teamMemberImage[i]} />/*<img src={ucscpng} />*/
-              }
-            columns.push(member)
+    }
+    if(!(whologgedin()=="evaluator")){
+        this.props.history.push('/login')
+    }
+    var token =localStorage.getItem('jwttoken')
+
+    axios.get('http://localhost:4000/api/userprofile',{headers:{"Authorization" : `Bearer ${token}`}}).then(res=>{
+     
+var user =res.data.user.UserName
+axios.get("http://localhost:4000/api/getallformdata").then(res=>{
+    var proname=''
+    var groupno=''
+    var prsent =false
+    res.data.map(ele=>{
+      this.setState({Milestone:ele.Milestone,Projectname : ele.Projectname ,groupno:ele.Timeslost.groupno,evaluvator:user})  
+      if(ele.Timeslost.evaluvators.includes(user)){
+          prsent =true
+        groupno=ele.Timeslost.groupno
+        proname=ele.Projectname
+        this.setState({Projectname:ele.Projectname})
+        this.setState({Timeslot:ele.Timeslost})
+      }
+        
+    })
+    if(prsent){
+    axios.get("http://localhost:4000/api/getgroupsbyprojectname/"+proname).then(ress=>{
+        
+    console.log(ress.data[0])
+    ress.data[0].groups.map(ee=>{
+      
+       if(ee.groupno==groupno){
+        this.setState({group:ee})
+       }
+    })
+ })
+}
+    
+   
+})
+             
+})
+              
+              .catch( err=>{
+               
+  
+    })
+    console.log(this.props.user.user)
+
+    this.handleChange = this.handleChange.bind(this);
+
+   }
+
+   handleChange(e){
+    this.setState({[e.target.name]: e.target.value});
+  }
+
+  submitmarks=()=>{
+      const obj ={
+        evaluvator:this.state.evaluvator,
+        Projectname:this.state.Projectname,
+        Milestone:this.state.Milestone,
+        marks:{
+            groupmark:this.state.groupmark,
+            groupno:this.state.groupno 
         }
-        const rows=[]
-       
+      }
+    
+    axios.post("http://localhost:4000/api/addmarks/",obj).then(ress=>{
+        
+        swal("sucess")
 
-          var j;
-          for(j=0;j<milestoneListLength;j++){
-            //   var rowElement={}
-            //   rowElement.milestone=milestoneList[j];
-                if(teamMemberLength==5){
-                    var teamp=this.addSlot5(milestoneList[j],teamMember[0],teamMember[1],teamMember[2],teamMember[3],teamMember[4],teamMember[5]);
-                    rows.push(teamp);
-                }
-                else if(teamMemberLength==4){
-                    var teamp=this.addSlot4(milestoneList[j],teamMember[0],teamMember[1],teamMember[2],teamMember[3],teamMember[4]);
-                    rows.push(teamp);
-                }
-                else if(teamMemberLength==3){
-                    var teamp=this.addSlot3(milestoneList[j],teamMember[0],teamMember[1],teamMember[2],teamMember[3]);
-                    rows.push(teamp);
-                }
-           
-          }
+     })
+     .catch(err=>{
+        swal("Oops", "Something went wrong!!", "error")
+
+     })
+  }
+   componentDidMount(){
+       console.log(this.props)
+      
+        
+        if(!(whologgedin()=="evaluator")){
+            this.props.history.push('/login')
+        }
+    
+    
+   }
+
+
+    render(){
+        console.log(this.state)
+        var getAllProjectNameArray=[]
 
 
         var allProjects=['g1','g2','g3','g4']
 
         return(
             <div>
+                <NavbarPage></NavbarPage>
                 <MDBContainer pt-4 mt-5>
-                 <h1>Exam Group </h1>
-                <Dropdown placeholder='Select Project'  selection options={getAllProjectNameArray} /*value={this.getAllProjectNameArray.Projectname} */ />
+                
                 <Paper >
-                    <Form onSubmit={this.updateToStudentDetails}>
+                    {/* <Form onSubmit={this.updateToStudentDetails}>
                     <div className="form-header rounded pt-4 mt-6">
                         <h2>Induvidual Examing</h2>
                     <MDBTable btn>
@@ -153,23 +155,53 @@ class ExamGroup  extends React.Component {
                        
                     </div>
                     <Button type ='submit' color="primary" autoFocus>Submit</Button>
-                    </Form>
+                    </Form> */}
+                    {this.state.group.students.length>0  ?<div> 
+                                            <h2>Individual Examing</h2>
+
+                     <div className="row">
+                         {this.state.group.students.map(student=>
+                         <div className="col-6 col-sm-3">
+               <Card>
+               <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+               <Card.Content>
+                 <Card.Header>{student.Registrationnumber}</Card.Header>
+                 
+              
+               </Card.Content>
+               <Card.Content extra>
+               <input type="text" name="name" />
+               </Card.Content>
+             </Card>
+             </div>
+                         )}
+          </div> 
+          <div className="form-header rounded pt-4 mt-6">
+                        <h2>Group Examing</h2>
+                        <label>Overall Team</label><input name="groupmark" onChange={this.handleChange}  min={0} max={10} value={this.state.groupmark}/><br/>
+                        <Button primary onClick={this.submitmarks}>Submit Marks </Button>
+
+                    </div>
+                    </div> :<div>
+                    <h3 style={{ backgroundColor: 'red', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px',marginLeft:'80px', width: '90%' }} > You haven't any Evaluvation today </h3>
+
+                    </div>}
                 </Paper>
                 </MDBContainer>
-                <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
-                    textAlign: "center"}}>
-                        <MDBFooter color="blue" className="font-small pt-4 mt-4" >
-                        
-                        <div className="footer-copyright text-center py-3">
-                            <MDBContainer fluid>
-                            &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
-                            </MDBContainer>
-                        </div>
-                        </MDBFooter>
-                </div>
+              
             </div>
         )
     }
 }
 
-export default ExamGroup ;
+
+const mapStateToProps = state => {
+    console.log(state)
+    return (    
+        {
+          user: state.auth.user,
+        }    
+    )
+  }
+ 
+export default connect(mapStateToProps, { getuserprofile })(ExamGroup);

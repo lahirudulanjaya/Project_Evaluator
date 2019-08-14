@@ -28,6 +28,7 @@ class Header extends Component {
   }
   logout(){
     deletetoken()
+    
   }
   componentDidMount(){
     this.props.getuserprofile()

@@ -119,6 +119,10 @@ export function whologgedin(){
         return "student"
      
       }
+      else if(((payload.exp > Date.now() / 1000)&&(payload.type=="evaluator"))){
+        return "evaluator"
+     
+      }
       else{
         return ""
       }
