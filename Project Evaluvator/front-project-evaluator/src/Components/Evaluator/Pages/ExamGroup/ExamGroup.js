@@ -138,7 +138,7 @@ axios.get("http://localhost:4000/api/getallformdata").then(res=>{
             <div>
                 <NavbarPage></NavbarPage>
                 <MDBContainer pt-4 mt-5>
-                 <h1>Exam Group </h1>
+                
                 <Paper >
                     {/* <Form onSubmit={this.updateToStudentDetails}>
                     <div className="form-header rounded pt-4 mt-6">

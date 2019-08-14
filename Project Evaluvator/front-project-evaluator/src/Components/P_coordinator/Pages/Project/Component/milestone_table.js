@@ -155,7 +155,7 @@ class Products extends React.Component {
               </div>
               </div>
           <ProductTable onProductTableUpdate={this.handleProductTable.bind(this)} onRowAdd={this.handleAddEvent.bind(this)} onRowDel={this.handleRowDel.bind(this)} products={this.state.products} filterText={this.state.filterText}/>
-        <button className="btn btn-dark" onClick={this.importMilestones}>Add Milestone</button>
+        <button className="btn btn-primary" onClick={this.importMilestones}>Add Milestone</button>
 
        
         </div>
@@ -203,7 +203,7 @@ class Products extends React.Component {
             
            
           <table className="table table-bordered">
-            <thead style={{backgroundColor:'black',color:'white'}}>
+            <thead style={{backgroundColor:'#03002e',color:'white'}}>
               <tr >
                 <th><b>name</b></th>
                 <th><b>Milestone Type</b></th>
@@ -213,7 +213,7 @@ class Products extends React.Component {
               </tr>
             </thead>
   
-            <tbody style={{backgroundColor:'#feda6a',color:'white'}}>
+            <tbody style={{backgroundColor:'#C0C0C0',color:'white'}}>
               {product}
   
             </tbody>
@@ -276,17 +276,7 @@ class Products extends React.Component {
           <td className="del-cell">
             <input classname="btn btn-danger" type="button" onClick={this.onDelEvent.bind(this)} value="X" className="del-btn"/>
           </td>
-          <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
-   textAlign: "center"}}>
-      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
-    
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
-        </MDBContainer>
-      </div>
-    </MDBFooter>
-    </div>
+          
 
         </tr>
         

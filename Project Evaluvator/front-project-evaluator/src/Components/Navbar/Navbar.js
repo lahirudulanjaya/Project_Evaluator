@@ -9,6 +9,8 @@ import NotificationBadge from 'react-notification-badge';
 import { Effect } from 'react-notification-badge';
 import { Icon, Popup, Button, List } from 'semantic-ui-react'
 import  {deletetoken} from '../../actions/authActions'
+import { getuserprofile } from '../../actions/authActions'
+import { connect } from 'react-redux'
 class NavbarPage extends Component {
   constructor(props) {
     super(props)
@@ -24,21 +26,23 @@ class NavbarPage extends Component {
   logout(){
     deletetoken()
   }
+ 
+ 
 
   toggleCollapse = () => {
     this.setState({ isOpen: !this.state.isOpen });
   }
   componentWillReceiveProps(nextprops) {
+    console.log(nextprops)
     this.setState({ requestcount: nextprops.requestcount })
     this.setState({ requests: nextprops.requests })
   }
 
   render() {
-    const { username, requestcount, requests } = this.props
     return (
       <MDBNavbar color="light" dark expand="md">
         <MDBNavbarBrand>
-          <strong className='title' style={{ color: '#000000'}}>Welcome {this.state.username}</strong>
+          <strong className='title' style={{ color: '#000000'}}>Welcome Admin</strong>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
@@ -97,5 +101,12 @@ class NavbarPage extends Component {
     );
   }
 }
-
-export default NavbarPage;
+const mapStateToProps = state => {
+  console.log(state)
+  return (    
+      {
+        user: state.auth.user,
+      }    
+  )
+}
+export default connect(mapStateToProps, {getuserprofile})(NavbarPage);

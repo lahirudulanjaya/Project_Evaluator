@@ -11,15 +11,17 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {Form,Dropdown,Button} from 'semantic-ui-react'
+import {Form,Dropdown} from 'semantic-ui-react'
 import _ from 'lodash'
 import axios from 'axios'
 import swal from 'sweetalert';
 import {getprojectnames} from '../../actions/ProjectActions'
 import { getpresentations } from '../../actions/milestoneActions'
 import {Link }from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
 
 import { Card} from 'semantic-ui-react'
+
 
 class Scoodinater extends Component{
 
@@ -52,13 +54,15 @@ class Scoodinater extends Component{
               Acadamicyear:'',
               ProjectType:''
 
-          }
+          },
+          black:true
         }
         this.serchProject=this.serchProject.bind(this)
         this.onchange1=this.onchange1.bind(this)
         this.onchange=this.onchange.bind(this)
         this.handleChange=this.handleChange.bind(this)
         this.onchangeDropdown1=this.onchangeDropdown1.bind(this)
+
       }
 
       
@@ -83,7 +87,7 @@ class Scoodinater extends Component{
 
     }
 
-    removeFormdata(ee){
+    removeFormdata=(ee)=>{
         const obj ={
             Projectname: this.state.Projectname,
             Milestone:this.state.presentation,
@@ -95,10 +99,11 @@ class Scoodinater extends Component{
                 '',
                 'success'
               )
+              this.setState({black: !this.state.black})
         })
     }
     
-    sendshowFormdata(ee){
+    sendshowFormdata=(ee)=>{
       const obj ={
           Projectname: this.state.Projectname,
           Milestone:this.state.presentation,
@@ -110,6 +115,7 @@ class Scoodinater extends Component{
               '',
               'success'
             )
+            this.setState({black: !this.state.black})
       })
   }
 
@@ -364,6 +370,9 @@ componentWillReceiveProps(nextprops){
 }
 
 render(){
+  var btn_class = this.state.black ? "primary" : "danger";
+  console.log(btn_class)
+
   var rows =[]
   var notice =""
  if(this.state.timeslots.Timeslosts){
@@ -377,8 +386,8 @@ var row={
     ee+"   "
   ),
   venue:timeslot.venue,
-  SendForm:<button onClick={()=>this.sendshowFormdata(timeslot)}>Send data</button>,
-  CloseForm:<button onClick={()=>this.removeFormdata(timeslot)}>Close Form</button>
+  SendForm:<Button variant={btn_class} onClick={()=>this.sendshowFormdata(timeslot)} >Send data</Button>,
+  CloseForm:<Button variant={btn_class}  onClick={()=>this.removeFormdata(timeslot)}>Close Form</Button>
 
 }
 rows.push(row)
@@ -478,11 +487,7 @@ console.log(rows)
           changewithEvaluvators.push(lis)
         })
       }
-      else{
-        notice= <div><Card fluid color='red' header='you havent create time slot click here to create timeslot' /><Button secondary onClick={this.updateGroup}><Link to="/pg/timeslot"> create</Link></Button>
-</div>
-      
-      }
+     
       
 
         var stateOptions3=[]
@@ -542,67 +547,9 @@ console.log(rows)
         </div>
         
          
-           <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          fullWidth={true}
-          maxWidth="sm"
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        ><DialogTitle id="alert-dialog-title">{"Change Evaluvator"}</DialogTitle>
-        <DialogContent>
-         <Form>
-    <Form.Field>
-      <label>Select the Evaluvator</label>
-      <Dropdown placeholder='Choose Evaluvator to Change'  selection options={selectEvaluvators} value={this.state.selectedEvaluvator} name ="selectedEvaluvator"onChange={this.onchange1}/>
-    </Form.Field>
-    <Form.Field>
-      <label>Select evaluvator for change with</label>
-      <Dropdown placeholder='Choose Evaluvator to Exchange'  selection options={changewithEvaluvators} value={this.state.changewith} name ="changewith"onChange={this.onchange1}/>
-    </Form.Field>
-  </Form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleClose} color="primary">
-            Cansel
-          </Button>
-          <Button  color="primary" onClick={this.swapEvaluvator} autoFocus>
-            Savee
-          </Button>
-        </DialogActions>
-      </Dialog>
 
-      <Dialog
-          open={this.state.open1}
-          onClose={this.handleClose1}
-          fullWidth={true}
-          maxWidth="sm"
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        ><DialogTitle id="alert-dialog-title">{"Change Evaluvator"}</DialogTitle>
-        <DialogContent>
-         
-         <Form>
-    
-    <Form.Field>
-      <label>Select the Evaluvator</label>
-      <Dropdown placeholder='Choose Evaluvator to Change'  selection options={selectEvaluvators} value={this.state.selectedEvaluvator} name ="selectedEvaluvator"onChange={this.onchange1}/>
-    </Form.Field>
-    <Form.Field>
-      <label>Enter evaluvator for change with</label>
-      <Input placeholder='Enter Evaluvator to Exchange'   value={this.state.replacevaluvator} name ="replacevaluvator" onChange={this.onchange1}/>
-    </Form.Field>
-  </Form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleClose1} color="primary">
-            Cansel
-          </Button>
-          <Button onClick={this.replacevaluvator} color="primary" autoFocus>
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
+
+   
       <div className="container">
        
 <h2>{notice}</h2>
@@ -621,18 +568,7 @@ console.log(rows)
     you havent create any timeslots yet
       </div> */}
 
-           <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
-   textAlign: "center"}}>
-      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
-    
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
-        </MDBContainer>
-      </div>
-    </MDBFooter>
-
-    </div>
+      
     </div>
   </div>
   );
