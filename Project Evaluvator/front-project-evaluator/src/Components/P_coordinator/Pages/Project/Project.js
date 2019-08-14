@@ -28,7 +28,6 @@ import {Card} from 'semantic-ui-react'
 import './Project.css';
 import {Link} from 'react-router-dom'
 
-
 const styles = {
   DialogContent: {
     

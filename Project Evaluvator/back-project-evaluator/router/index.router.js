@@ -112,7 +112,7 @@ router.put('/updatestudent/:Registrationnumber',CtrlStudent.UpdateStudent)
 
 //image upload
 
-router.post('/imageupload',upload.single('userFile'),CtrlStudent.uploadimage)
+router.put('/imageupload', upload.single('imageData'), CtrlStudent.uploadImage)
 
 
 //add form data

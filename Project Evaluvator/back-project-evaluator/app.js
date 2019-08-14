@@ -27,6 +27,7 @@ app.use(bodyparser.urlencoded({extended: true}));
 app.use(cors())
 app.use(passport.initialize())
 app.use('/api',rtsIndex)
+app.use('/uploads', express.static('uploads'));
 
 app.use((err, req, res, next) => {
     if(err.name === 'ValidationError'){
