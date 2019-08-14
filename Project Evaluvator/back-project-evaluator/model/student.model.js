@@ -57,6 +57,18 @@ Studentschema.pre('save', function (next) {
         });
     });
 });
+// Studentschema.pre('findOneAndUpdate', function (next) {
+    
+//     bcrypt.genSalt(10, (err, salt) => {
+//         console.log(salt);
+//         bcrypt.hash(this.Password, salt, (err, hash) => {
+//             this.Password = hash;
+//             this.Cpassword= hash;
+//             this.Salt = salt;
+//             next();
+//         });
+//     });
+// });
 Studentschema.methods.verifyPassword = function(password)
 {
   return bcrypt.compareSync(password,this.Password);

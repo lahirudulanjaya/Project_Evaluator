@@ -5,7 +5,8 @@ const _ = require('lodash')
 const Student = mongoose.model('Students')
 const Studentdetail =mongoose.model('Studentdetail')
 var nodemailer = require('nodemailer');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const bcrypt =require('bcryptjs');
 const multer = require('multer');
 
 var transporter = nodemailer.createTransport({
@@ -265,6 +266,60 @@ module.exports.verifyemail =(req,res,next)=>{
     }
 })
 
+}
+
+module.exports.checkusername = (req,res,next)=>{
+    Student.findOne({UserName: req.params.UserName}, function(err, data){
+        if(!err){
+            if(data==null){
+                res.send(false);
+            }
+            else{
+                const email= data.Email;
+                const url = `http://localhost:3000/resetPassword/${req.params.UserName}`
+                var mailOptions = {
+                    from: 'ucscprojectevaluation@gmail.com',
+                    to: email,
+                    subject: 'Password Reset',
+                    html: `To reset your password go to this link <br> <a href="${url}">registartion link</a>`
+                  };
+                res.send(true);
+                console.log(email);
+                transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                      res.status(422).send(error)
+                    } else {
+                      res.status(200).json(info)
+                    }
+                  });
+            }
+        }
+       
+    })
+}
+module.exports.resetPassword=(req, res, next)=>{
+    const passwords ={
+        Password: req.body.Password,
+        Cpassword: req.body.Cpassword,
+        Salt:''
+    }
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(passwords.Password, salt, (err, hash) => {
+            passwords.Password = hash;
+            passwords.Cpassword= hash;
+            passwords.Salt = salt;
+            Student.findOneAndUpdate({UserName:req.params.UserName},{$set:passwords},(err, doc)=>{
+                console.log(passwords);
+                console.log(req.params.UserName);
+                if(err){
+                    res.send(err);
+                }
+                else{
+                    res.send(true);
+                }
+            })
+        });
+    });
 }
 
 module.exports.UpdateStudent=(req,res,next)=>{
