@@ -1,6 +1,9 @@
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import{BrowserRouter as Router , Route} from 'react-router-dom'
 import React,{Component} from 'react';
+import {whologgedin} from '../../actions/authActions'
+import {Link } from 'react-router-dom'
+
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
 import {whologgedin} from '../../actions/authActions'/*../../../actions/authActions'*/
@@ -15,7 +18,18 @@ const sideBar={
 
 class SideBar extends Component{
 
+    constructor(props){
+        super(props)
+    }
 
+    componentDidMount(){
+        
+        if(!(whologgedin()=="evaluator")){
+            
+            this.props.history.push('/login')
+            
+        }
+    }
 
     render(){
         return (
@@ -44,15 +58,8 @@ class SideBar extends Component{
             >
                 <SideNav.Toggle />
                 <SideNav.Nav defaultSelected="evaluator">
+                   
                     <NavItem eventKey="evaluator">
-                        <NavIcon>
-                            <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
-                        </NavIcon>
-                        <NavText>
-                            DashBoard
-                        </NavText>
-                    </NavItem>
-                    <NavItem eventKey="examGroup">
                         <NavIcon>
                             <i className="fa fa-fw fa-users" style={{ fontSize: '1.75em' }} />
                         </NavIcon>
@@ -60,14 +67,7 @@ class SideBar extends Component{
                             Group
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey="stu/settings">
-                        <NavIcon>
-                            <i className="fa fa-fw fa-cog" style={{ fontSize: '1.75em' }} />
-                        </NavIcon>
-                        <NavText>
-                            Settings
-                        </NavText>
-                    </NavItem>
+                 
                 </SideNav.Nav>
             </SideNav>
             <main>

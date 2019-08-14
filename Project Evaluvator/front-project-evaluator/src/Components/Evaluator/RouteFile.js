@@ -7,8 +7,7 @@ class RouteFile extends Component{
     render() {
         return (
             <div>                    
-                <Route path = "/evaluator" component ={props => <Evaluator/>}/>     
-                <Route path = "/examGroup" component ={props => <ExamGroup/>}/>     
+                <Route path = "/evaluator" component ={props => <ExamGroup/>}/>     
 
             </div>
         );
