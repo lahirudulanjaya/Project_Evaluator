@@ -19,9 +19,10 @@ class StudentProfile extends Component {
             Username:'',
             Email:'',
             Password:'',
-            Cpassword:''
+            Cpassword:'',
         }
         console.log(this.props.user)
+        this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount(){
       this.setState({Username:this.props.user.UserName,Email:this.props.user.Email,Registrationnumber:this.props.user.Registrationnumber})
@@ -29,20 +30,7 @@ class StudentProfile extends Component {
     }
     componentWillReceiveProps(props){
       console.log(props)
-    }
-    upload=(e)=>{
-      e.preventDefault()
-      Axios.post("http://localhost:4000/api/imageupload").then(res=>{
-        console.log(res.data)
-      })
-      .catch(err=>{
-        console.log(err)
-      })
-    }
-
- 
-   
-
+    } 
     updatestudent=(e)=>{
         e.preventDefault();
 
@@ -85,9 +73,10 @@ class StudentProfile extends Component {
         <MDBCard className="w-100 p-3">
 
             <MDBCardBody>
-              Edit Profile
+              <h3>Edit Profile</h3>
               <form className="needs-validation"
           onSubmit={this.postRegister}
+          encType="multipart/form-data"
           >
           <div className="form-header rounded pt-4 mt-6">
           <div className="col-md-4"></div>
@@ -107,6 +96,7 @@ class StudentProfile extends Component {
       className="custom-file-input"
       id="inputGroupFile01"
       aria-describedby="inputGroupFileAddon01"
+      onChange={this.handleChange}
     />
     <label className="custom-file-label" htmlFor="inputGroupFile01">
       Choose file
@@ -196,6 +186,14 @@ class StudentProfile extends Component {
                   </MDBBtn>
                 </div>
               </form>
+              {/* <div className="image-container">
+                <div className='process'>
+                  <h4 className='process heading'>Process: Using Multer</h4>
+                  <p className="process details">Upload Image</p>
+                  <input type="file" className="process upload-btn" onChange={(e) => this.uploadImage(e)}/>
+                  <img src={this.state.multerImage} alt="upload-image" className="process image"/>
+                </div>
+              </div> */}
               {/* <p className="font-small grey-text d-flex justify-content-center">
                 Already have an account...
                

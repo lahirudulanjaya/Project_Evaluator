@@ -8,6 +8,8 @@ var nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const bcrypt =require('bcryptjs');
 const multer = require('multer');
+var express = require('express');
+var ImageRouter = express.Router();
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -16,16 +18,6 @@ var transporter = nodemailer.createTransport({
     pass: 'ucsc@123'
   }
 });
-let storage = multer.diskStorage({
-    destination: function(req, file, callback) {
-        callback(null, 'uploads/')
-    },
-    filename: function(req, file, callback) {
-        console.log(file)
-        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-    }
-   })
-
 
 module.exports.register=(req,res,next)=>{
     var student = new Student()
@@ -333,20 +325,70 @@ module.exports.UpdateStudent=(req,res,next)=>{
     })
 }
 
-module.exports.uploadimage =(req,res,next)=>{
+// module.exports.uploadimage =(req,res,next)=>{
+// //     let upload = multer( {
+// //         storage: storage,
+// //         fileFilter: function(req, file, callback) {
+// //             let ext = path.extname(file.originalname)
+// //             if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+// //                 return callback(res.end('Only images are allowed'), null)
+// //             }
+// //             callback(null, true)
+// //         }
+// //     }).single('userFile');
+// //   console.log(req.file)
+//     upload(req, res, (err) =>{
+//         if(err){
+//             res.send("error");
+//         }
+//         else{
+//             console.log(req.file);
+//             res.send('test');
+//         }
+//     });
 
-    // let upload = multer( {
-    //     storage: storage,
-    //     fileFilter: function(req, file, callback) {
-    //         let ext = path.extname(file.originalname)
-    //         if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-    //             return callback(res.end('Only images are allowed'), null)
-    //         }
-    //         callback(null, true)
-    //     }
-    // }).single('userFile');
-  console.log(req.file)
+// }
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './uploads');
+    },
+    filename: function(req, file, cb){
+        cb(null, Date.now()+ file.originalname);
+    }
+});
 
+const fileFilter = (req, file, cb)=>{
+    if(file.mimetype ==='image/jpeg' || file.mimetype ==='image/png'){
+        cb(null, true);
+    }else{
+        cb(null, false);
+    }
+}
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    },
+    fileFilter: fileFilter
+});
 
+module.exports.uploadImage = (req, res, next)=>{
+    console.log(req.body);
+    const newImage = new Student({
+        imageName: req.body.imageName,
+        imageData: req.file.path
+    });
+    Student.findOneAndUpdate({Registrationnumber:req.params.Registrationnumber},{$set:newImage},(err,doc)=>{
+        if(!err){
+            console.log(doc);
+            res.status(200).json({
+                succees: true,
+                document: result
+            });
+        }
+        else{
+            console.log(err);
+        }
+    });
 }
 
