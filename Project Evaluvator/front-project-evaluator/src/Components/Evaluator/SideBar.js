@@ -3,6 +3,9 @@ import{BrowserRouter as Router , Route} from 'react-router-dom'
 import React,{Component} from 'react';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
+import {whologgedin} from '../../actions/authActions'/*../../../actions/authActions'*/
+import Navbar from '../Navbar/Navbar'
+
 import RouteFile from './RouteFile';
 // import StudentNavBar from './StudentNavBar';
 
@@ -11,9 +14,13 @@ const sideBar={
 }
 
 class SideBar extends Component{
+
+
+
     render(){
         return (
             <div>
+                <Navbar/>
              {/* <StudentNavBar className="pb-3"/> */}
             <Router>
     <Route render={({ location, history }) => (
