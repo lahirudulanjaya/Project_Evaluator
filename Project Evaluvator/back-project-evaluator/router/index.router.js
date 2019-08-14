@@ -9,7 +9,8 @@ const CtrlSheet =require('../controller/googleSheet.controller')
 const Ctrltimeslot =require('../controller/timeslot.controller')
 const Ctrlevaluvator =require('../controller/evaluvator.controller')
 const CtrlSC =require('../controller/sessioncoordinator.controller')
-
+const Ctrlform =require('../controller/showformdata.controll')
+const Ctrlmarks =require('../controller/evaluvatorMarks.controller')
 const multer = require('multer');
 const upload = multer({dest:'uploads/'})
 
@@ -112,6 +113,18 @@ router.put('/updatestudent/:Registrationnumber',CtrlStudent.UpdateStudent)
 //image upload
 
 router.put('/imageupload', upload.single('imageData'), CtrlStudent.uploadImage)
+
+
+//add form data
+
+router.post('/addformdata',Ctrlform.addshowformdata)
+router.get('/getallformdata',Ctrlform.getallform)
+
+
+//add marks
+
+router.post('/addmarks',Ctrlmarks.addmark)
+router.delete('/deleteformdata',Ctrlform.deleteformdata)
 
 module.exports=router 
 

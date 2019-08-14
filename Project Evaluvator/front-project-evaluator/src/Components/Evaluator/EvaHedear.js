@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse} from "mdbreact";
 
-class NavbarPage extends Component {
+class NavBar extends Component {
 state = {
   isOpen: false
 };
@@ -30,4 +30,4 @@ render() {
   }
 }
 
-export default NavbarPage;
+export default NavBar;

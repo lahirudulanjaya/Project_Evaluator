@@ -359,13 +359,18 @@ console.log(this.state)
     return (
       
       <div className="container pt-3">
-        <div style={{border:'2px solid #AFB1B4', borderRadius:'5px', backgroundColor:'#C2C5C9'}}>
+        <div style={{border:'2px solid #AFB1B4', borderRadius:'5px', backgroundColor:'#C2C5C9',marginBottom:'100px'}}>
+        <h2>Create groups for project</h2>
+
         <div className="row pt-3">
-          <div className="col-sm-3"></div>
+          
+          <div className="col-sm-3">
+
+          </div>
+
           <div className="col-sm-6 " style={{border:'2px', borderRadius:'5px', backgroundColor:'#3E85CD'}}>
             <div className="row">
               <div className="col-sm-12">
-                <h3>Create groups for project</h3>
               </div>
             </div>
             <div className="row pb-3 pt-3">
@@ -519,7 +524,7 @@ console.log(this.state)
         </div>
         <div className="row">
           <div className="col-sm-12">
-            <h3 style={{ backgroundColor: '#F9A602', color: 'black', padding: '12px', borderRadius: '5px', marginBottom: '30px' }} >Set restrictions for Creating groups for 3rd year students</h3>
+            <h3 style={{ backgroundColor: 'blue', color: 'white', padding: '12px', borderRadius: '5px', marginBottom: '30px' }} >Set restrictions for Creating groups for 3rd year students</h3>
 
             <Form>
             <Dropdown placeholder='project' search selection options={Projectnames} defaultValue="Select the project" onChange={this.onchangeDropdown} />
@@ -540,7 +545,7 @@ console.log(this.state)
   </Form.Field>
   </Form.Group>
  
-  <Button primary type="submit" onClick={this.submitRestrictions} >
+  <Button secondary type="submit" onClick={this.submitRestrictions} >
     Submit
   </Button>
 </Form>
@@ -549,17 +554,7 @@ console.log(this.state)
 
             </div>
             </div>
-            <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
-   textAlign: "center"}}>
-      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
-    
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
-        </MDBContainer>
-      </div>
-    </MDBFooter>
-    </div>
+       
       </div>
 
 

@@ -258,7 +258,7 @@ handleChange2(e){
               aria-describedby="alert-dialog-description"
             >
       
-  <div className="header pt-2 yellow lighten-2">
+  <div className="header pt-2 blue lighten-2">
               <MDBRow className="d-flex justify-content-start">
               <DialogTitle id="alert-dialog-title1"><FormLabel ><b>Create New Project</b></FormLabel></DialogTitle>
 
@@ -354,7 +354,7 @@ handleChange2(e){
               onClose={this.handleClose}
               aria-labelledby="responsive-dialog-title"
             >
-              <div className="header pt-2 yellow lighten-2">
+              <div className="header pt-2 blue lighten-2">
               <MDBRow className="d-flex justify-content-start">
               <DialogTitle id="responsive-dialog-title"><FormLabel><b>Define MIlestones for Project</b></FormLabel></DialogTitle>
               </MDBRow>
@@ -366,9 +366,7 @@ handleChange2(e){
             
               </DialogContent>
               <DialogActions>
-                <Buttonn onClick={this.handleClose} color="primary">
-                  Submit 
-                </Buttonn>
+               
                 <Buttonn onClick={this.handleClose} color="primary" autoFocus>
                   Close
                 </Buttonn>

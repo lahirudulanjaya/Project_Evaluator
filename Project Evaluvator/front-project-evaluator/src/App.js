@@ -30,7 +30,7 @@ import studentTable from './Components/P_coordinator/Pages/Student/studentTable'
 import Scoordinator from './Components/S_coordinator/Scoordinator';
 import StudentSideBar from './Components/Student/StudentSideBar';
 import SCoordinatorSideBar from './Components/S_coordinator/Component/SCoordinatorSideBar';
-import EvaluatorSideBar from './Components/Evaluator/SideBar';
+import EvaluatorSideBar from './Components/Evaluator/Pages/ExamGroup/ExamGroup';
 import Test from "./Components/Evaluator/Test";
 import  Timeslots from './Components/P_coordinator/Pages/Timeslots/Timeslots'
 import Evaluator from './Components/Evaluator/Evaluator';
@@ -65,7 +65,6 @@ class App extends Component {
       
             <Route path ="/sc" component={SCoordinatorSideBar}/>
             <Route path ="/evaluator" component={EvaluatorSideBar}/>
-            <Route path ="/examGroup" component={EvaluatorSideBar}/>
             <Route path ="/pg/evaluvator" component={NewSideBar}/>
             <Route path ="/pg/sessioncoordinator" component={NewSideBar}/>
             <Route path ="/pg/setgooglesheet" component={NewSideBar}/>
