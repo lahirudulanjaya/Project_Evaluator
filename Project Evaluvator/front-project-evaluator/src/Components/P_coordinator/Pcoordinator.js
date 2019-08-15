@@ -96,7 +96,7 @@ componentDidMount(){
             <div class="card text-white bg-primary mb-3" style={{width:"20rem", height:"12rem",fontSize:25,}}>
               <div class="card-header text-left"><i className="fa fa-fw fa-file" style={{ fontSize: '1.75em' }} /></div>
                 <div class="card-body">
-                  <h5 class="card-title text-right" style={{fontSize:15}}>Total Project</h5>
+                  <h5 class="card-title text-right" style={{fontSize:15}}>Total Active Project</h5>
                   <p style={{fontSize:25}} class="card-text text-white text-right"><CountUp end={this.state.projectcount}></CountUp></p>
               </div>
             </div>
@@ -156,17 +156,7 @@ componentDidMount(){
         </div>
         </div>
         </div>
-        <div style={{position: "fixed", left: "0px", width: "100%", bottom: "0px", backgroundColor: "", color: "white",
-   textAlign: "center"}}>
-      <MDBFooter color="blue" className="font-small pt-4 mt-4" >
-    
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.teamExxo.com"> teamExxo.com </a>
-        </MDBContainer>
-      </div>
-    </MDBFooter>
-    </div>
+ 
         </div>
     )
   }

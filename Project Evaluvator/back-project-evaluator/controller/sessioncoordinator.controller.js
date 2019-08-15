@@ -3,7 +3,16 @@ const mongoose =require('mongoose')
 const Sessioncoordinator = mongoose.model('Sessioncoordinator')
 var generator = require('generate-password');
 const Student = mongoose.model('Students')
+var nodemailer = require('nodemailer');
 
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'ucscprojectevaluation@gmail.com',
+      pass: 'ucsc@123'
+    }
+  });
 
 
 module.exports.addsessioncoodinator=(req,res,next)=>{
@@ -27,7 +36,21 @@ console.log(password)
             student.type ="sessioncoordinator"
             student.save((err, doc) => {
                 if (!err){
-                    res.send(doc);            
+                   // res.send(doc);   
+                   var mailOptions = {
+                    from: 'ucscprojectevaluation@gmail.com',
+                    to: student.Email,
+                    subject: 'Group Project',
+                    html: `use login link to login your username :<br/> <b> ${student.UserName}</b></br>  and password <b> ${password} </b> into the system <br> <a href=http://localhost:3000/login>login link</a>`
+                  };
+                  
+                  transporter.sendMail(mailOptions, function(error, info){
+                    if (error) {
+                      res.status(422).send(error)
+                    } else {
+                      res.status(200).json(info)
+                    }
+                  });          
                 }
                 else
                 {
