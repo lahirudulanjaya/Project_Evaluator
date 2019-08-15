@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Component/Header'
 import { connect } from 'react-redux'
-import { getstudentProject, getstudentbyYear,getgroupsbyproject } from '../../actions/P_coodinator-Student'
+import { getstudentProject, getstudentbyYear, getgroupsbyproject } from '../../actions/P_coodinator-Student'
 import { getsendrequest, getrequest, cheackallaccepted } from '../../actions/requestActions'
 import { getuserprofile } from '../../actions/authActions'
 import { Table, Button, Icon } from 'semantic-ui-react'
@@ -110,7 +110,7 @@ class Student extends React.Component {
           if (result) {
             value.sort().reverse()
             const newGroup = []
-      
+
             value.forEach(element => {
               const reciver = {
                 Registrationnumber: this.state.students[element].Registrationnumber,
@@ -159,38 +159,38 @@ class Student extends React.Component {
 
   }
   showlist = () => {
-    var registratinnumbers=[]
-    var newgrp =[]
-    Axios.get('http://localhost:4000/api/pg/getstudents/'+this.props.user.Registrationnumber).then(resp=>{
-    console.log(resp.data[0].Projectname)
-            Axios.get('http://localhost:4000/api/getgroupsbyprojectname/'+resp.data[0].Projectname).then(res=>{
-              res.data[0].groups.map(ele=>{
-                ele.students.map(reg=>{
-                  registratinnumbers.push(reg.Registrationnumber)
-                })
-              })
-
-              Axios.get('http://localhost:4000/api/pg/getstudents/'+resp.data[0].Projectname).then(res=>{
-              
-              console.log(res.data)
-              res.data.map(ele=>{
-                if(!(registratinnumbers.includes(ele.Registrationnumber))){
-                  newgrp.push(ele)
-                }
-              })
-              console.log(newgrp)
-             
-              this.props.getsendrequest(this.state.user.Registrationnumber)
-              this.getrestrictions()
-              this.setState({ clicked: true })
-
-              this.setState({students:newgrp})
-            })
-
-             
-
-            })
+    var registratinnumbers = []
+    var newgrp = []
+    Axios.get('http://localhost:4000/api/pg/getstudents/' + this.props.user.Registrationnumber).then(resp => {
+      console.log(resp.data[0].Projectname)
+      Axios.get('http://localhost:4000/api/getgroupsbyprojectname/' + resp.data[0].Projectname).then(res => {
+        res.data[0].groups.map(ele => {
+          ele.students.map(reg => {
+            registratinnumbers.push(reg.Registrationnumber)
           })
+        })
+
+        Axios.get('http://localhost:4000/api/pg/getstudents/' + resp.data[0].Projectname).then(res => {
+
+          console.log(res.data)
+          res.data.map(ele => {
+            if (!(registratinnumbers.includes(ele.Registrationnumber))) {
+              newgrp.push(ele)
+            }
+          })
+          console.log(newgrp)
+
+          this.props.getsendrequest(this.state.user.Registrationnumber)
+          this.getrestrictions()
+          this.setState({ clicked: true })
+
+          this.setState({ students: newgrp })
+        })
+
+
+
+      })
+    })
   }
 
 
@@ -226,14 +226,14 @@ class Student extends React.Component {
 
 
     }
-    
-    if(!(this.state.groups==null )){
-      var isexsists=false
-      this.state.groups.groups.map(element=>{
-        element.students.map(stu=>{
-          if(stu.Registrationnumber==this.props.user.Registrationnumber){
-            isexsists=true
-            this.setState({alreadyin:true})
+
+    if (!(this.state.groups == null)) {
+      var isexsists = false
+      this.state.groups.groups.map(element => {
+        element.students.map(stu => {
+          if (stu.Registrationnumber == this.props.user.Registrationnumber) {
+            isexsists = true
+            this.setState({ alreadyin: true })
           }
         })
       })
@@ -258,63 +258,62 @@ class Student extends React.Component {
 
   }
   creategroup() {
-var groups=[]
-    Axios.get('http://localhost:4000/api/pg/getstudents/'+this.props.user.Registrationnumber).then(res=>{
-    console.log(res.data[0].Projectname)
-            Axios.get('http://localhost:4000/api/getgroupsbyprojectname/'+res.data[0].Projectname).then(res=>{
-              res.data[0].groups.map(ele=>{
-                groups.push(ele)
-              })
-                     
-              const students = []
-              this.state.request.forEach(element => {
-                const student = {}
-                student.Registrationnumber = element.Registrationnumber
-                students.push(student)
-              });
-              students.push({ Registrationnumber: this.state.user.Registrationnumber })
-              const grp= {
-                students: students,
-                groupno: groups.length+1
-              }
-              console.log(grp)
-              groups.push(grp)
-            
-              const submitGrps = {
-          
-                Projectname: this.state.student.Projectname,
-                groups: groups
-              }
-              console.log(groups)
-              Axios.put("http://localhost:4000/api/pg/addGroups", submitGrps)
-                .then(res => {
-                  swal({
-                    title: "Good job!",
-                    text: "You have succesfully Submit Groups!",
-                    icon: "success",
-                  });
-                  this.props.getstudentProject(this.state.user.Registrationnumber)
-                  this.props.cheackallaccepted(this.state.user.Registrationnumber)
-                  Axios.delete("http://localhost:4000/api/deleterequest/" + this.props.user.Registrationnumber).then(res => {
-          
-                  })
-          
-                })
-                .catch(err => {
-                  console.log(err)
-                  swal("Oops", "Something went wrong!!", "error")
-                })
+    var groups = []
+    //first get relevent project name and then get groups details
+    Axios.get('http://localhost:4000/api/pg/getstudents/' + this.props.user.Registrationnumber).then(res => {
+      Axios.get('http://localhost:4000/api/getgroupsbyprojectname/' + res.data[0].Projectname).then(res => {
+        res.data[0].groups.map(ele => {
+          groups.push(ele)
+        })
+        const students = []
+        this.state.request.forEach(element => {
+          const student = {}
+          student.Registrationnumber = element.Registrationnumber
+          students.push(student)
+        });
+        students.push({ Registrationnumber: this.state.user.Registrationnumber })
+        const grp = {
+          students: students,
+          groupno: groups.length + 1
+        }
+        console.log(grp)
+        groups.push(grp)
 
+        const submitGrps = {
+
+          Projectname: this.state.student.Projectname,
+          groups: groups
+        }
+        console.log(groups)
+        Axios.put("http://localhost:4000/api/pg/addGroups", submitGrps)
+          .then(res => {
+            swal({
+              title: "Good job!",
+              text: "You have succesfully Submit Groups!",
+              icon: "success",
+            });
+            this.props.getstudentProject(this.state.user.Registrationnumber)
+            this.props.cheackallaccepted(this.state.user.Registrationnumber)
+            Axios.delete("http://localhost:4000/api/deleterequest/" + this.props.user.Registrationnumber).then(res => {
 
             })
-        })
-        .catch(err=>{
 
-        })
-       
+          })
+          .catch(err => {
+            console.log(err)
+            swal("Oops", "Something went wrong!!", "error")
+          })
+
+
+      })
+    })
+      .catch(err => {
+
+      })
+
     // this.props.getstudentProject(this.state.user.Registrationnumber)
 
- 
+
 
   }
   confirmRequest(id) {
@@ -330,102 +329,103 @@ var groups=[]
 
   render() {
     console.log(this.state)
-   
+
     return (
       <div>
-        <div style={{padding:'70px'}}>
-        <PureComponent></PureComponent>
+        <div style={{ padding: '70px' }}>
+          <PureComponent></PureComponent>
         </div>
-      <div hidden={!(this.state.student == null) && this.state.student.Projectname.substring(7, 8) == 2}>
+        <div hidden={!(this.state.student == null) && this.state.student.Projectname.substring(7, 8) == 2}>
 
-        {(this.state.student == null)
-          ?
-          <div>
+          {(this.state.student == null)
+            ?
+            <div>
 
-            you havent assign project right now</div> :
-          <div><h2 style={{ backgroundColor: 'blue', color: 'white', padding: '12px', borderRadius: '5px', marginBottom: '30px',marginLeft:'400px', width: '50%' }}>Project : {this.state.student.Projectname}</h2>
+              you havent assign project right now</div> :
+            <div><h2 style={{ backgroundColor: 'blue', color: 'white', padding: '12px', borderRadius: '5px', marginBottom: '30px', marginLeft: '400px', width: '50%' }}>Project : {this.state.student.Projectname}</h2>
 
-</div>
-        }
-
-          <div style={{ marginLeft: '200px' ,width:'50%',borderRadius: '5px', marginBottom: '30px'}} hidden={!this.state.alreadyin} >
-          <h3 style={{ backgroundColor: 'red', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px',marginLeft:'200px', width: '90%' }} > You already in a group </h3>
             </div>
+          }
 
-                {this.state.request ?
-                  <div style={{ marginLeft: '200px' ,width:'50%'}} hidden={this.state.alreadyin} >
-                        <div>
+          <div style={{ marginLeft: '200px', width: '50%', borderRadius: '5px', marginBottom: '30px' }} hidden={!this.state.alreadyin} >
+            <h3 style={{ backgroundColor: 'red', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', marginLeft: '200px', width: '90%' }} > You already in a group </h3>
+          </div>
 
-Group Requests
-</div> 
-                    <h3 style={{ backgroundColor: '#feda6a', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px' }} > Your Request. </h3>
+          {this.state.request ?
+            <div style={{ marginLeft: '200px', width: '50%' }} hidden={this.state.alreadyin} >
+              <div>
 
-                    <Table celled >
-                      <Table.Header>
-                        <Table.Row>
-                          <Table.HeaderCell>Registartionnumber</Table.HeaderCell>
-                          <Table.HeaderCell>Status</Table.HeaderCell>
+                Group Requests
+</div>
+              <h3 style={{ backgroundColor: '#feda6a', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px' }} > Your Request. </h3>
 
-                        </Table.Row>
-                      </Table.Header>
-                      <Table.Body>
-                        {this.state.request.map(request =>
+              <Table celled >
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Registartionnumber</Table.HeaderCell>
+                    <Table.HeaderCell>Status</Table.HeaderCell>
 
-                          <Table.Row>
-                            <Table.Cell>{request.Registrationnumber}</Table.Cell>
-                            {request.active == "pending" ?
-                              <Table.Cell negative><Icon name='circle notched' loading /> Pending</Table.Cell> :
-                              request.active == "accepted" ?
-                                <Table.Cell active><Icon name='checkmark' /> Accepted</Table.Cell> :
-                                <Table.Cell negative><Icon name='frown' /> Rejected</Table.Cell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {this.state.request.map(request =>
 
-                            }
-                          </Table.Row>
-                        )}
-                      </Table.Body>
-                      <Button secondary  onClick={this.creategroup} disabled={!this.state.isaccepted}>create your group</Button>
-                      <Button secondary onClick={this.deleteRequest}>Delete Request</Button>
+                    <Table.Row>
+                      <Table.Cell>{request.Registrationnumber}</Table.Cell>
+                      {request.active == "pending" ?
+                        <Table.Cell negative><Icon name='circle notched' loading /> Pending</Table.Cell> :
+                        request.active == "accepted" ?
+                          <Table.Cell active><Icon name='checkmark' /> Accepted</Table.Cell> :
+                          <Table.Cell negative><Icon name='frown' /> Rejected</Table.Cell>
 
-                    </Table>
-                  </div>
-                  :
-                  <div style={{ marginLeft: '100px' }}   hidden={this.state.alreadyin} >
-                    <h3 style={{ backgroundColor: '#feda6a', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px',marginLeft:'100px', width: '70%' }} >Hello {this.state.user.UserName} You Haven't Send Any Request Yet. If you wish to send request for create group click below </h3>
+                      }
+                    </Table.Row>
+                  )}
+                </Table.Body>
+                <Button secondary onClick={this.creategroup} disabled={!this.state.isaccepted}>create your group</Button>
+                <Button secondary onClick={this.deleteRequest}>Delete Request</Button>
 
-                    <Button onClick={this.showlist} secondary style={{padding:'12px', borderRadius: '5px', marginBottom: '30px'}}> Show Student list</Button>
+              </Table>
+            </div>
+            :
+            <div style={{ marginLeft: '100px' }} hidden={this.state.alreadyin} >
+              <h3 style={{ backgroundColor: '#feda6a', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', marginLeft: '100px', width: '70%' }} >Hello {this.state.user.UserName} You Haven't Send Any Request Yet. If you wish to send request for create group click below </h3>
 
-                    <div hidden={!this.state.clicked}>
-                      <h3 style={{ backgroundColor: 'red', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', width: '90%' }} > Total Maximum member count is {this.state.Restrictions.total}. Group must contain atleast {this.state.Restrictions.cs} CS Students and {this.state.Restrictions.is} IS Students  </h3>
+              <Button onClick={this.showlist} secondary style={{ padding: '12px', borderRadius: '5px', marginBottom: '30px' }}> Show Student list</Button>
 
-                      <Tables onCheck={(value) => value.length >= this.state.Restrictions.total
-                        ? this.sendgroupRequest(value)
-                        : console.log("fvfvf")
-                      }  >
-                        <Thead>
-                          <Tr>
-                            <Th>Registrationnumber</Th>
-                            <Th>Name</Th>
-                          </Tr>
-                        </Thead>
-                        <Tbody>
-                          {this.state.students.map(students =>
+              <div hidden={!this.state.clicked}>
+                <h3 style={{ backgroundColor: 'red', color: '#1d1e22', padding: '12px', borderRadius: '5px', marginBottom: '30px', width: '90%' }} > Total Maximum member count is {this.state.Restrictions.total}. Group must contain atleast {this.state.Restrictions.cs} CS Students and {this.state.Restrictions.is} IS Students  </h3>
 
-                            <Tr>
-                              <Td>{students.Registrationnumber}</Td>
-                              <Td>{students.Name}</Td>
-                            </Tr>
-                          )}
+                <Tables onCheck={(value) => value.length >= this.state.Restrictions.total
+                  ? this.sendgroupRequest(value)
+                  : console.log("fvfvf")
+                }  >
+                  <Thead>
+                    <Tr>
+                      <Th>Registrationnumber</Th>
+                      <Th>Name</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {this.state.students.map(students =>
+
+                      <Tr>
+                        <Td>{students.Registrationnumber}</Td>
+                        <Td>{students.Name}</Td>
+                      </Tr>
+                    )}
 
 
-                        </Tbody>
-                      </Tables>
-                    </div>
-                  </div>
-                }
+                  </Tbody>
+                </Tables>
               </div>
-              </div>
+            </div>
+          }
+        </div>
+      </div>
     )
-  }}
+  }
+}
 const mapStateToProps = state => {
   return (
     {
@@ -441,4 +441,4 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps, { getstudentProject, getstudentbyYear, getsendrequest, getrequest, cheackallaccepted, getuserprofile,getgroupsbyproject })(Student);
+export default connect(mapStateToProps, { getstudentProject, getstudentbyYear, getsendrequest, getrequest, cheackallaccepted, getuserprofile, getgroupsbyproject })(Student);

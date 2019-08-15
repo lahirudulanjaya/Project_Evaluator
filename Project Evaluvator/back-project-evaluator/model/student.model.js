@@ -28,6 +28,15 @@ var Studentschema= new mongoose.Schema(
             required:"Comfirm Password Can't Empty"
 
         },
+        imageName:{
+            type: String,
+            default: "none",
+            required: false
+        },
+        imageData:{
+            type: String,
+            required: false
+        },
         Salt:{
             type:String
         },

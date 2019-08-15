@@ -35,8 +35,6 @@ router.get('/pg/getproject/:id',CtrlProject.getproject)
 router.get('/pg/getGroupMembers/:projectName/:indexOfstudentArray',CtrlProject.getGroupMembers)
 router.get('/pg/checkusername/:UserName',CtrlStudent.checkusername)
 router.put('/pg/changePassword/:UserName',CtrlStudent.resetPassword)
-
-
 router.get('/pg/getpresentations/:id',CtrlMilestone.getpresentationmilstones)
 
 //grouprequest
@@ -112,7 +110,7 @@ router.put('/updatestudent/:Registrationnumber',CtrlStudent.UpdateStudent)
 
 //image upload
 
-router.post('/imageupload',upload.single('userFile'),CtrlStudent.uploadimage)
+router.put('/imageupload', upload.single('imageData'), CtrlStudent.uploadImage)
 
 
 //add form data

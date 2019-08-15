@@ -10,6 +10,7 @@ import {connect} from 'react-redux'
 import {loginStudent} from '../../../actions/authActions'
 import NavBar from '../Navbar'
 
+
 const ucscpng = require('../../../images/login-window/ucsc-logo.png');
 
 class Login extends Component{
@@ -72,7 +73,6 @@ class Login extends Component{
     
     return (
       <div >
-  
         <NavBar/>
         <div className="container pt-3">
         <div className="row">

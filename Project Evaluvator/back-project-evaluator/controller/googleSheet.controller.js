@@ -77,12 +77,11 @@ async function addgroup(name,document){
 module.exports.createspreadsheet = (req, res, next) => {
     Milestone.find({ Projectname: req.body.Projectname }, function (err, milestone) {
         if (!err) {
-            //console.log(milestone)
-            //console.log(groups)
+          
             milestone.map(milestone => {
                 Rowheader.push(milestone.name)
             })
-           // console.log(Rowheader)
+    
             const doc = new Googlespreadsheet(req.body.sheetid)
             console.log(doc)
             async.series([
