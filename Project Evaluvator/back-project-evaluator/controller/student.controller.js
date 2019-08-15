@@ -275,7 +275,7 @@ module.exports.checkusername = (req,res,next)=>{
                     subject: 'Password Reset',
                     html: `To reset your password go to this link <br> <a href="${url}">registartion link</a>`
                   };
-                res.send(true);
+                res.send(data);
                 console.log(email);
                 transporter.sendMail(mailOptions, function(error, info){
                     if (error) {
