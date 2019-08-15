@@ -40,11 +40,13 @@ req.body.evaluvatorsList.map(eva=>{
     maillist.push(mail)
 })
 
+console.log(req.body.Timeslots.toString())
+
 var mailOptions = {
     from: 'ucscprojectevaluation@gmail.com',
     to: maillist,
-    subject: 'Sending Email using Node.js',
-    text: req.body.Timeslots.toString()
+    subject: 'Time Slots For Presentation',
+    text: JSON.stringify(req.body.Timeslots)
   };
   console.log(maillist)
   
