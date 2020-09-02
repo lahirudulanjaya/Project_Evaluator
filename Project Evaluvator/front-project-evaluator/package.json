@@ -12,7 +12,7 @@
     "classnames": "^2.2.6",
     "create-react-app": "^2.1.8",
     "google-spreadsheet": "^2.0.7",
-    "googleapis": "^27.0.0",
+    "googleapis": "^39.1.0",
     "jwt-decode": "^2.2.0",
     "material-table": "^1.36.4",
     "mdbreact": "^4.10.0",
